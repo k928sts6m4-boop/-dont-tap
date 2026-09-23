@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Don't Tap</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .game {
+      width: 100%;
+      max-width: 500px;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    #score {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    #tapButton {
+      width: 80vw;
+      height: 80vw;
+      max-width: 350px;
+      max-height: 350px;
+      border-radius: 50%;
+      border: none;
+      background: #e53935;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    }
+
+    #tapButton:active {
+      transform: scale(0.96);
+    }
+
+    #message {
+      margin-top: 25px;
+      font-size: 20px;
+      min-height: 30px;
+    }
+
+    #restart {
+      display: none;
+      margin-top: 20px;
+      padding: 14px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game">
+    <h1>DON'T TAP</h1>
+
+    <div id="score">Очки: 0</div>
+
+    <button id="tapButton">НЕ НАТИСКАЙ</button>
+
+    <div id="message"></div>
+
+    <button id="restart">Грати знову</button>
+  </div>
+
+  <script>
+    let score = 0;
+    let gameOver = false;
+
+    const button = document.getElementById("tapButton");
+    const scoreText = document.getElementById("score");
+    const message = document.getElementById("message");
+    const restart = document.getElementById("restart");
+
+    button.addEventListener("click", () => {
+      if (gameOver) return;
+
+      score++;
+      scoreText.textContent = "Очки: " + score;
+
+      if (score === 10) {
+        message.textContent = "Ти вже натиснув 10 разів 😈";
+      }
+
+      if (score === 20) {
+        message.textContent = "Навіщо ти продовжуєш?! 😂";
+      }
+
+      if (score === 30) {
+        gameOver = true;
+        button.style.background = "#555";
+        button.textContent = "ГРА ЗАКІНЧЕНА";
+        message.textContent = "Ти не зміг не натискати 😈";
+        restart.style.display = "inline-block";
+      }
+    });
+
+    restart.addEventListener("click", () => {
+      score = 0;
+      gameOver = false;
+      scoreText.textContent = "Очки: 0";
+      message.textContent = "";
+      button.style.background = "#e53935";
+      button.textContent = "НЕ НАТИСКАЙ";
+      restart.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>
