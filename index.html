@@ -1,134 +1,942 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Don't Tap</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>DON'T TAP</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  background: #05050b;
+}
 
-    .game {
-      width: 100%;
-      max-width: 500px;
-      padding: 30px 20px;
-    }
+body {
+  background:
+    radial-gradient(circle at 50% 20%, #29204d 0%, #100d1c 35%, #05050b 75%);
+}
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
+button {
+  font-family: inherit;
+}
 
-    #score {
-      font-size: 24px;
-      margin-bottom: 30px;
-    }
+.app {
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 18px;
+  position: relative;
+}
 
-    #tapButton {
-      width: 80vw;
-      height: 80vw;
-      max-width: 350px;
-      max-height: 350px;
-      border-radius: 50%;
-      border: none;
-      background: #e53935;
-      color: white;
-      font-size: 32px;
-      font-weight: bold;
-      box-shadow: 0 10px 30px rgba(0,0,0,.4);
-    }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    #tapButton:active {
-      transform: scale(0.96);
-    }
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px #9b5cff;
+}
 
-    #message {
-      margin-top: 25px;
-      font-size: 20px;
-      min-height: 30px;
-    }
+.stats {
+  display: flex;
+  gap: 7px;
+}
 
-    #restart {
-      display: none;
-      margin-top: 20px;
-      padding: 14px 25px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-    }
-  </style>
+.stat {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: 8px 11px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.progress {
+  height: 7px;
+  background: #1b1926;
+  border-radius: 10px;
+  margin-top: 18px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#7c3cff,#ff3ca6);
+  box-shadow: 0 0 15px #9d4edd;
+  transition: width .3s;
+}
+
+.level {
+  text-align: center;
+  margin-top: 16px;
+  color: #777;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.instruction {
+  text-align: center;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 900;
+  margin-top: 8px;
+  text-shadow: 0 0 20px rgba(255,255,255,.18);
+}
+
+.timer {
+  text-align: center;
+  color: #aaa;
+  height: 22px;
+  font-size: 14px;
+}
+
+.arena {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 255px);
+  min-height: 360px;
+  margin-top: 10px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(130,70,255,.08), transparent 55%),
+    rgba(10,10,18,.75);
+  box-shadow:
+    inset 0 0 70px rgba(120,50,255,.07),
+    0 20px 80px rgba(0,0,0,.45);
+}
+
+.target {
+  position: absolute;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  border: 0;
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 0 30px currentColor, inset 0 0 25px rgba(255,255,255,.18);
+  animation: appear .18s ease-out;
+}
+
+.target:active {
+  transform: scale(.88);
+}
+
+.red {
+  background: #ff3158;
+  color: #ff3158;
+}
+
+.blue {
+  background: #3478ff;
+  color: #3478ff;
+}
+
+.green {
+  background: #16d98b;
+  color: #16d98b;
+}
+
+.yellow {
+  background: #ffd43b;
+  color: #ffd43b;
+}
+
+.purple {
+  background: #a855f7;
+  color: #a855f7;
+}
+
+.target span {
+  color: white;
+  text-shadow: 0 2px 5px #000;
+}
+
+.center-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #777;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.pulse {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes appear {
+  from {
+    transform: scale(.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.shake {
+  animation: shake .25s;
+}
+
+@keyframes shake {
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-5px); }
+}
+
+.particle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 24px;
+  animation: particle .65s forwards;
+  z-index: 5;
+}
+
+@keyframes particle {
+  from {
+    transform: translate(0,0) scale(.5);
+    opacity: 1;
+  }
+  to {
+    transform: translate(0,-60px) scale(1.8);
+    opacity: 0;
+  }
+}
+
+.footer {
+  text-align: center;
+  color: #555;
+  font-size: 11px;
+  margin-top: 9px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: rgba(3,3,8,.9);
+  backdrop-filter: blur(15px);
+}
+
+.card {
+  width: 100%;
+  max-width: 430px;
+  padding: 32px 24px;
+  border-radius: 28px;
+  text-align: center;
+  background: linear-gradient(145deg,#181624,#0e0d15);
+  border: 1px solid rgba(255,255,255,.13);
+  box-shadow: 0 30px 100px #000;
+}
+
+.card h1 {
+  margin: 0;
+  font-size: 43px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 25px #a855f7;
+}
+
+.card p {
+  color: #999;
+  line-height: 1.6;
+}
+
+.start-button,
+.restart-button {
+  width: 100%;
+  border: 0;
+  border-radius: 16px;
+  padding: 17px;
+  margin-top: 15px;
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  background: linear-gradient(135deg,#743cff,#ed3fa5);
+  box-shadow: 0 0 30px rgba(150,60,255,.35);
+  cursor: pointer;
+}
+
+.best {
+  color: #c084fc;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.big-score {
+  font-size: 58px;
+  font-weight: 900;
+  color: #c084fc;
+  margin: 12px 0;
+  text-shadow: 0 0 25px #9333ea;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="game">
-    <h1>DON'T TAP</h1>
+<div id="startScreen" class="overlay">
+  <div class="card">
+    <h1>DON'T<br>TAP</h1>
+    <p>
+      Гра, яка буде постійно<br>
+      намагатися тебе обдурити 😈
+    </p>
 
-    <div id="score">Очки: 0</div>
+    <p>
+      Рекорд:
+      <span class="best" id="menuBest">0</span>
+    </p>
 
-    <button id="tapButton">НЕ НАТИСКАЙ</button>
+    <button class="start-button" onclick="startGame()">
+      ПОЧАТИ ГРУ
+    </button>
+  </div>
+</div>
 
-    <div id="message"></div>
+<div id="gameOver" class="overlay hidden">
+  <div class="card">
+    <h1 id="endTitle">GAME OVER</h1>
 
-    <button id="restart">Грати знову</button>
+    <p>Твій результат</p>
+
+    <div class="big-score" id="finalScore">0</div>
+
+    <p>
+      Рекорд:
+      <span class="best" id="finalBest">0</span>
+    </p>
+
+    <button class="restart-button" onclick="startGame()">
+      ГРАТИ ЗНОВУ
+    </button>
+  </div>
+</div>
+
+<div class="app">
+
+  <div class="header">
+
+    <div class="logo">
+      DON'T TAP
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        ❤️ <span id="lives">3</span>
+      </div>
+
+      <div class="stat">
+        🔥 <span id="combo">0</span>
+      </div>
+
+      <div class="stat">
+        ⭐ <span id="score">0</span>
+      </div>
+    </div>
+
   </div>
 
-  <script>
-    let score = 0;
-    let gameOver = false;
+  <div class="progress">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
 
-    const button = document.getElementById("tapButton");
-    const scoreText = document.getElementById("score");
-    const message = document.getElementById("message");
-    const restart = document.getElementById("restart");
+  <div class="level">
+    LEVEL <span id="level">1</span> / 20
+  </div>
 
-    button.addEventListener("click", () => {
-      if (gameOver) return;
+  <div id="instruction" class="instruction">
+    НЕ НАТИСКАЙ
+  </div>
 
-      score++;
-      scoreText.textContent = "Очки: " + score;
+  <div id="timer" class="timer">
+    Готуйся...
+  </div>
 
-      if (score === 10) {
-        message.textContent = "Ти вже натиснув 10 разів 😈";
-      }
+  <div id="arena" class="arena">
 
-      if (score === 20) {
-        message.textContent = "Навіщо ти продовжуєш?! 😂";
-      }
+    <div class="center-message">
+      <span id="arenaMessage">
+        Натисни «ПОЧАТИ ГРУ»
+      </span>
+    </div>
 
-      if (score === 30) {
-        gameOver = true;
-        button.style.background = "#555";
-        button.textContent = "ГРА ЗАКІНЧЕНА";
-        message.textContent = "Ти не зміг не натискати 😈";
-        restart.style.display = "inline-block";
-      }
+  </div>
+
+  <div class="footer">
+    Не довіряй написам. Не довіряй кнопкам. 😈
+  </div>
+
+</div>
+
+<script>
+
+let level = 1;
+let score = 0;
+let lives = 3;
+let combo = 0;
+
+let timer = null;
+let movingTimer = null;
+let gameRunning = false;
+
+const arena = document.getElementById("arena");
+
+const instruction = document.getElementById("instruction");
+const timerText = document.getElementById("timer");
+
+const livesText = document.getElementById("lives");
+const comboText = document.getElementById("combo");
+const scoreText = document.getElementById("score");
+
+const levelText = document.getElementById("level");
+const progressBar = document.getElementById("progressBar");
+
+let best = Number(localStorage.getItem("dontTapBest") || 0);
+
+document.getElementById("menuBest").textContent = best;
+
+function updateUI() {
+
+  livesText.textContent = lives;
+  comboText.textContent = combo;
+  scoreText.textContent = score;
+  levelText.textContent = level;
+
+  progressBar.style.width =
+    ((level - 1) / 20 * 100) + "%";
+}
+
+function clearTimers() {
+
+  clearTimeout(timer);
+  clearInterval(movingTimer);
+
+  timer = null;
+  movingTimer = null;
+}
+
+function clearArena() {
+
+  clearTimers();
+
+  arena.querySelectorAll(".target,.particle").forEach(el => el.remove());
+}
+
+function randomPosition(size = 105) {
+
+  const padding = 8;
+
+  return {
+    x: Math.random() *
+      Math.max(1, arena.clientWidth - size - padding * 2)
+      + padding,
+
+    y: Math.random() *
+      Math.max(1, arena.clientHeight - size - padding * 2)
+      + padding
+  };
+}
+
+function particle(x, y, good) {
+
+  const p = document.createElement("div");
+
+  p.className = "particle";
+
+  p.textContent = good ? "✨" : "💥";
+
+  p.style.left = x + "px";
+  p.style.top = y + "px";
+
+  arena.appendChild(p);
+
+  setTimeout(() => p.remove(), 700);
+}
+
+function createButton(x, y, color, text, callback) {
+
+  const b = document.createElement("button");
+
+  b.className = "target " + color;
+
+  b.style.left = x + "px";
+  b.style.top = y + "px";
+
+  b.innerHTML = "<span>" + text + "</span>";
+
+  b.onclick = function(e) {
+
+    e.stopPropagation();
+
+    particle(x + 45, y + 45, true);
+
+    callback();
+  };
+
+  arena.appendChild(b);
+
+  return b;
+}
+
+function loseLife() {
+
+  lives--;
+  combo = 0;
+
+  arena.classList.remove("shake");
+
+  void arena.offsetWidth;
+
+  arena.classList.add("shake");
+
+  updateUI();
+
+  if (navigator.vibrate) {
+    navigator.vibrate(120);
+  }
+
+  if (lives <= 0) {
+
+    endGame(false);
+
+    return true;
+  }
+
+  return false;
+}
+
+function success() {
+
+  if (!gameRunning) return;
+
+  score += 10 + combo * 3;
+
+  combo++;
+
+  level++;
+
+  if (navigator.vibrate) {
+    navigator.vibrate(35);
+  }
+
+  if (level > 20) {
+
+    endGame(true);
+
+    return;
+  }
+
+  updateUI();
+
+  startLevel();
+}
+
+function waitLevel(seconds) {
+
+  timerText.textContent =
+    "НЕ РУХАЙСЯ • " + seconds;
+
+  let remaining = seconds;
+
+  const tick = () => {
+
+    remaining--;
+
+    timerText.textContent =
+      "НЕ РУХАЙСЯ • " + remaining;
+
+    if (remaining <= 0) {
+
+      success();
+
+    } else {
+
+      timer = setTimeout(tick, 1000);
+    }
+  };
+
+  timer = setTimeout(tick, 1000);
+}
+
+function startLevel() {
+
+  if (!gameRunning) return;
+
+  clearArena();
+
+  updateUI();
+
+  document.getElementById("arenaMessage").textContent = "";
+
+  /*
+    LEVELS 1-3
+    Просто НЕ НАТИСКАЙ
+  */
+
+  if (level <= 3) {
+
+    instruction.textContent = "НЕ НАТИСКАЙ";
+
+    const seconds = 4 - level + 1;
+
+    timerText.textContent =
+      "Витримай " + seconds + " секунд";
+
+    timer = setTimeout(success, seconds * 1000);
+
+    return;
+  }
+
+  /*
+    LEVEL 4
+    Натисни зелену
+  */
+
+  if (level === 4) {
+
+    instruction.textContent = "НАТИСНИ ЗЕЛЕНУ";
+
+    timerText.textContent =
+      "Тільки одна правильна";
+
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "yellow"
+    ];
+
+    colors.forEach(color => {
+
+      const p = randomPosition();
+
+      createButton(
+        p.x,
+        p.y,
+        color,
+        color === "green" ? "✓" : "✕",
+        color === "green"
+          ? success
+          : () => {
+              if (!loseLife()) startLevel();
+            }
+      );
+
     });
 
-    restart.addEventListener("click", () => {
-      score = 0;
-      gameOver = false;
-      scoreText.textContent = "Очки: 0";
-      message.textContent = "";
-      button.style.background = "#e53935";
-      button.textContent = "НЕ НАТИСКАЙ";
-      restart.style.display = "none";
+    return;
+  }
+
+  /*
+    LEVEL 5-7
+    НЕ НАТИСКАЙ ЧЕРВОНУ
+  */
+
+  if (level <= 7) {
+
+    instruction.textContent =
+      "НЕ НАТИСКАЙ ЧЕРВОНУ";
+
+    timerText.textContent =
+      "Знайди безпечну";
+
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "yellow"
+    ];
+
+    colors.forEach(color => {
+
+      const p = randomPosition();
+
+      createButton(
+        p.x,
+        p.y,
+        color,
+        color === "red" ? "НЕ" : "✓",
+        color === "red"
+          ? () => {
+              if (!loseLife()) startLevel();
+            }
+          : success
+      );
+
     });
-  </script>
+
+    return;
+  }
+
+  /*
+    LEVEL 8-10
+    Один правильний
+  */
+
+  if (level <= 10) {
+
+    instruction.textContent =
+      "ЗНАЙДИ ФІОЛЕТОВУ";
+
+    timerText.textContent =
+      "Не поспішай 😈";
+
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "yellow",
+      "purple"
+    ];
+
+    colors.forEach(color => {
+
+      const p = randomPosition();
+
+      createButton(
+        p.x,
+        p.y,
+        color,
+        color === "purple" ? "✓" : "?",
+        color === "purple"
+          ? success
+          : () => {
+              if (!loseLife()) startLevel();
+            }
+      );
+
+    });
+
+    return;
+  }
+
+  /*
+    LEVEL 11-13
+    Рухома кнопка
+  */
+
+  if (level <= 13) {
+
+    instruction.textContent =
+      "ЗЕЛЕНА ТІКАЄ";
+
+    timerText.textContent =
+      "Злови її!";
+
+    const b = createButton(
+      30,
+      30,
+      "green",
+      "ЗЛОВИ",
+      () => {
+        clearTimers();
+        success();
+      }
+    );
+
+    movingTimer = setInterval(() => {
+
+      const p = randomPosition();
+
+      b.style.left = p.x + "px";
+      b.style.top = p.y + "px";
+
+    }, 450);
+
+    return;
+  }
+
+  /*
+    LEVEL 14-16
+    Не натискай нічого
+  */
+
+  if (level <= 16) {
+
+    instruction.textContent =
+      "НЕ НАТИСКАЙ НІЧОГО";
+
+    waitLevel(3);
+
+    return;
+  }
+
+  /*
+    LEVEL 17-19
+    Чотири кнопки, тільки одна
+  */
+
+  if (level <= 19) {
+
+    instruction.textContent =
+      "НАТИСНИ ЄДИНУ ПРАВИЛЬНУ";
+
+    timerText.textContent =
+      "Уважно...";
+
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "purple"
+    ];
+
+    colors.forEach((color, index) => {
+
+      const p = randomPosition();
+
+      createButton(
+        p.x,
+        p.y,
+        color,
+        index === 2 ? "✓" : "?",
+        index === 2
+          ? success
+          : () => {
+              if (!loseLife()) startLevel();
+            }
+      );
+
+    });
+
+    return;
+  }
+
+  /*
+    LEVEL 20
+    Фінальна пастка
+  */
+
+  if (level === 20) {
+
+    instruction.textContent =
+      "ОСТАННЯ ПЕРЕВІРКА";
+
+    timerText.textContent =
+      "НЕ НАТИСКАЙ 5 СЕКУНД";
+
+    waitLevel(5);
+  }
+}
+
+arena.onclick = function() {
+
+  if (!gameRunning) return;
+
+  /*
+    На рівнях, де треба чекати,
+    натискання є помилкою.
+  */
+
+  if (
+    level <= 3 ||
+    (level >= 14 && level <= 16) ||
+    level === 20
+  ) {
+
+    particle(
+      arena.clientWidth / 2,
+      arena.clientHeight / 2,
+      false
+    );
+
+    if (!loseLife()) {
+      startLevel();
+    }
+  }
+};
+
+function startGame() {
+
+  clearTimers();
+
+  level = 1;
+  score = 0;
+  lives = 3;
+  combo = 0;
+
+  gameRunning = true;
+
+  document.getElementById("startScreen")
+    .classList.add("hidden");
+
+  document.getElementById("gameOver")
+    .classList.add("hidden");
+
+  startLevel();
+}
+
+function endGame(won) {
+
+  clearTimers();
+
+  gameRunning = false;
+
+  if (score > best) {
+
+    best = score;
+
+    localStorage.setItem(
+      "dontTapBest",
+      best
+    );
+  }
+
+  document.getElementById("finalScore")
+    .textContent = score;
+
+  document.getElementById("finalBest")
+    .textContent = best;
+
+  document.getElementById("endTitle")
+    .textContent = won
+      ? "🏆 ТИ ПРОЙШОВ!"
+      : "GAME OVER";
+
+  document.getElementById("gameOver")
+    .classList.remove("hidden");
+}
+
+</script>
 
 </body>
 </html>
