@@ -6,478 +6,615 @@
 <title>NEURO — Mind Challenge</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-:root {
-    --bg: #07090f;
-    --panel: #10131d;
-    --panel2: #151a26;
-    --text: #f5f7ff;
-    --muted: #8d95a8;
-    --accent: #7c5cff;
-    --accent2: #00d9ff;
-    --green: #32e875;
-    --red: #ff4f6d;
-    --yellow: #ffc857;
+:root{
+    --bg:#060812;
+    --card:#101421;
+    --card2:#161b2a;
+    --line:rgba(255,255,255,.08);
+    --text:#f5f7ff;
+    --muted:#8c94a8;
+    --accent:#7c5cff;
+    --cyan:#00d9ff;
+    --green:#35e77d;
+    --red:#ff4d6d;
+    --yellow:#ffc857;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
+html,body{
+    margin:0;
+    min-height:100%;
     background:
-        radial-gradient(circle at 50% -10%, rgba(124,92,255,.22), transparent 35%),
-        radial-gradient(circle at 90% 80%, rgba(0,217,255,.08), transparent 30%),
+        radial-gradient(circle at 50% -10%,rgba(124,92,255,.22),transparent 35%),
+        radial-gradient(circle at 100% 100%,rgba(0,217,255,.08),transparent 30%),
         var(--bg);
-    color: var(--text);
-    font-family: Inter, Arial, sans-serif;
-    overflow-x: hidden;
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
 }
 
-button {
-    font: inherit;
+body{
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
-.screen {
-    min-height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+button{
+    font:inherit;
 }
 
-.screen.active {
-    display: flex;
+.hidden{
+    display:none!important;
 }
 
-.container {
-    width: 100%;
-    max-width: 650px;
-    margin: auto;
+/* ===============================
+   START
+================================ */
+
+.screen{
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
-/* START */
-
-.logo {
-    text-align: center;
-    margin-bottom: 35px;
+.screen.active{
+    display:flex;
 }
 
-.logo-mark {
-    width: 78px;
-    height: 78px;
-    margin: auto;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--accent), #4932c9);
-    box-shadow: 0 20px 60px rgba(124,92,255,.28);
-    font-size: 38px;
+.container{
+    width:100%;
+    max-width:720px;
+    margin:auto;
 }
 
-.logo h1 {
-    margin: 20px 0 5px;
-    font-size: 42px;
-    letter-spacing: -2px;
+.logo{
+    text-align:center;
+    margin-bottom:32px;
 }
 
-.logo p {
-    margin: 0;
-    color: var(--muted);
+.logo-icon{
+    width:82px;
+    height:82px;
+    margin:0 auto 20px;
+    border-radius:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    background:linear-gradient(135deg,#7c5cff,#4330bd);
+    box-shadow:0 25px 80px rgba(124,92,255,.3);
 }
 
-.start-card {
-    background: rgba(16,19,29,.86);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 28px;
-    padding: 28px;
-    box-shadow: 0 30px 100px rgba(0,0,0,.35);
-    backdrop-filter: blur(20px);
+.logo h1{
+    margin:0;
+    font-size:45px;
+    font-weight:800;
+    letter-spacing:-2px;
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 10px;
-    margin-bottom: 25px;
+.logo p{
+    color:var(--muted);
+    margin:8px 0 0;
 }
 
-.stat {
-    background: var(--panel2);
-    border-radius: 16px;
-    padding: 15px 10px;
-    text-align: center;
+.panel{
+    background:rgba(16,20,33,.92);
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:26px;
+    box-shadow:0 30px 100px rgba(0,0,0,.35);
+    backdrop-filter:blur(15px);
 }
 
-.stat b {
-    display: block;
-    font-size: 21px;
+.start-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:20px;
 }
 
-.stat span {
-    color: var(--muted);
-    font-size: 11px;
+.start-stat{
+    background:var(--card2);
+    border-radius:17px;
+    padding:16px 8px;
+    text-align:center;
 }
 
-.primary {
-    width: 100%;
-    border: 0;
-    border-radius: 17px;
-    padding: 17px;
-    color: white;
-    font-weight: 800;
-    font-size: 16px;
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--accent), #573de0);
-    box-shadow: 0 12px 30px rgba(124,92,255,.25);
-    transition: .18s;
+.start-stat strong{
+    display:block;
+    font-size:22px;
 }
 
-.primary:active {
-    transform: scale(.97);
+.start-stat span{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
 }
 
-/* GAME */
-
-.game-screen {
-    display: none;
-    min-height: 100vh;
-    padding: 15px;
+.main-btn{
+    width:100%;
+    border:0;
+    border-radius:18px;
+    padding:17px;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:800;
+    background:linear-gradient(135deg,#7c5cff,#563de4);
+    box-shadow:0 15px 35px rgba(124,92,255,.25);
+    transition:.18s;
 }
 
-.game-screen.active {
-    display: block;
+.main-btn:active{
+    transform:scale(.97);
 }
 
-.game-wrap {
-    max-width: 900px;
-    margin: auto;
+/* ===============================
+   GAME
+================================ */
+
+#gameScreen{
+    display:none;
+    min-height:100vh;
+    padding:14px;
 }
 
-.hud {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
+#gameScreen.active{
+    display:block;
 }
 
-.hud-box {
-    background: rgba(16,19,29,.9);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 15px;
-    padding: 11px;
-    text-align: center;
+.game-wrap{
+    width:100%;
+    max-width:950px;
+    margin:auto;
 }
 
-.hud-box small {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: .8px;
+.hud{
+    display:grid;
+    grid-template-columns:1fr 1.5fr 1fr;
+    gap:10px;
+    margin-bottom:9px;
 }
 
-.hud-box strong {
-    font-size: 15px;
+.hud-box{
+    background:rgba(16,20,33,.92);
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:10px;
+    text-align:center;
 }
 
-.error-icons {
-    letter-spacing: 2px;
-    color: var(--red);
+.hud-box small{
+    color:var(--muted);
+    display:block;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:3px;
 }
 
-.progress {
-    height: 5px;
-    background: #1b2030;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 15px;
+.hud-box strong{
+    font-size:15px;
 }
 
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg,var(--accent),var(--accent2));
-    transition: width .35s;
+.hearts{
+    letter-spacing:3px;
+    font-size:14px;
 }
 
-.challenge {
-    min-height: calc(100vh - 130px);
+.progress{
+    height:5px;
+    background:#1a2030;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:12px;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--accent),var(--cyan));
+    transition:.3s;
+}
+
+.challenge{
+    min-height:calc(100vh - 110px);
     background:
-        radial-gradient(circle at 50% 30%, rgba(124,92,255,.07), transparent 40%),
-        rgba(16,19,29,.72);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 28px;
-    padding: 25px;
-    position: relative;
-    overflow: hidden;
+        radial-gradient(circle at 50% 30%,rgba(124,92,255,.07),transparent 45%),
+        rgba(13,17,29,.88);
+    border:1px solid var(--line);
+    border-radius:27px;
+    padding:22px;
+    overflow:hidden;
+    position:relative;
 }
 
-.challenge-head {
-    text-align: center;
-    margin-bottom: 25px;
+.challenge-header{
+    text-align:center;
+    margin-bottom:23px;
 }
 
-.challenge-type {
-    color: var(--accent2);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+.tag{
+    color:var(--cyan);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
 }
 
-.challenge h2 {
-    margin: 8px 0;
-    font-size: 27px;
+.challenge-header h2{
+    margin:8px 0;
+    font-size:28px;
 }
 
-.challenge-description {
-    color: var(--muted);
-    font-size: 13px;
+.challenge-header p{
+    margin:0;
+    color:var(--muted);
+    font-size:13px;
 }
 
-/* LOGIC */
+/* ===============================
+   LOGIC
+================================ */
 
-.sequence {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 35px 0;
+.sequence{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:30px 0;
 }
 
-.sequence-item {
-    min-width: 62px;
-    height: 62px;
-    padding: 10px;
-    background: var(--panel2);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-    font-weight: 700;
+.seq-item{
+    min-width:64px;
+    min-height:64px;
+    padding:10px;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--card2);
+    border:1px solid var(--line);
+    font-size:25px;
+    font-weight:800;
 }
 
-.question-mark {
-    border-color: var(--accent);
-    color: var(--accent);
+.seq-item.question{
+    border-color:rgba(124,92,255,.8);
+    color:var(--accent);
 }
 
-.answers {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 12px;
-    max-width: 500px;
-    margin: auto;
+.answers{
+    max-width:520px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
-.answer {
-    min-height: 70px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 17px;
-    background: var(--panel2);
-    color: white;
-    cursor: pointer;
-    font-size: 21px;
-    font-weight: 700;
-    transition: .18s;
+.answer-btn{
+    border:1px solid var(--line);
+    border-radius:17px;
+    min-height:72px;
+    background:var(--card2);
+    color:white;
+    cursor:pointer;
+    font-size:21px;
+    font-weight:800;
+    transition:.16s;
 }
 
-.answer:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
+.answer-btn:active{
+    transform:scale(.96);
 }
 
-.answer:active {
-    transform: scale(.96);
+.answer-btn.correct{
+    border-color:var(--green);
+    background:rgba(53,231,125,.13);
 }
 
-.answer.correct {
-    background: rgba(50,232,117,.15);
-    border-color: var(--green);
+.answer-btn.wrong{
+    border-color:var(--red);
+    background:rgba(255,77,109,.13);
 }
 
-.answer.wrong {
-    background: rgba(255,79,109,.15);
-    border-color: var(--red);
+/* ===============================
+   BALL
+================================ */
+
+.ball-info{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:10px;
 }
 
-/* BALL */
+.ball-stat{
+    background:var(--card2);
+    padding:10px;
+    border-radius:14px;
+    text-align:center;
+}
 
-.ball-area {
-    height: min(65vh, 540px);
-    min-height: 400px;
-    position: relative;
-    border-radius: 24px;
+.ball-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+.ball-stat strong{
+    font-size:17px;
+}
+
+.ball-area{
+    height:min(63vh,560px);
+    min-height:400px;
+    position:relative;
+    overflow:hidden;
+    border-radius:23px;
     background:
-        radial-gradient(circle at center, rgba(124,92,255,.08), transparent 55%),
-        #0b0e17;
-    border: 1px solid rgba(255,255,255,.06);
-    overflow: hidden;
-    touch-action: manipulation;
+        radial-gradient(circle at center,rgba(124,92,255,.08),transparent 55%),
+        #090d17;
+    border:1px solid var(--line);
+    touch-action:manipulation;
 }
 
-.ball-hud {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.ball-stat {
-    flex: 1;
-    background: var(--panel2);
-    border-radius: 14px;
-    padding: 11px;
-    text-align: center;
-}
-
-.ball-stat small {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-}
-
-.ball-stat strong {
-    font-size: 18px;
-}
-
-.ball {
-    position: absolute;
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
+.ball{
+    width:62px;
+    height:62px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    cursor:pointer;
     background:
-        radial-gradient(circle at 32% 27%, #fff, #8b73ff 16%, #6348f2 50%, #3420a5 100%);
+        radial-gradient(circle at 32% 27%,#fff 0%,#a697ff 13%,#775dff 42%,#3822ad 100%);
     box-shadow:
-        0 0 20px rgba(124,92,255,.75),
-        0 0 55px rgba(124,92,255,.35);
-    cursor: pointer;
-    transform: translate(-50%,-50%);
-    transition: left .12s, top .12s, transform .12s;
+        0 0 22px rgba(124,92,255,.9),
+        0 0 60px rgba(124,92,255,.35);
+    transition:left .09s linear,top .09s linear,transform .1s;
 }
 
-.ball:active {
-    transform: translate(-50%,-50%) scale(.82);
+.ball:active{
+    transform:translate(-50%,-50%) scale(.78);
 }
 
-.hit {
-    position: absolute;
-    pointer-events: none;
-    width: 70px;
-    height: 70px;
-    border: 2px solid rgba(124,92,255,.8);
-    border-radius: 50%;
-    transform: translate(-50%,-50%);
-    animation: hit .35s ease-out forwards;
+.hit-effect{
+    position:fixed;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:2px solid var(--accent);
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    animation:hit .35s forwards;
 }
 
-@keyframes hit {
-    from { opacity: 1; transform: translate(-50%,-50%) scale(.5); }
-    to { opacity: 0; transform: translate(-50%,-50%) scale(1.8); }
+@keyframes hit{
+    from{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(.4);
+    }
+    to{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(1.8);
+    }
 }
 
-/* RESULT */
+/* ===============================
+   MOTOR
+================================ */
 
-.result-card {
-    text-align: center;
-    background: rgba(16,19,29,.9);
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 28px;
-    padding: 35px;
+.motor-zone{
+    max-width:650px;
+    margin:20px auto 0;
 }
 
-.result-icon {
-    font-size: 65px;
-    margin-bottom: 15px;
+.big-action{
+    width:100%;
+    min-height:150px;
+    border:1px solid var(--line);
+    border-radius:25px;
+    background:var(--card2);
+    color:white;
+    cursor:pointer;
+    font-size:28px;
+    font-weight:800;
 }
 
-.result-card h2 {
-    font-size: 31px;
-    margin: 10px;
+.reaction-dot{
+    width:95px;
+    height:95px;
+    border-radius:50%;
+    margin:35px auto;
+    cursor:pointer;
+    background:#2b3140;
+    transition:.1s;
 }
 
-.result-card p {
-    color: var(--muted);
+.reaction-dot.go{
+    background:var(--green);
+    box-shadow:0 0 50px rgba(53,231,125,.5);
 }
 
-.result-stats {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 10px;
-    margin: 25px 0;
+.color-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    max-width:420px;
+    margin:auto;
 }
 
-.result-stat {
-    padding: 18px;
-    background: var(--panel2);
-    border-radius: 16px;
+.color-target{
+    height:105px;
+    border:0;
+    border-radius:20px;
+    cursor:pointer;
 }
 
-.result-stat span {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 5px;
+.color-red{background:#ff4d6d;}
+.color-blue{background:#438cff;}
+.color-green{background:#35e77d;}
+.color-yellow{background:#ffc857;}
+
+.mini-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    max-width:400px;
+    margin:30px auto;
 }
 
-.result-stat strong {
-    font-size: 21px;
+.mini-cell{
+    height:85px;
+    border:1px solid var(--line);
+    background:var(--card2);
+    border-radius:18px;
+    cursor:pointer;
+    font-size:23px;
+    font-weight:800;
 }
 
-.flash {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 99;
+.mini-cell.active{
+    background:rgba(124,92,255,.24);
+    border-color:var(--accent);
 }
 
-.flash.good {
-    background: rgba(50,232,117,.08);
-    animation: flash .25s;
+.sequence-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    max-width:520px;
+    margin:auto;
 }
 
-.flash.bad {
-    background: rgba(255,79,109,.1);
-    animation: flash .25s;
+.seq-button{
+    width:78px;
+    height:78px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:var(--card2);
+    color:white;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:800;
 }
 
-@keyframes flash {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+/* ===============================
+   RESULT
+================================ */
+
+.result-icon{
+    font-size:64px;
+    text-align:center;
 }
 
-@media(max-width:600px) {
-    .logo h1 {
-        font-size: 35px;
+.result{
+    text-align:center;
+}
+
+.result h2{
+    font-size:31px;
+    margin:10px 0;
+}
+
+.result p{
+    color:var(--muted);
+}
+
+.result-stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin:24px 0;
+}
+
+.result-stat{
+    background:var(--card2);
+    border-radius:16px;
+    padding:17px;
+}
+
+.result-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.result-stat strong{
+    font-size:22px;
+}
+
+/* ===============================
+   TOAST
+================================ */
+
+.toast{
+    position:fixed;
+    left:50%;
+    top:18px;
+    transform:translateX(-50%) translateY(-100px);
+    z-index:100;
+    padding:12px 18px;
+    border-radius:14px;
+    background:#171c2a;
+    border:1px solid var(--line);
+    font-size:13px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.toast.show{
+    transform:translateX(-50%) translateY(0);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media(max-width:600px){
+
+    .logo h1{
+        font-size:37px;
     }
 
-    .challenge {
-        padding: 18px;
-        border-radius: 22px;
+    .panel{
+        padding:20px;
     }
 
-    .challenge h2 {
-        font-size: 23px;
+    .challenge{
+        padding:16px;
+        border-radius:22px;
     }
 
-    .sequence-item {
-        min-width: 53px;
-        height: 53px;
-        font-size: 21px;
+    .challenge-header h2{
+        font-size:23px;
     }
 
-    .ball-area {
-        min-height: 420px;
+    .seq-item{
+        min-width:53px;
+        min-height:53px;
+        font-size:21px;
+    }
+
+    .answers{
+        gap:9px;
+    }
+
+    .answer-btn{
+        min-height:64px;
+    }
+
+    .ball-area{
+        min-height:420px;
     }
 }
 </style>
@@ -485,88 +622,115 @@ button {
 
 <body>
 
-<div class="flash" id="flash"></div>
+<div id="toast" class="toast"></div>
 
-<!-- START -->
-<section class="screen active" id="startScreen">
+
+<!-- ===============================
+     START SCREEN
+================================ -->
+
+<section id="startScreen" class="screen active">
     <div class="container">
+
         <div class="logo">
-            <div class="logo-mark">🧠</div>
+            <div class="logo-icon">🧠</div>
             <h1>NEURO</h1>
             <p>Mind · Reflex · Focus</p>
         </div>
 
-        <div class="start-card">
+        <div class="panel">
 
-            <div class="stats">
-                <div class="stat">
-                    <b id="startLevel">1</b>
-                    <span>РІВЕНЬ</span>
+            <div class="start-stats">
+
+                <div class="start-stat">
+                    <strong id="bestScore">0</strong>
+                    <span>Рекорд</span>
                 </div>
-                <div class="stat">
-                    <b id="startBest">0</b>
-                    <span>РЕКОРД</span>
+
+                <div class="start-stat">
+                    <strong>30</strong>
+                    <span>Логік</span>
                 </div>
-                <div class="stat">
-                    <b id="startXP">0</b>
-                    <span>XP</span>
+
+                <div class="start-stat">
+                    <strong>∞</strong>
+                    <span>Рівні</span>
                 </div>
+
             </div>
 
-            <button class="primary" onclick="startGame()">
-                ПОЧАТИ ВИПРОБУВАННЯ
+            <button class="main-btn" onclick="startGame()">
+                ПОЧАТИ
             </button>
 
         </div>
+
     </div>
 </section>
 
 
-<!-- GAME -->
-<section class="game-screen" id="gameScreen">
+<!-- ===============================
+     GAME SCREEN
+================================ -->
+
+<section id="gameScreen">
+
     <div class="game-wrap">
 
         <div class="hud">
 
             <div class="hud-box">
                 <small>Рівень</small>
-                <strong id="levelDisplay">1</strong>
+                <strong id="hudLevel">1</strong>
             </div>
 
             <div class="hud-box">
                 <small>Помилки</small>
-                <strong class="error-icons" id="errorsDisplay">❤️ ❤️ ❤️</strong>
+                <strong class="hearts" id="hudErrors">
+                    ❤️ ❤️ ❤️
+                </strong>
             </div>
 
             <div class="hud-box">
                 <small>Очки</small>
-                <strong id="scoreDisplay">0</strong>
+                <strong id="hudScore">0</strong>
             </div>
 
         </div>
 
         <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-fill" id="progressFill"></div>
         </div>
 
-        <div class="challenge" id="challenge"></div>
+        <div id="challenge" class="challenge"></div>
 
     </div>
+
 </section>
 
 
-<!-- RESULT -->
-<section class="screen" id="resultScreen">
+<!-- ===============================
+     RESULT SCREEN
+================================ -->
+
+<section id="resultScreen" class="screen">
+
     <div class="container">
-        <div class="result-card">
 
-            <div class="result-icon" id="resultIcon">🎉</div>
+        <div class="panel result">
 
-            <h2 id="resultTitle">Випробування завершено</h2>
+            <div id="resultIcon" class="result-icon">🎉</div>
 
-            <p id="resultText"></p>
+            <h2 id="resultTitle">
+                Гру завершено
+            </h2>
+
+            <p id="resultText">
+                Подивимося на результат.
+            </p>
 
             <div class="result-stats">
+
                 <div class="result-stat">
                     <span>ОЧКИ</span>
                     <strong id="resultScore">0</strong>
@@ -586,22 +750,25 @@ button {
                     <span>КОМБО</span>
                     <strong id="resultCombo">0</strong>
                 </div>
+
             </div>
 
-            <button class="primary" onclick="nextGame()">
-                ПРОДОВЖИТИ
+            <button class="main-btn" onclick="returnHome()">
+                НА ГОЛОВНИЙ ЕКРАН
             </button>
 
         </div>
+
     </div>
+
 </section>
 
 
 <script>
 
-/* =========================
+/* =====================================================
    GAME STATE
-========================= */
+===================================================== */
 
 let level = 1;
 let score = 0;
@@ -610,336 +777,662 @@ let errors = 3;
 let combo = 0;
 let bestCombo = 0;
 
-let challengeIndex = 0;
+let logicDone = 0;
+let questionPool = [];
+
+let ballTimer = null;
+let ballMoveTimer = null;
+let reactionTimer = null;
+let motorTimer = null;
+
 let ballHits = 0;
 let ballTarget = 10;
-let ballTime = 20;
-let ballTimer = null;
-let ballStarted = false;
+let ballSeconds = 20;
 
-const challenges = [
-    "logicNumber",
-    "logicShape",
-    "ball"
+
+/* =====================================================
+   UNIQUE LOGIC QUESTIONS — 30
+===================================================== */
+
+const logicQuestions = [
+
+    /* 1 */
+    {
+        type:"Числова закономірність",
+        title:"Знайди наступне число",
+        desc:"Зрозумій правило послідовності.",
+        seq:["2","4","8","16","?"],
+        answers:["24","30","32","36"],
+        correct:"32"
+    },
+
+    /* 2 */
+    {
+        type:"Числова закономірність",
+        title:"Продовж послідовність",
+        desc:"Що має бути на місці знака питання?",
+        seq:["3","6","12","24","?"],
+        answers:["36","42","48","54"],
+        correct:"48"
+    },
+
+    /* 3 */
+    {
+        type:"Числова закономірність",
+        title:"Знайди правило",
+        desc:"Кожне число пов'язане з попереднім.",
+        seq:["5","10","15","20","?"],
+        answers:["22","24","25","30"],
+        correct:"25"
+    },
+
+    /* 4 */
+    {
+        type:"Числова закономірність",
+        title:"Наступний елемент",
+        desc:"Уважно простеж за зміною чисел.",
+        seq:["1","4","9","16","?"],
+        answers:["20","24","25","36"],
+        correct:"25"
+    },
+
+    /* 5 */
+    {
+        type:"Числова закономірність",
+        title:"Продовж ряд",
+        desc:"Знайди закономірність.",
+        seq:["10","20","30","40","?"],
+        answers:["45","50","55","60"],
+        correct:"50"
+    },
+
+    /* 6 */
+    {
+        type:"Числова закономірність",
+        title:"Що далі?",
+        desc:"Не поспішай з відповіддю.",
+        seq:["2","6","12","20","?"],
+        answers:["24","28","30","32"],
+        correct:"30"
+    },
+
+    /* 7 */
+    {
+        type:"Фігури",
+        title:"Заверши послідовність",
+        desc:"Зверни увагу на чергування.",
+        seq:["▲","●","▲","●","?"],
+        answers:["▲","●","■","◆"],
+        correct:"▲"
+    },
+
+    /* 8 */
+    {
+        type:"Фігури",
+        title:"Що має бути далі?",
+        desc:"Фігури змінюються за правилом.",
+        seq:["■","◆","■","◆","?"],
+        answers:["■","◆","●","▲"],
+        correct:"■"
+    },
+
+    /* 9 */
+    {
+        type:"Фігури",
+        title:"Продовж ряд",
+        desc:"Знайди закономірність.",
+        seq:["🔵","🔴","🟢","🔵","🔴","?"],
+        answers:["🔵","🔴","🟢","🟡"],
+        correct:"🟢"
+    },
+
+    /* 10 */
+    {
+        type:"Фігури",
+        title:"Знайди наступний",
+        desc:"Подивись на порядок символів.",
+        seq:["★","☆","★","☆","?"],
+        answers:["★","☆","●","◆"],
+        correct:"★"
+    },
+
+    /* 11 */
+    {
+        type:"Фігури",
+        title:"Продовж послідовність",
+        desc:"Однаковий принцип повторюється.",
+        seq:["⬆️","➡️","⬇️","⬅️","?"],
+        answers:["⬆️","➡️","⬇️","↗️"],
+        correct:"⬆️"
+    },
+
+    /* 12 */
+    {
+        type:"Фігури",
+        title:"Що пропущено?",
+        desc:"Визнач наступний символ.",
+        seq:["●","●●","●●●","?"],
+        answers:["●","●●●●","●●●●●","◆"],
+        correct:"●●●●"
+    },
+
+    /* 13 */
+    {
+        type:"Комбінація",
+        title:"Що має бути далі?",
+        desc:"Порівняй обидві частини.",
+        seq:["A","C","E","G","?"],
+        answers:["H","I","J","K"],
+        correct:"I"
+    },
+
+    /* 14 */
+    {
+        type:"Комбінація",
+        title:"Знайди закономірність",
+        desc:"Крок завжди однаковий.",
+        seq:["B","D","F","H","?"],
+        answers:["I","J","K","L"],
+        correct:"J"
+    },
+
+    /* 15 */
+    {
+        type:"Комбінація",
+        title:"Продовж ряд",
+        desc:"Що буде наступним?",
+        seq:["1A","2B","3C","4D","?"],
+        answers:["5E","5F","6E","6F"],
+        correct:"5E"
+    },
+
+    /* 16 */
+    {
+        type:"Зайвий елемент",
+        title:"Знайди зайве",
+        desc:"Один символ відрізняється від інших.",
+        seq:["🔺","🔺","🔻","🔺","🔺"],
+        answers:["1","2","3","5"],
+        correct:"3"
+    },
+
+    /* 17 */
+    {
+        type:"Зайвий елемент",
+        title:"Що не підходить?",
+        desc:"Знайди елемент, який порушує правило.",
+        seq:["2","4","6","9","10"],
+        answers:["2","4","6","9"],
+        correct:"9"
+    },
+
+    /* 18 */
+    {
+        type:"Зайвий елемент",
+        title:"Знайди чужий символ",
+        desc:"Чотири елементи пов'язані між собою.",
+        seq:["●","●","■","●","●"],
+        answers:["1","2","3","5"],
+        correct:"3"
+    },
+
+    /* 19 */
+    {
+        type:"Логічна пастка",
+        title:"Який варіант порушує правило?",
+        desc:"Три варіанти мають спільну властивість.",
+        seq:["12","24","36","49","48"],
+        answers:["12","24","36","49"],
+        correct:"49"
+    },
+
+    /* 20 */
+    {
+        type:"Логічна пастка",
+        title:"Знайди помилку",
+        desc:"Тільки один елемент не відповідає правилу.",
+        seq:["15","20","25","31","35"],
+        answers:["15","20","31","35"],
+        correct:"31"
+    },
+
+    /* 21 */
+    {
+        type:"Чергуй",
+        title:"Який символ наступний?",
+        desc:"Подивись на два паралельні ряди.",
+        seq:["A1","B2","A3","B4","?"],
+        answers:["A5","B5","A6","C5"],
+        correct:"A5"
+    },
+
+    /* 22 */
+    {
+        type:"Чергуй",
+        title:"Знайди продовження",
+        desc:"У послідовності використовуються два правила.",
+        seq:["1","2","4","8","16","?"],
+        answers:["20","24","30","32"],
+        correct:"32"
+    },
+
+    /* 23 */
+    {
+        type:"Чергуй",
+        title:"Що далі?",
+        desc:"Числа ростуть за певним кроком.",
+        seq:["1","3","6","10","?"],
+        answers:["12","14","15","16"],
+        correct:"15"
+    },
+
+    /* 24 */
+    {
+        type:"Чергуй",
+        title:"Продовж",
+        desc:"Що буде наступним результатом?",
+        seq:["2","3","5","8","13","?"],
+        answers:["18","20","21","22"],
+        correct:"21"
+    },
+
+    /* 25 */
+    {
+        type:"Порівняння",
+        title:"Знайди правильне",
+        desc:"Порівняй співвідношення.",
+        seq:["2→4","3→6","5→10","7→?"],
+        answers:["12","13","14","15"],
+        correct:"14"
+    },
+
+    /* 26 */
+    {
+        type:"Порівняння",
+        title:"Заверши правило",
+        desc:"Операція однакова в кожному рядку.",
+        seq:["3→9","4→16","5→25","6→?"],
+        answers:["30","32","36","40"],
+        correct:"36"
+    },
+
+    /* 27 */
+    {
+        type:"Пам'ять",
+        title:"Логічний порядок",
+        desc:"Послідовність будується з повторенням.",
+        seq:["AB","BA","AB","BA","?"],
+        answers:["AA","AB","BA","BB"],
+        correct:"AB"
+    },
+
+    /* 28 */
+    {
+        type:"Простір",
+        title:"Який напрямок наступний?",
+        desc:"Стрілка обертається на 90°.",
+        seq:["↑","→","↓","←","?"],
+        answers:["↑","→","↓","↗"],
+        correct:"↑"
+    },
+
+    /* 29 */
+    {
+        type:"Простір",
+        title:"Продовж обертання",
+        desc:"Знайди наступну позицію.",
+        seq:["↗","↘","↙","↖","?"],
+        answers:["↗","↘","⬆️","➡️"],
+        correct:"↗"
+    },
+
+    /* 30 */
+    {
+        type:"Логіка",
+        title:"Останній крок",
+        desc:"Знайди правило та заверши послідовність.",
+        seq:["4","7","10","13","?"],
+        answers:["14","15","16","17"],
+        correct:"16"
+    }
 ];
 
-const challenge = document.getElementById("challenge");
 
+/* =====================================================
+   HELPERS
+===================================================== */
 
-/* =========================
-   STORAGE
-========================= */
+function $(id){
+    return document.getElementById(id);
+}
 
-let bestScore = Number(localStorage.getItem("neuroBest") || 0);
+function random(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+}
 
-document.getElementById("startBest").textContent = bestScore;
+function shuffle(arr){
+    const a=[...arr];
 
+    for(let i=a.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
 
-/* =========================
-   START
-========================= */
+        [a[i],a[j]]=[a[j],a[i]];
+    }
 
-function startGame() {
+    return a;
+}
 
-    level = 1;
-    score = 0;
-    xp = 0;
-    errors = 3;
-    combo = 0;
-    bestCombo = 0;
-    challengeIndex = 0;
+function vibrate(pattern){
+    if("vibrate" in navigator){
+        try{
+            navigator.vibrate(pattern);
+        }catch(e){}
+    }
+}
 
-    document.getElementById("startScreen").classList.remove("active");
-    document.getElementById("resultScreen").classList.remove("active");
-    document.getElementById("gameScreen").classList.add("active");
+function toast(message){
 
-    updateHUD();
-    loadChallenge();
+    const t=$("toast");
+
+    t.textContent=message;
+    t.classList.add("show");
+
+    setTimeout(()=>{
+        t.classList.remove("show");
+    },1200);
 }
 
 
-/* =========================
+/* =====================================================
    HUD
-========================= */
+===================================================== */
 
-function updateHUD() {
+function updateHUD(){
 
-    document.getElementById("levelDisplay").textContent = level;
-    document.getElementById("scoreDisplay").textContent = score;
+    $("hudLevel").textContent=level;
+    $("hudScore").textContent=score;
 
-    let hearts = "";
+    let hearts="";
 
-    for(let i=0;i<3;i++) {
-        hearts += i < errors ? "❤️ " : "🖤 ";
+    for(let i=0;i<3;i++){
+        hearts += i<errors ? "❤️ " : "🖤 ";
     }
 
-    document.getElementById("errorsDisplay").textContent = hearts.trim();
+    $("hudErrors").textContent=hearts.trim();
 
-    const progress =
-        ((challengeIndex % challenges.length) /
-        challenges.length) * 100;
+    const progress=(logicDone%5)/5*100;
 
-    document.getElementById("progressBar").style.width =
-        progress + "%";
+    $("progressFill").style.width=progress+"%";
 }
 
 
-/* =========================
-   LOAD CHALLENGE
-========================= */
+/* =====================================================
+   START
+===================================================== */
 
-function loadChallenge() {
+function startGame(){
 
-    clearInterval(ballTimer);
-    ballStarted = false;
+    level=1;
+    score=0;
+    xp=0;
+    errors=3;
+    combo=0;
+    bestCombo=0;
+    logicDone=0;
 
-    const type = challenges[challengeIndex % challenges.length];
+    questionPool=shuffle(logicQuestions);
 
-    if(type === "logicNumber") {
-        renderNumberLogic();
+    $("startScreen").classList.remove("active");
+    $("resultScreen").classList.remove("active");
+    $("gameScreen").classList.add("active");
+
+    updateHUD();
+    nextLogicQuestion();
+}
+
+
+/* =====================================================
+   NEXT LOGIC QUESTION
+===================================================== */
+
+function nextLogicQuestion(){
+
+    clearAllTimers();
+
+    if(questionPool.length===0){
+
+        questionPool=shuffle(logicQuestions);
     }
 
-    if(type === "logicShape") {
-        renderShapeLogic();
-    }
+    const q=questionPool.pop();
 
-    if(type === "ball") {
-        renderBallChallenge();
-    }
+    renderLogic(q);
 
     updateHUD();
 }
 
 
-/* =========================
-   NUMBER LOGIC
-========================= */
+/* =====================================================
+   RENDER LOGIC
+===================================================== */
 
-function renderNumberLogic() {
+function renderLogic(q){
 
-    const questions = [
+    const answerOptions=shuffle(q.answers);
 
-        {
-            seq: ["2","4","8","16","?"],
-            answers: ["18","24","30","32"],
-            correct: "32"
-        },
+    $("challenge").innerHTML=`
 
-        {
-            seq: ["3","6","12","24","?"],
-            answers: ["36","42","48","54"],
-            correct: "48"
-        },
+        <div class="challenge-header">
 
-        {
-            seq: ["5","10","15","20","?"],
-            answers: ["22","24","25","30"],
-            correct: "25"
-        },
-
-        {
-            seq: ["1","4","9","16","?"],
-            answers: ["20","24","25","36"],
-            correct: "25"
-        }
-
-    ];
-
-    const q = questions[
-        Math.floor(Math.random() * questions.length)
-    ];
-
-    challenge.innerHTML = `
-
-        <div class="challenge-head">
-            <div class="challenge-type">🧠 Логічне випробування</div>
-
-            <h2>Знайди закономірність</h2>
-
-            <div class="challenge-description">
-                Зрозумій правило та вибери наступний елемент.
+            <div class="tag">
+                🧠 ${q.type}
             </div>
+
+            <h2>${q.title}</h2>
+
+            <p>${q.desc}</p>
+
         </div>
 
         <div class="sequence">
-            ${q.seq.map((x,i) => `
-                <div class="sequence-item ${x==="?" ? "question-mark":""}">
+
+            ${q.seq.map(x=>`
+
+                <div class="seq-item ${x==="?"?"question":""}">
                     ${x}
                 </div>
+
             `).join("")}
+
         </div>
 
         <div class="answers">
-            ${q.answers.map(a => `
-                <button class="answer"
-                    onclick="logicAnswer(this,'${a}','${q.correct}')">
-                    ${a}
+
+            ${answerOptions.map(answer=>`
+
+                <button
+                    class="answer-btn"
+                    data-answer="${escapeHtml(answer)}"
+                    onclick="answerLogic(this, '${escapeJs(answer)}', '${escapeJs(q.correct)}')">
+
+                    ${answer}
+
                 </button>
+
             `).join("")}
+
         </div>
     `;
 }
 
 
-/* =========================
-   SHAPE LOGIC
-========================= */
-
-function renderShapeLogic() {
-
-    const questions = [
-
-        {
-            seq: ["▲","●","▲","●","?"],
-            answers: ["▲","●","■","◆"],
-            correct: "▲"
-        },
-
-        {
-            seq: ["◆","◆◆","◆◆◆","?"],
-            answers: ["◆","◆◆","◆◆◆◆","●"],
-            correct: "◆◆◆◆"
-        },
-
-        {
-            seq: ["🔵","🔴","🟢","🔵","🔴","?"],
-            answers: ["🔵","🔴","🟢","🟡"],
-            correct: "🟢"
-        }
-
-    ];
-
-    const q =
-        questions[Math.floor(Math.random()*questions.length)];
-
-    challenge.innerHTML = `
-
-        <div class="challenge-head">
-            <div class="challenge-type">👁 Увага та логіка</div>
-
-            <h2>Що має бути далі?</h2>
-
-            <div class="challenge-description">
-                Не поспішай. Знайди правило послідовності.
-            </div>
-        </div>
-
-        <div class="sequence">
-            ${q.seq.map(x => `
-                <div class="sequence-item ${x==="?" ? "question-mark":""}">
-                    ${x}
-                </div>
-            `).join("")}
-        </div>
-
-        <div class="answers">
-            ${q.answers.map(a => `
-                <button class="answer"
-                    onclick="logicAnswer(this,'${a}','${q.correct}')">
-                    ${a}
-                </button>
-            `).join("")}
-        </div>
-    `;
-}
-
-
-/* =========================
+/* =====================================================
    LOGIC ANSWER
-========================= */
+===================================================== */
 
-function logicAnswer(button, answer, correct) {
+function answerLogic(button,answer,correct){
 
-    const buttons = document.querySelectorAll(".answer");
+    const buttons=document.querySelectorAll(".answer-btn");
 
-    buttons.forEach(b => b.disabled = true);
+    buttons.forEach(b=>b.disabled=true);
 
-    if(answer === correct) {
+    if(answer===correct){
 
         button.classList.add("correct");
 
-        success();
+        combo++;
+        bestCombo=Math.max(bestCombo,combo);
 
-        setTimeout(() => {
-            challengeIndex++;
-            level++;
+        score += 100 + combo*10;
+        xp += 20;
 
-            if(level > 20) level = 20;
+        logicDone++;
 
-            loadChallenge();
-        }, 650);
+        vibrate(20);
+        toast("Правильно!");
 
-    } else {
+        updateHUD();
+
+        setTimeout(()=>{
+
+            /*
+                КОЖНІ 5 ЛОГІЧНИХ —
+                ОБОВ'ЯЗКОВО КУЛЬКА
+            */
+
+            if(logicDone%5===0){
+
+                startBallChallenge();
+
+            }else{
+
+                level++;
+                nextLogicQuestion();
+
+            }
+
+        },550);
+
+    }else{
 
         button.classList.add("wrong");
 
         fail();
 
-        if(errors <= 0) {
+        setTimeout(()=>{
 
-            setTimeout(gameOver,500);
+            if(errors<=0){
 
-        } else {
+                gameOver();
 
-            setTimeout(() => {
+            }else{
 
-                buttons.forEach(b => {
-                    b.disabled = false;
+                buttons.forEach(b=>{
+                    b.disabled=false;
                     b.classList.remove("wrong");
                 });
 
-            },500);
-        }
+            }
+
+        },500);
     }
 }
 
 
-/* =========================
+/* =====================================================
+   FAIL
+===================================================== */
+
+function fail(){
+
+    errors--;
+    combo=0;
+
+    vibrate([60,50,60]);
+
+    toast("Помилка");
+
+    updateHUD();
+}
+
+
+/* =====================================================
    BALL CHALLENGE
-========================= */
+===================================================== */
 
-function renderBallChallenge() {
+function startBallChallenge(){
 
-    ballHits = 0;
+    clearAllTimers();
 
-    ballTarget = 10 + Math.floor((level-1)/5) * 2;
+    ballHits=0;
+    ballTarget=10;
+    ballSeconds=20;
 
-    ballTime = Math.max(
-        10,
-        20 - Math.floor((level-1)/5)*2
-    );
+    renderBall();
 
-    challenge.innerHTML = `
+    updateHUD();
 
-        <div class="challenge-head">
+    ballTimer=setInterval(()=>{
 
-            <div class="challenge-type">
+        ballSeconds-=0.1;
+
+        const time=Math.max(ballSeconds,0);
+
+        $("ballTime").textContent=time.toFixed(1)+" с";
+
+        if(ballSeconds<=0){
+
+            finishBall(false);
+
+        }
+
+    },100);
+
+    /*
+       КУЛЬКА РУХАЄТЬСЯ КОЖНІ 0.5 СЕКУНДИ
+    */
+
+    ballMoveTimer=setInterval(()=>{
+
+        moveBall();
+
+    },500);
+}
+
+
+function renderBall(){
+
+    $("challenge").innerHTML=`
+
+        <div class="challenge-header">
+
+            <div class="tag">
                 ⚡ Реакція
             </div>
 
             <h2>Злови кульку</h2>
 
-            <div class="challenge-description">
-                Злови ${ballTarget} кульок за ${ballTime} секунд.
-            </div>
+            <p>
+                Злови 10 кульок за 20 секунд.
+            </p>
 
         </div>
 
-        <div class="ball-hud">
+        <div class="ball-info">
 
             <div class="ball-stat">
-                <small>ЧАС</small>
-                <strong id="ballTime">${ballTime}.0 с</strong>
+                <span>Час</span>
+                <strong id="ballTime">20.0 с</strong>
             </div>
 
             <div class="ball-stat">
-                <small>ЗЛОВЛЕНО</small>
-                <strong id="ballHits">0 / ${ballTarget}</strong>
+                <span>Зловлено</span>
+                <strong id="ballHits">0 / 10</strong>
             </div>
 
             <div class="ball-stat">
-                <small>ЗАЛИШИЛОСЯ</small>
-                <strong id="ballLeft">${ballTarget}</strong>
+                <span>Залишилось</span>
+                <strong id="ballLeft">10</strong>
             </div>
 
         </div>
@@ -949,313 +1442,680 @@ function renderBallChallenge() {
             <div
                 class="ball"
                 id="ball"
-                onclick="catchBall(event)"
-            ></div>
+                onclick="catchBall(event)">
+            </div>
 
         </div>
     `;
 
-    positionBall();
-
-    ballTimer = setInterval(updateBallTimer,100);
-
+    moveBall();
 }
 
 
-/* =========================
-   BALL POSITION
-========================= */
+function moveBall(){
 
-function positionBall() {
-
-    const area = document.getElementById("ballArea");
-    const ball = document.getElementById("ball");
+    const area=$("ballArea");
+    const ball=$("ball");
 
     if(!area || !ball) return;
 
-    const padding = 45;
+    const margin=42;
 
-    const x =
-        padding +
-        Math.random() *
-        (area.clientWidth - padding*2);
+    const x=
+        margin+
+        Math.random()*
+        (area.clientWidth-margin*2);
 
-    const y =
-        padding +
-        Math.random() *
-        (area.clientHeight - padding*2);
+    const y=
+        margin+
+        Math.random()*
+        (area.clientHeight-margin*2);
 
-    ball.style.left = x + "px";
-    ball.style.top = y + "px";
+    ball.style.left=x+"px";
+    ball.style.top=y+"px";
 }
 
 
-/* =========================
-   CATCH BALL
-========================= */
+function catchBall(event){
 
-function catchBall(event) {
-
-    if(ballStarted === false) {
-        ballStarted = true;
-    }
+    if(ballSeconds<=0) return;
 
     ballHits++;
 
+    score+=50;
+    combo++;
+    bestCombo=Math.max(bestCombo,combo);
+
     vibrate(25);
 
-    createHitEffect(event.clientX,event.clientY);
+    createHit(event.clientX,event.clientY);
 
-    const hits = document.getElementById("ballHits");
-    const left = document.getElementById("ballLeft");
+    $("ballHits").textContent=
+        ballHits+" / "+ballTarget;
 
-    if(hits)
-        hits.textContent =
-            `${ballHits} / ${ballTarget}`;
+    $("ballLeft").textContent=
+        Math.max(ballTarget-ballHits,0);
 
-    if(left)
-        left.textContent =
-            Math.max(0,ballTarget-ballHits);
+    $("hudScore").textContent=score;
 
-    score += 50;
-    combo++;
+    moveBall();
 
-    if(combo > bestCombo)
-        bestCombo = combo;
+    if(ballHits>=ballTarget){
 
-    document.getElementById("scoreDisplay").textContent = score;
+        finishBall(true);
 
-    if(ballHits >= ballTarget) {
-
-        clearInterval(ballTimer);
-
-        success();
-
-        setTimeout(() => {
-
-            challengeIndex++;
-            level++;
-
-            if(level > 20) level = 20;
-
-            loadChallenge();
-
-        },500);
-
-        return;
     }
-
-    positionBall();
 }
 
 
-/* =========================
-   BALL TIMER
-========================= */
+function finishBall(success){
 
-function updateBallTimer() {
+    if(!ballTimer && !ballMoveTimer) return;
 
-    ballTime -= .1;
+    clearInterval(ballTimer);
+    clearInterval(ballMoveTimer);
 
-    const timer =
-        document.getElementById("ballTime");
+    ballTimer=null;
+    ballMoveTimer=null;
 
-    if(timer) {
+    if(success){
 
-        timer.textContent =
-            Math.max(0,ballTime).toFixed(1) + " с";
+        score+=250;
+        xp+=50;
 
+        vibrate([25,40,25]);
+
+        toast("🎯 Випробування пройдено");
+
+    }else{
+
+        fail();
+
+        toast(
+            "Час вийшов: "+ballHits+"/"+ballTarget
+        );
+
+        if(errors<=0){
+
+            setTimeout(gameOver,500);
+            return;
+        }
     }
 
-    if(ballTime <= 0) {
+    setTimeout(()=>{
 
-        clearInterval(ballTimer);
+        level++;
+        nextLogicQuestion();
 
-        if(ballHits < ballTarget) {
+    },700);
+}
+
+
+/* =====================================================
+   OTHER MOTOR CHALLENGES
+=====================================================
+
+   Можемо запускати їх окремо пізніше.
+   Вони вже готові в архітектурі гри.
+===================================================== */
+
+
+/* =====================================================
+   1. STOP SIGNAL
+===================================================== */
+
+function startStopChallenge(){
+
+    clearAllTimers();
+
+    let good=0;
+    let needed=6;
+    let stopped=false;
+
+    $("challenge").innerHTML=`
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                🛑 Контроль реакції
+            </div>
+
+            <h2>Не поспішай</h2>
+
+            <p>
+                Натискай тільки тоді, коли побачиш зелений сигнал.
+            </p>
+
+        </div>
+
+        <div class="motor-zone">
+
+            <button
+                class="big-action"
+                id="stopButton"
+                onclick="stopSignalClick()">
+
+                ЧЕКАЙ...
+
+            </button>
+
+        </div>
+    `;
+
+    window.stopGood=good;
+    window.stopNeeded=needed;
+    window.stopStopped=stopped;
+
+    function change(){
+
+        const btn=$("stopButton");
+
+        if(!btn) return;
+
+        const go=Math.random()>.45;
+
+        if(go){
+
+            btn.textContent="НАТИСКАЙ";
+            btn.style.background="rgba(53,231,125,.2)";
+            btn.style.borderColor="var(--green)";
+            window.stopStopped=false;
+
+        }else{
+
+            btn.textContent="НЕ НАТИСКАЙ";
+            btn.style.background="rgba(255,77,109,.2)";
+            btn.style.borderColor="var(--red)";
+            window.stopStopped=true;
+        }
+
+        motorTimer=setTimeout(change,700+Math.random()*700);
+    }
+
+    window.stopSignalClick=function(){
+
+        if(window.stopStopped){
 
             fail();
 
-            setTimeout(() => {
+            if(errors<=0){
+                gameOver();
+                return;
+            }
 
-                if(errors <= 0) {
+            return;
+        }
 
-                    gameOver();
+        window.stopGood++;
 
-                } else {
+        combo++;
+        score+=60;
 
-                    renderBallChallenge();
+        vibrate(25);
 
-                }
+        $("stopButton").textContent=
+            window.stopGood+" / "+window.stopNeeded;
+
+        if(window.stopGood>=window.stopNeeded){
+
+            clearTimeout(motorTimer);
+
+            xp+=30;
+
+            setTimeout(()=>{
+
+                level++;
+                nextLogicQuestion();
+
+            },500);
+        }
+    };
+
+    change();
+}
+
+
+/* =====================================================
+   2. REACTION
+===================================================== */
+
+function startReactionChallenge(){
+
+    clearAllTimers();
+
+    let ready=false;
+    let start=0;
+    let attempts=0;
+
+    $("challenge").innerHTML=`
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                ⚡ Реакція
+            </div>
+
+            <h2>Натисни в потрібний момент</h2>
+
+            <p>
+                Натисни на зелений сигнал якомога швидше.
+            </p>
+
+        </div>
+
+        <div
+            class="reaction-dot"
+            id="reactionDot"
+            onclick="reactionClick()">
+        </div>
+    `;
+
+    function wait(){
+
+        ready=false;
+
+        const delay=1000+Math.random()*2500;
+
+        reactionTimer=setTimeout(()=>{
+
+            const dot=$("reactionDot");
+
+            if(!dot) return;
+
+            dot.classList.add("go");
+
+            ready=true;
+            start=performance.now();
+
+        },delay);
+    }
+
+    window.reactionClick=function(){
+
+        const dot=$("reactionDot");
+
+        if(!dot) return;
+
+        if(!ready){
+
+            fail();
+
+            if(errors<=0){
+                gameOver();
+            }
+
+            return;
+        }
+
+        const reaction=
+            Math.round(performance.now()-start);
+
+        attempts++;
+
+        dot.classList.remove("go");
+
+        combo++;
+
+        score+=Math.max(100-reaction/5,20);
+
+        vibrate(20);
+
+        if(attempts>=5){
+
+            clearTimeout(reactionTimer);
+
+            xp+=35;
+
+            setTimeout(()=>{
+
+                level++;
+                nextLogicQuestion();
 
             },600);
 
+        }else{
+
+            toast(reaction+" мс");
+
+            wait();
+        }
+    };
+
+    wait();
+}
+
+
+/* =====================================================
+   3. TRACK THE TARGET
+===================================================== */
+
+function startTrackingChallenge(){
+
+    clearAllTimers();
+
+    let correct=0;
+    const needed=5;
+
+    const cells=[0,1,2,3,4,5,6,7,8];
+
+    $("challenge").innerHTML=`
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                👁 Увага
+            </div>
+
+            <h2>Слідкуй за ціллю</h2>
+
+            <p>
+                Запам'ятай, де була підсвічена клітинка.
+            </p>
+
+        </div>
+
+        <div class="mini-grid" id="trackGrid">
+
+            ${cells.map(i=>`
+
+                <button
+                    class="mini-cell"
+                    data-index="${i}"
+                    onclick="trackClick(${i})">
+                </button>
+
+            `).join("")}
+
+        </div>
+    `;
+
+    let current=random(cells);
+
+    setTimeout(()=>{
+
+        const cell=
+            document.querySelector(
+                `.mini-cell[data-index="${current}"]`
+            );
+
+        if(cell){
+
+            cell.classList.add("active");
+
+            setTimeout(()=>{
+                cell.classList.remove("active");
+            },500);
         }
 
-    }
+    },300);
+
+    window.trackClick=function(index){
+
+        if(index===current){
+
+            correct++;
+            combo++;
+            score+=90;
+            vibrate(20);
+
+            if(correct>=needed){
+
+                xp+=40;
+
+                setTimeout(()=>{
+
+                    level++;
+                    nextLogicQuestion();
+
+                },450);
+
+                return;
+            }
+
+        }else{
+
+            fail();
+
+            if(errors<=0){
+                gameOver();
+                return;
+            }
+        }
+
+        current=random(cells);
+
+        setTimeout(()=>{
+
+            const cell=
+                document.querySelector(
+                    `.mini-cell[data-index="${current}"]`
+                );
+
+            if(cell){
+
+                cell.classList.add("active");
+
+                setTimeout(()=>{
+                    cell.classList.remove("active");
+                },450);
+            }
+
+        },180);
+    };
 }
 
 
-/* =========================
-   SUCCESS
-========================= */
+/* =====================================================
+   4. HIT SEQUENCE
+===================================================== */
 
-function success() {
+function startSequenceChallenge(){
 
-    combo++;
+    clearAllTimers();
 
-    if(combo > bestCombo)
-        bestCombo = combo;
+    const sequence=shuffle([1,2,3,4,5]);
 
-    score += 100 + combo*10;
-    xp += 25 + combo*2;
+    let index=0;
 
-    flash("good");
+    $("challenge").innerHTML=`
 
-    vibrate(20);
+        <div class="challenge-header">
 
-    updateHUD();
+            <div class="tag">
+                👆 Координація
+            </div>
+
+            <h2>Натисни у правильному порядку</h2>
+
+            <p>
+                1 → 2 → 3 → 4 → 5
+            </p>
+
+        </div>
+
+        <div class="sequence-buttons">
+
+            ${sequence.map(num=>`
+
+                <button
+                    class="seq-button"
+                    onclick="sequenceClick(${num},this)">
+
+                    ${num}
+
+                </button>
+
+            `).join("")}
+
+        </div>
+    `;
+
+    window.sequenceClick=function(num,button){
+
+        if(num===index+1){
+
+            index++;
+
+            button.style.background=
+                "rgba(53,231,125,.18)";
+
+            button.disabled=true;
+
+            combo++;
+            score+=70;
+
+            vibrate(20);
+
+            if(index===5){
+
+                xp+=35;
+
+                setTimeout(()=>{
+
+                    level++;
+                    nextLogicQuestion();
+
+                },450);
+            }
+
+        }else{
+
+            button.classList.add("wrong");
+
+            fail();
+
+            setTimeout(()=>{
+                button.classList.remove("wrong");
+            },300);
+
+            if(errors<=0){
+                gameOver();
+            }
+        }
+    };
 }
 
 
-/* =========================
-   FAIL
-========================= */
-
-function fail() {
-
-    errors--;
-    combo = 0;
-
-    flash("bad");
-
-    vibrate([60,40,60]);
-
-    updateHUD();
-}
-
-
-/* =========================
-   VIBRATION
-========================= */
-
-function vibrate(pattern) {
-
-    if("vibrate" in navigator) {
-
-        try {
-            navigator.vibrate(pattern);
-        } catch(e) {}
-
-    }
-}
-
-
-/* =========================
+/* =====================================================
    HIT EFFECT
-========================= */
+===================================================== */
 
-function createHitEffect(x,y) {
+function createHit(x,y){
 
-    const effect =
-        document.createElement("div");
+    const effect=document.createElement("div");
 
-    effect.className = "hit";
+    effect.className="hit-effect";
 
-    effect.style.left = x + "px";
-    effect.style.top = y + "px";
+    effect.style.left=x+"px";
+    effect.style.top=y+"px";
 
     document.body.appendChild(effect);
 
-    setTimeout(() => effect.remove(),400);
+    setTimeout(()=>{
+        effect.remove();
+    },400);
 }
 
 
-/* =========================
-   FLASH
-========================= */
+/* =====================================================
+   CLEAR TIMERS
+===================================================== */
 
-function flash(type) {
-
-    const f =
-        document.getElementById("flash");
-
-    f.className = "flash " + type;
-
-    setTimeout(() => {
-        f.className = "flash";
-    },300);
-}
-
-
-/* =========================
-   GAME OVER
-========================= */
-
-function gameOver() {
+function clearAllTimers(){
 
     clearInterval(ballTimer);
+    clearInterval(ballMoveTimer);
+    clearInterval(motorTimer);
+    clearTimeout(reactionTimer);
 
-    if(score > bestScore) {
+    ballTimer=null;
+    ballMoveTimer=null;
+    motorTimer=null;
+    reactionTimer=null;
+}
 
-        bestScore = score;
+
+/* =====================================================
+   GAME OVER
+===================================================== */
+
+function gameOver(){
+
+    clearAllTimers();
+
+    const best=
+        Number(localStorage.getItem("neuroBest")||0);
+
+    if(score>best){
 
         localStorage.setItem(
             "neuroBest",
-            bestScore
+            score
         );
     }
 
-    document.getElementById("gameScreen")
-        .classList.remove("active");
+    $("gameScreen").classList.remove("active");
+    $("resultScreen").classList.add("active");
 
-    document.getElementById("resultScreen")
-        .classList.add("active");
+    $("resultIcon").textContent="💥";
+    $("resultTitle").textContent="Гра завершена";
 
-    document.getElementById("resultIcon")
-        .textContent = "💥";
-
-    document.getElementById("resultTitle")
-        .textContent = "Випробування завершено";
-
-    document.getElementById("resultText")
-        .textContent =
+    $("resultText").textContent=
         "Ти використав усі допустимі помилки.";
 
-    document.getElementById("resultScore")
-        .textContent = score;
-
-    document.getElementById("resultXP")
-        .textContent = xp;
-
-    document.getElementById("resultLevel")
-        .textContent = level;
-
-    document.getElementById("resultCombo")
-        .textContent = bestCombo;
+    $("resultScore").textContent=score;
+    $("resultXP").textContent=xp;
+    $("resultLevel").textContent=level;
+    $("resultCombo").textContent=bestCombo;
 }
 
 
-/* =========================
-   NEXT GAME
-========================= */
+/* =====================================================
+   RETURN HOME
+===================================================== */
 
-function nextGame() {
+function returnHome(){
 
-    document.getElementById("resultScreen")
-        .classList.remove("active");
+    clearAllTimers();
 
-    document.getElementById("startScreen")
-        .classList.add("active");
+    $("resultScreen").classList.remove("active");
+    $("gameScreen").classList.remove("active");
+    $("startScreen").classList.add("active");
 
-    document.getElementById("startLevel")
-        .textContent = level;
+    const best=
+        Number(localStorage.getItem("neuroBest")||0);
 
-    document.getElementById("startBest")
-        .textContent = bestScore;
-
-    document.getElementById("startXP")
-        .textContent = xp;
+    $("bestScore").textContent=best;
 }
+
+
+/* =====================================================
+   ESCAPE HELPERS
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+}
+
+function escapeJs(value){
+
+    return String(value)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+}
+
+
+/* =====================================================
+   LOAD BEST SCORE
+===================================================== */
+
+$("bestScore").textContent=
+    Number(localStorage.getItem("neuroBest")||0);
 
 </script>
 
