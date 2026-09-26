@@ -2,938 +2,1259 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>DON'T TAP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NEURO — Mind Challenge</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 * {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
-  background: #05050b;
+:root {
+    --bg: #07090f;
+    --panel: #10131d;
+    --panel2: #151a26;
+    --text: #f5f7ff;
+    --muted: #8d95a8;
+    --accent: #7c5cff;
+    --accent2: #00d9ff;
+    --green: #32e875;
+    --red: #ff4f6d;
+    --yellow: #ffc857;
 }
 
 body {
-  background:
-    radial-gradient(circle at 50% 20%, #29204d 0%, #100d1c 35%, #05050b 75%);
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(124,92,255,.22), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(0,217,255,.08), transparent 30%),
+        var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 button {
-  font-family: inherit;
+    font: inherit;
 }
 
-.app {
-  width: 100%;
-  height: 100%;
-  max-width: 600px;
-  margin: auto;
-  padding: 18px;
-  position: relative;
+.screen {
+    min-height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.screen.active {
+    display: flex;
 }
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+}
+
+/* START */
 
 .logo {
-  font-size: 23px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-shadow: 0 0 20px #9b5cff;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo-mark {
+    width: 78px;
+    height: 78px;
+    margin: auto;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent), #4932c9);
+    box-shadow: 0 20px 60px rgba(124,92,255,.28);
+    font-size: 38px;
+}
+
+.logo h1 {
+    margin: 20px 0 5px;
+    font-size: 42px;
+    letter-spacing: -2px;
+}
+
+.logo p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.start-card {
+    background: rgba(16,19,29,.86);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 30px 100px rgba(0,0,0,.35);
+    backdrop-filter: blur(20px);
 }
 
 .stats {
-  display: flex;
-  gap: 7px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
 .stat {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  padding: 8px 11px;
-  border-radius: 12px;
-  font-size: 13px;
+    background: var(--panel2);
+    border-radius: 16px;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.stat b {
+    display: block;
+    font-size: 21px;
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.primary {
+    width: 100%;
+    border: 0;
+    border-radius: 17px;
+    padding: 17px;
+    color: white;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), #573de0);
+    box-shadow: 0 12px 30px rgba(124,92,255,.25);
+    transition: .18s;
+}
+
+.primary:active {
+    transform: scale(.97);
+}
+
+/* GAME */
+
+.game-screen {
+    display: none;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+.game-screen.active {
+    display: block;
+}
+
+.game-wrap {
+    max-width: 900px;
+    margin: auto;
+}
+
+.hud {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.hud-box {
+    background: rgba(16,19,29,.9);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 15px;
+    padding: 11px;
+    text-align: center;
+}
+
+.hud-box small {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.hud-box strong {
+    font-size: 15px;
+}
+
+.error-icons {
+    letter-spacing: 2px;
+    color: var(--red);
 }
 
 .progress {
-  height: 7px;
-  background: #1b1926;
-  border-radius: 10px;
-  margin-top: 18px;
-  overflow: hidden;
+    height: 5px;
+    background: #1b2030;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
 }
 
 .progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg,#7c3cff,#ff3ca6);
-  box-shadow: 0 0 15px #9d4edd;
-  transition: width .3s;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg,var(--accent),var(--accent2));
+    transition: width .35s;
 }
 
-.level {
-  text-align: center;
-  margin-top: 16px;
-  color: #777;
-  font-size: 12px;
-  letter-spacing: 3px;
+.challenge {
+    min-height: calc(100vh - 130px);
+    background:
+        radial-gradient(circle at 50% 30%, rgba(124,92,255,.07), transparent 40%),
+        rgba(16,19,29,.72);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 28px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
 }
 
-.instruction {
-  text-align: center;
-  min-height: 65px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 27px;
-  font-weight: 900;
-  margin-top: 8px;
-  text-shadow: 0 0 20px rgba(255,255,255,.18);
+.challenge-head {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
-.timer {
-  text-align: center;
-  color: #aaa;
-  height: 22px;
-  font-size: 14px;
+.challenge-type {
+    color: var(--accent2);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.arena {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 255px);
-  min-height: 360px;
-  margin-top: 10px;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12);
-  background:
-    radial-gradient(circle at 50% 50%, rgba(130,70,255,.08), transparent 55%),
-    rgba(10,10,18,.75);
-  box-shadow:
-    inset 0 0 70px rgba(120,50,255,.07),
-    0 20px 80px rgba(0,0,0,.45);
+.challenge h2 {
+    margin: 8px 0;
+    font-size: 27px;
 }
 
-.target {
-  position: absolute;
-  width: 105px;
-  height: 105px;
-  border-radius: 50%;
-  border: 0;
-  color: white;
-  font-size: 16px;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 0 30px currentColor, inset 0 0 25px rgba(255,255,255,.18);
-  animation: appear .18s ease-out;
+.challenge-description {
+    color: var(--muted);
+    font-size: 13px;
 }
 
-.target:active {
-  transform: scale(.88);
+/* LOGIC */
+
+.sequence {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 35px 0;
 }
 
-.red {
-  background: #ff3158;
-  color: #ff3158;
+.sequence-item {
+    min-width: 62px;
+    height: 62px;
+    padding: 10px;
+    background: var(--panel2);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 700;
 }
 
-.blue {
-  background: #3478ff;
-  color: #3478ff;
+.question-mark {
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
-.green {
-  background: #16d98b;
-  color: #16d98b;
+.answers {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 12px;
+    max-width: 500px;
+    margin: auto;
 }
 
-.yellow {
-  background: #ffd43b;
-  color: #ffd43b;
+.answer {
+    min-height: 70px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 17px;
+    background: var(--panel2);
+    color: white;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+    transition: .18s;
 }
 
-.purple {
-  background: #a855f7;
-  color: #a855f7;
+.answer:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
-.target span {
-  color: white;
-  text-shadow: 0 2px 5px #000;
+.answer:active {
+    transform: scale(.96);
 }
 
-.center-message {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #777;
-  font-size: 13px;
-  pointer-events: none;
+.answer.correct {
+    background: rgba(50,232,117,.15);
+    border-color: var(--green);
 }
 
-.pulse {
-  animation: pulse 1s infinite;
+.answer.wrong {
+    background: rgba(255,79,109,.15);
+    border-color: var(--red);
 }
 
-@keyframes pulse {
-  50% {
-    transform: scale(1.08);
-  }
+/* BALL */
+
+.ball-area {
+    height: min(65vh, 540px);
+    min-height: 400px;
+    position: relative;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at center, rgba(124,92,255,.08), transparent 55%),
+        #0b0e17;
+    border: 1px solid rgba(255,255,255,.06);
+    overflow: hidden;
+    touch-action: manipulation;
 }
 
-@keyframes appear {
-  from {
-    transform: scale(.3);
+.ball-hud {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.ball-stat {
+    flex: 1;
+    background: var(--panel2);
+    border-radius: 14px;
+    padding: 11px;
+    text-align: center;
+}
+
+.ball-stat small {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.ball-stat strong {
+    font-size: 18px;
+}
+
+.ball {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 32% 27%, #fff, #8b73ff 16%, #6348f2 50%, #3420a5 100%);
+    box-shadow:
+        0 0 20px rgba(124,92,255,.75),
+        0 0 55px rgba(124,92,255,.35);
+    cursor: pointer;
+    transform: translate(-50%,-50%);
+    transition: left .12s, top .12s, transform .12s;
+}
+
+.ball:active {
+    transform: translate(-50%,-50%) scale(.82);
+}
+
+.hit {
+    position: absolute;
+    pointer-events: none;
+    width: 70px;
+    height: 70px;
+    border: 2px solid rgba(124,92,255,.8);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    animation: hit .35s ease-out forwards;
+}
+
+@keyframes hit {
+    from { opacity: 1; transform: translate(-50%,-50%) scale(.5); }
+    to { opacity: 0; transform: translate(-50%,-50%) scale(1.8); }
+}
+
+/* RESULT */
+
+.result-card {
+    text-align: center;
+    background: rgba(16,19,29,.9);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 28px;
+    padding: 35px;
+}
+
+.result-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.result-card h2 {
+    font-size: 31px;
+    margin: 10px;
+}
+
+.result-card p {
+    color: var(--muted);
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.result-stat {
+    padding: 18px;
+    background: var(--panel2);
+    border-radius: 16px;
+}
+
+.result-stat span {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.result-stat strong {
+    font-size: 21px;
+}
+
+.flash {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
     opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+    z-index: 99;
 }
 
-.shake {
-  animation: shake .25s;
+.flash.good {
+    background: rgba(50,232,117,.08);
+    animation: flash .25s;
 }
 
-@keyframes shake {
-  25% { transform: translateX(-8px); }
-  50% { transform: translateX(8px); }
-  75% { transform: translateX(-5px); }
+.flash.bad {
+    background: rgba(255,79,109,.1);
+    animation: flash .25s;
 }
 
-.particle {
-  position: absolute;
-  pointer-events: none;
-  font-size: 24px;
-  animation: particle .65s forwards;
-  z-index: 5;
+@keyframes flash {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
-@keyframes particle {
-  from {
-    transform: translate(0,0) scale(.5);
-    opacity: 1;
-  }
-  to {
-    transform: translate(0,-60px) scale(1.8);
-    opacity: 0;
-  }
-}
+@media(max-width:600px) {
+    .logo h1 {
+        font-size: 35px;
+    }
 
-.footer {
-  text-align: center;
-  color: #555;
-  font-size: 11px;
-  margin-top: 9px;
-}
+    .challenge {
+        padding: 18px;
+        border-radius: 22px;
+    }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-  background: rgba(3,3,8,.9);
-  backdrop-filter: blur(15px);
-}
+    .challenge h2 {
+        font-size: 23px;
+    }
 
-.card {
-  width: 100%;
-  max-width: 430px;
-  padding: 32px 24px;
-  border-radius: 28px;
-  text-align: center;
-  background: linear-gradient(145deg,#181624,#0e0d15);
-  border: 1px solid rgba(255,255,255,.13);
-  box-shadow: 0 30px 100px #000;
-}
+    .sequence-item {
+        min-width: 53px;
+        height: 53px;
+        font-size: 21px;
+    }
 
-.card h1 {
-  margin: 0;
-  font-size: 43px;
-  letter-spacing: 3px;
-  text-shadow: 0 0 25px #a855f7;
-}
-
-.card p {
-  color: #999;
-  line-height: 1.6;
-}
-
-.start-button,
-.restart-button {
-  width: 100%;
-  border: 0;
-  border-radius: 16px;
-  padding: 17px;
-  margin-top: 15px;
-  color: white;
-  font-size: 18px;
-  font-weight: 900;
-  background: linear-gradient(135deg,#743cff,#ed3fa5);
-  box-shadow: 0 0 30px rgba(150,60,255,.35);
-  cursor: pointer;
-}
-
-.best {
-  color: #c084fc;
-  font-weight: bold;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.big-score {
-  font-size: 58px;
-  font-weight: 900;
-  color: #c084fc;
-  margin: 12px 0;
-  text-shadow: 0 0 25px #9333ea;
+    .ball-area {
+        min-height: 420px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="startScreen" class="overlay">
-  <div class="card">
-    <h1>DON'T<br>TAP</h1>
-    <p>
-      Гра, яка буде постійно<br>
-      намагатися тебе обдурити 😈
-    </p>
+<div class="flash" id="flash"></div>
 
-    <p>
-      Рекорд:
-      <span class="best" id="menuBest">0</span>
-    </p>
+<!-- START -->
+<section class="screen active" id="startScreen">
+    <div class="container">
+        <div class="logo">
+            <div class="logo-mark">🧠</div>
+            <h1>NEURO</h1>
+            <p>Mind · Reflex · Focus</p>
+        </div>
 
-    <button class="start-button" onclick="startGame()">
-      ПОЧАТИ ГРУ
-    </button>
-  </div>
-</div>
+        <div class="start-card">
 
-<div id="gameOver" class="overlay hidden">
-  <div class="card">
-    <h1 id="endTitle">GAME OVER</h1>
+            <div class="stats">
+                <div class="stat">
+                    <b id="startLevel">1</b>
+                    <span>РІВЕНЬ</span>
+                </div>
+                <div class="stat">
+                    <b id="startBest">0</b>
+                    <span>РЕКОРД</span>
+                </div>
+                <div class="stat">
+                    <b id="startXP">0</b>
+                    <span>XP</span>
+                </div>
+            </div>
 
-    <p>Твій результат</p>
+            <button class="primary" onclick="startGame()">
+                ПОЧАТИ ВИПРОБУВАННЯ
+            </button>
 
-    <div class="big-score" id="finalScore">0</div>
-
-    <p>
-      Рекорд:
-      <span class="best" id="finalBest">0</span>
-    </p>
-
-    <button class="restart-button" onclick="startGame()">
-      ГРАТИ ЗНОВУ
-    </button>
-  </div>
-</div>
-
-<div class="app">
-
-  <div class="header">
-
-    <div class="logo">
-      DON'T TAP
+        </div>
     </div>
+</section>
 
-    <div class="stats">
-      <div class="stat">
-        ❤️ <span id="lives">3</span>
-      </div>
 
-      <div class="stat">
-        🔥 <span id="combo">0</span>
-      </div>
+<!-- GAME -->
+<section class="game-screen" id="gameScreen">
+    <div class="game-wrap">
 
-      <div class="stat">
-        ⭐ <span id="score">0</span>
-      </div>
+        <div class="hud">
+
+            <div class="hud-box">
+                <small>Рівень</small>
+                <strong id="levelDisplay">1</strong>
+            </div>
+
+            <div class="hud-box">
+                <small>Помилки</small>
+                <strong class="error-icons" id="errorsDisplay">❤️ ❤️ ❤️</strong>
+            </div>
+
+            <div class="hud-box">
+                <small>Очки</small>
+                <strong id="scoreDisplay">0</strong>
+            </div>
+
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="challenge" id="challenge"></div>
+
     </div>
+</section>
 
-  </div>
 
-  <div class="progress">
-    <div id="progressBar" class="progress-bar"></div>
-  </div>
+<!-- RESULT -->
+<section class="screen" id="resultScreen">
+    <div class="container">
+        <div class="result-card">
 
-  <div class="level">
-    LEVEL <span id="level">1</span> / 20
-  </div>
+            <div class="result-icon" id="resultIcon">🎉</div>
 
-  <div id="instruction" class="instruction">
-    НЕ НАТИСКАЙ
-  </div>
+            <h2 id="resultTitle">Випробування завершено</h2>
 
-  <div id="timer" class="timer">
-    Готуйся...
-  </div>
+            <p id="resultText"></p>
 
-  <div id="arena" class="arena">
+            <div class="result-stats">
+                <div class="result-stat">
+                    <span>ОЧКИ</span>
+                    <strong id="resultScore">0</strong>
+                </div>
 
-    <div class="center-message">
-      <span id="arenaMessage">
-        Натисни «ПОЧАТИ ГРУ»
-      </span>
+                <div class="result-stat">
+                    <span>XP</span>
+                    <strong id="resultXP">0</strong>
+                </div>
+
+                <div class="result-stat">
+                    <span>РІВЕНЬ</span>
+                    <strong id="resultLevel">1</strong>
+                </div>
+
+                <div class="result-stat">
+                    <span>КОМБО</span>
+                    <strong id="resultCombo">0</strong>
+                </div>
+            </div>
+
+            <button class="primary" onclick="nextGame()">
+                ПРОДОВЖИТИ
+            </button>
+
+        </div>
     </div>
+</section>
 
-  </div>
-
-  <div class="footer">
-    Не довіряй написам. Не довіряй кнопкам. 😈
-  </div>
-
-</div>
 
 <script>
 
+/* =========================
+   GAME STATE
+========================= */
+
 let level = 1;
 let score = 0;
-let lives = 3;
+let xp = 0;
+let errors = 3;
 let combo = 0;
+let bestCombo = 0;
 
-let timer = null;
-let movingTimer = null;
-let gameRunning = false;
+let challengeIndex = 0;
+let ballHits = 0;
+let ballTarget = 10;
+let ballTime = 20;
+let ballTimer = null;
+let ballStarted = false;
 
-const arena = document.getElementById("arena");
+const challenges = [
+    "logicNumber",
+    "logicShape",
+    "ball"
+];
 
-const instruction = document.getElementById("instruction");
-const timerText = document.getElementById("timer");
+const challenge = document.getElementById("challenge");
 
-const livesText = document.getElementById("lives");
-const comboText = document.getElementById("combo");
-const scoreText = document.getElementById("score");
 
-const levelText = document.getElementById("level");
-const progressBar = document.getElementById("progressBar");
+/* =========================
+   STORAGE
+========================= */
 
-let best = Number(localStorage.getItem("dontTapBest") || 0);
+let bestScore = Number(localStorage.getItem("neuroBest") || 0);
 
-document.getElementById("menuBest").textContent = best;
+document.getElementById("startBest").textContent = bestScore;
 
-function updateUI() {
 
-  livesText.textContent = lives;
-  comboText.textContent = combo;
-  scoreText.textContent = score;
-  levelText.textContent = level;
-
-  progressBar.style.width =
-    ((level - 1) / 20 * 100) + "%";
-}
-
-function clearTimers() {
-
-  clearTimeout(timer);
-  clearInterval(movingTimer);
-
-  timer = null;
-  movingTimer = null;
-}
-
-function clearArena() {
-
-  clearTimers();
-
-  arena.querySelectorAll(".target,.particle").forEach(el => el.remove());
-}
-
-function randomPosition(size = 105) {
-
-  const padding = 8;
-
-  return {
-    x: Math.random() *
-      Math.max(1, arena.clientWidth - size - padding * 2)
-      + padding,
-
-    y: Math.random() *
-      Math.max(1, arena.clientHeight - size - padding * 2)
-      + padding
-  };
-}
-
-function particle(x, y, good) {
-
-  const p = document.createElement("div");
-
-  p.className = "particle";
-
-  p.textContent = good ? "✨" : "💥";
-
-  p.style.left = x + "px";
-  p.style.top = y + "px";
-
-  arena.appendChild(p);
-
-  setTimeout(() => p.remove(), 700);
-}
-
-function createButton(x, y, color, text, callback) {
-
-  const b = document.createElement("button");
-
-  b.className = "target " + color;
-
-  b.style.left = x + "px";
-  b.style.top = y + "px";
-
-  b.innerHTML = "<span>" + text + "</span>";
-
-  b.onclick = function(e) {
-
-    e.stopPropagation();
-
-    particle(x + 45, y + 45, true);
-
-    callback();
-  };
-
-  arena.appendChild(b);
-
-  return b;
-}
-
-function loseLife() {
-
-  lives--;
-  combo = 0;
-
-  arena.classList.remove("shake");
-
-  void arena.offsetWidth;
-
-  arena.classList.add("shake");
-
-  updateUI();
-
-  if (navigator.vibrate) {
-    navigator.vibrate(120);
-  }
-
-  if (lives <= 0) {
-
-    endGame(false);
-
-    return true;
-  }
-
-  return false;
-}
-
-function success() {
-
-  if (!gameRunning) return;
-
-  score += 10 + combo * 3;
-
-  combo++;
-
-  level++;
-
-  if (navigator.vibrate) {
-    navigator.vibrate(35);
-  }
-
-  if (level > 20) {
-
-    endGame(true);
-
-    return;
-  }
-
-  updateUI();
-
-  startLevel();
-}
-
-function waitLevel(seconds) {
-
-  timerText.textContent =
-    "НЕ РУХАЙСЯ • " + seconds;
-
-  let remaining = seconds;
-
-  const tick = () => {
-
-    remaining--;
-
-    timerText.textContent =
-      "НЕ РУХАЙСЯ • " + remaining;
-
-    if (remaining <= 0) {
-
-      success();
-
-    } else {
-
-      timer = setTimeout(tick, 1000);
-    }
-  };
-
-  timer = setTimeout(tick, 1000);
-}
-
-function startLevel() {
-
-  if (!gameRunning) return;
-
-  clearArena();
-
-  updateUI();
-
-  document.getElementById("arenaMessage").textContent = "";
-
-  /*
-    LEVELS 1-3
-    Просто НЕ НАТИСКАЙ
-  */
-
-  if (level <= 3) {
-
-    instruction.textContent = "НЕ НАТИСКАЙ";
-
-    const seconds = 4 - level + 1;
-
-    timerText.textContent =
-      "Витримай " + seconds + " секунд";
-
-    timer = setTimeout(success, seconds * 1000);
-
-    return;
-  }
-
-  /*
-    LEVEL 4
-    Натисни зелену
-  */
-
-  if (level === 4) {
-
-    instruction.textContent = "НАТИСНИ ЗЕЛЕНУ";
-
-    timerText.textContent =
-      "Тільки одна правильна";
-
-    const colors = [
-      "red",
-      "blue",
-      "green",
-      "yellow"
-    ];
-
-    colors.forEach(color => {
-
-      const p = randomPosition();
-
-      createButton(
-        p.x,
-        p.y,
-        color,
-        color === "green" ? "✓" : "✕",
-        color === "green"
-          ? success
-          : () => {
-              if (!loseLife()) startLevel();
-            }
-      );
-
-    });
-
-    return;
-  }
-
-  /*
-    LEVEL 5-7
-    НЕ НАТИСКАЙ ЧЕРВОНУ
-  */
-
-  if (level <= 7) {
-
-    instruction.textContent =
-      "НЕ НАТИСКАЙ ЧЕРВОНУ";
-
-    timerText.textContent =
-      "Знайди безпечну";
-
-    const colors = [
-      "red",
-      "blue",
-      "green",
-      "yellow"
-    ];
-
-    colors.forEach(color => {
-
-      const p = randomPosition();
-
-      createButton(
-        p.x,
-        p.y,
-        color,
-        color === "red" ? "НЕ" : "✓",
-        color === "red"
-          ? () => {
-              if (!loseLife()) startLevel();
-            }
-          : success
-      );
-
-    });
-
-    return;
-  }
-
-  /*
-    LEVEL 8-10
-    Один правильний
-  */
-
-  if (level <= 10) {
-
-    instruction.textContent =
-      "ЗНАЙДИ ФІОЛЕТОВУ";
-
-    timerText.textContent =
-      "Не поспішай 😈";
-
-    const colors = [
-      "red",
-      "blue",
-      "green",
-      "yellow",
-      "purple"
-    ];
-
-    colors.forEach(color => {
-
-      const p = randomPosition();
-
-      createButton(
-        p.x,
-        p.y,
-        color,
-        color === "purple" ? "✓" : "?",
-        color === "purple"
-          ? success
-          : () => {
-              if (!loseLife()) startLevel();
-            }
-      );
-
-    });
-
-    return;
-  }
-
-  /*
-    LEVEL 11-13
-    Рухома кнопка
-  */
-
-  if (level <= 13) {
-
-    instruction.textContent =
-      "ЗЕЛЕНА ТІКАЄ";
-
-    timerText.textContent =
-      "Злови її!";
-
-    const b = createButton(
-      30,
-      30,
-      "green",
-      "ЗЛОВИ",
-      () => {
-        clearTimers();
-        success();
-      }
-    );
-
-    movingTimer = setInterval(() => {
-
-      const p = randomPosition();
-
-      b.style.left = p.x + "px";
-      b.style.top = p.y + "px";
-
-    }, 450);
-
-    return;
-  }
-
-  /*
-    LEVEL 14-16
-    Не натискай нічого
-  */
-
-  if (level <= 16) {
-
-    instruction.textContent =
-      "НЕ НАТИСКАЙ НІЧОГО";
-
-    waitLevel(3);
-
-    return;
-  }
-
-  /*
-    LEVEL 17-19
-    Чотири кнопки, тільки одна
-  */
-
-  if (level <= 19) {
-
-    instruction.textContent =
-      "НАТИСНИ ЄДИНУ ПРАВИЛЬНУ";
-
-    timerText.textContent =
-      "Уважно...";
-
-    const colors = [
-      "red",
-      "blue",
-      "green",
-      "purple"
-    ];
-
-    colors.forEach((color, index) => {
-
-      const p = randomPosition();
-
-      createButton(
-        p.x,
-        p.y,
-        color,
-        index === 2 ? "✓" : "?",
-        index === 2
-          ? success
-          : () => {
-              if (!loseLife()) startLevel();
-            }
-      );
-
-    });
-
-    return;
-  }
-
-  /*
-    LEVEL 20
-    Фінальна пастка
-  */
-
-  if (level === 20) {
-
-    instruction.textContent =
-      "ОСТАННЯ ПЕРЕВІРКА";
-
-    timerText.textContent =
-      "НЕ НАТИСКАЙ 5 СЕКУНД";
-
-    waitLevel(5);
-  }
-}
-
-arena.onclick = function() {
-
-  if (!gameRunning) return;
-
-  /*
-    На рівнях, де треба чекати,
-    натискання є помилкою.
-  */
-
-  if (
-    level <= 3 ||
-    (level >= 14 && level <= 16) ||
-    level === 20
-  ) {
-
-    particle(
-      arena.clientWidth / 2,
-      arena.clientHeight / 2,
-      false
-    );
-
-    if (!loseLife()) {
-      startLevel();
-    }
-  }
-};
+/* =========================
+   START
+========================= */
 
 function startGame() {
 
-  clearTimers();
+    level = 1;
+    score = 0;
+    xp = 0;
+    errors = 3;
+    combo = 0;
+    bestCombo = 0;
+    challengeIndex = 0;
 
-  level = 1;
-  score = 0;
-  lives = 3;
-  combo = 0;
+    document.getElementById("startScreen").classList.remove("active");
+    document.getElementById("resultScreen").classList.remove("active");
+    document.getElementById("gameScreen").classList.add("active");
 
-  gameRunning = true;
-
-  document.getElementById("startScreen")
-    .classList.add("hidden");
-
-  document.getElementById("gameOver")
-    .classList.add("hidden");
-
-  startLevel();
+    updateHUD();
+    loadChallenge();
 }
 
-function endGame(won) {
 
-  clearTimers();
+/* =========================
+   HUD
+========================= */
 
-  gameRunning = false;
+function updateHUD() {
 
-  if (score > best) {
+    document.getElementById("levelDisplay").textContent = level;
+    document.getElementById("scoreDisplay").textContent = score;
 
-    best = score;
+    let hearts = "";
 
-    localStorage.setItem(
-      "dontTapBest",
-      best
+    for(let i=0;i<3;i++) {
+        hearts += i < errors ? "❤️ " : "🖤 ";
+    }
+
+    document.getElementById("errorsDisplay").textContent = hearts.trim();
+
+    const progress =
+        ((challengeIndex % challenges.length) /
+        challenges.length) * 100;
+
+    document.getElementById("progressBar").style.width =
+        progress + "%";
+}
+
+
+/* =========================
+   LOAD CHALLENGE
+========================= */
+
+function loadChallenge() {
+
+    clearInterval(ballTimer);
+    ballStarted = false;
+
+    const type = challenges[challengeIndex % challenges.length];
+
+    if(type === "logicNumber") {
+        renderNumberLogic();
+    }
+
+    if(type === "logicShape") {
+        renderShapeLogic();
+    }
+
+    if(type === "ball") {
+        renderBallChallenge();
+    }
+
+    updateHUD();
+}
+
+
+/* =========================
+   NUMBER LOGIC
+========================= */
+
+function renderNumberLogic() {
+
+    const questions = [
+
+        {
+            seq: ["2","4","8","16","?"],
+            answers: ["18","24","30","32"],
+            correct: "32"
+        },
+
+        {
+            seq: ["3","6","12","24","?"],
+            answers: ["36","42","48","54"],
+            correct: "48"
+        },
+
+        {
+            seq: ["5","10","15","20","?"],
+            answers: ["22","24","25","30"],
+            correct: "25"
+        },
+
+        {
+            seq: ["1","4","9","16","?"],
+            answers: ["20","24","25","36"],
+            correct: "25"
+        }
+
+    ];
+
+    const q = questions[
+        Math.floor(Math.random() * questions.length)
+    ];
+
+    challenge.innerHTML = `
+
+        <div class="challenge-head">
+            <div class="challenge-type">🧠 Логічне випробування</div>
+
+            <h2>Знайди закономірність</h2>
+
+            <div class="challenge-description">
+                Зрозумій правило та вибери наступний елемент.
+            </div>
+        </div>
+
+        <div class="sequence">
+            ${q.seq.map((x,i) => `
+                <div class="sequence-item ${x==="?" ? "question-mark":""}">
+                    ${x}
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="answers">
+            ${q.answers.map(a => `
+                <button class="answer"
+                    onclick="logicAnswer(this,'${a}','${q.correct}')">
+                    ${a}
+                </button>
+            `).join("")}
+        </div>
+    `;
+}
+
+
+/* =========================
+   SHAPE LOGIC
+========================= */
+
+function renderShapeLogic() {
+
+    const questions = [
+
+        {
+            seq: ["▲","●","▲","●","?"],
+            answers: ["▲","●","■","◆"],
+            correct: "▲"
+        },
+
+        {
+            seq: ["◆","◆◆","◆◆◆","?"],
+            answers: ["◆","◆◆","◆◆◆◆","●"],
+            correct: "◆◆◆◆"
+        },
+
+        {
+            seq: ["🔵","🔴","🟢","🔵","🔴","?"],
+            answers: ["🔵","🔴","🟢","🟡"],
+            correct: "🟢"
+        }
+
+    ];
+
+    const q =
+        questions[Math.floor(Math.random()*questions.length)];
+
+    challenge.innerHTML = `
+
+        <div class="challenge-head">
+            <div class="challenge-type">👁 Увага та логіка</div>
+
+            <h2>Що має бути далі?</h2>
+
+            <div class="challenge-description">
+                Не поспішай. Знайди правило послідовності.
+            </div>
+        </div>
+
+        <div class="sequence">
+            ${q.seq.map(x => `
+                <div class="sequence-item ${x==="?" ? "question-mark":""}">
+                    ${x}
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="answers">
+            ${q.answers.map(a => `
+                <button class="answer"
+                    onclick="logicAnswer(this,'${a}','${q.correct}')">
+                    ${a}
+                </button>
+            `).join("")}
+        </div>
+    `;
+}
+
+
+/* =========================
+   LOGIC ANSWER
+========================= */
+
+function logicAnswer(button, answer, correct) {
+
+    const buttons = document.querySelectorAll(".answer");
+
+    buttons.forEach(b => b.disabled = true);
+
+    if(answer === correct) {
+
+        button.classList.add("correct");
+
+        success();
+
+        setTimeout(() => {
+            challengeIndex++;
+            level++;
+
+            if(level > 20) level = 20;
+
+            loadChallenge();
+        }, 650);
+
+    } else {
+
+        button.classList.add("wrong");
+
+        fail();
+
+        if(errors <= 0) {
+
+            setTimeout(gameOver,500);
+
+        } else {
+
+            setTimeout(() => {
+
+                buttons.forEach(b => {
+                    b.disabled = false;
+                    b.classList.remove("wrong");
+                });
+
+            },500);
+        }
+    }
+}
+
+
+/* =========================
+   BALL CHALLENGE
+========================= */
+
+function renderBallChallenge() {
+
+    ballHits = 0;
+
+    ballTarget = 10 + Math.floor((level-1)/5) * 2;
+
+    ballTime = Math.max(
+        10,
+        20 - Math.floor((level-1)/5)*2
     );
-  }
 
-  document.getElementById("finalScore")
-    .textContent = score;
+    challenge.innerHTML = `
 
-  document.getElementById("finalBest")
-    .textContent = best;
+        <div class="challenge-head">
 
-  document.getElementById("endTitle")
-    .textContent = won
-      ? "🏆 ТИ ПРОЙШОВ!"
-      : "GAME OVER";
+            <div class="challenge-type">
+                ⚡ Реакція
+            </div>
 
-  document.getElementById("gameOver")
-    .classList.remove("hidden");
+            <h2>Злови кульку</h2>
+
+            <div class="challenge-description">
+                Злови ${ballTarget} кульок за ${ballTime} секунд.
+            </div>
+
+        </div>
+
+        <div class="ball-hud">
+
+            <div class="ball-stat">
+                <small>ЧАС</small>
+                <strong id="ballTime">${ballTime}.0 с</strong>
+            </div>
+
+            <div class="ball-stat">
+                <small>ЗЛОВЛЕНО</small>
+                <strong id="ballHits">0 / ${ballTarget}</strong>
+            </div>
+
+            <div class="ball-stat">
+                <small>ЗАЛИШИЛОСЯ</small>
+                <strong id="ballLeft">${ballTarget}</strong>
+            </div>
+
+        </div>
+
+        <div class="ball-area" id="ballArea">
+
+            <div
+                class="ball"
+                id="ball"
+                onclick="catchBall(event)"
+            ></div>
+
+        </div>
+    `;
+
+    positionBall();
+
+    ballTimer = setInterval(updateBallTimer,100);
+
+}
+
+
+/* =========================
+   BALL POSITION
+========================= */
+
+function positionBall() {
+
+    const area = document.getElementById("ballArea");
+    const ball = document.getElementById("ball");
+
+    if(!area || !ball) return;
+
+    const padding = 45;
+
+    const x =
+        padding +
+        Math.random() *
+        (area.clientWidth - padding*2);
+
+    const y =
+        padding +
+        Math.random() *
+        (area.clientHeight - padding*2);
+
+    ball.style.left = x + "px";
+    ball.style.top = y + "px";
+}
+
+
+/* =========================
+   CATCH BALL
+========================= */
+
+function catchBall(event) {
+
+    if(ballStarted === false) {
+        ballStarted = true;
+    }
+
+    ballHits++;
+
+    vibrate(25);
+
+    createHitEffect(event.clientX,event.clientY);
+
+    const hits = document.getElementById("ballHits");
+    const left = document.getElementById("ballLeft");
+
+    if(hits)
+        hits.textContent =
+            `${ballHits} / ${ballTarget}`;
+
+    if(left)
+        left.textContent =
+            Math.max(0,ballTarget-ballHits);
+
+    score += 50;
+    combo++;
+
+    if(combo > bestCombo)
+        bestCombo = combo;
+
+    document.getElementById("scoreDisplay").textContent = score;
+
+    if(ballHits >= ballTarget) {
+
+        clearInterval(ballTimer);
+
+        success();
+
+        setTimeout(() => {
+
+            challengeIndex++;
+            level++;
+
+            if(level > 20) level = 20;
+
+            loadChallenge();
+
+        },500);
+
+        return;
+    }
+
+    positionBall();
+}
+
+
+/* =========================
+   BALL TIMER
+========================= */
+
+function updateBallTimer() {
+
+    ballTime -= .1;
+
+    const timer =
+        document.getElementById("ballTime");
+
+    if(timer) {
+
+        timer.textContent =
+            Math.max(0,ballTime).toFixed(1) + " с";
+
+    }
+
+    if(ballTime <= 0) {
+
+        clearInterval(ballTimer);
+
+        if(ballHits < ballTarget) {
+
+            fail();
+
+            setTimeout(() => {
+
+                if(errors <= 0) {
+
+                    gameOver();
+
+                } else {
+
+                    renderBallChallenge();
+
+                }
+
+            },600);
+
+        }
+
+    }
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+function success() {
+
+    combo++;
+
+    if(combo > bestCombo)
+        bestCombo = combo;
+
+    score += 100 + combo*10;
+    xp += 25 + combo*2;
+
+    flash("good");
+
+    vibrate(20);
+
+    updateHUD();
+}
+
+
+/* =========================
+   FAIL
+========================= */
+
+function fail() {
+
+    errors--;
+    combo = 0;
+
+    flash("bad");
+
+    vibrate([60,40,60]);
+
+    updateHUD();
+}
+
+
+/* =========================
+   VIBRATION
+========================= */
+
+function vibrate(pattern) {
+
+    if("vibrate" in navigator) {
+
+        try {
+            navigator.vibrate(pattern);
+        } catch(e) {}
+
+    }
+}
+
+
+/* =========================
+   HIT EFFECT
+========================= */
+
+function createHitEffect(x,y) {
+
+    const effect =
+        document.createElement("div");
+
+    effect.className = "hit";
+
+    effect.style.left = x + "px";
+    effect.style.top = y + "px";
+
+    document.body.appendChild(effect);
+
+    setTimeout(() => effect.remove(),400);
+}
+
+
+/* =========================
+   FLASH
+========================= */
+
+function flash(type) {
+
+    const f =
+        document.getElementById("flash");
+
+    f.className = "flash " + type;
+
+    setTimeout(() => {
+        f.className = "flash";
+    },300);
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+function gameOver() {
+
+    clearInterval(ballTimer);
+
+    if(score > bestScore) {
+
+        bestScore = score;
+
+        localStorage.setItem(
+            "neuroBest",
+            bestScore
+        );
+    }
+
+    document.getElementById("gameScreen")
+        .classList.remove("active");
+
+    document.getElementById("resultScreen")
+        .classList.add("active");
+
+    document.getElementById("resultIcon")
+        .textContent = "💥";
+
+    document.getElementById("resultTitle")
+        .textContent = "Випробування завершено";
+
+    document.getElementById("resultText")
+        .textContent =
+        "Ти використав усі допустимі помилки.";
+
+    document.getElementById("resultScore")
+        .textContent = score;
+
+    document.getElementById("resultXP")
+        .textContent = xp;
+
+    document.getElementById("resultLevel")
+        .textContent = level;
+
+    document.getElementById("resultCombo")
+        .textContent = bestCombo;
+}
+
+
+/* =========================
+   NEXT GAME
+========================= */
+
+function nextGame() {
+
+    document.getElementById("resultScreen")
+        .classList.remove("active");
+
+    document.getElementById("startScreen")
+        .classList.add("active");
+
+    document.getElementById("startLevel")
+        .textContent = level;
+
+    document.getElementById("startBest")
+        .textContent = bestScore;
+
+    document.getElementById("startXP")
+        .textContent = xp;
 }
 
 </script>
