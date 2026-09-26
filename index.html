@@ -2,11 +2,13 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#060812">
 
-<title>NEURO — Mind Challenge</title>
+<title>NEURO — Mind • Reflex • Focus</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
@@ -14,11 +16,11 @@
 
 :root{
     --bg:#060812;
-    --card:#101421;
-    --card2:#161b2a;
+    --panel:#101421;
+    --panel2:#171c2a;
     --line:rgba(255,255,255,.08);
-    --text:#f5f7ff;
-    --muted:#8c94a8;
+    --text:#f6f7fb;
+    --muted:#8e96aa;
     --accent:#7c5cff;
     --cyan:#00d9ff;
     --green:#35e77d;
@@ -26,15 +28,32 @@
     --yellow:#ffc857;
 }
 
-html,body{
+html,
+body{
     margin:0;
     min-height:100%;
     background:
-        radial-gradient(circle at 50% -10%,rgba(124,92,255,.22),transparent 35%),
-        radial-gradient(circle at 100% 100%,rgba(0,217,255,.08),transparent 30%),
+        radial-gradient(
+            circle at 50% -15%,
+            rgba(124,92,255,.20),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 100% 90%,
+            rgba(0,217,255,.07),
+            transparent 26%
+        ),
         var(--bg);
+
     color:var(--text);
-    font-family:Inter,Arial,sans-serif;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
 body{
@@ -46,12 +65,24 @@ button{
     font:inherit;
 }
 
+button:disabled{
+    cursor:default;
+}
+
+
+/* =========================================
+   START SCREEN
+========================================= */
+
 .screen{
     min-height:100vh;
+
     display:none;
+
     align-items:center;
     justify-content:center;
-    padding:20px;
+
+    padding:18px;
 }
 
 .screen.active{
@@ -64,100 +95,206 @@ button{
     margin:auto;
 }
 
-/* =========================
-   START
-========================= */
-
 .logo{
     text-align:center;
-    margin-bottom:32px;
+    margin-bottom:24px;
 }
 
-.logo-icon{
-    width:82px;
-    height:82px;
-    margin:0 auto 20px;
-    border-radius:26px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:40px;
-    background:linear-gradient(135deg,#7c5cff,#4330bd);
-    box-shadow:0 25px 80px rgba(124,92,255,.3);
+.logo-mark{
+    width:84px;
+    height:84px;
+
+    margin:0 auto 18px;
+
+    border-radius:28px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:42px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c5cff,
+            #432fbb
+        );
+
+    box-shadow:
+        0 20px 70px
+        rgba(124,92,255,.28);
 }
 
 .logo h1{
     margin:0;
-    font-size:45px;
-    font-weight:800;
-    letter-spacing:-2px;
+
+    font-size:46px;
+
+    letter-spacing:-2.5px;
 }
 
 .logo p{
+    margin:7px 0 0;
+
     color:var(--muted);
-    margin:8px 0 0;
 }
 
 .panel{
-    background:rgba(16,20,33,.92);
-    border:1px solid var(--line);
+    background:
+        rgba(16,20,33,.94);
+
+    border:
+        1px solid var(--line);
+
     border-radius:28px;
-    padding:26px;
-    box-shadow:0 30px 100px rgba(0,0,0,.35);
-    backdrop-filter:blur(15px);
+
+    padding:22px;
+
+    box-shadow:
+        0 26px 90px
+        rgba(0,0,0,.35);
+
+    backdrop-filter:
+        blur(16px);
 }
 
 .start-stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-bottom:20px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+
+    margin-bottom:16px;
 }
 
 .start-stat{
-    background:var(--card2);
+    background:
+        var(--panel2);
+
     border-radius:17px;
-    padding:16px 8px;
+
+    padding:14px 8px;
+
     text-align:center;
 }
 
 .start-stat strong{
     display:block;
-    font-size:22px;
+
+    font-size:21px;
 }
 
 .start-stat span{
+    display:block;
+
     color:var(--muted);
-    font-size:10px;
+
+    font-size:9px;
+
     text-transform:uppercase;
 }
 
-.main-btn{
+.main-btn,
+.ghost-btn{
+
     width:100%;
+
     border:0;
+
     border-radius:18px;
-    padding:17px;
-    color:white;
+
+    padding:16px 18px;
+
+    color:#fff;
+
     cursor:pointer;
-    font-size:16px;
+
     font-weight:800;
-    background:linear-gradient(135deg,#7c5cff,#563de4);
-    box-shadow:0 15px 35px rgba(124,92,255,.25);
-    transition:.18s;
 }
 
-.main-btn:active{
-    transform:scale(.97);
+.main-btn{
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c5cff,
+            #563de4
+        );
+
+    box-shadow:
+        0 14px 35px
+        rgba(124,92,255,.24);
 }
 
-/* =========================
+.ghost-btn{
+
+    margin-top:10px;
+
+    background:#151a29;
+
+    border:
+        1px solid
+        var(--line);
+}
+
+.btn-row{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:10px;
+}
+
+.pill-row{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin-top:14px;
+}
+
+.pill{
+
+    padding:
+        8px 11px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:999px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    background:
+        rgba(255,255,255,.02);
+}
+
+
+/* =========================================
    GAME
-========================= */
+========================================= */
 
 #gameScreen{
+
     display:none;
+
     min-height:100vh;
-    padding:14px;
+
+    padding:10px;
 }
 
 #gameScreen.active{
@@ -165,440 +302,1103 @@ button{
 }
 
 .game-wrap{
+
     width:100%;
-    max-width:950px;
+
+    max-width:960px;
+
     margin:auto;
 }
 
 .hud{
+
     display:grid;
-    grid-template-columns:1fr 1.5fr 1fr;
-    gap:10px;
-    margin-bottom:9px;
+
+    grid-template-columns:
+        1fr 1.6fr 1fr;
+
+    gap:8px;
+
+    margin-bottom:7px;
 }
 
 .hud-box{
-    background:rgba(16,20,33,.92);
-    border:1px solid var(--line);
-    border-radius:15px;
-    padding:10px;
+
+    background:
+        rgba(16,20,33,.92);
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:14px;
+
+    padding:
+        9px 7px;
+
     text-align:center;
 }
 
 .hud-box small{
-    color:var(--muted);
+
     display:block;
+
+    color:var(--muted);
+
     font-size:9px;
+
     text-transform:uppercase;
-    letter-spacing:.8px;
-    margin-bottom:3px;
+
+    letter-spacing:.7px;
 }
 
 .hud-box strong{
-    font-size:15px;
-}
-
-.hearts{
-    letter-spacing:3px;
     font-size:14px;
 }
 
+.hearts{
+    letter-spacing:2px;
+}
+
 .progress{
+
     height:5px;
+
     background:#1a2030;
+
     border-radius:10px;
+
     overflow:hidden;
-    margin-bottom:12px;
+
+    margin-bottom:8px;
 }
 
 .progress-fill{
-    width:0%;
+
     height:100%;
-    background:linear-gradient(90deg,var(--accent),var(--cyan));
-    transition:.3s;
+
+    width:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent),
+            var(--cyan)
+        );
+
+    transition:.25s;
 }
 
 .challenge{
-    min-height:calc(100vh - 110px);
+
+    min-height:
+        calc(100vh - 92px);
+
     background:
-        radial-gradient(circle at 50% 30%,rgba(124,92,255,.07),transparent 45%),
-        rgba(13,17,29,.88);
-    border:1px solid var(--line);
-    border-radius:27px;
-    padding:22px;
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(124,92,255,.07),
+            transparent 42%
+        ),
+        rgba(12,16,28,.88);
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:25px;
+
+    padding:18px;
+
     overflow:hidden;
+
     position:relative;
 }
 
 .challenge-header{
+
     text-align:center;
-    margin-bottom:23px;
+
+    margin-bottom:17px;
 }
 
 .tag{
+
     color:var(--cyan);
+
     font-size:10px;
+
     font-weight:800;
-    letter-spacing:1.6px;
+
+    letter-spacing:1.45px;
+
     text-transform:uppercase;
 }
 
 .challenge-header h2{
-    margin:8px 0;
-    font-size:28px;
+
+    margin:
+        7px 0;
+
+    font-size:26px;
+
+    letter-spacing:-.7px;
 }
 
 .challenge-header p{
+
     margin:0;
+
     color:var(--muted);
-    font-size:13px;
+
+    font-size:12px;
 }
 
-/* =========================
+.stat-line{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin:12px 0;
+}
+
+.stat-chip{
+
+    background:
+        var(--panel2);
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:12px;
+
+    padding:
+        7px 10px;
+
+    font-size:11px;
+}
+
+.stat-chip b{
+    color:#fff;
+}
+
+
+/* =========================================
    LOGIC
-========================= */
+========================================= */
 
 .sequence{
+
     display:flex;
-    align-items:center;
+
     justify-content:center;
+
+    align-items:center;
+
+    gap:9px;
+
     flex-wrap:wrap;
-    gap:10px;
-    margin:30px 0;
+
+    margin:22px 0;
 }
 
 .seq-item{
-    min-width:64px;
-    min-height:64px;
-    padding:10px;
-    border-radius:17px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:var(--card2);
-    border:1px solid var(--line);
-    font-size:25px;
+
+    min-width:58px;
+
+    min-height:58px;
+
+    padding:9px;
+
+    border-radius:16px;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+        var(--panel2);
+
+    border:
+        1px solid
+        var(--line);
+
+    font-size:22px;
+
     font-weight:800;
 }
 
-.seq-item.question{
-    border-color:rgba(124,92,255,.8);
+.seq-item.q{
+
+    border-color:
+        rgba(124,92,255,.75);
+
     color:var(--accent);
 }
 
 .answers{
+
     max-width:520px;
+
     margin:auto;
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
 }
 
-.answer-btn{
-    border:1px solid var(--line);
-    border-radius:17px;
-    min-height:72px;
-    background:var(--card2);
-    color:white;
+.answer{
+
+    min-height:66px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:16px;
+
+    background:
+        var(--panel2);
+
+    color:#fff;
+
     cursor:pointer;
-    font-size:21px;
+
+    font-size:20px;
+
     font-weight:800;
-    transition:.16s;
+
+    transition:.15s;
 }
 
-.answer-btn:active{
-    transform:scale(.96);
+.answer:active{
+    transform:scale(.97);
 }
 
-.answer-btn.correct{
-    border-color:var(--green);
-    background:rgba(53,231,125,.13);
+.answer.correct{
+
+    border-color:
+        var(--green);
+
+    background:
+        rgba(53,231,125,.13);
 }
 
-.answer-btn.wrong{
-    border-color:var(--red);
-    background:rgba(255,77,109,.13);
+.answer.wrong{
+
+    border-color:
+        var(--red);
+
+    background:
+        rgba(255,77,109,.12);
 }
 
-/* =========================
+
+/* =========================================
    BALL
-========================= */
+========================================= */
 
 .ball-info{
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-bottom:10px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:7px;
+
+    margin-bottom:8px;
 }
 
 .ball-stat{
-    background:var(--card2);
-    padding:10px;
-    border-radius:14px;
+
+    background:
+        var(--panel2);
+
+    padding:8px;
+
+    border-radius:12px;
+
     text-align:center;
 }
 
 .ball-stat span{
+
     display:block;
+
     color:var(--muted);
+
     font-size:9px;
+
     text-transform:uppercase;
 }
 
 .ball-stat strong{
-    font-size:17px;
+    font-size:16px;
 }
 
 .ball-area{
-    height:min(63vh,560px);
-    min-height:400px;
+
     position:relative;
+
+    height:
+        min(67vh,590px);
+
+    min-height:390px;
+
     overflow:hidden;
-    border-radius:23px;
+
+    border-radius:21px;
+
     background:
-        radial-gradient(circle at center,rgba(124,92,255,.08),transparent 55%),
-        #090d17;
-    border:1px solid var(--line);
+        radial-gradient(
+            circle at center,
+            rgba(124,92,255,.08),
+            transparent 54%
+        ),
+        #090d16;
+
+    border:
+        1px solid
+        var(--line);
+
     touch-action:none;
+
     user-select:none;
 }
 
 .ball{
-    width:62px;
-    height:62px;
 
     position:absolute;
+
+    width:60px;
+    height:60px;
 
     left:50%;
     top:50%;
 
-    transform:translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     border-radius:50%;
 
     cursor:pointer;
 
     touch-action:none;
+
     user-select:none;
+
     -webkit-user-select:none;
 
     background:
-        radial-gradient(circle at 32% 27%,#fff 0%,#a697ff 13%,#775dff 42%,#3822ad 100%);
+        radial-gradient(
+            circle at 32% 27%,
+            #fff 0%,
+            #a79aff 12%,
+            #795fff 42%,
+            #3b22b2 100%
+        );
 
     box-shadow:
-        0 0 22px rgba(124,92,255,.9),
-        0 0 60px rgba(124,92,255,.35);
+        0 0 22px
+        rgba(124,92,255,.9),
+
+        0 0 58px
+        rgba(124,92,255,.34);
 
     transition:
         left .08s linear,
         top .08s linear,
-        transform .1s;
+        transform .08s;
 }
 
-/* Велика невидима зона натискання */
 .ball::after{
+
     content:"";
+
     position:absolute;
+
     left:50%;
     top:50%;
+
     width:82px;
     height:82px;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     border-radius:50%;
-    background:transparent;
 }
 
 .ball:active{
-    transform:translate(-50%,-50%) scale(.80);
+
+    transform:
+        translate(-50%,-50%)
+        scale(.8);
 }
 
-.hit-effect{
-    position:fixed;
-    width:70px;
-    height:70px;
+.target{
+
+    position:absolute;
+
+    width:58px;
+    height:58px;
+
     border-radius:50%;
-    border:2px solid var(--accent);
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    animation:hit .35s forwards;
+
+    cursor:pointer;
+
+    display:grid;
+
+    place-items:center;
 }
 
-@keyframes hit{
-    from{
-        opacity:1;
-        transform:translate(-50%,-50%) scale(.4);
-    }
-    to{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(1.8);
-    }
+.target::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-10px;
+
+    border-radius:50%;
 }
 
-/* =========================
+.target.blue{
+
+    background:#4b90ff;
+
+    box-shadow:
+        0 0 30px
+        rgba(75,144,255,.35);
+}
+
+.target.red{
+
+    background:
+        var(--red);
+
+    box-shadow:
+        0 0 30px
+        rgba(255,77,109,.35);
+}
+
+.target.green{
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 30px
+        rgba(53,231,125,.35);
+}
+
+.target.yellow{
+
+    background:
+        var(--yellow);
+
+    box-shadow:
+        0 0 30px
+        rgba(255,200,87,.35);
+}
+
+
+/* =========================================
    MOTOR
-========================= */
-
-.motor-zone{
-    max-width:650px;
-    margin:20px auto 0;
-}
+========================================= */
 
 .big-action{
+
     width:100%;
-    min-height:150px;
-    border:1px solid var(--line);
-    border-radius:25px;
-    background:var(--card2);
-    color:white;
+
+    min-height:165px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:22px;
+
+    background:
+        var(--panel2);
+
+    color:#fff;
+
     cursor:pointer;
-    font-size:28px;
+
+    font-size:25px;
+
     font-weight:800;
 }
 
 .reaction-dot{
-    width:95px;
-    height:95px;
+
+    width:100px;
+    height:100px;
+
     border-radius:50%;
+
     margin:35px auto;
+
     cursor:pointer;
-    background:#2b3140;
-    transition:.1s;
+
+    background:#252b3b;
+
+    box-shadow:
+        0 0 0 1px
+        var(--line);
 }
 
 .reaction-dot.go{
-    background:var(--green);
-    box-shadow:0 0 50px rgba(53,231,125,.5);
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 48px
+        rgba(53,231,125,.45);
 }
 
-.mini-grid{
+.motor-grid{
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    max-width:400px;
-    margin:30px auto;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+
+    max-width:460px;
+
+    margin:22px auto;
 }
 
-.mini-cell{
-    height:85px;
-    border:1px solid var(--line);
-    background:var(--card2);
-    border-radius:18px;
+.motor-cell{
+
+    height:82px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        var(--panel2);
+
+    border-radius:16px;
+
+    color:#fff;
+
     cursor:pointer;
-    font-size:23px;
+
     font-weight:800;
 }
 
-.mini-cell.active{
-    background:rgba(124,92,255,.24);
-    border-color:var(--accent);
+.motor-cell.active{
+
+    background:
+        rgba(124,92,255,.23);
+
+    border-color:
+        var(--accent);
 }
 
-.sequence-buttons{
+.seq-buttons{
+
     display:flex;
+
+    gap:10px;
+
     flex-wrap:wrap;
+
     justify-content:center;
-    gap:12px;
-    max-width:520px;
+
+    max-width:500px;
+
     margin:auto;
 }
 
-.seq-button{
-    width:78px;
-    height:78px;
-    border:1px solid var(--line);
-    border-radius:20px;
-    background:var(--card2);
-    color:white;
-    cursor:pointer;
-    font-size:20px;
+.seq-btn{
+
+    width:76px;
+    height:76px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:19px;
+
+    background:
+        var(--panel2);
+
+    color:#fff;
+
     font-weight:800;
+
+    font-size:19px;
+
+    cursor:pointer;
 }
 
-/* =========================
-   RESULT
-========================= */
+.precision-wrap{
 
-.result-icon{
-    font-size:64px;
+    max-width:520px;
+
+    margin:35px auto;
+}
+
+.precision-track{
+
+    position:relative;
+
+    height:82px;
+
+    background:
+        #151a29;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.precision-zone{
+
+    position:absolute;
+
+    top:12px;
+    bottom:12px;
+
+    width:18%;
+
+    left:41%;
+
+    border-radius:14px;
+
+    background:
+        rgba(53,231,125,.16);
+
+    border:
+        1px solid
+        var(--green);
+}
+
+.precision-cursor{
+
+    position:absolute;
+
+    top:19px;
+
+    width:12px;
+
+    height:44px;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    left:0;
+}
+
+.labyrinth{
+
+    max-width:500px;
+
+    margin:16px auto;
+
+    aspect-ratio:1;
+
+    background:#090d16;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:20px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    touch-action:none;
+}
+
+.lab-dot{
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
+
+    border-radius:50%;
+
+    background:
+        var(--accent);
+
+    left:10px;
+
+    top:10px;
+
+    box-shadow:
+        0 0 18px
+        rgba(124,92,255,.7);
+}
+
+.lab-goal{
+
+    position:absolute;
+
+    width:28px;
+    height:28px;
+
+    border-radius:50%;
+
+    border:
+        2px solid
+        var(--green);
+
+    right:12px;
+
+    bottom:12px;
+}
+
+.lab-wall{
+
+    position:absolute;
+
+    background:#2a3145;
+
+    border-radius:8px;
+}
+
+
+/* =========================================
+   BOSS
+========================================= */
+
+.boss{
+
+    max-width:600px;
+
+    margin:auto;
+}
+
+.boss-card{
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124,92,255,.13),
+            rgba(0,217,255,.04)
+        );
+
+    border:
+        1px solid
+        rgba(124,92,255,.3);
+
+    border-radius:22px;
+
+    padding:20px;
+
     text-align:center;
 }
+
+.boss-number{
+
+    font-size:50px;
+
+    font-weight:900;
+
+    letter-spacing:-2px;
+}
+
+.boss-buttons{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:10px;
+
+    margin-top:16px;
+}
+
+.boss-btn{
+
+    min-height:70px;
+
+    background:
+        var(--panel2);
+
+    border:
+        1px solid
+        var(--line);
+
+    color:#fff;
+
+    border-radius:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
 
 .result{
+
     text-align:center;
+}
+
+.result-icon{
+
+    font-size:62px;
 }
 
 .result h2{
-    font-size:31px;
-    margin:10px 0;
+
+    font-size:30px;
+
+    margin:9px 0;
 }
 
 .result p{
+
     color:var(--muted);
 }
 
 .result-stats{
+
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin:24px 0;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+
+    margin:20px 0;
 }
 
 .result-stat{
-    background:var(--card2);
+
+    background:
+        var(--panel2);
+
     border-radius:16px;
-    padding:17px;
+
+    padding:15px;
 }
 
 .result-stat span{
+
     display:block;
+
     color:var(--muted);
-    font-size:10px;
+
+    font-size:9px;
 }
 
 .result-stat strong{
-    font-size:22px;
+
+    font-size:21px;
 }
 
-/* =========================
+.result-note{
+
+    margin:
+        12px 0;
+
+    padding:11px;
+
+    border-radius:13px;
+
+    background:
+        rgba(53,231,125,.08);
+
+    border:
+        1px solid
+        rgba(53,231,125,.18);
+
+    font-size:12px;
+}
+
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(4,6,12,.72);
+
+    backdrop-filter:
+        blur(12px);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:200;
+
+    padding:20px;
+}
+
+.overlay.show{
+    display:flex;
+}
+
+.overlay-card{
+
+    width:100%;
+
+    max-width:500px;
+
+    background:
+        #101421;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:25px;
+
+    padding:25px;
+
+    text-align:center;
+}
+
+
+/* =========================================
+   FLASH
+========================================= */
+
+.flash{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:180;
+
+    opacity:0;
+}
+
+.flash.good{
+
+    background:
+        rgba(53,231,125,.08);
+
+    animation:
+        flash .24s;
+}
+
+.flash.bad{
+
+    background:
+        rgba(255,77,109,.09);
+
+    animation:
+        flash .24s;
+}
+
+@keyframes flash{
+
+    0%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================
    TOAST
-========================= */
+========================================= */
 
 .toast{
+
     position:fixed;
+
+    z-index:250;
+
     left:50%;
-    top:18px;
-    transform:translateX(-50%) translateY(-100px);
-    z-index:100;
-    padding:12px 18px;
+
+    top:12px;
+
+    transform:
+        translate(-50%,-90px);
+
+    padding:
+        11px 15px;
+
     border-radius:14px;
-    background:#171c2a;
-    border:1px solid var(--line);
-    font-size:13px;
-    font-weight:700;
-    transition:.25s;
+
+    background:
+        #171c2a;
+
+    border:
+        1px solid
+        var(--line);
+
+    font-size:12px;
+
+    font-weight:800;
+
+    transition:.22s;
 }
 
 .toast.show{
-    transform:translateX(-50%) translateY(0);
+
+    transform:
+        translate(-50%,0);
 }
 
-/* =========================
+
+/* =========================================
    MOBILE
-========================= */
+========================================= */
 
 @media(max-width:600px){
 
     .logo h1{
-        font-size:37px;
+        font-size:38px;
     }
 
     .panel{
-        padding:20px;
+        padding:19px;
     }
 
     .challenge{
-        padding:16px;
-        border-radius:22px;
+        padding:15px;
+        border-radius:21px;
     }
 
     .challenge-header h2{
@@ -606,23 +1406,26 @@ button{
     }
 
     .seq-item{
-        min-width:53px;
-        min-height:53px;
-        font-size:21px;
+        min-width:51px;
+        min-height:51px;
+        font-size:19px;
     }
 
-    .answers{
-        gap:9px;
-    }
-
-    .answer-btn{
-        min-height:64px;
+    .answer{
+        min-height:62px;
+        font-size:18px;
     }
 
     .ball-area{
-        min-height:420px;
+        min-height:410px;
     }
+
+    .btn-row{
+        grid-template-columns:1fr;
+    }
+
 }
+
 </style>
 </head>
 
@@ -632,25 +1435,32 @@ button{
 
 <div id="toast" class="toast"></div>
 
+<div id="flash" class="flash"></div>
 
-<!-- =========================
+
+<!-- =========================================
      START
-========================= -->
+========================================= -->
 
-<section id="startScreen" class="screen active">
+<section
+    id="startScreen"
+    class="screen active"
+>
 
     <div class="container">
 
         <div class="logo">
 
-            <div class="logo-icon">
+            <div class="logo-mark">
                 🧠
             </div>
 
-            <h1>NEURO</h1>
+            <h1>
+                NEURO
+            </h1>
 
             <p>
-                Mind · Reflex · Focus
+                Mind • Reflex • Focus
             </p>
 
         </div>
@@ -676,11 +1486,11 @@ button{
                 <div class="start-stat">
 
                     <strong>
-                        30
+                        30+
                     </strong>
 
                     <span>
-                        Логічних
+                        Логік
                     </span>
 
                 </div>
@@ -693,7 +1503,7 @@ button{
                     </strong>
 
                     <span>
-                        Прогрес
+                        Забіги
                     </span>
 
                 </div>
@@ -703,11 +1513,51 @@ button{
 
             <button
                 class="main-btn"
-                onclick="startGame()">
-
-                ПОЧАТИ
-
+                onclick="startGame(false)"
+            >
+                ▶ ПОЧАТИ
             </button>
+
+
+            <div class="btn-row">
+
+                <button
+                    class="ghost-btn"
+                    onclick="startGame(true)"
+                >
+                    ⚡ ЩОДЕННИЙ ВИКЛИК
+                </button>
+
+
+                <button
+                    class="ghost-btn"
+                    onclick="showSoundInfo()"
+                >
+                    🔊 НАЛАШТУВАННЯ
+                </button>
+
+            </div>
+
+
+            <div class="pill-row">
+
+                <div class="pill">
+                    🧠 Логіка
+                </div>
+
+                <div class="pill">
+                    ⚡ Реакція
+                </div>
+
+                <div class="pill">
+                    👁 Увага
+                </div>
+
+                <div class="pill">
+                    🎯 Моторика
+                </div>
+
+            </div>
 
         </div>
 
@@ -716,9 +1566,9 @@ button{
 </section>
 
 
-<!-- =========================
+<!-- =========================================
      GAME
-========================= -->
+========================================= -->
 
 <section id="gameScreen">
 
@@ -744,15 +1594,14 @@ button{
             <div class="hud-box">
 
                 <small>
-                    Помилки
+                    Життя
                 </small>
 
                 <strong
                     class="hearts"
-                    id="hudErrors">
-
+                    id="hudErrors"
+                >
                     ❤️ ❤️ ❤️
-
                 </strong>
 
             </div>
@@ -778,16 +1627,16 @@ button{
 
             <div
                 class="progress-fill"
-                id="progressFill">
-            </div>
+                id="progressFill"
+            ></div>
 
         </div>
 
 
         <div
             id="challenge"
-            class="challenge">
-        </div>
+            class="challenge"
+        ></div>
 
 
     </div>
@@ -795,33 +1644,34 @@ button{
 </section>
 
 
-<!-- =========================
+<!-- =========================================
      RESULT
-========================= -->
+========================================= -->
 
-<section id="resultScreen" class="screen">
+<section
+    id="resultScreen"
+    class="screen"
+>
 
     <div class="container">
 
         <div class="panel result">
 
+
             <div
                 id="resultIcon"
-                class="result-icon">
-
+                class="result-icon"
+            >
                 🎉
-
             </div>
 
 
             <h2 id="resultTitle">
-                Гру завершено
+                Забіг завершено
             </h2>
 
 
-            <p id="resultText">
-                Подивимося на результат.
-            </p>
+            <p id="resultText"></p>
 
 
             <div class="result-stats">
@@ -878,18 +1728,78 @@ button{
 
                 </div>
 
+            </div>
+
+
+            <div class="result-stats">
+
+
+                <div class="result-stat">
+
+                    <span>
+                        🧠 MIND
+                    </span>
+
+                    <strong id="resMind">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <span>
+                        ⚡ REFLEX
+                    </span>
+
+                    <strong id="resReflex">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <span>
+                        👁 FOCUS
+                    </span>
+
+                    <strong id="resFocus">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <span>
+                        🎯 MOTOR
+                    </span>
+
+                    <strong id="resMotor">
+                        0
+                    </strong>
+
+                </div>
 
             </div>
 
 
+            <div
+                class="result-note"
+                id="lifeNote"
+            ></div>
+
+
             <button
                 class="main-btn"
-                onclick="returnHome()">
-
+                onclick="returnHome()"
+            >
                 НА ГОЛОВНИЙ ЕКРАН
-
             </button>
-
 
         </div>
 
@@ -898,12 +1808,72 @@ button{
 </section>
 
 
+<!-- =========================================
+     SOUND SETTINGS
+========================================= -->
+
+<div
+    id="soundOverlay"
+    class="overlay"
+>
+
+    <div class="overlay-card">
+
+        <h2>
+            Звук і музика
+        </h2>
+
+        <p style="color:var(--muted)">
+            Музика та ефекти генеруються
+            прямо в браузері.
+        </p>
+
+
+        <div class="btn-row">
+
+            <button
+                class="ghost-btn"
+                onclick="toggleMusic()"
+            >
+                🎵 MUSIC:
+                <span id="musicState">
+                    ON
+                </span>
+            </button>
+
+
+            <button
+                class="ghost-btn"
+                onclick="toggleSfx()"
+            >
+                🔊 SFX:
+                <span id="sfxState">
+                    ON
+                </span>
+            </button>
+
+        </div>
+
+
+        <button
+            class="main-btn"
+            style="margin-top:10px"
+            onclick="hideSoundInfo()"
+        >
+            ГОТОВО
+        </button>
+
+    </div>
+
+</div>
+
+
 <script>
 
 
-/* =====================================================
+/* =========================================
    STATE
-===================================================== */
+========================================= */
 
 let level = 1;
 
@@ -919,7 +1889,45 @@ let bestCombo = 0;
 
 let logicDone = 0;
 
+let successfulSinceLife = 0;
+
+let totalChallenges = 0;
+
+let motorCount = 0;
+
 let questionPool = [];
+
+let isDaily = false;
+
+
+/* =========================================
+   AUDIO STATE
+========================================= */
+
+let musicOn =
+    JSON.parse(
+        localStorage.getItem("neuroMusic") ??
+        "true"
+    );
+
+let sfxOn =
+    JSON.parse(
+        localStorage.getItem("neuroSfx") ??
+        "true"
+    );
+
+let audioCtx = null;
+
+let musicTimer = null;
+
+let musicStep = 0;
+
+
+/* =========================================
+   TIMERS
+========================================= */
+
+let timers = [];
 
 let ballTimer = null;
 
@@ -933,335 +1941,417 @@ let ballSeconds = 20;
 
 let ballMoveStep = 0;
 
+let ballIntense = false;
 
-/* =====================================================
+let reactionTimer = null;
+
+let reactionReady = false;
+
+let reactionStart = 0;
+
+let stopTimer = null;
+
+let stopGood = 0;
+
+let stopNeed = 6;
+
+let stopDanger = false;
+
+let precisionTimer = null;
+
+
+/* =========================================
+   MOTOR
+========================================= */
+
+let lastMotor = null;
+
+
+/* =========================================
    QUESTIONS
-===================================================== */
+========================================= */
 
 const logicQuestions = [
 
-{
-type:"Числова закономірність",
-title:"Знайди наступне число",
-desc:"Зрозумій правило послідовності.",
-seq:["2","4","8","16","?"],
-answers:["24","30","32","36"],
-correct:"32"
-},
 
 {
-type:"Числова закономірність",
-title:"Продовж послідовність",
-desc:"Що має бути на місці знака питання?",
-seq:["3","6","12","24","?"],
-answers:["36","42","48","54"],
-correct:"48"
+    id:1,
+    type:"Числова закономірність",
+    title:"Знайди наступне число",
+    desc:"Кожен крок множить попередній результат.",
+    seq:["2","4","8","16","?"],
+    answers:["24","30","32","36"],
+    correct:"32"
 },
 
-{
-type:"Числова закономірність",
-title:"Знайди правило",
-desc:"Кожне число пов'язане з попереднім.",
-seq:["5","10","15","20","?"],
-answers:["22","24","25","30"],
-correct:"25"
-},
 
 {
-type:"Числова закономірність",
-title:"Наступний елемент",
-desc:"Уважно простеж за зміною чисел.",
-seq:["1","4","9","16","?"],
-answers:["20","24","25","36"],
-correct:"25"
+    id:2,
+    type:"Числова закономірність",
+    title:"Продовж ряд",
+    desc:"Числа подвоюються.",
+    seq:["3","6","12","24","?"],
+    answers:["36","42","48","54"],
+    correct:"48"
 },
 
-{
-type:"Числова закономірність",
-title:"Продовж ряд",
-desc:"Знайди закономірність.",
-seq:["10","20","30","40","?"],
-answers:["45","50","55","60"],
-correct:"50"
-},
 
 {
-type:"Числова закономірність",
-title:"Що далі?",
-desc:"Не поспішай з відповіддю.",
-seq:["2","6","12","20","?"],
-answers:["24","28","30","32"],
-correct:"30"
+    id:3,
+    type:"Числова закономірність",
+    title:"Знайди правило",
+    desc:"До кожного числа додається однакова величина.",
+    seq:["5","10","15","20","?"],
+    answers:["22","24","25","30"],
+    correct:"25"
 },
 
-{
-type:"Фігури",
-title:"Заверши послідовність",
-desc:"Зверни увагу на чергування.",
-seq:["▲","●","▲","●","?"],
-answers:["▲","●","■","◆"],
-correct:"▲"
-},
 
 {
-type:"Фігури",
-title:"Що має бути далі?",
-desc:"Фігури змінюються за правилом.",
-seq:["■","◆","■","◆","?"],
-answers:["■","◆","●","▲"],
-correct:"■"
+    id:4,
+    type:"Числова закономірність",
+    title:"Наступний елемент",
+    desc:"Подумай, звідки взялися ці числа.",
+    seq:["1","4","9","16","?"],
+    answers:["20","24","25","36"],
+    correct:"25"
 },
 
-{
-type:"Фігури",
-title:"Продовж ряд",
-desc:"Знайди закономірність.",
-seq:["🔵","🔴","🟢","🔵","🔴","?"],
-answers:["🔵","🔴","🟢","🟡"],
-correct:"🟢"
-},
 
 {
-type:"Фігури",
-title:"Знайди наступний",
-desc:"Подивись на порядок символів.",
-seq:["★","☆","★","☆","?"],
-answers:["★","☆","●","◆"],
-correct:"★"
+    id:5,
+    type:"Числова закономірність",
+    title:"П'ятий крок",
+    desc:"Ряд росте рівними десятками.",
+    seq:["10","20","30","40","?"],
+    answers:["45","50","55","60"],
+    correct:"50"
 },
 
-{
-type:"Фігури",
-title:"Продовж послідовність",
-desc:"Однаковий принцип повторюється.",
-seq:["⬆️","➡️","⬇️","⬅️","?"],
-answers:["⬆️","➡️","⬇️","↗️"],
-correct:"⬆️"
-},
 
 {
-type:"Фігури",
-title:"Що пропущено?",
-desc:"Визнач наступний символ.",
-seq:["●","●●","●●●","?"],
-answers:["●","●●●●","●●●●●","◆"],
-correct:"●●●●"
+    id:6,
+    type:"Числова закономірність",
+    title:"Що далі?",
+    desc:"Різниця між числами теж змінюється.",
+    seq:["2","6","12","20","?"],
+    answers:["24","28","30","32"],
+    correct:"30"
 },
 
-{
-type:"Комбінація",
-title:"Що має бути далі?",
-desc:"Порівняй обидві частини.",
-seq:["A","C","E","G","?"],
-answers:["H","I","J","K"],
-correct:"I"
-},
 
 {
-type:"Комбінація",
-title:"Знайди закономірність",
-desc:"Крок завжди однаковий.",
-seq:["B","D","F","H","?"],
-answers:["I","J","K","L"],
-correct:"J"
+    id:7,
+    type:"Фігури",
+    title:"Заверши послідовність",
+    desc:"Зверни увагу на чергування.",
+    seq:["▲","●","▲","●","?"],
+    answers:["▲","●","■","◆"],
+    correct:"▲"
 },
 
-{
-type:"Комбінація",
-title:"Продовж ряд",
-desc:"Що буде наступним?",
-seq:["1A","2B","3C","4D","?"],
-answers:["5E","5F","6E","6F"],
-correct:"5E"
-},
 
 {
-type:"Зайвий елемент",
-title:"Знайди зайве",
-desc:"Один символ відрізняється від інших.",
-seq:["🔺","🔺","🔻","🔺","🔺"],
-answers:["1","2","3","5"],
-correct:"3"
+    id:8,
+    type:"Фігури",
+    title:"Що буде далі?",
+    desc:"Фігури повторюються парами.",
+    seq:["■","◆","■","◆","?"],
+    answers:["■","◆","●","▲"],
+    correct:"■"
 },
 
-{
-type:"Зайвий елемент",
-title:"Що не підходить?",
-desc:"Знайди елемент, який порушує правило.",
-seq:["2","4","6","9","10"],
-answers:["2","4","6","9"],
-correct:"9"
-},
 
 {
-type:"Зайвий елемент",
-title:"Знайди чужий символ",
-desc:"Чотири елементи пов'язані між собою.",
-seq:["●","●","■","●","●"],
-answers:["1","2","3","5"],
-correct:"3"
+    id:9,
+    type:"Фігури",
+    title:"Кольоровий цикл",
+    desc:"Послідовність повторює цикл із трьох.",
+    seq:["🔵","🔴","🟢","🔵","🔴","?"],
+    answers:["🔵","🔴","🟢","🟡"],
+    correct:"🟢"
 },
 
-{
-type:"Логічна пастка",
-title:"Який варіант порушує правило?",
-desc:"Три варіанти мають спільну властивість.",
-seq:["12","24","36","49","48"],
-answers:["12","24","36","49"],
-correct:"49"
-},
 
 {
-type:"Логічна пастка",
-title:"Знайди помилку",
-desc:"Тільки один елемент не відповідає правилу.",
-seq:["15","20","25","31","35"],
-answers:["15","20","31","35"],
-correct:"31"
+    id:10,
+    type:"Фігури",
+    title:"Зіркове чергування",
+    desc:"Фігури чергуються.",
+    seq:["★","☆","★","☆","?"],
+    answers:["★","☆","●","◆"],
+    correct:"★"
 },
 
-{
-type:"Чергуй",
-title:"Який символ наступний?",
-desc:"Подивись на два паралельні ряди.",
-seq:["A1","B2","A3","B4","?"],
-answers:["A5","B5","A6","C5"],
-correct:"A5"
-},
 
 {
-type:"Чергуй",
-title:"Знайди продовження",
-desc:"У послідовності використовується просте правило.",
-seq:["1","2","4","8","16","?"],
-answers:["20","24","30","32"],
-correct:"32"
+    id:11,
+    type:"Простір",
+    title:"Поворот",
+    desc:"Стрілка повертається на 90°.",
+    seq:["⬆️","➡️","⬇️","⬅️","?"],
+    answers:["⬆️","➡️","⬇️","↗️"],
+    correct:"⬆️"
 },
 
-{
-type:"Чергуй",
-title:"Що далі?",
-desc:"Числа ростуть за певним кроком.",
-seq:["1","3","6","10","?"],
-answers:["12","14","15","16"],
-correct:"15"
-},
 
 {
-type:"Чергуй",
-title:"Продовж",
-desc:"Що буде наступним результатом?",
-seq:["2","3","5","8","13","?"],
-answers:["18","20","21","22"],
-correct:"21"
+    id:12,
+    type:"Фігури",
+    title:"Додай один",
+    desc:"Кількість кружків збільшується на один.",
+    seq:["●","●●","●●●","?"],
+    answers:["●","●●●●","●●●●●","◆"],
+    correct:"●●●●"
 },
 
-{
-type:"Порівняння",
-title:"Знайди правильне",
-desc:"Порівняй співвідношення.",
-seq:["2→4","3→6","5→10","7→?"],
-answers:["12","13","14","15"],
-correct:"14"
-},
 
 {
-type:"Порівняння",
-title:"Заверши правило",
-desc:"Операція однакова в кожному рядку.",
-seq:["3→9","4→16","5→25","6→?"],
-answers:["30","32","36","40"],
-correct:"36"
+    id:13,
+    type:"Комбінація",
+    title:"Літери через одну",
+    desc:"Йдемо через одну літеру.",
+    seq:["A","C","E","G","?"],
+    answers:["H","I","J","K"],
+    correct:"I"
 },
 
-{
-type:"Пам'ять",
-title:"Логічний порядок",
-desc:"Послідовність будується з повторенням.",
-seq:["AB","BA","AB","BA","?"],
-answers:["AA","AB","BA","BB"],
-correct:"AB"
-},
 
 {
-type:"Простір",
-title:"Який напрямок наступний?",
-desc:"Стрілка обертається на 90°.",
-seq:["↑","→","↓","←","?"],
-answers:["↑","→","↓","↗"],
-correct:"↑"
+    id:14,
+    type:"Комбінація",
+    title:"Ще один крок",
+    desc:"Те саме правило для нового ряду.",
+    seq:["B","D","F","H","?"],
+    answers:["I","J","K","L"],
+    correct:"J"
 },
 
-{
-type:"Простір",
-title:"Продовж обертання",
-desc:"Знайди наступну позицію.",
-seq:["↗","↘","↙","↖","?"],
-answers:["↗","↘","⬆️","➡️"],
-correct:"↗"
-},
 
 {
-type:"Логіка",
-title:"Останній крок",
-desc:"Знайди правило та заверши послідовність.",
-seq:["4","7","10","13","?"],
-answers:["14","15","16","17"],
-correct:"16"
+    id:15,
+    type:"Комбінація",
+    title:"Подвійна послідовність",
+    desc:"Число і літера рухаються разом.",
+    seq:["1A","2B","3C","4D","?"],
+    answers:["5E","5F","6E","6F"],
+    correct:"5E"
+},
+
+
+{
+    id:16,
+    type:"Зайвий елемент",
+    title:"Знайди зайве",
+    desc:"Один символ дивиться в інший бік.",
+    seq:["🔺","🔺","🔻","🔺","🔺"],
+    answers:["1","2","3","5"],
+    correct:"3"
+},
+
+
+{
+    id:17,
+    type:"Зайвий елемент",
+    title:"Порушення правила",
+    desc:"Чотири числа парні.",
+    seq:["2","4","6","9","10"],
+    answers:["2","4","6","9"],
+    correct:"9"
+},
+
+
+{
+    id:18,
+    type:"Зайвий елемент",
+    title:"Чужа форма",
+    desc:"Чотири елементи однакові.",
+    seq:["●","●","■","●","●"],
+    answers:["1","2","3","5"],
+    correct:"3"
+},
+
+
+{
+    id:19,
+    type:"Логічна пастка",
+    title:"Який варіант не підходить?",
+    desc:"Знайди число, яке не кратне 12.",
+    seq:["12","24","36","49","48"],
+    answers:["12","24","36","49"],
+    correct:"49"
+},
+
+
+{
+    id:20,
+    type:"Логічна пастка",
+    title:"Знайди помилку",
+    desc:"Усі числа збільшуються на 5.",
+    seq:["15","20","25","31","35"],
+    answers:["15","20","31","35"],
+    correct:"31"
+},
+
+
+{
+    id:21,
+    type:"Чергуй",
+    title:"Два правила",
+    desc:"Літери та числа рухаються почергово.",
+    seq:["A1","B2","A3","B4","?"],
+    answers:["A5","B5","A6","C5"],
+    correct:"A5"
+},
+
+
+{
+    id:22,
+    type:"Числова закономірність",
+    title:"Подвоюй",
+    desc:"Кожен крок множить на два.",
+    seq:["1","2","4","8","16","?"],
+    answers:["20","24","30","32"],
+    correct:"32"
+},
+
+
+{
+    id:23,
+    type:"Числова закономірність",
+    title:"Сума зростає",
+    desc:"До попереднього додаємо 2, потім 3, потім 4...",
+    seq:["1","3","6","10","?"],
+    answers:["12","14","15","16"],
+    correct:"15"
+},
+
+
+{
+    id:24,
+    type:"Числова закономірність",
+    title:"Особливий ряд",
+    desc:"Кожне число дорівнює сумі двох попередніх.",
+    seq:["2","3","5","8","13","?"],
+    answers:["18","20","21","22"],
+    correct:"21"
+},
+
+
+{
+    id:25,
+    type:"Порівняння",
+    title:"Зв'язок чисел",
+    desc:"Друге число вдвічі більше першого.",
+    seq:["2→4","3→6","5→10","7→?"],
+    answers:["12","13","14","15"],
+    correct:"14"
+},
+
+
+{
+    id:26,
+    type:"Порівняння",
+    title:"Квадрат",
+    desc:"Правило однакове в кожному рядку.",
+    seq:["3→9","4→16","5→25","6→?"],
+    answers:["30","32","36","40"],
+    correct:"36"
+},
+
+
+{
+    id:27,
+    type:"Пам'ять",
+    title:"Логічний порядок",
+    desc:"Пара AB і BA чергуються.",
+    seq:["AB","BA","AB","BA","?"],
+    answers:["AA","AB","BA","BB"],
+    correct:"AB"
+},
+
+
+{
+    id:28,
+    type:"Простір",
+    title:"Круговий поворот",
+    desc:"Стрілка робить чверть оберту.",
+    seq:["↑","→","↓","←","?"],
+    answers:["↑","→","↓","↗"],
+    correct:"↑"
+},
+
+
+{
+    id:29,
+    type:"Простір",
+    title:"Діагональний цикл",
+    desc:"Напрямок рухається навколо чотирьох кутів.",
+    seq:["↗","↘","↙","↖","?"],
+    answers:["↗","↘","⬆️","➡️"],
+    correct:"↗"
+},
+
+
+{
+    id:30,
+    type:"Логіка",
+    title:"Останній крок",
+    desc:"Кожен раз +3.",
+    seq:["4","7","10","13","?"],
+    answers:["14","15","16","17"],
+    correct:"16"
 }
+
 
 ];
 
 
-/* =====================================================
+/* =========================================
    HELPERS
-===================================================== */
+========================================= */
 
-function $(id){
-    return document.getElementById(id);
-}
-
-
-function random(arr){
-
-    return arr[
-        Math.floor(Math.random()*arr.length)
-    ];
-
-}
+const $ =
+    id =>
+        document.getElementById(id);
 
 
 function shuffle(arr){
 
-    const a=[...arr];
+    const b = [...arr];
 
     for(
-        let i=a.length-1;
+        let i=b.length-1;
         i>0;
         i--
     ){
 
-        const j=
-            Math.floor(Math.random()*(i+1));
+        const j =
+            Math.floor(
+                Math.random()*(i+1)
+            );
 
-        [a[i],a[j]]=
-        [a[j],a[i]];
+        [
+            b[i],
+            b[j]
+        ] =
+        [
+            b[j],
+            b[i]
+        ];
     }
 
-    return a;
+    return b;
 }
 
 
-function vibrate(pattern){
+function rand(arr){
 
-    if("vibrate" in navigator){
-
-        try{
-            navigator.vibrate(pattern);
-        }catch(e){}
-
-    }
-
+    return arr[
+        Math.floor(
+            Math.random()*arr.length
+        )
+    ];
 }
 
 
@@ -1277,50 +2367,712 @@ function toast(message){
 
         t.classList.remove("show");
 
-    },1000);
+    },1100);
 
 }
 
 
-/* =====================================================
-   HUD
-===================================================== */
+function flash(type){
 
-function updateHUD(){
+    const f=$("flash");
 
-    $("hudLevel").textContent=
-        level;
+    f.className=
+        "flash "+type;
 
-    $("hudScore").textContent=
-        Math.round(score);
+    setTimeout(()=>{
 
-    let hearts="";
+        f.className=
+            "flash";
 
-    for(let i=0;i<3;i++){
+    },300);
 
-        hearts +=
-            i<errors
-            ? "❤️ "
-            : "🖤 ";
+}
+
+
+function vibrate(pattern){
+
+    if(
+        "vibrate"
+        in navigator
+    ){
+
+        try{
+
+            navigator.vibrate(
+                pattern
+            );
+
+        }catch(e){}
 
     }
 
-    $("hudErrors").textContent=
-        hearts.trim();
-
-    const progress=
-        (logicDone%5)/5*100;
-
-    $("progressFill").style.width=
-        progress+"%";
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+function clamp(
+    value,
+    min,
+    max
+){
 
-function startGame(){
+    return Math.max(
+        min,
+        Math.min(max,value)
+    );
+
+}
+
+
+/* =========================================
+   TIMERS
+========================================= */
+
+function clearAllTimers(){
+
+    if(ballTimer){
+
+        clearInterval(
+            ballTimer
+        );
+
+    }
+
+    if(ballMoveTimer){
+
+        clearTimeout(
+            ballMoveTimer
+        );
+
+    }
+
+    if(reactionTimer){
+
+        clearTimeout(
+            reactionTimer
+        );
+
+    }
+
+    if(stopTimer){
+
+        clearTimeout(
+            stopTimer
+        );
+
+    }
+
+    if(precisionTimer){
+
+        clearInterval(
+            precisionTimer
+        );
+
+    }
+
+    timers.forEach(
+        timer => {
+
+            clearTimeout(timer);
+
+            clearInterval(timer);
+
+        }
+    );
+
+    timers=[];
+
+    ballTimer=null;
+
+    ballMoveTimer=null;
+
+    reactionTimer=null;
+
+    stopTimer=null;
+
+    precisionTimer=null;
+
+    clearMusicLoop();
+}
+
+
+/* =========================================
+   HUD
+========================================= */
+
+function updateHUD(){
+
+    $("hudLevel")
+        .textContent =
+            level;
+
+    $("hudScore")
+        .textContent =
+            Math.round(score);
+
+
+    let hearts="";
+
+
+    for(
+        let i=0;
+        i<3;
+        i++
+    ){
+
+        hearts +=
+            i<errors
+                ? "❤️ "
+                : "🖤 ";
+
+    }
+
+
+    $("hudErrors")
+        .textContent =
+            hearts.trim();
+
+
+    const progress =
+        (logicDone%5)/5*100;
+
+
+    $("progressFill")
+        .style.width =
+            progress+"%";
+}
+
+
+/* =========================================
+   AUDIO ENGINE
+========================================= */
+
+function ensureAudio(){
+
+    if(!audioCtx){
+
+        audioCtx =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+    }
+
+
+    if(
+        audioCtx.state ===
+        "suspended"
+    ){
+
+        audioCtx.resume();
+
+    }
+
+}
+
+
+function tone(
+    freq,
+    dur=.1,
+    type="sine",
+    gain=.035,
+    when=0
+){
+
+    ensureAudio();
+
+
+    const oscillator =
+        audioCtx
+            .createOscillator();
+
+
+    const gainNode =
+        audioCtx
+            .createGain();
+
+
+    oscillator.type =
+        type;
+
+    oscillator.frequency.value =
+        freq;
+
+
+    gainNode.gain.setValueAtTime(
+        0.0001,
+        audioCtx.currentTime+when
+    );
+
+
+    gainNode.gain.exponentialRampToValueAtTime(
+        gain,
+        audioCtx.currentTime+
+        when+
+        .01
+    );
+
+
+    gainNode.gain.exponentialRampToValueAtTime(
+        .0001,
+        audioCtx.currentTime+
+        when+
+        dur
+    );
+
+
+    oscillator.connect(
+        gainNode
+    );
+
+
+    gainNode.connect(
+        audioCtx.destination
+    );
+
+
+    oscillator.start(
+        audioCtx.currentTime+
+        when
+    );
+
+
+    oscillator.stop(
+        audioCtx.currentTime+
+        when+
+        dur+
+        .02
+    );
+
+}
+
+
+/* =========================================
+   SFX
+========================================= */
+
+function sfx(kind){
+
+    if(!sfxOn){
+        return;
+    }
+
+
+    if(kind==="hit"){
+
+        tone(
+            520,
+            .06,
+            "square",
+            .045
+        );
+
+        tone(
+            760,
+            .08,
+            "sine",
+            .028,
+            .025
+        );
+
+    }
+
+
+    if(kind==="good"){
+
+        tone(
+            620,
+            .07,
+            "triangle",
+            .04
+        );
+
+        tone(
+            880,
+            .12,
+            "triangle",
+            .032,
+            .07
+        );
+
+    }
+
+
+    if(kind==="bad"){
+
+        tone(
+            180,
+            .11,
+            "sawtooth",
+            .035
+        );
+
+        tone(
+            120,
+            .16,
+            "sawtooth",
+            .025,
+            .06
+        );
+
+    }
+
+
+    if(kind==="life"){
+
+        tone(
+            520,
+            .08,
+            "sine",
+            .04
+        );
+
+        tone(
+            660,
+            .08,
+            "sine",
+            .04,
+            .08
+        );
+
+        tone(
+            880,
+            .14,
+            "sine",
+            .045,
+            .16
+        );
+
+    }
+
+
+    if(kind==="boss"){
+
+        tone(
+            110,
+            .25,
+            "sawtooth",
+            .03
+        );
+
+        tone(
+            165,
+            .28,
+            "square",
+            .02,
+            .16
+        );
+
+    }
+
+
+    if(kind==="victory"){
+
+        tone(
+            523,
+            .09,
+            "triangle",
+            .04
+        );
+
+        tone(
+            659,
+            .09,
+            "triangle",
+            .04,
+            .1
+        );
+
+        tone(
+            784,
+            .2,
+            "triangle",
+            .04,
+            .2
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   MUSIC
+========================================= */
+
+function startMusic(mode="game"){
+
+    if(!musicOn){
+        return;
+    }
+
+
+    ensureAudio();
+
+    clearMusicLoop();
+
+
+    const patterns = {
+
+        menu:[
+            220,
+            277,
+            330,
+            277
+        ],
+
+        game:[
+            164,
+            196,
+            233,
+            196,
+            175,
+            220,
+            262,
+            220
+        ],
+
+        intense:[
+            196,
+            233,
+            277,
+            233,
+            220,
+            277,
+            330,
+            277
+        ],
+
+        boss:[
+            110,
+            130,
+            147,
+            130,
+            98,
+            123,
+            147,
+            123
+        ]
+
+    };
+
+
+    const pattern =
+        patterns[mode] ||
+        patterns.game;
+
+
+    musicStep=0;
+
+
+    const tempo =
+        mode==="intense"
+            ? 240
+            : mode==="boss"
+                ? 300
+                : mode==="menu"
+                    ? 620
+                    : 420;
+
+
+    function play(){
+
+        const freq =
+            pattern[
+                musicStep %
+                pattern.length
+            ];
+
+
+        tone(
+            freq,
+            .23,
+            "triangle",
+            .012
+        );
+
+
+        tone(
+            freq*2,
+            .13,
+            "sine",
+            .006,
+            .04
+        );
+
+
+        musicStep++;
+
+    }
+
+
+    play();
+
+
+    musicTimer =
+        setInterval(
+            play,
+            tempo
+        );
+
+}
+
+
+function setMusicMode(mode){
+
+    if(
+        musicOn
+    ){
+
+        startMusic(
+            mode
+        );
+
+    }
+
+}
+
+
+function clearMusicLoop(){
+
+    if(musicTimer){
+
+        clearInterval(
+            musicTimer
+        );
+
+        musicTimer=null;
+
+    }
+
+}
+
+
+/* =========================================
+   SOUND SETTINGS
+========================================= */
+
+function saveSettings(){
+
+    localStorage.setItem(
+        "neuroMusic",
+        JSON.stringify(
+            musicOn
+        )
+    );
+
+
+    localStorage.setItem(
+        "neuroSfx",
+        JSON.stringify(
+            sfxOn
+        )
+    );
+
+}
+
+
+function showSoundInfo(){
+
+    $("soundOverlay")
+        .classList
+        .add("show");
+
+
+    $("musicState")
+        .textContent =
+            musicOn
+                ? "ON"
+                : "OFF";
+
+
+    $("sfxState")
+        .textContent =
+            sfxOn
+                ? "ON"
+                : "OFF";
+
+}
+
+
+function hideSoundInfo(){
+
+    $("soundOverlay")
+        .classList
+        .remove("show");
+
+}
+
+
+function toggleMusic(){
+
+    musicOn=!musicOn;
+
+    saveSettings();
+
+
+    $("musicState")
+        .textContent =
+            musicOn
+                ? "ON"
+                : "OFF";
+
+
+    if(musicOn){
+
+        startMusic(
+            "menu"
+        );
+
+    }else{
+
+        clearMusicLoop();
+
+    }
+
+}
+
+
+function toggleSfx(){
+
+    sfxOn=!sfxOn;
+
+    saveSettings();
+
+
+    $("sfxState")
+        .textContent =
+            sfxOn
+                ? "ON"
+                : "OFF";
+
+
+    if(sfxOn){
+
+        sfx(
+            "hit"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   START GAME
+========================================= */
+
+function startGame(daily){
+
+    ensureAudio();
+
+    startMusic(
+        "game"
+    );
+
+
+    isDaily=daily;
+
 
     level=1;
 
@@ -1336,57 +3088,198 @@ function startGame(){
 
     logicDone=0;
 
-    questionPool=
-        shuffle(logicQuestions);
+    successfulSinceLife=0;
+
+    totalChallenges=0;
+
+    motorCount=0;
+
+
+    questionPool =
+        shuffle(
+            logicQuestions
+        );
+
 
     $("startScreen")
-        .classList.remove("active");
+        .classList
+        .remove(
+            "active"
+        );
+
 
     $("resultScreen")
-        .classList.remove("active");
+        .classList
+        .remove(
+            "active"
+        );
+
 
     $("gameScreen")
-        .classList.add("active");
+        .classList
+        .add(
+            "active"
+        );
+
 
     updateHUD();
 
+
     nextLogicQuestion();
+
 }
 
 
-/* =====================================================
-   NEXT LOGIC
-===================================================== */
+/* =========================================
+   SUCCESS
+========================================= */
+
+function successfulChallenge(){
+
+    totalChallenges++;
+
+    successfulSinceLife++;
+
+
+    combo++;
+
+    bestCombo =
+        Math.max(
+            bestCombo,
+            combo
+        );
+
+
+    score +=
+        100+
+        combo*12;
+
+
+    xp +=
+        22+
+        combo*2;
+
+
+    /*
+       КОЖНІ 3 УСПІШНІ
+       ВІДНОВЛЮЄМО 1 ЖИТТЯ
+    */
+
+    if(
+        successfulSinceLife>=3 &&
+        errors<3
+    ){
+
+        errors++;
+
+        successfulSinceLife=0;
+
+        sfx(
+            "life"
+        );
+
+        toast(
+            "❤️ +1 ЖИТТЯ"
+        );
+
+        flash(
+            "good"
+        );
+
+    }else{
+
+        sfx(
+            "good"
+        );
+
+    }
+
+
+    updateHUD();
+
+}
+
+
+/* =========================================
+   FAILURE
+========================================= */
+
+function failedChallenge(){
+
+    totalChallenges++;
+
+    errors--;
+
+    combo=0;
+
+    successfulSinceLife=0;
+
+
+    sfx(
+        "bad"
+    );
+
+
+    flash(
+        "bad"
+    );
+
+
+    updateHUD();
+
+}
+
+
+/* =========================================
+   LOGIC QUESTION
+========================================= */
 
 function nextLogicQuestion(){
 
     clearAllTimers();
 
-    if(questionPool.length===0){
 
-        questionPool=
-            shuffle(logicQuestions);
+    if(
+        questionPool.length===0
+    ){
+
+        questionPool =
+            shuffle(
+                logicQuestions
+            );
+
     }
 
-    const q=
+
+    const q =
         questionPool.pop();
 
-    renderLogic(q);
+
+    renderLogic(
+        q
+    );
+
 
     updateHUD();
+
 }
 
 
-/* =====================================================
-   LOGIC RENDER
-===================================================== */
-
 function renderLogic(q){
 
-    const answers=
-        shuffle(q.answers);
+    setMusicMode(
+        "game"
+    );
 
-    $("challenge").innerHTML=`
+
+    const answers =
+        shuffle(
+            q.answers
+        );
+
+
+    $("challenge")
+        .innerHTML = `
 
         <div class="challenge-header">
 
@@ -1394,13 +3287,30 @@ function renderLogic(q){
                 🧠 ${q.type}
             </div>
 
+
             <h2>
                 ${q.title}
             </h2>
 
+
             <p>
                 ${q.desc}
             </p>
+
+
+            <div class="stat-line">
+
+                <div class="stat-chip">
+                    Помилки:
+                    <b>${errors}</b>
+                </div>
+
+                <div class="stat-chip">
+                    Серія:
+                    <b>${combo}</b>
+                </div>
+
+            </div>
 
         </div>
 
@@ -1411,7 +3321,7 @@ function renderLogic(q){
 
                 <div class="
                     seq-item
-                    ${x==="?"?"question":""}
+                    ${x==="?"?"q":""}
                 ">
 
                     ${x}
@@ -1428,15 +3338,15 @@ function renderLogic(q){
             ${answers.map(answer=>`
 
                 <button
-                    class="answer-btn"
-                    data-answer="${escapeHtml(answer)}"
+                    class="answer"
                     onclick="
                         answerLogic(
                             this,
-                            '${escapeJs(answer)}',
-                            '${escapeJs(q.correct)}'
+                            ${JSON.stringify(answer)},
+                            ${JSON.stringify(q.correct)}
                         )
-                    ">
+                    "
+                >
 
                     ${answer}
 
@@ -1445,13 +3355,15 @@ function renderLogic(q){
             `).join("")}
 
         </div>
+
     `;
+
 }
 
 
-/* =====================================================
+/* =========================================
    LOGIC ANSWER
-===================================================== */
+========================================= */
 
 function answerLogic(
     button,
@@ -1459,127 +3371,202 @@ function answerLogic(
     correct
 ){
 
-    const buttons=
-        document.querySelectorAll(
-            ".answer-btn"
-        );
+    const buttons =
+        [
+            ...document
+                .querySelectorAll(
+                    ".answer"
+                )
+        ];
 
-    buttons.forEach(b=>{
-        b.disabled=true;
-    });
+
+    buttons.forEach(
+        b=>{
+            b.disabled=true;
+        }
+    );
 
 
-    if(answer===correct){
+    if(
+        answer===correct
+    ){
 
-        button.classList.add(
-            "correct"
-        );
-
-        combo++;
-
-        bestCombo=
-            Math.max(
-                bestCombo,
-                combo
+        button.classList
+            .add(
+                "correct"
             );
 
-        score +=
-            100 + combo*10;
 
-        xp += 20;
+        score+=60;
+
+        xp+=12;
 
         logicDone++;
 
-        vibrate(20);
 
-        toast("Правильно!");
-
-        updateHUD();
+        successfulChallenge();
 
 
         setTimeout(()=>{
 
+            level++;
+
+
             /*
-                КОЖНІ 5 ЛОГІЧНИХ
-                ЙДЕ КУЛЬКА
+              КОЖНІ 10 ВИПРОБУВАНЬ —
+              BOSS
             */
 
-            if(logicDone%5===0){
+            if(
+                totalChallenges>0 &&
+                totalChallenges%10===0
+            ){
 
-                startBallChallenge();
+                startBoss();
 
-            }else{
-
-                level++;
-
-                nextLogicQuestion();
+                return;
 
             }
 
-        },550);
+
+            /*
+              КОЖНІ 5 ЛОГІЧНИХ —
+              МОТОРИКА
+            */
+
+            if(
+                logicDone%5===0
+            ){
+
+                startMotorChallenge();
+
+                return;
+
+            }
+
+
+            nextLogicQuestion();
+
+        },520);
 
 
     }else{
 
-        button.classList.add(
-            "wrong"
-        );
+        button.classList
+            .add(
+                "wrong"
+            );
 
-        fail();
+
+        failedChallenge();
 
 
         setTimeout(()=>{
 
-            if(errors<=0){
+            if(
+                errors<=0
+            ){
 
                 gameOver();
 
             }else{
 
-                buttons.forEach(b=>{
+                buttons.forEach(
+                    b=>{
 
-                    b.disabled=false;
+                        b.disabled=false;
 
-                    b.classList.remove(
-                        "wrong"
-                    );
+                        b.classList
+                            .remove(
+                                "wrong"
+                            );
 
-                });
+                    }
+                );
 
             }
 
-        },500);
+        },480);
+
     }
+
 }
 
 
-/* =====================================================
-   FAIL
-===================================================== */
+/* =========================================
+   MOTOR CHALLENGES
+========================================= */
 
-function fail(){
+const motorPool = [
 
-    errors--;
+    "ball",
+    "reaction",
+    "stop",
+    "track",
+    "sequence",
+    "precision",
+    "labyrinth",
+    "memory"
 
-    combo=0;
-
-    vibrate(
-        [60,50,60]
-    );
-
-    toast("Помилка");
-
-    updateHUD();
-}
+];
 
 
-/* =====================================================
-   BALL
-===================================================== */
-
-function startBallChallenge(){
+function startMotorChallenge(){
 
     clearAllTimers();
+
+
+    const choices =
+        motorPool.filter(
+            x =>
+                x!==lastMotor
+        );
+
+
+    const type =
+        rand(
+            choices
+        );
+
+
+    lastMotor =
+        type;
+
+
+    motorCount++;
+
+
+    const map = {
+
+        ball:startBall,
+
+        reaction:startReaction,
+
+        stop:startStop,
+
+        track:startTracking,
+
+        sequence:startSequence,
+
+        precision:startPrecision,
+
+        labyrinth:startLabyrinth,
+
+        memory:startMemory
+
+    };
+
+
+    map[type]();
+
+}
+
+
+/* =========================================
+   BALL
+========================================= */
+
+function startBall(){
 
     ballHits=0;
 
@@ -1589,57 +3576,158 @@ function startBallChallenge(){
 
     ballMoveStep=0;
 
-    renderBall();
-
-    updateHUD();
+    ballIntense=false;
 
 
-    /* =========================
-       TIMER
-    ========================= */
+    startMusic(
+        "game"
+    );
 
-    ballTimer=
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                ⚡ Реакція • Моторика
+            </div>
+
+
+            <h2>
+                Злови кульку
+            </h2>
+
+
+            <p>
+                Злови 10 кульок за 20 секунд.
+                Кулька тікає нерівномірно.
+            </p>
+
+        </div>
+
+
+        <div class="ball-info">
+
+            <div class="ball-stat">
+
+                <span>
+                    Час
+                </span>
+
+                <strong
+                    id="ballTime"
+                >
+                    20.0 с
+                </strong>
+
+            </div>
+
+
+            <div class="ball-stat">
+
+                <span>
+                    Зловлено
+                </span>
+
+                <strong
+                    id="ballHits"
+                >
+                    0 / 10
+                </strong>
+
+            </div>
+
+
+            <div class="ball-stat">
+
+                <span>
+                    Залишилось
+                </span>
+
+                <strong
+                    id="ballLeft"
+                >
+                    10
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="ball-area"
+            id="ballArea"
+        >
+
+            <div
+                class="ball"
+                id="ball"
+                onpointerdown="
+                    catchBall(event)
+                "
+            ></div>
+
+        </div>
+
+    `;
+
+
+    moveBall();
+
+
+    ballTimer =
         setInterval(()=>{
 
-            ballSeconds-=0.1;
+            ballSeconds-=.1;
 
-            const time=
-                Math.max(
-                    ballSeconds,
-                    0
+
+            if(
+                ballSeconds<7 &&
+                !ballIntense
+            ){
+
+                ballIntense=true;
+
+                startMusic(
+                    "intense"
                 );
-
-            const timer=
-                $("ballTime");
-
-            if(timer){
-
-                timer.textContent=
-                    time.toFixed(1)+" с";
 
             }
 
-            if(ballSeconds<=0){
 
-                finishBall(false);
+            $("ballTime")
+                .textContent =
+                    Math.max(
+                        0,
+                        ballSeconds
+                    ).toFixed(1)
+                    +" с";
+
+
+            if(
+                ballSeconds<=0
+            ){
+
+                finishBall(
+                    false
+                );
 
             }
 
         },100);
 
 
-    /* =========================
-       RANDOMIZED RHYTHM
-       0.7 → 0.8 → 0.9
-    ========================= */
-
     scheduleBallMove();
+
 }
 
 
-/* =====================================================
-   SCHEDULE BALL MOVE
-===================================================== */
+/* =========================================
+   BALL MOVEMENT
+   RANDOM 0.5–0.7 SEC
+========================================= */
 
 function scheduleBallMove(){
 
@@ -1647,25 +3735,19 @@ function scheduleBallMove(){
         ballSeconds<=0 ||
         ballHits>=ballTarget
     ){
+
         return;
+
     }
 
-    const delays=[
-        700,
-        800,
-        900
-    ];
 
-    const delay=
-        delays[
-            ballMoveStep %
-            delays.length
-        ];
-
-    ballMoveStep++;
+    const delay =
+        Math.floor(
+            Math.random()*201
+        )+500;
 
 
-    ballMoveTimer=
+    ballMoveTimer =
         setTimeout(()=>{
 
             if(
@@ -1680,144 +3762,71 @@ function scheduleBallMove(){
             }
 
         },delay);
+
 }
 
 
-/* =====================================================
-   RENDER BALL
-===================================================== */
-
-function renderBall(){
-
-    $("challenge").innerHTML=`
-
-        <div class="challenge-header">
-
-            <div class="tag">
-                ⚡ Реакція
-            </div>
-
-            <h2>
-                Злови кульку
-            </h2>
-
-            <p>
-                Злови 10 кульок за 20 секунд.
-            </p>
-
-        </div>
-
-
-        <div class="ball-info">
-
-            <div class="ball-stat">
-
-                <span>
-                    Час
-                </span>
-
-                <strong id="ballTime">
-                    20.0 с
-                </strong>
-
-            </div>
-
-
-            <div class="ball-stat">
-
-                <span>
-                    Зловлено
-                </span>
-
-                <strong id="ballHits">
-                    0 / 10
-                </strong>
-
-            </div>
-
-
-            <div class="ball-stat">
-
-                <span>
-                    Залишилось
-                </span>
-
-                <strong id="ballLeft">
-                    10
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="ball-area"
-            id="ballArea">
-
-            <div
-                class="ball"
-                id="ball"
-                onpointerdown="catchBall(event)">
-            </div>
-
-        </div>
-    `;
-}
-
-
-/* =====================================================
-   MOVE BALL
-===================================================== */
+/* =========================================
+   BALL POSITION
+========================================= */
 
 function moveBall(){
 
-    const area=
+    const area =
         $("ballArea");
 
-    const ball=
+    const ball =
         $("ball");
 
-    if(!area || !ball){
+
+    if(
+        !area ||
+        !ball
+    ){
+
         return;
+
     }
 
 
     const margin=48;
 
 
-    const maxX=
+    const maxX =
         area.clientWidth -
         margin;
 
-    const maxY=
+
+    const maxY =
         area.clientHeight -
         margin;
 
 
-    const x=
-        margin +
+    const x =
+        margin+
         Math.random()*
         (maxX-margin);
 
 
-    const y=
-        margin +
+    const y =
+        margin+
         Math.random()*
         (maxY-margin);
 
 
-    ball.style.left=
+    ball.style.left =
         x+"px";
 
-    ball.style.top=
+
+    ball.style.top =
         y+"px";
+
 }
 
 
-/* =====================================================
+/* =========================================
    CATCH BALL
-===================================================== */
+========================================= */
 
 function catchBall(event){
 
@@ -1826,20 +3835,15 @@ function catchBall(event){
     event.stopPropagation();
 
 
-    if(ballSeconds<=0){
+    if(
+        ballSeconds<=0 ||
+        ballHits>=ballTarget
+    ){
+
         return;
+
     }
 
-
-    if(ballHits>=ballTarget){
-        return;
-    }
-
-
-    /*
-       НАТИСКАННЯ ЗАРАХОВУЄМО
-       МОМЕНТАЛЬНО
-    */
 
     ballHits++;
 
@@ -1848,14 +3852,34 @@ function catchBall(event){
 
     combo++;
 
-    bestCombo=
+
+    bestCombo =
         Math.max(
             bestCombo,
             combo
         );
 
 
-    vibrate(30);
+    $("ballHits")
+        .textContent =
+            ballHits+
+            " / "+
+            ballTarget;
+
+
+    $("ballLeft")
+        .textContent =
+            Math.max(
+                ballTarget-ballHits,
+                0
+            );
+
+
+    $("hudScore")
+        .textContent =
+            Math.round(
+                score
+            );
 
 
     createHit(
@@ -1864,42 +3888,15 @@ function catchBall(event){
     );
 
 
-    const hitsEl=
-        $("ballHits");
-
-    const leftEl=
-        $("ballLeft");
+    vibrate(
+        28
+    );
 
 
-    if(hitsEl){
+    sfx(
+        "hit"
+    );
 
-        hitsEl.textContent=
-            ballHits+
-            " / "+
-            ballTarget;
-
-    }
-
-
-    if(leftEl){
-
-        leftEl.textContent=
-            Math.max(
-                ballTarget-ballHits,
-                0
-            );
-
-    }
-
-
-    $("hudScore").textContent=
-        Math.round(score);
-
-
-    /*
-       ПІСЛЯ ПОПАДАННЯ
-       КУЛЬКА ОДРАЗУ ТІКАЄ
-    */
 
     moveBall();
 
@@ -1908,16 +3905,18 @@ function catchBall(event){
         ballHits>=ballTarget
     ){
 
-        finishBall(true);
+        finishBall(
+            true
+        );
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================================
    FINISH BALL
-===================================================== */
+========================================= */
 
 function finishBall(success){
 
@@ -1937,16 +3936,21 @@ function finishBall(success){
 
     if(success){
 
-        score+=250;
+        successfulChallenge();
 
-        xp+=50;
 
-        vibrate(
-            [25,40,25]
+        score+=220;
+
+        xp+=40;
+
+
+        sfx(
+            "victory"
         );
 
+
         toast(
-            "🎯 Випробування пройдено"
+            "🎯 10/10 — виконано!"
         );
 
 
@@ -1956,43 +3960,30 @@ function finishBall(success){
 
             nextLogicQuestion();
 
-        },700);
+        },650);
 
 
     }else{
 
-        /*
-           Якщо час вийшов —
-           рахуємо це як одну помилку
-        */
-
-        errors--;
-
-        combo=0;
-
-        vibrate(
-            [80,50,80]
-        );
-
-        updateHUD();
+        failedChallenge();
 
 
         toast(
-            "Час вийшов: "+
-            ballHits+
-            "/"+
-            ballTarget
+            `Час! ${ballHits}/${ballTarget}`
         );
 
 
-        if(errors<=0){
+        if(
+            errors<=0
+        ){
 
             setTimeout(
                 gameOver,
-                600
+                500
             );
 
             return;
+
         }
 
 
@@ -2002,76 +3993,2072 @@ function finishBall(success){
 
             nextLogicQuestion();
 
-        },800);
+        },650);
+
     }
+
 }
 
 
-/* =====================================================
+/* =========================================
+   REACTION
+========================================= */
+
+function startReaction(){
+
+    let tries=0;
+
+    const need=5;
+
+
+    setMusicMode(
+        "game"
+    );
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                ⚡ Reflex
+            </div>
+
+
+            <h2>
+                Натисни в потрібний момент
+            </h2>
+
+
+            <p>
+                Чекай зеленого сигналу.
+                Не поспішай.
+            </p>
+
+        </div>
+
+
+        <div
+            class="reaction-dot"
+            id="reactionDot"
+            onpointerdown="
+                reactionClick()
+            "
+        ></div>
+
+
+        <div class="stat-line">
+
+            <div class="stat-chip">
+
+                Спроби:
+
+                <b id="reactCount">
+                    0 / 5
+                </b>
+
+            </div>
+
+
+            <div class="stat-chip">
+
+                Результат:
+
+                <b id="reactTime">
+                    —
+                </b>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    window.reactionClick =
+        function(){
+
+            const dot =
+                $("reactionDot");
+
+
+            if(
+                !reactionReady
+            ){
+
+                failedChallenge();
+
+
+                if(
+                    errors<=0
+                ){
+
+                    gameOver();
+
+                }
+
+
+                return;
+
+            }
+
+
+            const ms =
+                Math.round(
+                    performance.now()
+                    -
+                    reactionStart
+                );
+
+
+            tries++;
+
+
+            reactionReady=false;
+
+
+            dot.classList
+                .remove(
+                    "go"
+                );
+
+
+            $("reactCount")
+                .textContent =
+                    `${tries} / ${need}`;
+
+
+            $("reactTime")
+                .textContent =
+                    ms+" мс";
+
+
+            score+=
+                Math.max(
+                    40,
+                    130-ms/5
+                );
+
+
+            xp+=8;
+
+
+            sfx(
+                "hit"
+            );
+
+
+            vibrate(
+                20
+            );
+
+
+            if(
+                tries>=need
+            ){
+
+                successfulChallenge();
+
+
+                setTimeout(()=>{
+
+                    level++;
+
+                    nextLogicQuestion();
+
+                },550);
+
+
+            }else{
+
+                scheduleReaction();
+
+            }
+
+        };
+
+
+    scheduleReaction();
+
+}
+
+
+/* =========================================
+   REACTION TIMER
+========================================= */
+
+function scheduleReaction(){
+
+    clearTimeout(
+        reactionTimer
+    );
+
+
+    reactionReady=false;
+
+
+    reactionTimer =
+        setTimeout(()=>{
+
+            const dot =
+                $("reactionDot");
+
+
+            if(!dot){
+                return;
+            }
+
+
+            dot.classList
+                .add(
+                    "go"
+                );
+
+
+            reactionReady=true;
+
+
+            reactionStart =
+                performance.now();
+
+
+        },
+        900+
+        Math.random()*2200
+    );
+
+}
+
+
+/* =========================================
+   STOP SIGNAL
+========================================= */
+
+function startStop(){
+
+    stopGood=0;
+
+    stopNeed=6;
+
+    stopDanger=false;
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                🛑 Контроль імпульсу
+            </div>
+
+
+            <h2>
+                Не натискай на червоне
+            </h2>
+
+
+            <p>
+                Тисни тільки коли написано
+                «НАТИСКАЙ».
+            </p>
+
+        </div>
+
+
+        <button
+            class="big-action"
+            id="stopBtn"
+            onpointerdown="
+                stopClick()
+            "
+        >
+            ЧЕКАЙ...
+        </button>
+
+
+        <div class="stat-line">
+
+            <div class="stat-chip">
+
+                Успіхів:
+
+                <b id="stopCount">
+                    0 / 6
+                </b>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    function cycle(){
+
+        if(
+            !$("stopBtn")
+        ){
+
+            return;
+
+        }
+
+
+        stopDanger =
+            Math.random()
+            <
+            .45;
+
+
+        $("stopBtn")
+            .textContent =
+                stopDanger
+                    ? "НЕ НАТИСКАЙ"
+                    : "НАТИСКАЙ";
+
+
+        $("stopBtn")
+            .style.borderColor =
+                stopDanger
+                    ? "var(--red)"
+                    : "var(--green)";
+
+
+        $("stopBtn")
+            .style.background =
+                stopDanger
+                    ? "rgba(255,77,109,.12)"
+                    : "rgba(53,231,125,.12)";
+
+
+        stopTimer =
+            setTimeout(
+                cycle,
+                650+
+                Math.random()*800
+            );
+
+    }
+
+
+    window.stopClick =
+        function(){
+
+            if(
+                stopDanger
+            ){
+
+                failedChallenge();
+
+
+                if(
+                    errors<=0
+                ){
+
+                    gameOver();
+
+                }
+
+
+                return;
+
+            }
+
+
+            stopGood++;
+
+
+            score+=70;
+
+            xp+=9;
+
+            combo++;
+
+
+            bestCombo =
+                Math.max(
+                    bestCombo,
+                    combo
+                );
+
+
+            $("stopCount")
+                .textContent =
+                    `${stopGood} / ${stopNeed}`;
+
+
+            sfx(
+                "hit"
+            );
+
+
+            vibrate(
+                18
+            );
+
+
+            if(
+                stopGood>=stopNeed
+            ){
+
+                clearTimeout(
+                    stopTimer
+                );
+
+
+                successfulChallenge();
+
+
+                setTimeout(()=>{
+
+                    level++;
+
+                    nextLogicQuestion();
+
+                },550);
+
+            }
+
+        };
+
+
+    cycle();
+
+}
+
+
+/* =========================================
+   TRACK TARGET
+========================================= */
+
+function startTracking(){
+
+    const total=5;
+
+    let correct=0;
+
+    let current=0;
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                👁 Focus
+            </div>
+
+
+            <h2>
+                Слідкуй за ціллю
+            </h2>
+
+
+            <p>
+                Запам'ятай підсвічену клітинку.
+            </p>
+
+        </div>
+
+
+        <div
+            class="motor-grid"
+            id="trackGrid"
+        >
+
+            ${
+                Array.from(
+                    {length:9},
+                    (_,i)=>`
+
+                        <button
+                            class="motor-cell"
+                            data-i="${i}"
+                            onclick="
+                                trackClick(${i})
+                            "
+                        ></button>
+
+                    `
+                ).join("")
+            }
+
+        </div>
+
+
+        <div class="stat-line">
+
+            <div class="stat-chip">
+
+                Раундів:
+
+                <b id="trackCount">
+                    0 / 5
+                </b>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    function show(){
+
+        current =
+            Math.floor(
+                Math.random()*9
+            );
+
+
+        setTimeout(()=>{
+
+            const cell =
+                document.querySelector(
+                    `.motor-cell[data-i="${current}"]`
+                );
+
+
+            if(!cell){
+                return;
+            }
+
+
+            cell.classList
+                .add(
+                    "active"
+                );
+
+
+            setTimeout(()=>{
+
+                cell.classList
+                    .remove(
+                        "active"
+                    );
+
+            },450);
+
+        },220);
+
+    }
+
+
+    window.trackClick =
+        function(index){
+
+            if(
+                index===current
+            ){
+
+                correct++;
+
+
+                $("trackCount")
+                    .textContent =
+                        `${correct} / ${total}`;
+
+
+                score+=80;
+
+                xp+=10;
+
+                combo++;
+
+
+                sfx(
+                    "hit"
+                );
+
+
+                vibrate(
+                    20
+                );
+
+
+                if(
+                    correct>=total
+                ){
+
+                    successfulChallenge();
+
+
+                    setTimeout(()=>{
+
+                        level++;
+
+                        nextLogicQuestion();
+
+                    },520);
+
+
+                    return;
+
+                }
+
+            }else{
+
+                failedChallenge();
+
+
+                if(
+                    errors<=0
+                ){
+
+                    gameOver();
+
+                    return;
+
+                }
+
+            }
+
+
+            show();
+
+        };
+
+
+    show();
+
+}
+
+
+/* =========================================
+   SEQUENCE
+========================================= */
+
+function startSequence(){
+
+    const order =
+        shuffle(
+            [1,2,3,4,5]
+        );
+
+
+    let index=0;
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                👆 Координація
+            </div>
+
+
+            <h2>
+                Натисни у правильному порядку
+            </h2>
+
+
+            <p>
+                1 → 2 → 3 → 4 → 5
+            </p>
+
+        </div>
+
+
+        <div class="seq-buttons">
+
+            ${
+                order.map(
+                    number=>`
+
+                        <button
+                            class="seq-btn"
+                            onclick="
+                                sequenceClick(
+                                    ${number},
+                                    this
+                                )
+                            "
+                        >
+
+                            ${number}
+
+                        </button>
+
+                    `
+                ).join("")
+            }
+
+        </div>
+
+
+        <div class="stat-line">
+
+            <div class="stat-chip">
+
+                Прогрес:
+
+                <b id="seqCount">
+                    0 / 5
+                </b>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    window.sequenceClick =
+        function(
+            number,
+            button
+        ){
+
+            if(
+                number ===
+                index+1
+            ){
+
+                index++;
+
+
+                button.style.background =
+                    "rgba(53,231,125,.16)";
+
+
+                button.disabled=true;
+
+
+                score+=65;
+
+                xp+=8;
+
+                combo++;
+
+
+                sfx(
+                    "hit"
+                );
+
+
+                vibrate(
+                    18
+                );
+
+
+                $("seqCount")
+                    .textContent =
+                        `${index} / 5`;
+
+
+                if(
+                    index===5
+                ){
+
+                    successfulChallenge();
+
+
+                    setTimeout(()=>{
+
+                        level++;
+
+                        nextLogicQuestion();
+
+                    },520);
+
+                }
+
+            }else{
+
+                button.classList
+                    .add(
+                        "wrong"
+                    );
+
+
+                failedChallenge();
+
+
+                if(
+                    errors<=0
+                ){
+
+                    gameOver();
+
+                    return;
+
+                }
+
+
+                setTimeout(()=>{
+
+                    button.classList
+                        .remove(
+                            "wrong"
+                        );
+
+                },250);
+
+            }
+
+        };
+
+}
+
+
+/* =========================================
+   PRECISION
+========================================= */
+
+function startPrecision(){
+
+    let hits=0;
+
+    const need=6;
+
+    let x=0;
+
+    let direction=1;
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                🎯 Точність
+            </div>
+
+
+            <h2>
+                Злови момент
+            </h2>
+
+
+            <p>
+                Натисни, коли маркер
+                буде в зеленій зоні.
+            </p>
+
+        </div>
+
+
+        <div class="precision-wrap">
+
+            <div
+                class="precision-track"
+                id="precisionTrack"
+            >
+
+                <div
+                    class="precision-zone"
+                ></div>
+
+
+                <div
+                    class="precision-cursor"
+                    id="precisionCursor"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-line">
+
+            <div class="stat-chip">
+
+                Влучань:
+
+                <b id="precisionCount">
+                    0 / 6
+                </b>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    precisionTimer =
+        setInterval(()=>{
+
+            x+=
+                direction*1.8;
+
+
+            if(x>96){
+
+                x=96;
+
+                direction=-1;
+
+            }
+
+
+            if(x<0){
+
+                x=0;
+
+                direction=1;
+
+            }
+
+
+            const cursor =
+                $("precisionCursor");
+
+
+            if(cursor){
+
+                cursor.style.left =
+                    x+"%";
+
+            }
+
+        },16);
+
+
+    window.precisionClick =
+        function(){
+
+            const cursor =
+                $("precisionCursor");
+
+
+            if(!cursor){
+                return;
+            }
+
+
+            const left =
+                parseFloat(
+                    cursor.style.left ||
+                    0
+                );
+
+
+            /*
+              ЗЕЛЕНА ЗОНА:
+              41–59%
+            */
+
+            if(
+                left>=39 &&
+                left<=58
+            ){
+
+                hits++;
+
+
+                score+=95;
+
+                xp+=11;
+
+                combo++;
+
+
+                vibrate(
+                    20
+                );
+
+
+                sfx(
+                    "hit"
+                );
+
+
+                $("precisionCount")
+                    .textContent =
+                        `${hits} / ${need}`;
+
+
+                if(
+                    hits>=need
+                ){
+
+                    clearInterval(
+                        precisionTimer
+                    );
+
+
+                    successfulChallenge();
+
+
+                    setTimeout(()=>{
+
+                        level++;
+
+                        nextLogicQuestion();
+
+                    },520);
+
+                }
+
+            }else{
+
+                failedChallenge();
+
+
+                if(
+                    errors<=0
+                ){
+
+                    gameOver();
+
+                }
+
+            }
+
+        };
+
+
+    $("precisionTrack")
+        .onpointerdown =
+            precisionClick;
+
+}
+
+
+/* =========================================
+   LABYRINTH
+========================================= */
+
+function startLabyrinth(){
+
+    clearAllTimers();
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                🌀 Координація
+            </div>
+
+
+            <h2>
+                Пройди лабіринт
+            </h2>
+
+
+            <p>
+                Проведи кульку до зеленого кола,
+                не торкаючись стін.
+            </p>
+
+        </div>
+
+
+        <div
+            class="labyrinth"
+            id="labyrinth"
+        >
+
+            <div
+                class="lab-wall"
+                style="
+                    left:15%;
+                    top:15%;
+                    width:70%;
+                    height:10%;
+                "
+            ></div>
+
+
+            <div
+                class="lab-wall"
+                style="
+                    left:15%;
+                    top:25%;
+                    width:10%;
+                    height:50%;
+                "
+            ></div>
+
+
+            <div
+                class="lab-wall"
+                style="
+                    left:25%;
+                    top:65%;
+                    width:60%;
+                    height:10%;
+                "
+            ></div>
+
+
+            <div
+                class="lab-wall"
+                style="
+                    left:75%;
+                    top:25%;
+                    width:10%;
+                    height:40%;
+                "
+            ></div>
+
+
+            <div
+                class="lab-wall"
+                style="
+                    left:35%;
+                    top:25%;
+                    width:10%;
+                    height:30%;
+                "
+            ></div>
+
+
+            <div
+                class="lab-dot"
+                id="labDot"
+            ></div>
+
+
+            <div
+                class="lab-goal"
+            ></div>
+
+        </div>
+
+
+        <div class="stat-line">
+
+            <div class="stat-chip">
+                Рухай пальцем усередині поля
+            </div>
+
+        </div>
+
+    `;
+
+
+    const area =
+        $("labyrinth");
+
+    const dot =
+        $("labDot");
+
+
+    let active=false;
+
+
+    function move(e){
+
+        const rect =
+            area.getBoundingClientRect();
+
+
+        const x =
+            clamp(
+                e.clientX -
+                rect.left,
+
+                12,
+
+                rect.width-12
+            );
+
+
+        const y =
+            clamp(
+                e.clientY -
+                rect.top,
+
+                12,
+
+                rect.height-12
+            );
+
+
+        dot.style.left =
+            (x-12)+"px";
+
+
+        dot.style.top =
+            (y-12)+"px";
+
+
+        const px =
+            x/rect.width;
+
+
+        const py =
+            y/rect.height;
+
+
+        const hit =
+
+            (
+                px>.15 &&
+                px<.85 &&
+                py>.15 &&
+                py<.25
+            )
+
+            ||
+
+            (
+                px>.15 &&
+                px<.25 &&
+                py>.25 &&
+                py<.75
+            )
+
+            ||
+
+            (
+                px>.25 &&
+                px<.85 &&
+                py>.65 &&
+                py<.75
+            )
+
+            ||
+
+            (
+                px>.75 &&
+                px<.85 &&
+                py>.25 &&
+                py<.65
+            )
+
+            ||
+
+            (
+                px>.35 &&
+                px<.45 &&
+                py>.25 &&
+                py<.55
+            );
+
+
+        if(
+            hit &&
+            active
+        ){
+
+            active=false;
+
+
+            failedChallenge();
+
+
+            sfx(
+                "bad"
+            );
+
+
+            if(
+                errors<=0
+            ){
+
+                gameOver();
+
+                return;
+
+            }
+
+
+            toast(
+                "Стіна — життя втрачено"
+            );
+
+
+            setTimeout(
+                startLabyrinth,
+                500
+            );
+
+
+            return;
+
+        }
+
+
+        if(
+            px>.88 &&
+            py>.88
+        ){
+
+            active=false;
+
+
+            successfulChallenge();
+
+
+            sfx(
+                "victory"
+            );
+
+
+            setTimeout(()=>{
+
+                level++;
+
+                nextLogicQuestion();
+
+            },600);
+
+        }
+
+    }
+
+
+    area.onpointerdown =
+        ()=>{
+
+            active=true;
+
+        };
+
+
+    area.onpointermove =
+        e=>{
+
+            if(active){
+
+                move(e);
+
+            }
+
+        };
+
+
+    window.addEventListener(
+        "pointerup",
+        ()=>{
+
+            active=false;
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   MEMORY
+========================================= */
+
+function startMemory(){
+
+    const symbols = [
+        "◆",
+        "●",
+        "▲",
+        "■",
+        "★",
+        "✦"
+    ];
+
+
+    const sequence =
+        Array.from(
+            {
+                length:5
+            },
+            () =>
+                rand(symbols)
+        );
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                🧠 Memory
+            </div>
+
+
+            <h2>
+                Запам'ятай
+            </h2>
+
+
+            <p>
+                Послідовність зникне
+                через секунду.
+            </p>
+
+        </div>
+
+
+        <div
+            class="sequence"
+            id="memorySeq"
+        >
+
+            ${
+                sequence.map(
+                    symbol=>`
+
+                        <div class="seq-item">
+
+                            ${symbol}
+
+                        </div>
+
+                    `
+                ).join("")
+            }
+
+        </div>
+
+
+        <div
+            id="memoryQuestion"
+            style="
+                text-align:center;
+                color:var(--muted);
+                margin-top:18px;
+            "
+        ></div>
+
+    `;
+
+
+    setTimeout(()=>{
+
+        const third =
+            sequence[2];
+
+
+        const options =
+            shuffle(
+                [
+                    third,
+                    ...symbols.filter(
+                        s=>s!==third
+                    )
+                ]
+            ).slice(
+                0,
+                4
+            );
+
+
+        $("memorySeq")
+            .innerHTML="";
+
+
+        $("memoryQuestion")
+            .innerHTML = `
+
+                <div
+                    style="
+                        font-size:16px;
+                        color:#fff;
+                        margin-bottom:16px
+                    "
+                >
+
+                    Який символ був
+                    <b>третім</b>?
+
+                </div>
+
+
+                <div class="answers">
+
+                    ${
+                        options.map(
+                            answer=>`
+
+                                <button
+                                    class="answer"
+                                    onclick="
+                                        memoryAnswer(
+                                            this,
+                                            ${JSON.stringify(answer)},
+                                            ${JSON.stringify(third)}
+                                        )
+                                    "
+                                >
+
+                                    ${answer}
+
+                                </button>
+
+                            `
+                        ).join("")
+                    }
+
+                </div>
+
+            `;
+
+    },1000);
+
+
+    window.memoryAnswer =
+        function(
+            button,
+            answer,
+            correct
+        ){
+
+            const buttons =
+                document.querySelectorAll(
+                    ".answer"
+                );
+
+
+            buttons.forEach(
+                b=>{
+                    b.disabled=true;
+                }
+            );
+
+
+            if(
+                answer===correct
+            ){
+
+                button.classList
+                    .add(
+                        "correct"
+                    );
+
+
+                successfulChallenge();
+
+
+                score+=130;
+
+                xp+=20;
+
+
+                setTimeout(()=>{
+
+                    level++;
+
+                    nextLogicQuestion();
+
+                },550);
+
+            }else{
+
+                button.classList
+                    .add(
+                        "wrong"
+                    );
+
+
+                failedChallenge();
+
+
+                if(
+                    errors<=0
+                ){
+
+                    setTimeout(
+                        gameOver,
+                        400
+                    );
+
+                }else{
+
+                    setTimeout(()=>{
+
+                        level++;
+
+                        nextLogicQuestion();
+
+                    },650);
+
+                }
+
+            }
+
+        };
+
+}
+
+
+/* =========================================
+   BOSS
+========================================= */
+
+function startBoss(){
+
+    clearAllTimers();
+
+
+    startMusic(
+        "boss"
+    );
+
+
+    sfx(
+        "boss"
+    );
+
+
+    let phase=0;
+
+    const total=3;
+
+
+    $("challenge")
+        .innerHTML = `
+
+        <div class="challenge-header">
+
+            <div class="tag">
+                👑 BOSS CHALLENGE
+            </div>
+
+
+            <h2>
+                Mind + Reflex + Focus
+            </h2>
+
+
+            <p>
+                Пройди три фази без провалу.
+            </p>
+
+        </div>
+
+
+        <div class="boss">
+
+            <div
+                class="boss-card"
+                id="bossCard"
+            >
+
+                <div
+                    class="boss-number"
+                    id="bossNumber"
+                >
+                    01
+                </div>
+
+
+                <div
+                    id="bossTask"
+                    style="
+                        color:var(--muted)
+                    "
+                >
+                    Вибери більше число.
+                </div>
+
+
+                <div
+                    class="boss-buttons"
+                    id="bossButtons"
+                ></div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    function renderBossPhase(){
+
+        phase++;
+
+
+        if(
+            phase===1
+        ){
+
+            $("bossNumber")
+                .textContent =
+                    "01";
+
+
+            $("bossTask")
+                .textContent =
+                    "Вибери більше число";
+
+
+            $("bossButtons")
+                .innerHTML = `
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossCorrect()
+                        "
+                    >
+                        7
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        5
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        6
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        4
+                    </button>
+
+                `;
+
+        }
+
+
+        else if(
+            phase===2
+        ){
+
+            $("bossNumber")
+                .textContent =
+                    "02";
+
+
+            $("bossTask")
+                .textContent =
+                    "Натисни синю ціль";
+
+
+            $("bossButtons")
+                .innerHTML = `
+
+                    <button
+                        class="boss-btn"
+                        style="
+                            background:#438cff
+                        "
+                        onclick="
+                            bossCorrect()
+                        "
+                    >
+                        СИНЯ
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        ЧЕРВОНА
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        ЖОВТА
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        ЗЕЛЕНА
+                    </button>
+
+                `;
+
+        }
+
+
+        else{
+
+            $("bossNumber")
+                .textContent =
+                    "03";
+
+
+            $("bossTask")
+                .textContent =
+                    "Скільки трикутників?";
+
+
+            $("bossButtons")
+                .innerHTML = `
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossCorrect()
+                        "
+                    >
+                        2
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        1
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        3
+                    </button>
+
+
+                    <button
+                        class="boss-btn"
+                        onclick="
+                            bossWrong()
+                        "
+                    >
+                        4
+                    </button>
+
+                `;
+
+        }
+
+    }
+
+
+    function finishBoss(){
+
+        successfulChallenge();
+
+
+        sfx(
+            "victory"
+        );
+
+
+        toast(
+            "👑 BOSS ПОДОЛАНО"
+        );
+
+
+        setTimeout(()=>{
+
+            level++;
+
+            nextLogicQuestion();
+
+        },800);
+
+    }
+
+
+    window.bossCorrect =
+        function(){
+
+            score+=180;
+
+            xp+=25;
+
+            combo++;
+
+
+            sfx(
+                "hit"
+            );
+
+
+            vibrate(
+                22
+            );
+
+
+            if(
+                phase<total
+            ){
+
+                setTimeout(
+                    renderBossPhase,
+                    320
+                );
+
+            }else{
+
+                finishBoss();
+
+            }
+
+        };
+
+
+    window.bossWrong =
+        function(){
+
+            failedChallenge();
+
+
+            if(
+                errors<=0
+            ){
+
+                gameOver();
+
+            }else{
+
+                toast(
+                    "❌ Помилка"
+                );
+
+            }
+
+        };
+
+
+    renderBossPhase();
+
+}
+
+
+/* =========================================
    HIT EFFECT
-===================================================== */
+========================================= */
 
-function createHit(x,y){
+function createHit(
+    x,
+    y
+){
 
-    const effect=
+    const effect =
         document.createElement(
             "div"
         );
 
-    effect.className=
-        "hit-effect";
+
+    effect.style.position=
+        "fixed";
+
 
     effect.style.left=
         x+"px";
+
 
     effect.style.top=
         y+"px";
 
 
-    document.body.appendChild(
-        effect
+    effect.style.width=
+        "60px";
+
+
+    effect.style.height=
+        "60px";
+
+
+    effect.style.border=
+        "2px solid var(--accent)";
+
+
+    effect.style.borderRadius=
+        "50%";
+
+
+    effect.style.pointerEvents=
+        "none";
+
+
+    effect.style.transform=
+        "translate(-50%,-50%)";
+
+
+    effect.style.zIndex=
+        "190";
+
+
+    effect.animate(
+
+        [
+            {
+                opacity:1,
+                transform:
+                    "translate(-50%,-50%) scale(.4)"
+            },
+
+            {
+                opacity:0,
+                transform:
+                    "translate(-50%,-50%) scale(1.8)"
+            }
+        ],
+
+        {
+            duration:320,
+            easing:"ease-out"
+        }
+
     );
+
+
+    document.body
+        .appendChild(
+            effect
+        );
 
 
     setTimeout(()=>{
 
         effect.remove();
 
-    },400);
+    },350);
+
 }
 
 
-/* =====================================================
-   CLEAR TIMERS
-===================================================== */
-
-function clearAllTimers(){
-
-    clearInterval(
-        ballTimer
-    );
-
-    clearTimeout(
-        ballMoveTimer
-    );
-
-
-    ballTimer=null;
-
-    ballMoveTimer=null;
-}
-
-
-/* =====================================================
+/* =========================================
    GAME OVER
-===================================================== */
+========================================= */
 
 function gameOver(){
 
     clearAllTimers();
 
 
-    const oldBest=
+    startMusic(
+        "menu"
+    );
+
+
+    const oldBest =
         Number(
             localStorage.getItem(
                 "neuroBest"
@@ -2079,127 +6066,214 @@ function gameOver(){
         );
 
 
-    if(score>oldBest){
+    const isNew =
+        score>oldBest;
+
+
+    if(isNew){
 
         localStorage.setItem(
             "neuroBest",
-            Math.round(score)
+            String(
+                Math.round(score)
+            )
         );
+
     }
 
 
     $("gameScreen")
-        .classList.remove(
+        .classList
+        .remove(
             "active"
         );
 
 
     $("resultScreen")
-        .classList.add(
+        .classList
+        .add(
             "active"
         );
 
 
     $("resultIcon")
-        .textContent="💥";
+        .textContent =
+            isNew
+                ? "🏆"
+                : "💥";
 
 
     $("resultTitle")
-        .textContent=
-            "Гра завершена";
+        .textContent =
+            isNew
+                ? "НОВИЙ РЕКОРД"
+                : "ЗАБІГ ЗАВЕРШЕНО";
 
 
     $("resultText")
-        .textContent=
-            "Ти використав усі допустимі помилки.";
+        .textContent =
+            isNew
+                ? "Ти встановив новий рекорд."
+                : "Спробуй ще раз і побий свій результат.";
 
 
     $("resultScore")
-        .textContent=
-            Math.round(score);
+        .textContent =
+            Math.round(
+                score
+            );
 
 
     $("resultXP")
-        .textContent=
+        .textContent =
             xp;
 
 
     $("resultLevel")
-        .textContent=
+        .textContent =
             level;
 
 
     $("resultCombo")
-        .textContent=
+        .textContent =
             bestCombo;
+
+
+    $("resMind")
+        .textContent =
+            Math.min(
+                100,
+                Math.round(
+                    logicDone*4
+                )
+            );
+
+
+    $("resReflex")
+        .textContent =
+            Math.min(
+                100,
+                Math.round(
+                    totalChallenges
+                    ?
+                    score /
+                    (totalChallenges*180)
+                    :
+                    0
+                )
+            );
+
+
+    $("resFocus")
+        .textContent =
+            Math.min(
+                100,
+                Math.round(
+                    (
+                        successfulSinceLife+
+                        logicDone
+                    )*2.5
+                )
+            );
+
+
+    $("resMotor")
+        .textContent =
+            Math.min(
+                100,
+                motorCount*12
+            );
+
+
+    $("lifeNote")
+        .textContent =
+            `Виконань: ${totalChallenges}. `+
+            `Одне життя повертається `+
+            `після 3 успішних випробувань.`;
+
 }
 
 
-/* =====================================================
+/* =========================================
    HOME
-===================================================== */
+========================================= */
 
 function returnHome(){
 
     clearAllTimers();
 
 
+    startMusic(
+        "menu"
+    );
+
+
     $("resultScreen")
-        .classList.remove(
+        .classList
+        .remove(
             "active"
         );
 
 
     $("gameScreen")
-        .classList.remove(
+        .classList
+        .remove(
             "active"
         );
 
 
     $("startScreen")
-        .classList.add(
+        .classList
+        .add(
             "active"
         );
 
 
     $("bestScore")
-        .textContent=
+        .textContent =
             Number(
                 localStorage.getItem(
                     "neuroBest"
                 ) || 0
             );
+
 }
 
 
-/* =====================================================
-   ESCAPING
-===================================================== */
+/* =========================================
+   MENU MUSIC
+   Only after user interaction
+========================================= */
 
-function escapeHtml(value){
+document.addEventListener(
+    "pointerdown",
+    ()=>{
+        if(
+            $("startScreen")
+                .classList
+                .contains("active") &&
+            musicOn &&
+            !musicTimer
+        ){
 
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;");
-}
+            startMusic(
+                "menu"
+            );
+
+        }
+    },
+    {
+        once:true
+    }
+);
 
 
-function escapeJs(value){
-
-    return String(value)
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
-}
-
-
-/* =====================================================
-   INITIAL BEST SCORE
-===================================================== */
+/* =========================================
+   INITIAL SCORE
+========================================= */
 
 $("bestScore")
-    .textContent=
+    .textContent =
         Number(
             localStorage.getItem(
                 "neuroBest"
