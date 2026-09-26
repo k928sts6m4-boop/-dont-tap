@@ -1,56 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#060812">
-
-<title>NEURO — Mind • Reflex • Focus</title>
+<title>NEURO</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
-}
-
-:root{
-    --bg:#060812;
-    --panel:#101421;
-    --panel2:#171c2a;
-    --line:rgba(255,255,255,.08);
-
-    --text:#f5f7ff;
-    --muted:#8d96aa;
-
-    --accent:#7c5cff;
-    --cyan:#00d9ff;
-
-    --green:#35e77d;
-    --red:#ff4d6d;
-    --yellow:#ffc857;
-
-    --shadow:0 25px 80px rgba(0,0,0,.35);
 }
 
 html,
 body{
     margin:0;
     min-height:100%;
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(124,92,255,.20),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 100% 90%,
-            rgba(0,217,255,.07),
-            transparent 28%
-        ),
-        var(--bg);
-
-    color:var(--text);
-
+    background:#060812;
+    color:#f6f7fb;
     font-family:
         Inter,
         system-ui,
@@ -61,30 +29,31 @@ body{
 }
 
 body{
-    min-height:100vh;
     overflow-x:hidden;
+}
+
+:root{
+    --panel:#101421;
+    --panel2:#171c2a;
+    --line:rgba(255,255,255,.08);
+    --muted:#8e96aa;
+    --accent:#7c5cff;
+    --cyan:#00d9ff;
+    --green:#35e77d;
+    --red:#ff4d6d;
+    --yellow:#ffc857;
 }
 
 button{
     font:inherit;
+    color:inherit;
 }
-
-button:disabled{
-    cursor:default;
-}
-
-/* =========================================
-   GENERAL
-========================================= */
 
 .screen{
     min-height:100vh;
-
     display:none;
-
     align-items:center;
     justify-content:center;
-
     padding:18px;
 }
 
@@ -92,32 +61,28 @@ button:disabled{
     display:flex;
 }
 
-.container{
+.wrap{
     width:100%;
-    max-width:720px;
+    max-width:760px;
     margin:auto;
 }
 
-/* =========================================
-   START
-========================================= */
+/* =========================
+   LOGO
+========================= */
 
 .logo{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:24px;
 }
 
-.logo-mark{
+.logoIcon{
     width:84px;
     height:84px;
-
-    margin:0 auto 18px;
-
+    margin:auto auto 18px;
+    border-radius:26px;
     display:grid;
     place-items:center;
-
-    border-radius:28px;
-
     font-size:42px;
 
     background:
@@ -128,27 +93,24 @@ button:disabled{
         );
 
     box-shadow:
-        0 25px 80px
-        rgba(124,92,255,.28);
+        0 24px 80px
+        rgba(124,92,255,.3);
 }
 
 .logo h1{
     margin:0;
-
     font-size:46px;
-
-    font-weight:900;
-
-    letter-spacing:-2.8px;
+    letter-spacing:-3px;
 }
 
 .logo p{
-    margin:7px 0 0;
-
+    margin:7px 0;
     color:var(--muted);
-
-    font-size:13px;
 }
+
+/* =========================
+   PANELS
+========================= */
 
 .panel{
     background:
@@ -163,74 +125,57 @@ button:disabled{
     padding:22px;
 
     box-shadow:
-        var(--shadow);
+        0 28px 90px
+        rgba(0,0,0,.35);
 
     backdrop-filter:
         blur(15px);
 }
 
-.start-stats{
+.stats{
     display:grid;
-
     grid-template-columns:
         repeat(3,1fr);
-
     gap:9px;
-
-    margin-bottom:16px;
 }
 
-.start-stat{
-    padding:14px 8px;
-
-    border-radius:17px;
-
+.stat{
     background:
         var(--panel2);
+
+    border-radius:16px;
+
+    padding:14px 8px;
 
     text-align:center;
 }
 
-.start-stat strong{
+.stat b{
     display:block;
-
     font-size:21px;
 }
 
-.start-stat span{
+.stat span{
     display:block;
-
-    margin-top:3px;
-
     color:var(--muted);
-
     font-size:9px;
-
     text-transform:uppercase;
+    margin-top:3px;
 }
 
-.main-btn,
-.ghost-btn{
+.main,
+.ghost{
     width:100%;
-
     border:0;
-
     border-radius:18px;
-
     padding:16px;
-
-    color:#fff;
-
     cursor:pointer;
-
-    font-weight:800;
-
-    transition:
-        transform .15s,
-        filter .15s;
+    font-weight:900;
 }
 
-.main-btn{
+.main{
+    margin-top:16px;
+
     background:
         linear-gradient(
             135deg,
@@ -240,51 +185,33 @@ button:disabled{
 
     box-shadow:
         0 15px 35px
-        rgba(124,92,255,.25);
+        rgba(124,92,255,.24);
 }
 
-.ghost-btn{
+.ghost{
     margin-top:10px;
-
-    background:
-        #151a29;
-
+    background:#151a29;
     border:
         1px solid
         var(--line);
 }
 
-.main-btn:active,
-.ghost-btn:active{
-    transform:scale(.97);
-}
-
-.btn-row{
+.two{
     display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:10px;
-
-    margin-top:10px;
 }
 
-.pill-row{
+.tags{
     display:flex;
-
     justify-content:center;
-
-    gap:8px;
-
     flex-wrap:wrap;
-
-    margin-top:15px;
+    gap:8px;
+    margin-top:14px;
 }
 
-.pill{
-    padding:
-        8px 11px;
+.tagP{
+    padding:7px 10px;
 
     border:
         1px solid
@@ -294,50 +221,38 @@ button:disabled{
 
     color:var(--muted);
 
-    background:
-        rgba(255,255,255,.02);
-
-    font-size:11px;
+    font-size:10px;
 }
 
-/* =========================================
+/* =========================
    GAME
-========================================= */
+========================= */
 
-#gameScreen{
+#game{
     display:none;
-
     min-height:100vh;
-
     padding:10px;
 }
 
-#gameScreen.active{
+#game.active{
     display:block;
 }
 
-.game-wrap{
-    width:100%;
-
-    max-width:960px;
-
+.gameWrap{
+    max-width:980px;
     margin:auto;
 }
 
 .hud{
     display:grid;
-
     grid-template-columns:
         1fr 1.6fr 1fr;
-
     gap:8px;
-
-    margin-bottom:7px;
 }
 
-.hud-box{
-    padding:
-        9px 7px;
+.hudBox{
+    background:
+        rgba(16,20,33,.94);
 
     border:
         1px solid
@@ -345,50 +260,37 @@ button:disabled{
 
     border-radius:14px;
 
-    background:
-        rgba(16,20,33,.93);
+    padding:8px;
 
     text-align:center;
 }
 
-.hud-box small{
+.hudBox small{
     display:block;
-
-    margin-bottom:3px;
-
     color:var(--muted);
-
     font-size:9px;
-
     text-transform:uppercase;
-
-    letter-spacing:.8px;
 }
 
-.hud-box strong{
+.hudBox strong{
     font-size:14px;
 }
 
-.hearts{
+.life{
     letter-spacing:2px;
 }
 
-.progress{
+.bar{
     height:5px;
-
-    overflow:hidden;
-
-    margin-bottom:8px;
-
+    background:#1a2030;
     border-radius:10px;
-
-    background:
-        #1a2030;
+    overflow:hidden;
+    margin:7px 0;
 }
 
-.progress-fill{
+.bar > i{
+    display:block;
     width:0;
-
     height:100%;
 
     background:
@@ -398,87 +300,76 @@ button:disabled{
             var(--cyan)
         );
 
-    transition:
-        width .25s;
+    transition:.25s;
 }
 
 .challenge{
+
     min-height:
-        calc(100vh - 92px);
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:18px;
-
-    border:
-        1px solid
-        var(--line);
-
-    border-radius:25px;
+        calc(100vh - 78px);
 
     background:
         radial-gradient(
             circle at 50% 25%,
             rgba(124,92,255,.07),
-            transparent 42%
+            transparent 45%
         ),
-        rgba(12,16,28,.90);
+        rgba(12,16,28,.9);
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:24px;
+
+    padding:18px;
+
+    overflow:hidden;
 }
 
-.challenge-header{
+.head{
     text-align:center;
-
-    margin-bottom:18px;
+    margin-bottom:17px;
 }
 
-.tag{
-    color:var(--cyan);
+.head .kind{
+
+    color:
+        var(--cyan);
 
     font-size:10px;
 
-    font-weight:800;
+    font-weight:900;
 
-    letter-spacing:1.45px;
+    letter-spacing:1.4px;
 
     text-transform:uppercase;
 }
 
-.challenge-header h2{
-    margin:
-        7px 0;
-
-    font-size:26px;
-
-    letter-spacing:-.7px;
+.head h2{
+    margin:7px 0;
+    font-size:25px;
 }
 
-.challenge-header p{
+.head p{
     margin:0;
-
     color:var(--muted);
-
     font-size:12px;
-
-    line-height:1.5;
+    line-height:1.45;
 }
 
-.stat-line{
+.chips{
     display:flex;
-
     justify-content:center;
-
+    gap:7px;
     flex-wrap:wrap;
-
-    gap:8px;
-
-    margin:12px 0;
+    margin:10px 0;
 }
 
-.stat-chip{
-    padding:
-        7px 10px;
+.chip{
+
+    background:
+        var(--panel2);
 
     border:
         1px solid
@@ -486,58 +377,62 @@ button:disabled{
 
     border-radius:12px;
 
-    background:
-        var(--panel2);
+    padding:7px 9px;
 
-    font-size:11px;
+    font-size:10px;
+
+    color:var(--muted);
 }
 
-.stat-chip b{
+.chip b{
     color:#fff;
 }
 
-/* =========================================
+/* =========================
    LOGIC
-========================================= */
+========================= */
 
-.sequence{
+.seq{
+
     display:flex;
-
-    align-items:center;
 
     justify-content:center;
 
-    flex-wrap:wrap;
+    align-items:center;
 
     gap:9px;
+
+    flex-wrap:wrap;
 
     margin:24px 0;
 }
 
-.seq-item{
-    min-width:58px;
-    min-height:58px;
+.sq{
 
-    padding:9px;
+    min-width:56px;
 
-    display:grid;
-    place-items:center;
-
-    border-radius:16px;
+    min-height:56px;
 
     border:
         1px solid
         var(--line);
 
+    border-radius:16px;
+
     background:
         var(--panel2);
 
-    font-size:22px;
+    display:grid;
 
-    font-weight:800;
+    place-items:center;
+
+    font-size:21px;
+
+    font-weight:900;
 }
 
-.seq-item.question{
+.sq.q{
+
     border-color:
         rgba(124,92,255,.8);
 
@@ -546,7 +441,6 @@ button:disabled{
 }
 
 .answers{
-    width:100%;
 
     max-width:520px;
 
@@ -555,13 +449,14 @@ button:disabled{
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        1fr 1fr;
 
     gap:10px;
 }
 
 .answer{
-    min-height:68px;
+
+    min-height:66px;
 
     border:
         1px solid
@@ -572,45 +467,37 @@ button:disabled{
     background:
         var(--panel2);
 
-    color:#fff;
-
     cursor:pointer;
 
     font-size:19px;
 
-    font-weight:800;
-
-    transition:
-        transform .12s,
-        background .12s,
-        border-color .12s;
-}
-
-.answer:active{
-    transform:scale(.97);
+    font-weight:900;
 }
 
 .answer.correct{
+
     border-color:
         var(--green);
 
     background:
-        rgba(53,231,125,.14);
+        rgba(53,231,125,.12);
 }
 
 .answer.wrong{
+
     border-color:
         var(--red);
 
     background:
-        rgba(255,77,109,.13);
+        rgba(255,77,109,.12);
 }
 
-/* =========================================
+/* =========================
    BALL
-========================================= */
+========================= */
 
-.ball-info{
+.ballInfo{
+
     display:grid;
 
     grid-template-columns:
@@ -621,18 +508,20 @@ button:disabled{
     margin-bottom:8px;
 }
 
-.ball-stat{
-    padding:8px;
-
-    border-radius:12px;
+.ballStat{
 
     background:
         var(--panel2);
 
+    border-radius:12px;
+
+    padding:8px;
+
     text-align:center;
 }
 
-.ball-stat span{
+.ballStat span{
+
     display:block;
 
     color:var(--muted);
@@ -642,24 +531,22 @@ button:disabled{
     text-transform:uppercase;
 }
 
-.ball-stat strong{
+.ballStat b{
     font-size:16px;
 }
 
-.ball-area{
-    height:min(67vh,590px);
-
-    min-height:390px;
+.ballArea{
 
     position:relative;
+
+    height:
+        min(67vh,590px);
+
+    min-height:390px;
 
     overflow:hidden;
 
     border-radius:21px;
-
-    border:
-        1px solid
-        var(--line);
 
     background:
         radial-gradient(
@@ -669,44 +556,44 @@ button:disabled{
         ),
         #090d16;
 
-    touch-action:none;
+    border:
+        1px solid
+        var(--line);
 
-    user-select:none;
+    touch-action:none;
 }
 
-.ball-target{
+.ball{
+
     position:absolute;
 
-    width:62px;
-    height:62px;
+    left:50%;
+    top:50%;
+
+    width:60px;
+    height:60px;
 
     border-radius:50%;
-
-    cursor:pointer;
-
-    touch-action:none;
-
-    user-select:none;
 
     transform:
         translate(-50%,-50%);
 
-    transition:
-        left .08s linear,
-        top .08s linear,
-        transform .08s;
+    touch-action:none;
+
+    cursor:pointer;
 }
 
-.ball-target::after{
+.ball::after{
+
     content:"";
 
     position:absolute;
 
+    left:50%;
+    top:50%;
+
     width:84px;
     height:84px;
-
-    top:50%;
-    left:50%;
 
     transform:
         translate(-50%,-50%);
@@ -714,14 +601,15 @@ button:disabled{
     border-radius:50%;
 }
 
-.ball-target.blue{
+.ball.blue{
+
     background:
         radial-gradient(
             circle at 32% 27%,
-            #fff 0%,
-            #a69aff 12%,
-            #795fff 42%,
-            #3b22b2 100%
+            #fff,
+            #a79aff 12%,
+            #795fff 44%,
+            #3b22b2
         );
 
     box-shadow:
@@ -729,115 +617,56 @@ button:disabled{
         rgba(124,92,255,.9),
 
         0 0 60px
-        rgba(124,92,255,.34);
+        rgba(124,92,255,.35);
 }
 
-.ball-target.red{
+.ball.red{
+
     background:
         radial-gradient(
             circle at 32% 27%,
-            #fff 0%,
-            #ff9cad 10%,
-            #ff4d6d 42%,
-            #921d37 100%
+            #fff,
+            #ff9cad 12%,
+            #ff4d6d 44%,
+            #891e37
         );
 
     box-shadow:
-        0 0 24px
-        rgba(255,77,109,.8);
+        0 0 26px
+        rgba(255,77,109,.65);
 }
 
-.ball-target.yellow{
+.ball.yellow{
+
     background:
         radial-gradient(
             circle at 32% 27%,
-            #fff 0%,
-            #fff1a8 12%,
-            #ffc857 45%,
-            #a66b00 100%
+            #fff,
+            #fff0a0 12%,
+            #ffc857 44%,
+            #9a6500
         );
 
     box-shadow:
         0 0 28px
-        rgba(255,200,87,.7);
+        rgba(255,200,87,.65);
 }
 
-.ball-label{
-    position:absolute;
-
-    top:50%;
-    left:50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    font-size:13px;
-
-    font-weight:900;
-
-    pointer-events:none;
-}
-
-.hit-effect{
-    position:fixed;
-
-    width:64px;
-    height:64px;
-
-    z-index:300;
-
-    border:
-        2px solid
-        var(--accent);
-
-    border-radius:50%;
-
-    pointer-events:none;
-
-    transform:
-        translate(-50%,-50%);
-
-    animation:
-        hitExpand .32s ease-out forwards;
-}
-
-@keyframes hitExpand{
-
-    from{
-        opacity:1;
-        transform:
-            translate(-50%,-50%)
-            scale(.35);
-    }
-
-    to{
-        opacity:0;
-        transform:
-            translate(-50%,-50%)
-            scale(1.8);
-    }
-
-}
-
-/* =========================================
+/* =========================
    MOTOR
-========================================= */
+========================= */
 
-.motor-button{
+.big{
 
     width:100%;
 
-    min-height:160px;
-
-    margin-top:25px;
+    min-height:155px;
 
     border:
         1px solid
         var(--line);
 
-    border-radius:23px;
-
-    color:#fff;
+    border-radius:22px;
 
     background:
         var(--panel2);
@@ -849,22 +678,24 @@ button:disabled{
     font-weight:900;
 }
 
-.reaction-dot{
+.reaction{
 
     width:105px;
-    height:105px;
 
-    margin:
-        45px auto 30px;
+    height:105px;
 
     border-radius:50%;
 
-    background:#242a3a;
+    margin:
+        44px auto 28px;
+
+    background:
+        #252b3b;
 
     cursor:pointer;
 }
 
-.reaction-dot.go{
+.reaction.go{
 
     background:
         var(--green);
@@ -874,7 +705,7 @@ button:disabled{
         rgba(53,231,125,.45);
 }
 
-.motor-grid{
+.grid3{
 
     display:grid;
 
@@ -883,14 +714,12 @@ button:disabled{
 
     gap:9px;
 
-    width:100%;
-
     max-width:460px;
 
-    margin:25px auto;
+    margin:22px auto;
 }
 
-.motor-cell{
+.cell{
 
     height:82px;
 
@@ -898,22 +727,18 @@ button:disabled{
         1px solid
         var(--line);
 
-    border-radius:17px;
+    border-radius:16px;
 
     background:
         var(--panel2);
 
-    color:#fff;
-
     cursor:pointer;
-
-    font-weight:800;
 }
 
-.motor-cell.active{
+.cell.active{
 
     background:
-        rgba(124,92,255,.25);
+        rgba(124,92,255,.24);
 
     border-color:
         var(--accent);
@@ -923,63 +748,53 @@ button:disabled{
         rgba(124,92,255,.18);
 }
 
-.seq-buttons{
+.numgrid{
 
     display:flex;
 
-    flex-wrap:wrap;
-
     justify-content:center;
 
-    gap:10px;
+    flex-wrap:wrap;
 
-    max-width:520px;
+    gap:10px;
 
     margin:25px auto;
 }
 
-.seq-btn{
+.numbtn{
 
     width:76px;
+
     height:76px;
 
     border:
         1px solid
         var(--line);
 
-    border-radius:19px;
+    border-radius:18px;
 
     background:
         var(--panel2);
 
-    color:#fff;
-
     cursor:pointer;
 
-    font-size:19px;
-
     font-weight:900;
+
+    font-size:19px;
 }
 
-.seq-btn.wrong{
-    border-color:var(--red);
-}
-
-.precision-wrap{
+.precision{
 
     max-width:520px;
 
-    margin:
-        48px auto;
+    margin:45px auto;
 }
 
-.precision-track{
-
-    position:relative;
+.track{
 
     height:80px;
 
-    overflow:hidden;
+    position:relative;
 
     border:
         1px solid
@@ -987,37 +802,41 @@ button:disabled{
 
     border-radius:20px;
 
-    background:#151a29;
+    background:
+        #151a29;
+
+    overflow:hidden;
 }
 
-.precision-zone{
+.zone{
 
     position:absolute;
-
-    top:12px;
-    bottom:12px;
 
     left:41%;
 
     width:18%;
 
+    top:12px;
+
+    bottom:12px;
+
     border:
         1px solid
         var(--green);
 
-    border-radius:14px;
+    border-radius:13px;
 
     background:
-        rgba(53,231,125,.13);
+        rgba(53,231,125,.12);
 }
 
-.precision-cursor{
+.cursor{
 
     position:absolute;
 
-    top:18px;
-
     left:0;
+
+    top:18px;
 
     width:13px;
 
@@ -1026,17 +845,9 @@ button:disabled{
     border-radius:10px;
 
     background:#fff;
-
-    box-shadow:
-        0 0 12px
-        rgba(255,255,255,.45);
 }
 
-/* =========================================
-   LABYRINTH
-========================================= */
-
-.labyrinth{
+.lab{
 
     position:relative;
 
@@ -1044,10 +855,7 @@ button:disabled{
 
     aspect-ratio:1;
 
-    margin:
-        20px auto;
-
-    overflow:hidden;
+    margin:18px auto;
 
     border:
         1px solid
@@ -1055,30 +863,27 @@ button:disabled{
 
     border-radius:20px;
 
+    overflow:hidden;
+
     background:
         #090d16;
 
     touch-action:none;
 }
 
-.lab-wall{
+.wall{
 
     position:absolute;
-
-    border-radius:8px;
 
     background:
-        #293149;
+        #2a3145;
 
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.04);
+    border-radius:8px;
 }
 
-.lab-dot{
+.dot{
 
     position:absolute;
-
-    z-index:5;
 
     width:24px;
 
@@ -1090,135 +895,123 @@ button:disabled{
         var(--accent);
 
     box-shadow:
-        0 0 22px
-        rgba(124,92,255,.75);
+        0 0 20px
+        rgba(124,92,255,.7);
 
-    left:10px;
-
-    top:10px;
+    z-index:5;
 }
 
-.lab-goal{
+.goal{
 
     position:absolute;
-
-    right:11px;
-
-    bottom:11px;
 
     width:30px;
 
     height:30px;
+
+    right:10px;
+
+    bottom:10px;
 
     border:
         2px solid
         var(--green);
 
     border-radius:50%;
-
-    box-shadow:
-        0 0 20px
-        rgba(53,231,125,.3);
 }
 
-/* =========================================
+/* =========================
    BOSS
-========================================= */
+========================= */
 
 .boss{
 
     max-width:620px;
 
-    margin:25px auto;
+    margin:20px auto;
 }
 
-.boss-card{
+.bossCard{
 
-    padding:24px;
+    text-align:center;
+
+    padding:22px;
 
     border:
         1px solid
         rgba(124,92,255,.3);
 
-    border-radius:23px;
+    border-radius:22px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(124,92,255,.15),
+            rgba(124,92,255,.14),
             rgba(0,217,255,.03)
         );
-
-    text-align:center;
 }
 
-.boss-number{
+.bossNo{
 
-    font-size:52px;
+    font-size:50px;
 
     font-weight:900;
-
-    letter-spacing:-2px;
 }
 
-.boss-task{
+.bossTask{
 
     margin:
-        10px 0 18px;
+        8px 0 17px;
 
     color:var(--muted);
-
-    font-size:13px;
 }
 
-.boss-buttons{
+.bossBtns{
 
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        1fr 1fr;
 
     gap:10px;
 }
 
-.boss-btn{
+.bossBtn{
 
-    min-height:70px;
+    min-height:68px;
 
     border:
         1px solid
         var(--line);
 
-    border-radius:16px;
+    border-radius:15px;
 
     background:
         var(--panel2);
 
-    color:#fff;
-
     cursor:pointer;
 
-    font-weight:800;
+    font-weight:900;
 }
 
-/* =========================================
+/* =========================
    RESULT
-========================================= */
+========================= */
 
 .result{
+
     text-align:center;
 }
 
-.result-icon{
+.resultIcon{
 
     font-size:62px;
-
-    margin-bottom:10px;
 }
 
 .result h2{
 
-    margin:0 0 9px;
+    margin:
+        8px 0;
 
     font-size:30px;
 }
@@ -1226,71 +1019,47 @@ button:disabled{
 .result p{
 
     color:var(--muted);
-
-    line-height:1.5;
 }
 
-.result-stats{
+.resultStats{
 
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        1fr 1fr;
 
     gap:9px;
 
-    margin:20px 0;
+    margin:18px 0;
 }
 
-.result-stat{
-
-    padding:15px;
-
-    border-radius:16px;
+.resultStat{
 
     background:
         var(--panel2);
+
+    border-radius:15px;
+
+    padding:15px;
 }
 
-.result-stat span{
+.resultStat span{
 
     display:block;
-
-    margin-bottom:3px;
 
     color:var(--muted);
 
     font-size:9px;
-
 }
 
-.result-stat strong{
+.resultStat b{
 
     font-size:21px;
 }
 
-.result-note{
-
-    margin:
-        12px 0;
-
-    padding:11px;
-
-    border-radius:13px;
-
-    background:
-        rgba(53,231,125,.07);
-
-    border:
-        1px solid
-        rgba(53,231,125,.16);
-
-    font-size:12px;
-}
-
-/* =========================================
+/* =========================
    OVERLAY
-========================================= */
+========================= */
 
 .overlay{
 
@@ -1298,7 +1067,7 @@ button:disabled{
 
     inset:0;
 
-    z-index:500;
+    z-index:100;
 
     display:none;
 
@@ -1316,16 +1085,17 @@ button:disabled{
 }
 
 .overlay.show{
+
     display:flex;
 }
 
-.overlay-card{
+.overlayCard{
 
     width:100%;
 
-    max-width:500px;
+    max-width:480px;
 
-    padding:24px;
+    padding:23px;
 
     border:
         1px solid
@@ -1339,31 +1109,34 @@ button:disabled{
     text-align:center;
 }
 
-.overlay-card p{
+.overlayCard p{
 
     color:var(--muted);
 
-    font-size:13px;
+    font-size:12px;
 
     line-height:1.5;
 }
 
-/* =========================================
+/* =========================
    TOAST
-========================================= */
+========================= */
 
 .toast{
 
     position:fixed;
 
-    z-index:1000;
-
-    top:12px;
+    z-index:200;
 
     left:50%;
 
+    top:12px;
+
+    transform:
+        translate(-50%,-90px);
+
     padding:
-        11px 15px;
+        10px 14px;
 
     border:
         1px solid
@@ -1376,12 +1149,7 @@ button:disabled{
 
     font-size:12px;
 
-    font-weight:800;
-
-    pointer-events:none;
-
-    transform:
-        translate(-50%,-90px);
+    font-weight:900;
 
     transition:
         transform .22s;
@@ -1393,56 +1161,10 @@ button:disabled{
         translate(-50%,0);
 }
 
-/* =========================================
-   FLASH
-========================================= */
 
-#flash{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:450;
-
-    opacity:0;
-
-    pointer-events:none;
-}
-
-#flash.good{
-
-    background:
-        rgba(53,231,125,.08);
-
-    animation:
-        flash .25s;
-}
-
-#flash.bad{
-
-    background:
-        rgba(255,77,109,.09);
-
-    animation:
-        flash .25s;
-}
-
-@keyframes flash{
-
-    0%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-    }
-
-}
-
-/* =========================================
+/* =========================
    MOBILE
-========================================= */
+========================= */
 
 @media(max-width:600px){
 
@@ -1456,456 +1178,102 @@ button:disabled{
 
     .challenge{
         padding:15px;
-        border-radius:21px;
     }
 
-    .challenge-header h2{
-        font-size:23px;
+    .head h2{
+        font-size:22px;
     }
 
-    .seq-item{
-        min-width:51px;
-        min-height:51px;
+    .sq{
+        min-width:50px;
+        min-height:50px;
         font-size:19px;
     }
 
     .answer{
         min-height:62px;
-        font-size:18px;
+        font-size:17px;
     }
 
-    .ball-area{
-        min-height:410px;
-    }
-
-    .btn-row{
+    .two{
         grid-template-columns:1fr;
     }
 
+    .ballArea{
+        min-height:410px;
+    }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<div id="toast" class="toast"></div>
-<div id="flash"></div>
 
-
-<!-- =========================================
-     START SCREEN
-========================================= -->
-
-<section
-    id="startScreen"
-    class="screen active"
->
-
-<div class="container">
-
-    <div class="logo">
-
-        <div class="logo-mark">
-            🧠
-        </div>
-
-        <h1>
-            NEURO
-        </h1>
-
-        <p>
-            Mind • Reflex • Focus
-        </p>
-
-    </div>
-
-
-    <div class="panel">
-
-        <div class="start-stats">
-
-            <div class="start-stat">
-
-                <strong id="bestScore">
-                    0
-                </strong>
-
-                <span>
-                    Рекорд
-                </span>
-
-            </div>
-
-
-            <div class="start-stat">
-
-                <strong>
-                    30+
-                </strong>
-
-                <span>
-                    Завдань
-                </span>
-
-            </div>
-
-
-            <div class="start-stat">
-
-                <strong>
-                    ∞
-                </strong>
-
-                <span>
-                    Забігів
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <button
-            id="startButton"
-            class="main-btn"
-        >
-            ▶ ПОЧАТИ
-        </button>
-
-
-        <div class="btn-row">
-
-            <button
-                id="dailyButton"
-                class="ghost-btn"
-            >
-                ⚡ ЩОДЕННИЙ ВИКЛИК
-            </button>
-
-
-            <button
-                id="settingsButton"
-                class="ghost-btn"
-            >
-                🔊 НАЛАШТУВАННЯ
-            </button>
-
-        </div>
-
-
-        <div class="pill-row">
-
-            <div class="pill">
-                🧠 Логіка
-            </div>
-
-            <div class="pill">
-                ⚡ Реакція
-            </div>
-
-            <div class="pill">
-                👁 Увага
-            </div>
-
-            <div class="pill">
-                🎯 Моторика
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     GAME SCREEN
-========================================= -->
-
-<section id="gameScreen">
-
-<div class="game-wrap">
-
-    <div class="hud">
-
-        <div class="hud-box">
-
-            <small>
-                Рівень
-            </small>
-
-            <strong id="hudLevel">
-                1
-            </strong>
-
-        </div>
-
-
-        <div class="hud-box">
-
-            <small>
-                Життя
-            </small>
-
-            <strong
-                id="hudErrors"
-                class="hearts"
-            >
-                ❤️ ❤️ ❤️
-            </strong>
-
-        </div>
-
-
-        <div class="hud-box">
-
-            <small>
-                Очки
-            </small>
-
-            <strong id="hudScore">
-                0
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <div class="progress">
-
-        <div
-            id="progressFill"
-            class="progress-fill"
-        ></div>
-
-    </div>
-
-
-    <div
-        id="challenge"
-        class="challenge"
-    ></div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     RESULT
-========================================= -->
-
-<section
-    id="resultScreen"
-    class="screen"
->
-
-<div class="container">
-
-    <div class="panel result">
-
-        <div
-            id="resultIcon"
-            class="result-icon"
-        >
-            🎉
-        </div>
-
-
-        <h2 id="resultTitle">
-            Забіг завершено
-        </h2>
-
-
-        <p id="resultText"></p>
-
-
-        <div class="result-stats">
-
-            <div class="result-stat">
-
-                <span>
-                    ОЧКИ
-                </span>
-
-                <strong id="resultScore">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="result-stat">
-
-                <span>
-                    XP
-                </span>
-
-                <strong id="resultXP">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="result-stat">
-
-                <span>
-                    РІВЕНЬ
-                </span>
-
-                <strong id="resultLevel">
-                    1
-                </strong>
-
-            </div>
-
-
-            <div class="result-stat">
-
-                <span>
-                    КОМБО
-                </span>
-
-                <strong id="resultCombo">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="result-stats">
-
-            <div class="result-stat">
-
-                <span>
-                    🧠 MIND
-                </span>
-
-                <strong id="resMind">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="result-stat">
-
-                <span>
-                    ⚡ REFLEX
-                </span>
-
-                <strong id="resReflex">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="result-stat">
-
-                <span>
-                    👁 FOCUS
-                </span>
-
-                <strong id="resFocus">
-                    0
-                </strong>
-
-            </div>
-
-
-            <div class="result-stat">
-
-                <span>
-                    🎯 MOTOR
-                </span>
-
-                <strong id="resMotor">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="lifeNote"
-            class="result-note"
-        ></div>
-
-
-        <button
-            id="homeButton"
-            class="main-btn"
-        >
-            НА ГОЛОВНИЙ ЕКРАН
-        </button>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================
-     SETTINGS
-========================================= -->
+<!-- TOAST -->
 
 <div
-    id="soundOverlay"
+    id="toast"
+    class="toast"
+></div>
+
+
+<!-- SOUND SETTINGS -->
+
+<div
+    id="sound"
     class="overlay"
 >
 
-    <div class="overlay-card">
+    <div class="overlayCard">
 
         <h2>
             Звук і музика
         </h2>
 
+
         <p>
-            Оригінальний arcade / chiptune стиль.
-            Музика змінюється залежно від ситуації.
+            Оригінальний 8-bit / arcade саунд.
+            Музика змінюється між меню,
+            грою, напругою та Boss.
         </p>
 
 
-        <div class="btn-row">
+        <div class="two">
 
             <button
-                id="musicToggle"
-                class="ghost-btn"
+                id="musicBtn"
+                class="ghost"
             >
+
                 🎵 MUSIC:
-                <span id="musicState">
+                <b id="musicState">
                     ON
-                </span>
+                </b>
+
             </button>
 
 
             <button
-                id="sfxToggle"
-                class="ghost-btn"
+                id="sfxBtn"
+                class="ghost"
             >
+
                 🔊 SFX:
-                <span id="sfxState">
+                <b id="sfxState">
                     ON
-                </span>
+                </b>
+
             </button>
 
         </div>
 
 
         <button
-            id="closeSettings"
-            class="main-btn"
-            style="margin-top:10px"
+            id="closeSound"
+            class="main"
         >
             ГОТОВО
         </button>
@@ -1915,427 +1283,407 @@ button:disabled{
 </div>
 
 
+<!-- =========================
+     START SCREEN
+========================= -->
+
+<section
+    id="start"
+    class="screen active"
+>
+
+    <div class="wrap">
+
+        <div class="logo">
+
+            <div class="logoIcon">
+                🧠
+            </div>
+
+
+            <h1>
+                NEURO
+            </h1>
+
+
+            <p>
+                Mind • Reflex • Focus
+            </p>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <b id="best">
+                        0
+                    </b>
+
+                    <span>
+                        Рекорд
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <b>
+                        30+
+                    </b>
+
+                    <span>
+                        Логіки
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <b>
+                        ∞
+                    </b>
+
+                    <span>
+                        Забігів
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="startBtn"
+                class="main"
+            >
+
+                ▶ ПОЧАТИ
+
+            </button>
+
+
+            <div class="two">
+
+                <button
+                    id="dailyBtn"
+                    class="ghost"
+                >
+
+                    ⚡ ЩОДЕННИЙ ВИКЛИК
+
+                </button>
+
+
+                <button
+                    id="settingsBtn"
+                    class="ghost"
+                >
+
+                    🔊 НАЛАШТУВАННЯ
+
+                </button>
+
+            </div>
+
+
+            <div class="tags">
+
+                <span class="tagP">
+                    🧠 Логіка
+                </span>
+
+                <span class="tagP">
+                    ⚡ Реакція
+                </span>
+
+                <span class="tagP">
+                    👁 Увага
+                </span>
+
+                <span class="tagP">
+                    🎯 Моторика
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GAME
+========================= -->
+
+<section
+    id="game"
+>
+
+    <div class="gameWrap">
+
+
+        <div class="hud">
+
+
+            <div class="hudBox">
+
+                <small>
+                    Рівень
+                </small>
+
+                <strong id="level">
+                    1
+                </strong>
+
+            </div>
+
+
+            <div class="hudBox">
+
+                <small>
+                    Життя
+                </small>
+
+                <strong
+                    id="life"
+                    class="life"
+                >
+
+                    ❤️ ❤️ ❤️
+
+                </strong>
+
+            </div>
+
+
+            <div class="hudBox">
+
+                <small>
+                    Очки
+                </small>
+
+                <strong id="score">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="bar">
+
+            <i id="bar"></i>
+
+        </div>
+
+
+        <div
+            id="challenge"
+            class="challenge"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     RESULT
+========================= -->
+
+<section
+    id="result"
+    class="screen"
+>
+
+    <div class="wrap">
+
+        <div class="panel result">
+
+
+            <div
+                id="resultIcon"
+                class="resultIcon"
+            >
+                🎉
+            </div>
+
+
+            <h2
+                id="resultTitle"
+            >
+                Забіг завершено
+            </h2>
+
+
+            <p
+                id="resultText"
+            ></p>
+
+
+            <div class="resultStats">
+
+
+                <div class="resultStat">
+
+                    <span>
+                        ОЧКИ
+                    </span>
+
+                    <b id="rScore">
+                        0
+                    </b>
+
+                </div>
+
+
+                <div class="resultStat">
+
+                    <span>
+                        XP
+                    </span>
+
+                    <b id="rXp">
+                        0
+                    </b>
+
+                </div>
+
+
+                <div class="resultStat">
+
+                    <span>
+                        РІВЕНЬ
+                    </span>
+
+                    <b id="rLevel">
+                        1
+                    </b>
+
+                </div>
+
+
+                <div class="resultStat">
+
+                    <span>
+                        КОМБО
+                    </span>
+
+                    <b id="rCombo">
+                        0
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <div class="resultStats">
+
+
+                <div class="resultStat">
+
+                    <span>
+                        🧠 MIND
+                    </span>
+
+                    <b id="rMind">
+                        0
+                    </b>
+
+                </div>
+
+
+                <div class="resultStat">
+
+                    <span>
+                        ⚡ REFLEX
+                    </span>
+
+                    <b id="rReflex">
+                        0
+                    </b>
+
+                </div>
+
+
+                <div class="resultStat">
+
+                    <span>
+                        👁 FOCUS
+                    </span>
+
+                    <b id="rFocus">
+                        0
+                    </b>
+
+                </div>
+
+
+                <div class="resultStat">
+
+                    <span>
+                        🎯 MOTOR
+                    </span>
+
+                    <b id="rMotor">
+                        0
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <p
+                id="lifeNote"
+            ></p>
+
+
+            <button
+                id="homeBtn"
+                class="main"
+            >
+
+                НА ГОЛОВНИЙ ЕКРАН
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <script>
 
-/* =========================================================
-   DOM
-========================================================= */
-
-const $ = id =>
-    document.getElementById(id);
-
-
-/* =========================================================
-   GAME STATE
-========================================================= */
-
-let level = 1;
-let score = 0;
-let xp = 0;
-
-let errors = 3;
-
-let combo = 0;
-let bestCombo = 0;
-
-let logicDone = 0;
-let totalChallenges = 0;
-let successfulSinceLife = 0;
-
-let motorCount = 0;
-
-let questionPool = [];
-
-let lastMotorType = null;
-
-let isDaily = false;
-
-
-/* =========================================================
-   TIMERS
-========================================================= */
-
-let timers = [];
-
-let ballTimer = null;
-let ballMoveTimer = null;
-
-let reactionTimer = null;
-
-let stopTimer = null;
-
-let precisionTimer = null;
-
-
-/* =========================================================
-   BALL
-========================================================= */
-
-let ballHits = 0;
-
-let ballTarget = 10;
-
-let ballSeconds = 20;
-
-let ballMoveStep = 0;
-
-let ballIntense = false;
-
-let ballKind = "blue";
-
-
-/* =========================================================
-   FLAGS
-========================================================= */
-
-let reactionReady = false;
-let reactionStart = 0;
-
-let stopDanger = false;
-let stopGood = 0;
-
-let precisionX = 0;
-let precisionDirection = 1;
-
-
-/* =========================================================
-   AUDIO
-========================================================= */
-
-let audioCtx = null;
-
-let musicTimer = null;
-
-let musicStep = 0;
-
-let musicOn =
-    JSON.parse(
-        localStorage.getItem("neuroMusic") ?? "true"
-    );
-
-let sfxOn =
-    JSON.parse(
-        localStorage.getItem("neuroSfx") ?? "true"
-    );
-
-
-/* =========================================================
-   QUESTIONS — 30 UNIQUE
-========================================================= */
-
-const logicQuestions = [
-
-{
-    id:1,
-    type:"Числова закономірність",
-    title:"Знайди наступне число",
-    desc:"Кожен наступний елемент утворюється множенням на 2.",
-    seq:["2","4","8","16","?"],
-    answers:["24","30","32","36"],
-    correct:"32"
-},
-
-{
-    id:2,
-    type:"Числова закономірність",
-    title:"Продовж ряд",
-    desc:"Відшукай правило послідовності.",
-    seq:["3","6","12","24","?"],
-    answers:["36","42","48","54"],
-    correct:"48"
-},
-
-{
-    id:3,
-    type:"Числова закономірність",
-    title:"Знайди правило",
-    desc:"Крок між числами постійний.",
-    seq:["5","10","15","20","?"],
-    answers:["22","24","25","30"],
-    correct:"25"
-},
-
-{
-    id:4,
-    type:"Числова закономірність",
-    title:"Квадрати",
-    desc:"Усі числа мають спільне правило.",
-    seq:["1","4","9","16","?"],
-    answers:["20","24","25","36"],
-    correct:"25"
-},
-
-{
-    id:5,
-    type:"Числова закономірність",
-    title:"П'ятий крок",
-    desc:"Продовж рівний ритм.",
-    seq:["10","20","30","40","?"],
-    answers:["45","50","55","60"],
-    correct:"50"
-},
-
-{
-    id:6,
-    type:"Числова закономірність",
-    title:"Зростаюча різниця",
-    desc:"Подивись, як змінюється приріст.",
-    seq:["2","6","12","20","?"],
-    answers:["24","28","30","32"],
-    correct:"30"
-},
-
-{
-    id:7,
-    type:"Фігури",
-    title:"Заверши послідовність",
-    desc:"Фігури чергуються.",
-    seq:["▲","●","▲","●","?"],
-    answers:["▲","●","■","◆"],
-    correct:"▲"
-},
-
-{
-    id:8,
-    type:"Фігури",
-    title:"Що буде далі?",
-    desc:"Знайди повторювану пару.",
-    seq:["■","◆","■","◆","?"],
-    answers:["■","◆","●","▲"],
-    correct:"■"
-},
-
-{
-    id:9,
-    type:"Фігури",
-    title:"Кольоровий цикл",
-    desc:"Цикл складається з трьох елементів.",
-    seq:["🔵","🔴","🟢","🔵","🔴","?"],
-    answers:["🔵","🔴","🟢","🟡"],
-    correct:"🟢"
-},
-
-{
-    id:10,
-    type:"Фігури",
-    title:"Зіркове чергування",
-    desc:"Зверни увагу на два типи зірок.",
-    seq:["★","☆","★","☆","?"],
-    answers:["★","☆","●","◆"],
-    correct:"★"
-},
-
-{
-    id:11,
-    type:"Просторове мислення",
-    title:"Поворот",
-    desc:"Стрілка щоразу повертається на 90°.",
-    seq:["⬆️","➡️","⬇️","⬅️","?"],
-    answers:["⬆️","➡️","⬇️","↗️"],
-    correct:"⬆️"
-},
-
-{
-    id:12,
-    type:"Фігури",
-    title:"Додай один",
-    desc:"Кількість кружків збільшується на один.",
-    seq:["●","●●","●●●","?"],
-    answers:["●","●●●●","●●●●●","◆"],
-    correct:"●●●●"
-},
-
-{
-    id:13,
-    type:"Логіка",
-    title:"Літери через одну",
-    desc:"Рухайся через одну літеру алфавіту.",
-    seq:["A","C","E","G","?"],
-    answers:["H","I","J","K"],
-    correct:"I"
-},
-
-{
-    id:14,
-    type:"Логіка",
-    title:"Ще один крок",
-    desc:"Те саме правило, але інша послідовність.",
-    seq:["B","D","F","H","?"],
-    answers:["I","J","K","L"],
-    correct:"J"
-},
-
-{
-    id:15,
-    type:"Комбінація",
-    title:"Подвійна послідовність",
-    desc:"Число та літера рухаються синхронно.",
-    seq:["1A","2B","3C","4D","?"],
-    answers:["5E","5F","6E","6F"],
-    correct:"5E"
-},
-
-{
-    id:16,
-    type:"Зайвий елемент",
-    title:"Знайди зайве",
-    desc:"Один символ відрізняється напрямком.",
-    seq:["🔺","🔺","🔻","🔺","🔺"],
-    answers:["1","2","3","5"],
-    correct:"3"
-},
-
-{
-    id:17,
-    type:"Зайвий елемент",
-    title:"Порушення правила",
-    desc:"Усі числа, крім одного, парні.",
-    seq:["2","4","6","9","10"],
-    answers:["2","4","6","9"],
-    correct:"9"
-},
-
-{
-    id:18,
-    type:"Зайвий елемент",
-    title:"Чужа форма",
-    desc:"Знайди єдиний інший символ.",
-    seq:["●","●","■","●","●"],
-    answers:["1","2","3","5"],
-    correct:"3"
-},
-
-{
-    id:19,
-    type:"Логічна пастка",
-    title:"Який варіант не підходить?",
-    desc:"Три числа кратні 12.",
-    seq:["12","24","36","49","48"],
-    answers:["12","24","36","49"],
-    correct:"49"
-},
-
-{
-    id:20,
-    type:"Логічна пастка",
-    title:"Знайди помилку",
-    desc:"Усі числа збільшуються на 5.",
-    seq:["15","20","25","31","35"],
-    answers:["15","20","31","35"],
-    correct:"31"
-},
-
-{
-    id:21,
-    type:"Комбінація",
-    title:"Два правила",
-    desc:"Літери чергуються, числа збільшуються.",
-    seq:["A1","B2","A3","B4","?"],
-    answers:["A5","B5","A6","C5"],
-    correct:"A5"
-},
-
-{
-    id:22,
-    type:"Числова закономірність",
-    title:"Подвоюй",
-    desc:"Кожен крок множить число на два.",
-    seq:["1","2","4","8","16","?"],
-    answers:["20","24","30","32"],
-    correct:"32"
-},
-
-{
-    id:23,
-    type:"Числова закономірність",
-    title:"Сума зростає",
-    desc:"Додай 2, потім 3, потім 4...",
-    seq:["1","3","6","10","?"],
-    answers:["12","14","15","16"],
-    correct:"15"
-},
-
-{
-    id:24,
-    type:"Числова закономірність",
-    title:"Особливий ряд",
-    desc:"Кожен елемент — сума двох попередніх.",
-    seq:["2","3","5","8","13","?"],
-    answers:["18","20","21","22"],
-    correct:"21"
-},
-
-{
-    id:25,
-    type:"Порівняння",
-    title:"Знайди зв'язок",
-    desc:"Правило однакове в кожній парі.",
-    seq:["2→4","3→6","5→10","7→?"],
-    answers:["12","13","14","15"],
-    correct:"14"
-},
-
-{
-    id:26,
-    type:"Порівняння",
-    title:"Квадрат",
-    desc:"Кожне число перетворюється за одним правилом.",
-    seq:["3→9","4→16","5→25","6→?"],
-    answers:["30","32","36","40"],
-    correct:"36"
-},
-
-{
-    id:27,
-    type:"Логіка",
-    title:"Чергуй",
-    desc:"Пара AB і BA повторюється.",
-    seq:["AB","BA","AB","BA","?"],
-    answers:["AA","AB","BA","BB"],
-    correct:"AB"
-},
-
-{
-    id:28,
-    type:"Просторове мислення",
-    title:"Круговий поворот",
-    desc:"Напрямок повертається по колу.",
-    seq:["↑","→","↓","←","?"],
-    answers:["↑","→","↓","↗"],
-    correct:"↑"
-},
-
-{
-    id:29,
-    type:"Просторове мислення",
-    title:"Діагональний цикл",
-    desc:"Стрілка проходить чотири діагональні напрямки.",
-    seq:["↗","↘","↙","↖","?"],
-    answers:["↗","↘","⬆️","➡️"],
-    correct:"↗"
-},
-
-{
-    id:30,
-    type:"Логіка",
-    title:"Останній крок",
-    desc:"Кожен наступний елемент на 3 більший.",
-    seq:["4","7","10","13","?"],
-    answers:["14","15","16","17"],
-    correct:"16"
-}
-
-];
+"use strict";
 
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
+const $ =
+    id =>
+        document.getElementById(id);
+
+
 function shuffle(array){
 
     const result =
         [...array];
+
 
     for(
         let i=result.length-1;
@@ -2348,6 +1696,7 @@ function shuffle(array){
                 Math.random()*(i+1)
             );
 
+
         [
             result[i],
             result[j]
@@ -2359,7 +1708,9 @@ function shuffle(array){
 
     }
 
+
     return result;
+
 }
 
 
@@ -2367,7 +1718,8 @@ function random(array){
 
     return array[
         Math.floor(
-            Math.random()*array.length
+            Math.random()*
+            array.length
         )
     ];
 
@@ -2393,218 +1745,174 @@ function clamp(
 
 function toast(message){
 
-    const el =
+    const element =
         $("toast");
 
-    el.textContent =
+
+    element.textContent =
         message;
 
-    el.classList.add(
-        "show"
-    );
+
+    element.classList
+        .add("show");
+
 
     setTimeout(()=>{
 
-        el.classList.remove(
-            "show"
-        );
+        element.classList
+            .remove("show");
 
     },1100);
 
 }
 
 
-function flash(type){
+function vib(pattern){
 
-    const el =
-        $("flash");
+    try{
 
-    el.className =
-        type;
-
-    setTimeout(()=>{
-
-        el.className = "";
-
-    },280);
-
-}
-
-
-function vibrate(pattern){
-
-    if(
-        "vibrate"
-        in navigator
-    ){
-
-        try{
-
-            navigator.vibrate(
+        navigator
+            .vibrate
+            ?.(
                 pattern
             );
 
-        }catch(e){}
-
-    }
+    }catch(e){}
 
 }
 
 
 /* =========================================================
-   TIMER CLEANUP
+   SAFE STORAGE
 ========================================================= */
 
-function clearAllTimers(){
+function storeGet(
+    key,
+    fallback=""
+){
 
-    if(ballTimer){
+    try{
 
-        clearInterval(
-            ballTimer
-        );
-
-    }
-
-
-    if(ballMoveTimer){
-
-        clearTimeout(
-            ballMoveTimer
-        );
-
-    }
+        const value =
+            localStorage.getItem(
+                key
+            );
 
 
-    if(reactionTimer){
+        return value===null
+            ? fallback
+            : value;
 
-        clearTimeout(
-            reactionTimer
-        );
+    }catch(e){
+
+        return fallback;
 
     }
 
+}
 
-    if(stopTimer){
 
-        clearTimeout(
-            stopTimer
+function storeSet(
+    key,
+    value
+){
+
+    try{
+
+        localStorage.setItem(
+            key,
+            value
         );
 
-    }
-
-
-    if(precisionTimer){
-
-        clearInterval(
-            precisionTimer
-        );
-
-    }
-
-
-    timers.forEach(
-        timer=>{
-
-            clearTimeout(timer);
-
-            clearInterval(timer);
-
-        }
-    );
-
-
-    timers=[];
-
-
-    ballTimer=null;
-
-    ballMoveTimer=null;
-
-    reactionTimer=null;
-
-    stopTimer=null;
-
-    precisionTimer=null;
+    }catch(e){}
 
 }
 
 
 /* =========================================================
-   HUD
+   GAME STATE
 ========================================================= */
 
-function updateHUD(){
+let level=1;
 
-    $("hudLevel")
-        .textContent =
-            level;
+let score=0;
 
+let xp=0;
 
-    $("hudScore")
-        .textContent =
-            Math.round(score);
+let errors=3;
 
+let combo=0;
 
-    let hearts = "";
+let bestCombo=0;
 
+let logicDone=0;
 
-    for(
-        let i=0;
-        i<3;
-        i++
-    ){
+let total=0;
 
-        hearts +=
-            i<errors
-                ? "❤️ "
-                : "🖤 ";
+let streak=0;
 
-    }
+let motorDone=0;
 
+let pool=[];
 
-    $("hudErrors")
-        .textContent =
-            hearts.trim();
-
-
-    $("progressFill")
-        .style.width =
-            ((logicDone%5)/5*100)
-            +"%";
-
-}
+let isDaily=false;
 
 
 /* =========================================================
-   AUDIO ENGINE
+   TIMERS
 ========================================================= */
 
-function ensureAudio(){
+let ballTimer=null;
 
-    if(!audioCtx){
+let ballMoveTimer=null;
 
-        audioCtx =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
+let reactionTimer=null;
 
-    }
+let stopTimer=null;
+
+let precisionTimer=null;
 
 
-    if(
-        audioCtx.state ===
-        "suspended"
-    ){
+/* =========================================================
+   BALL STATE
+========================================================= */
 
-        audioCtx.resume();
+let ballHits=0;
 
-    }
+let ballSeconds=20;
 
-}
+let ballStep=0;
+
+let ballType="blue";
+
+let intense=false;
 
 
-const NOTE = {
+/* =========================================================
+   AUDIO
+========================================================= */
+
+let audio=null;
+
+let musicTimer=null;
+
+let musicStep=0;
+
+let musicOn=
+    storeGet(
+        "neuroMusic",
+        "true"
+    ) === "true";
+
+
+let sfxOn=
+    storeGet(
+        "neuroSfx",
+        "true"
+    ) === "true";
+
+
+const NOTE={
 
     C3:130.81,
     D3:146.83,
@@ -2635,16 +1943,53 @@ const NOTE = {
 };
 
 
-function synthNote(
+function audioInit(){
+
+    if(!audio){
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+
+        if(!AudioContext){
+
+            return false;
+
+        }
+
+
+        audio =
+            new AudioContext();
+
+    }
+
+
+    if(
+        audio.state ===
+        "suspended"
+    ){
+
+        audio.resume();
+
+    }
+
+
+    return true;
+
+}
+
+
+function tone(
     frequency,
-    duration,
+    duration=.1,
     wave="square",
-    volume=.02,
+    gain=.02,
     delay=0
 ){
 
     if(
-        !audioCtx
+        !audioInit()
     ){
 
         return;
@@ -2652,64 +1997,70 @@ function synthNote(
     }
 
 
-    const osc =
-        audioCtx.createOscillator();
-
-    const gain =
-        audioCtx.createGain();
+    const oscillator =
+        audio.createOscillator();
 
 
-    osc.type =
+    const gainNode =
+        audio.createGain();
+
+
+    oscillator.type =
         wave;
 
 
-    osc.frequency.setValueAtTime(
-        frequency,
-        audioCtx.currentTime+
+    oscillator.frequency
+        .setValueAtTime(
+            frequency,
+            audio.currentTime+
+            delay
+        );
+
+
+    gainNode.gain
+        .setValueAtTime(
+            .0001,
+            audio.currentTime+
+            delay
+        );
+
+
+    gainNode.gain
+        .exponentialRampToValueAtTime(
+            gain,
+            audio.currentTime+
+            delay+
+            .008
+        );
+
+
+    gainNode.gain
+        .exponentialRampToValueAtTime(
+            .0001,
+            audio.currentTime+
+            delay+
+            duration
+        );
+
+
+    oscillator.connect(
+        gainNode
+    );
+
+
+    gainNode.connect(
+        audio.destination
+    );
+
+
+    oscillator.start(
+        audio.currentTime+
         delay
     );
 
 
-    gain.gain.setValueAtTime(
-        .0001,
-        audioCtx.currentTime+
-        delay
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        volume,
-        audioCtx.currentTime+
-        delay+
-        .008
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .0001,
-        audioCtx.currentTime+
-        delay+
-        duration
-    );
-
-
-    osc.connect(
-        gain
-    );
-
-    gain.connect(
-        audioCtx.destination
-    );
-
-
-    osc.start(
-        audioCtx.currentTime+
-        delay
-    );
-
-
-    osc.stop(
-        audioCtx.currentTime+
+    oscillator.stop(
+        audio.currentTime+
         delay+
         duration+
         .02
@@ -2718,7 +2069,7 @@ function synthNote(
 }
 
 
-const musicPatterns = {
+const melodies={
 
     menu:[
         NOTE.E5,
@@ -2799,7 +2150,7 @@ const musicPatterns = {
 };
 
 
-const bassPatterns = {
+const bass={
 
     menu:[
         NOTE.C3,
@@ -2849,7 +2200,7 @@ function clearMusic(){
 }
 
 
-function startMusic(
+function playMusic(
     mode="game"
 ){
 
@@ -2862,30 +2213,36 @@ function startMusic(
     }
 
 
-    ensureAudio();
+    if(
+        !audioInit()
+    ){
+
+        return;
+
+    }
 
 
     clearMusic();
 
 
     const melody =
-        musicPatterns[mode] ||
-        musicPatterns.game;
+        melodies[mode] ||
+        melodies.game;
 
 
-    const bass =
-        bassPatterns[mode] ||
-        bassPatterns.game;
+    const bassLine =
+        bass[mode] ||
+        bass.game;
 
 
-    let tempo = 155;
+    let tempo=155;
 
 
     if(
         mode==="menu"
     ){
 
-        tempo=185;
+        tempo=190;
 
     }
 
@@ -2913,42 +2270,36 @@ function startMusic(
 
     function step(){
 
-        const note =
-            melody[
-                musicStep %
-                melody.length
-            ];
+        const index =
+            musicStep %
+            melody.length;
 
 
-        const bassNote =
-            bass[
-                musicStep %
-                bass.length
-            ];
-
-
-        synthNote(
-            note,
-            .15,
+        tone(
+            melody[index],
+            .14,
             "square",
-            .014
+            .011
         );
 
 
-        synthNote(
-            note*2,
+        tone(
+            melody[index]*2,
             .055,
             "square",
-            .004,
-            .035
+            .003,
+            .025
         );
 
 
-        synthNote(
-            bassNote,
+        tone(
+            bassLine[
+                musicStep %
+                bassLine.length
+            ],
             .18,
             "triangle",
-            .018
+            .016
         );
 
 
@@ -2956,12 +2307,12 @@ function startMusic(
             musicStep%4===0
         ){
 
-            synthNote(
-                note,
-                .06,
+            tone(
+                melody[index],
+                .05,
                 "square",
-                .009,
-                .08
+                .005,
+                .07
             );
 
         }
@@ -2984,7 +2335,9 @@ function startMusic(
 }
 
 
-function sfx(kind){
+function sfx(
+    kind
+){
 
     if(
         !sfxOn
@@ -2995,21 +2348,28 @@ function sfx(kind){
     }
 
 
-    ensureAudio();
+    if(
+        !audioInit()
+    ){
+
+        return;
+
+    }
 
 
     if(
         kind==="hit"
     ){
 
-        synthNote(
+        tone(
             NOTE.C5,
             .055,
             "square",
-            .032
+            .03
         );
 
-        synthNote(
+
+        tone(
             NOTE.G5,
             .07,
             "square",
@@ -3020,78 +2380,83 @@ function sfx(kind){
     }
 
 
-    if(
+    else if(
         kind==="good"
     ){
 
-        synthNote(
+        tone(
             NOTE.E5,
             .07,
             "square",
-            .024
+            .022
         );
 
-        synthNote(
+
+        tone(
             NOTE.G5,
             .08,
             "square",
-            .024,
+            .022,
             .08
         );
 
-        synthNote(
+
+        tone(
             NOTE.C6,
             .13,
             "square",
-            .026,
+            .025,
             .16
         );
 
     }
 
 
-    if(
+    else if(
         kind==="bad"
     ){
 
-        synthNote(
+        tone(
             NOTE.E3,
             .11,
             "square",
             .025
         );
 
-        synthNote(
+
+        tone(
             NOTE.C3,
-            .17,
+            .16,
             "triangle",
-            .018,
+            .017,
             .07
         );
 
     }
 
 
-    if(
+    else if(
         kind==="life"
     ){
 
-        synthNote(
+        tone(
             NOTE.C5,
-            .08,
+            .07,
             "square",
             .025
         );
 
-        synthNote(
+
+        tone(
             NOTE.E5,
-            .08,
+            .07,
             "square",
             .025,
             .08
         );
 
-        synthNote(
+
+        tone(
             NOTE.G5,
             .09,
             "square",
@@ -3099,7 +2464,8 @@ function sfx(kind){
             .16
         );
 
-        synthNote(
+
+        tone(
             NOTE.C6,
             .13,
             "square",
@@ -3110,34 +2476,60 @@ function sfx(kind){
     }
 
 
-    if(
-        kind==="victory"
+    else if(
+        kind==="boss"
     ){
 
-        synthNote(
-            NOTE.C5,
-            .08,
+        tone(
+            NOTE.E3,
+            .12,
             "square",
-            .028
+            .03
         );
 
-        synthNote(
-            NOTE.E5,
-            .08,
-            "square",
-            .028,
-            .08
-        );
 
-        synthNote(
-            NOTE.G5,
-            .08,
-            "square",
-            .028,
+        tone(
+            NOTE.A3,
+            .18,
+            "sawtooth",
+            .022,
             .16
         );
 
-        synthNote(
+    }
+
+
+    else if(
+        kind==="victory"
+    ){
+
+        tone(
+            NOTE.C5,
+            .07,
+            "square",
+            .025
+        );
+
+
+        tone(
+            NOTE.E5,
+            .07,
+            "square",
+            .025,
+            .08
+        );
+
+
+        tone(
+            NOTE.G5,
+            .08,
+            "square",
+            .027,
+            .16
+        );
+
+
+        tone(
             NOTE.C6,
             .18,
             "square",
@@ -3147,255 +2539,356 @@ function sfx(kind){
 
     }
 
-
-    if(
-        kind==="boss"
-    ){
-
-        synthNote(
-            NOTE.E3,
-            .12,
-            "square",
-            .035
-        );
-
-        synthNote(
-            NOTE.E3,
-            .12,
-            "square",
-            .035,
-            .15
-        );
-
-        synthNote(
-            NOTE.A3,
-            .20,
-            "sawtooth",
-            .025,
-            .30
-        );
-
-    }
-
 }
 
 
 /* =========================================================
-   SETTINGS
+   30 LOGIC QUESTIONS
 ========================================================= */
 
-$("settingsButton")
-    .addEventListener(
-        "click",
-        ()=>{
-            ensureAudio();
+const Q=[
 
-            $("soundOverlay")
-                .classList
-                .add("show");
+[
+    "Числа",
+    "Подвоєння",
+    ["2","4","8","16","?"],
+    ["24","30","32","36"],
+    "32"
+],
 
-            $("musicState")
-                .textContent =
-                    musicOn
-                        ? "ON"
-                        : "OFF";
+[
+    "Числа",
+    "Ряд +3",
+    ["4","7","10","13","?"],
+    ["14","15","16","17"],
+    "16"
+],
 
-            $("sfxState")
-                .textContent =
-                    sfxOn
-                        ? "ON"
-                        : "OFF";
-        }
-    );
+[
+    "Числа",
+    "Квадрати",
+    ["1","4","9","16","?"],
+    ["20","24","25","36"],
+    "25"
+],
 
+[
+    "Числа",
+    "Фактор",
+    ["3","6","12","24","?"],
+    ["36","42","48","54"],
+    "48"
+],
 
-$("closeSettings")
-    .addEventListener(
-        "click",
-        ()=>{
-            $("soundOverlay")
-                .classList
-                .remove("show");
-        }
-    );
+[
+    "Числа",
+    "Рівний крок",
+    ["5","10","15","20","?"],
+    ["22","24","25","30"],
+    "25"
+],
 
+[
+    "Числа",
+    "Зростаючий приріст",
+    ["2","6","12","20","?"],
+    ["24","28","30","32"],
+    "30"
+],
 
-$("musicToggle")
-    .addEventListener(
-        "click",
-        ()=>{
+[
+    "Фігури",
+    "Чергування",
+    ["▲","●","▲","●","?"],
+    ["▲","●","■","◆"],
+    "▲"
+],
 
-            musicOn =
-                !musicOn;
+[
+    "Фігури",
+    "Пара",
+    ["■","◆","■","◆","?"],
+    ["■","◆","●","▲"],
+    "■"
+],
 
+[
+    "Фігури",
+    "Колір",
+    ["🔵","🔴","🟢","🔵","🔴","?"],
+    ["🔵","🔴","🟢","🟡"],
+    "🟢"
+],
 
-            localStorage.setItem(
-                "neuroMusic",
-                JSON.stringify(
-                    musicOn
-                )
-            );
+[
+    "Фігури",
+    "Зірки",
+    ["★","☆","★","☆","?"],
+    ["★","☆","●","◆"],
+    "★"
+],
 
+[
+    "Простір",
+    "Поворот",
+    ["↑","→","↓","←","?"],
+    ["↑","→","↓","↗"],
+    "↑"
+],
 
-            $("musicState")
-                .textContent =
-                    musicOn
-                        ? "ON"
-                        : "OFF";
+[
+    "Фігури",
+    "Додавай",
+    ["●","●●","●●●","?"],
+    ["●","●●●●","●●●●●","◆"],
+    "●●●●"
+],
 
+[
+    "Логіка",
+    "Літери",
+    ["A","C","E","G","?"],
+    ["H","I","J","K"],
+    "I"
+],
 
-            if(
-                musicOn
-            ){
+[
+    "Логіка",
+    "Літери 2",
+    ["B","D","F","H","?"],
+    ["I","J","K","L"],
+    "J"
+],
 
-                startMusic(
-                    "menu"
-                );
+[
+    "Комбінація",
+    "Число+літера",
+    ["1A","2B","3C","4D","?"],
+    ["5E","5F","6E","6F"],
+    "5E"
+],
 
-            }else{
+[
+    "Зайве",
+    "Форма",
+    ["🔺","🔺","🔻","🔺","🔺"],
+    ["1","2","3","5"],
+    "3"
+],
 
-                clearMusic();
+[
+    "Зайве",
+    "Парність",
+    ["2","4","6","9","10"],
+    ["2","4","6","9"],
+    "9"
+],
 
-            }
+[
+    "Зайве",
+    "Один інший",
+    ["●","●","■","●","●"],
+    ["1","2","3","5"],
+    "3"
+],
 
-        }
-    );
+[
+    "Пастка",
+    "Кратність",
+    ["12","24","36","49","48"],
+    ["12","24","36","49"],
+    "49"
+],
 
+[
+    "Пастка",
+    "Помилка",
+    ["15","20","25","31","35"],
+    ["15","20","31","35"],
+    "31"
+],
 
-$("sfxToggle")
-    .addEventListener(
-        "click",
-        ()=>{
+[
+    "Комбінація",
+    "Два правила",
+    ["A1","B2","A3","B4","?"],
+    ["A5","B5","A6","C5"],
+    "A5"
+],
 
-            sfxOn =
-                !sfxOn;
+[
+    "Числа",
+    "Подвоюй",
+    ["1","2","4","8","16","?"],
+    ["20","24","30","32"],
+    "32"
+],
 
+[
+    "Числа",
+    "Сума",
+    ["1","3","6","10","?"],
+    ["12","14","15","16"],
+    "15"
+],
 
-            localStorage.setItem(
-                "neuroSfx",
-                JSON.stringify(
-                    sfxOn
-                )
-            );
+[
+    "Числа",
+    "Сума двох",
+    ["2","3","5","8","13","?"],
+    ["18","20","21","22"],
+    "21"
+],
 
+[
+    "Порівняння",
+    "×2",
+    ["2→4","3→6","5→10","7→?"],
+    ["12","13","14","15"],
+    "14"
+],
 
-            $("sfxState")
-                .textContent =
-                    sfxOn
-                        ? "ON"
-                        : "OFF";
+[
+    "Порівняння",
+    "Квадрат",
+    ["3→9","4→16","5→25","6→?"],
+    ["30","32","36","40"],
+    "36"
+],
 
+[
+    "Логіка",
+    "Пари",
+    ["AB","BA","AB","BA","?"],
+    ["AA","AB","BA","BB"],
+    "AB"
+],
 
-            if(
-                sfxOn
-            ){
+[
+    "Простір",
+    "Поворот 2",
+    ["↗","↘","↙","↖","?"],
+    ["↗","↘","⬆️","➡️"],
+    "↗"
+],
 
-                sfx(
-                    "hit"
-                );
+[
+    "Логіка",
+    "Рівний крок",
+    ["7","11","15","19","?"],
+    ["22","23","24","25"],
+    "23"
+],
 
-            }
+[
+    "Логіка",
+    "Множення",
+    ["2","6","18","54","?"],
+    ["108","162","216","324"],
+    "162"
+]
 
-        }
-    );
+].map(
+    (item,index)=>({
+
+        id:index+1,
+
+        type:item[0],
+
+        title:item[1],
+
+        seq:item[2],
+
+        answers:item[3],
+
+        correct:item[4]
+
+    })
+);
 
 
 /* =========================================================
-   START
+   GAME FLOW
 ========================================================= */
 
 function startGame(
     daily=false
 ){
 
-    ensureAudio();
+    clearTimers();
 
-
-    isDaily =
-        daily;
-
-
-    startMusic(
-        "game"
-    );
-
+    isDaily=daily;
 
     level=1;
+
     score=0;
+
     xp=0;
 
     errors=3;
 
     combo=0;
+
     bestCombo=0;
 
     logicDone=0;
-    totalChallenges=0;
-    successfulSinceLife=0;
 
-    motorCount=0;
+    total=0;
 
-    lastMotorType=null;
+    streak=0;
+
+    motorDone=0;
+
+    pool=
+        shuffle(Q);
 
 
-    questionPool =
-        shuffle(
-            logicQuestions
+    $("start")
+        .classList
+        .remove(
+            "active"
         );
 
 
-    $("startScreen")
+    $("result")
         .classList
-        .remove("active");
+        .remove(
+            "active"
+        );
 
 
-    $("resultScreen")
+    $("game")
         .classList
-        .remove("active");
+        .add(
+            "active"
+        );
 
 
-    $("gameScreen")
-        .classList
-        .add("active");
+    playMusic(
+        "game"
+    );
 
 
     updateHUD();
 
 
-    nextLogicQuestion();
+    nextLogic();
 
 }
 
 
-$("startButton")
-    .addEventListener(
-        "click",
-        ()=>{
-            startGame(false);
-        }
-    );
-
-
-$("dailyButton")
-    .addEventListener(
-        "click",
-        ()=>{
-            startGame(true);
-        }
-    );
-
-
 /* =========================================================
-   SUCCESS / FAILURE
+   SUCCESS
 ========================================================= */
 
-function successfulChallenge(){
+function success(){
 
-    totalChallenges++;
+    total++;
 
-    successfulSinceLife++;
+    streak++;
 
     combo++;
+
 
     bestCombo =
         Math.max(
@@ -3415,18 +2908,18 @@ function successfulChallenge(){
 
 
     /*
-       ПОВЕРТАЄМО 1 ЖИТТЯ
        ПІСЛЯ 3 УСПІШНИХ
+       ПОВЕРТАЄМО ЖИТТЯ
     */
 
     if(
-        successfulSinceLife>=3 &&
+        streak>=3 &&
         errors<3
     ){
 
         errors++;
 
-        successfulSinceLife=0;
+        streak=0;
 
         sfx(
             "life"
@@ -3434,10 +2927,6 @@ function successfulChallenge(){
 
         toast(
             "❤️ +1 ЖИТТЯ"
-        );
-
-        flash(
-            "good"
         );
 
     }else{
@@ -3454,23 +2943,22 @@ function successfulChallenge(){
 }
 
 
-function failedChallenge(){
+/* =========================================================
+   FAIL
+========================================================= */
 
-    totalChallenges++;
+function fail(){
+
+    total++;
 
     errors--;
 
     combo=0;
 
-    successfulSinceLife=0;
+    streak=0;
 
 
     sfx(
-        "bad"
-    );
-
-
-    flash(
         "bad"
     );
 
@@ -3481,28 +2969,72 @@ function failedChallenge(){
 
 
 /* =========================================================
-   LOGIC
+   HUD
 ========================================================= */
 
-function nextLogicQuestion(){
+function updateHUD(){
 
-    clearAllTimers();
+    $("level")
+        .textContent =
+            level;
+
+
+    $("score")
+        .textContent =
+            Math.round(score);
+
+
+    let hearts="";
+
+
+    for(
+        let i=0;
+        i<3;
+        i++
+    ){
+
+        hearts +=
+            i<errors
+                ? "❤️ "
+                : "🖤 ";
+
+    }
+
+
+    $("life")
+        .textContent =
+            hearts.trim();
+
+
+    $("bar")
+        .style.width =
+            ((logicDone%5)/5*100)
+            +"%";
+
+}
+
+
+/* =========================================================
+   NEXT LOGIC
+========================================================= */
+
+function nextLogic(){
+
+    clearTimers();
 
 
     if(
-        questionPool.length===0
+        pool.length===0
     ){
 
-        questionPool =
-            shuffle(
-                logicQuestions
-            );
+        pool=
+            shuffle(Q);
 
     }
 
 
     const question =
-        questionPool.pop();
+        pool.pop();
 
 
     renderLogic(
@@ -3515,11 +3047,15 @@ function nextLogicQuestion(){
 }
 
 
+/* =========================================================
+   LOGIC SCREEN
+========================================================= */
+
 function renderLogic(
     question
 ){
 
-    startMusic(
+    playMusic(
         "game"
     );
 
@@ -3533,166 +3069,158 @@ function renderLogic(
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                🧠 ${question.type}
-            </div>
-
-
-            <h2>
-                ${question.title}
-            </h2>
-
-
-            <p>
-                ${question.desc}
-            </p>
-
-
-            <div class="stat-line">
-
-                <div class="stat-chip">
-
-                    Помилки:
-
-                    <b>
-                        ${errors}
-                    </b>
-
+                <div class="kind">
+                    🧠 ${question.type}
                 </div>
 
 
-                <div class="stat-chip">
+                <h2>
+                    ${question.title}
+                </h2>
 
-                    Серія:
 
-                    <b>
-                        ${combo}
-                    </b>
+                <p>
+                    Знайди правило.
+                    Не поспішай —
+                    відповідь може бути пасткою.
+                </p>
+
+
+                <div class="chips">
+
+                    <span class="chip">
+
+                        Помилки:
+
+                        <b>
+                            ${errors}
+                        </b>
+
+                    </span>
+
+
+                    <span class="chip">
+
+                        Серія:
+
+                        <b>
+                            ${combo}
+                        </b>
+
+                    </span>
 
                 </div>
 
             </div>
 
-        </div>
+
+            <div class="seq">
+
+                ${
+                    question.seq
+                        .map(
+                            value=>`
+
+                                <div
+                                    class="
+                                        sq
+                                        ${
+                                            value==="?"
+                                            ? "q"
+                                            : ""
+                                        }
+                                    "
+                                >
+
+                                    ${value}
+
+                                </div>
+
+                            `
+                        )
+                        .join("")
+                }
+
+            </div>
 
 
-        <div class="sequence">
+            <div
+                id="answers"
+                class="answers"
+            ></div>
 
-            ${
-                question.seq
-                    .map(
-                        value=>`
-
-                            <div
-                                class="
-                                    seq-item
-                                    ${
-                                        value==="?"
-                                        ? "question"
-                                        : ""
-                                    }
-                                "
-                            >
-
-                                ${value}
-
-                            </div>
-
-                        `
-                    )
-                    .join("")
-            }
-
-        </div>
+        `;
 
 
-        <div
-            id="logicAnswers"
-            class="answers"
-        >
-
-            ${
-                answers
-                    .map(
-                        (answer,index)=>`
-
-                            <button
-                                class="answer"
-                                data-answer-index="${index}"
-                            >
-
-                                ${answer}
-
-                            </button>
-
-                        `
-                    )
-                    .join("")
-            }
-
-        </div>
-
-    `;
+    const box =
+        $("answers");
 
 
-    document
-        .querySelectorAll(
-            "#logicAnswers .answer"
-        )
-        .forEach(
-            button=>{
+    answers.forEach(
+        answer=>{
 
-                button.addEventListener(
-                    "pointerdown",
-                    event=>{
-
-                        event.preventDefault();
-
-                        const index =
-                            Number(
-                                button
-                                    .dataset
-                                    .answerIndex
-                            );
-
-
-                        answerLogic(
-                            button,
-                            answers[index],
-                            question.correct
-                        );
-
-                    }
+            const button =
+                document.createElement(
+                    "button"
                 );
 
-            }
-        );
+
+            button.className =
+                "answer";
+
+
+            button.textContent =
+                answer;
+
+
+            button.addEventListener(
+                "pointerdown",
+                event=>{
+
+                    event.preventDefault();
+
+
+                    chooseLogic(
+                        button,
+                        answer,
+                        question.correct
+                    );
+
+                }
+            );
+
+
+            box.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
 
-function answerLogic(
+/* =========================================================
+   CHOOSE LOGIC
+========================================================= */
+
+function chooseLogic(
     button,
     answer,
     correct
 ){
 
-    const buttons =
-        [
-            ...document
-                .querySelectorAll(
-                    "#logicAnswers .answer"
-                )
-        ];
-
-
-    buttons.forEach(
-        item=>{
-            item.disabled=true;
-        }
-    );
+    document
+        .querySelectorAll(
+            "#answers .answer"
+        )
+        .forEach(
+            b=>{
+                b.disabled=true;
+            }
+        );
 
 
     if(
@@ -3705,14 +3233,10 @@ function answerLogic(
             );
 
 
-        score+=60;
-
-        xp+=12;
-
         logicDone++;
 
 
-        successfulChallenge();
+        success();
 
 
         setTimeout(()=>{
@@ -3721,16 +3245,15 @@ function answerLogic(
 
 
             /*
-               КОЖНІ 10 ВИПРОБУВАНЬ
-               BOSS
+               КОЖНІ 5 ЛОГІЧНИХ
+               ОБОВ'ЯЗКОВО КУЛЬКА
             */
 
             if(
-                totalChallenges>0 &&
-                totalChallenges%10===0
+                logicDone%5===0
             ){
 
-                startBoss();
+                startBall();
 
                 return;
 
@@ -3738,22 +3261,11 @@ function answerLogic(
 
 
             /*
-               КОЖНІ 5 ЛОГІЧНИХ
-               МОТОРИКА
+               КОЖНІ 10 ЛОГІЧНИХ —
+               BOSS ПІСЛЯ КУЛЬКИ
             */
 
-            if(
-                logicDone%5===0
-            ){
-
-                startMotorChallenge();
-
-                return;
-
-            }
-
-
-            nextLogicQuestion();
+            nextLogic();
 
         },520);
 
@@ -3766,7 +3278,7 @@ function answerLogic(
             );
 
 
-        failedChallenge();
+        fail();
 
 
         setTimeout(()=>{
@@ -3779,22 +3291,26 @@ function answerLogic(
 
             }else{
 
-                buttons.forEach(
-                    item=>{
+                document
+                    .querySelectorAll(
+                        "#answers .answer"
+                    )
+                    .forEach(
+                        b=>{
 
-                        item.disabled=false;
+                            b.disabled=false;
 
-                        item.classList
-                            .remove(
-                                "wrong"
-                            );
+                            b.classList
+                                .remove(
+                                    "wrong"
+                                );
 
-                    }
-                );
+                        }
+                    );
 
             }
 
-        },480);
+        },460);
 
     }
 
@@ -3802,176 +3318,21 @@ function answerLogic(
 
 
 /* =========================================================
-   MOTOR SELECTION
-========================================================= */
-
-const motorTypes = [
-
-    "ball",
-    "reaction",
-    "stop",
-    "tracking",
-    "sequence",
-    "precision",
-    "labyrinth",
-    "memory"
-
-];
-
-
-let motorRoundsSinceBall = 0;
-
-
-function startMotorChallenge(){
-
-    clearAllTimers();
-
-
-    let available =
-        motorTypes.filter(
-            type =>
-                type !==
-                lastMotorType
-        );
-
-
-    /*
-       КОЖЕН 3-Й МОТОРНИЙ РАУНД
-       ГАРАНТОВАНО КУЛЬКА
-    */
-
-    let selected;
-
-
-    if(
-        motorRoundsSinceBall>=2
-    ){
-
-        selected="ball";
-
-    }else{
-
-        selected =
-            random(
-                available
-            );
-
-    }
-
-
-    lastMotorType =
-        selected;
-
-
-    motorRoundsSinceBall++;
-
-
-    if(
-        selected==="ball"
-    ){
-
-        motorRoundsSinceBall=0;
-
-    }
-
-
-    motorCount++;
-
-
-    if(
-        selected==="ball"
-    ){
-
-        startBall();
-
-    }
-
-
-    if(
-        selected==="reaction"
-    ){
-
-        startReaction();
-
-    }
-
-
-    if(
-        selected==="stop"
-    ){
-
-        startStop();
-
-    }
-
-
-    if(
-        selected==="tracking"
-    ){
-
-        startTracking();
-
-    }
-
-
-    if(
-        selected==="sequence"
-    ){
-
-        startSequence();
-
-    }
-
-
-    if(
-        selected==="precision"
-    ){
-
-        startPrecision();
-
-    }
-
-
-    if(
-        selected==="labyrinth"
-    ){
-
-        startLabyrinth();
-
-    }
-
-
-    if(
-        selected==="memory"
-    ){
-
-        startMemory();
-
-    }
-
-}
-
-
-/* =========================================================
-   BALL — 20 SECONDS / 10 HITS
+   BALL
 ========================================================= */
 
 function startBall(){
 
     ballHits=0;
 
-    ballTarget=10;
-
     ballSeconds=20;
 
-    ballMoveStep=0;
+    ballStep=0;
 
-    ballIntense=false;
-
-    ballKind="blue";
+    intense=false;
 
 
-    startMusic(
+    playMusic(
         "game"
     );
 
@@ -3979,89 +3340,95 @@ function startBall(){
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                ⚡ Reflex • Motor
-            </div>
-
-
-            <h2>
-                Злови кульку
-            </h2>
+                <div class="kind">
+                    ⚡ РЕАКЦІЯ • МОТОРИКА
+                </div>
 
 
-            <p>
-                Синю — ловимо.
-                Червону — не чіпаємо.
-                Жовта дає бонус часу.
-            </p>
-
-        </div>
+                <h2>
+                    Злови кульку
+                </h2>
 
 
-        <div class="ball-info">
-
-
-            <div class="ball-stat">
-
-                <span>
-                    Час
-                </span>
-
-                <strong id="ballTime">
-                    20.0 с
-                </strong>
+                <p>
+                    Злови 10 синіх кульок
+                    за 20 секунд.
+                    🔴 — пастка.
+                    🟡 — бонус +1.5 с.
+                </p>
 
             </div>
 
 
-            <div class="ball-stat">
+            <div class="ballInfo">
 
-                <span>
-                    Зловлено
-                </span>
 
-                <strong id="ballHits">
-                    0 / 10
-                </strong>
+                <div class="ballStat">
+
+                    <span>
+                        Час
+                    </span>
+
+                    <b id="bt">
+                        20.0 с
+                    </b>
+
+                </div>
+
+
+                <div class="ballStat">
+
+                    <span>
+                        Зловлено
+                    </span>
+
+                    <b id="bh">
+                        0 / 10
+                    </b>
+
+                </div>
+
+
+                <div class="ballStat">
+
+                    <span>
+                        Залишилось
+                    </span>
+
+                    <b id="bl">
+                        10
+                    </b>
+
+                </div>
 
             </div>
 
-
-            <div class="ball-stat">
-
-                <span>
-                    Залишилось
-                </span>
-
-                <strong id="ballLeft">
-                    10
-                </strong>
-
-            </div>
-
-
-        </div>
-
-
-        <div
-            id="ballArea"
-            class="ball-area"
-        >
 
             <div
-                id="ballTarget"
-                class="ball-target blue"
-                aria-label="Кулька"
-            ></div>
+                id="ba"
+                class="ballArea"
+            >
 
-        </div>
+                <div
+                    id="ball"
+                    class="ball blue"
+                ></div>
 
-    `;
+            </div>
+
+        `;
 
 
-    moveBall();
+    $("ball")
+        .addEventListener(
+            "pointerdown",
+            catchBall
+        );
+
+
+    placeBall();
 
 
     ballTimer =
@@ -4072,39 +3439,26 @@ function startBall(){
 
             if(
                 ballSeconds<7 &&
-                !ballIntense
+                !intense
             ){
 
-                ballIntense=true;
+                intense=true;
 
-                startMusic(
+                playMusic(
                     "intense"
                 );
 
             }
 
 
-            const time =
-                Math.max(
-                    0,
-                    ballSeconds
-                );
-
-
-            const timer =
-                $("ballTime");
-
-
-            if(
-                timer
-            ){
-
-                timer.textContent =
-                    time.toFixed(1)
+            $("bt")
+                .textContent =
+                    Math.max(
+                        0,
+                        ballSeconds
+                    ).toFixed(1)
                     +
                     " с";
-
-            }
 
 
             if(
@@ -4120,23 +3474,21 @@ function startBall(){
         },100);
 
 
-    scheduleBallMove();
-
-
-    $("ballTarget")
-        .addEventListener(
-            "pointerdown",
-            catchBall
-        );
+    scheduleBall();
 
 }
 
 
-function scheduleBallMove(){
+/* =========================================================
+   RANDOM BALL MOVEMENT
+   0.5–0.7 SEC
+========================================================= */
+
+function scheduleBall(){
 
     if(
         ballSeconds<=0 ||
-        ballHits>=ballTarget
+        ballHits>=10
     ){
 
         return;
@@ -4144,17 +3496,11 @@ function scheduleBallMove(){
     }
 
 
-    /*
-       ВИПАДКОВИЙ
-       ІНТЕРВАЛ 0.5–0.7 С
-    */
-
     const delay =
+        500+
         Math.floor(
             Math.random()*201
-        )
-        +
-        500;
+        );
 
 
     ballMoveTimer =
@@ -4162,12 +3508,12 @@ function scheduleBallMove(){
 
             if(
                 ballSeconds>0 &&
-                ballHits<ballTarget
+                ballHits<10
             ){
 
-                moveBall();
+                placeBall();
 
-                scheduleBallMove();
+                scheduleBall();
 
             }
 
@@ -4176,49 +3522,18 @@ function scheduleBallMove(){
 }
 
 
-function chooseBallKind(){
+/* =========================================================
+   BALL TYPE + POSITION
+========================================================= */
 
-    const r =
-        Math.random();
-
-
-    /*
-       Найчастіше синя.
-       Іноді червона пастка.
-       Рідше жовтий бонус.
-    */
-
-    if(
-        r<.68
-    ){
-
-        return "blue";
-
-    }
-
-
-    if(
-        r<.88
-    ){
-
-        return "red";
-
-    }
-
-
-    return "yellow";
-
-}
-
-
-function moveBall(){
+function placeBall(){
 
     const area =
-        $("ballArea");
+        $("ba");
 
 
     const ball =
-        $("ballTarget");
+        $("ball");
 
 
     if(
@@ -4231,14 +3546,42 @@ function moveBall(){
     }
 
 
-    ballKind =
-        chooseBallKind();
+    const chance =
+        Math.random();
+
+
+    /*
+       68% СИНЯ
+       20% ЧЕРВОНА
+       12% ЖОВТА
+    */
+
+    if(
+        chance<.68
+    ){
+
+        ballType="blue";
+
+    }
+
+    else if(
+        chance<.88
+    ){
+
+        ballType="red";
+
+    }
+
+    else{
+
+        ballType="yellow";
+
+    }
 
 
     ball.className =
-        "ball-target "
-        +
-        ballKind;
+        "ball "+
+        ballType;
 
 
     const margin=48;
@@ -4272,6 +3615,10 @@ function moveBall(){
 }
 
 
+/* =========================================================
+   BALL CLICK
+========================================================= */
+
 function catchBall(
     event
 ){
@@ -4290,25 +3637,28 @@ function catchBall(
     }
 
 
-    const ball =
-        $("ballTarget");
-
-
     /*
-       ЧЕРВОНА —
-       ПАСТКА
+       RED = TRAP
     */
 
     if(
-        ballKind==="red"
+        ballType==="red"
     ){
 
-        failedChallenge();
+        fail();
 
 
         toast(
             "🔴 Пастка!"
         );
+
+
+        vib(
+            [60,40,60]
+        );
+
+
+        placeBall();
 
 
         if(
@@ -4317,17 +3667,8 @@ function catchBall(
 
             gameOver();
 
-            return;
-
         }
 
-
-        vibrate(
-            [60,40,60]
-        );
-
-
-        moveBall();
 
         return;
 
@@ -4335,12 +3676,11 @@ function catchBall(
 
 
     /*
-       ЖОВТА —
-       БОНУС
+       YELLOW = BONUS
     */
 
     if(
-        ballKind==="yellow"
+        ballType==="yellow"
     ){
 
         ballSeconds =
@@ -4350,18 +3690,13 @@ function catchBall(
             );
 
 
-        score+=100;
+        score+=80;
 
-        xp+=12;
+        xp+=10;
 
 
         toast(
             "🟡 +1.5 с"
-        );
-
-
-        vibrate(
-            [20,30,20]
         );
 
 
@@ -4370,7 +3705,13 @@ function catchBall(
         );
 
 
-        moveBall();
+        vib(
+            [20,30,20]
+        );
+
+
+        placeBall();
+
 
         return;
 
@@ -4378,8 +3719,7 @@ function catchBall(
 
 
     /*
-       СИНЯ —
-       ПРАВИЛЬНА
+       BLUE = CORRECT
     */
 
     ballHits++;
@@ -4397,22 +3737,19 @@ function catchBall(
         );
 
 
-    $("ballHits")
+    $("bh")
         .textContent =
             ballHits+
-            " / "+
-            ballTarget;
+            " / 10";
 
 
-    $("ballLeft")
+    $("bl")
         .textContent =
-            Math.max(
-                ballTarget-ballHits,
-                0
-            );
+            10-
+            ballHits;
 
 
-    $("hudScore")
+    $("score")
         .textContent =
             Math.round(score);
 
@@ -4423,7 +3760,7 @@ function catchBall(
     );
 
 
-    vibrate(
+    vib(
         28
     );
 
@@ -4433,11 +3770,11 @@ function catchBall(
     );
 
 
-    moveBall();
+    placeBall();
 
 
     if(
-        ballHits>=ballTarget
+        ballHits>=10
     ){
 
         finishBall(
@@ -4449,6 +3786,10 @@ function catchBall(
 }
 
 
+/* =========================================================
+   FINISH BALL
+========================================================= */
+
 function finishBall(
     success
 ){
@@ -4456,6 +3797,7 @@ function finishBall(
     clearInterval(
         ballTimer
     );
+
 
     clearTimeout(
         ballMoveTimer
@@ -4471,66 +3813,127 @@ function finishBall(
         success
     ){
 
-        successfulChallenge();
-
-
-        score+=220;
-
-        xp+=40;
-
-
-        sfx(
-            "victory"
-        );
-
-
-        toast(
-            "🎯 10/10 — виконано!"
-        );
-
-
-        setTimeout(()=>{
-
-            level++;
-
-            nextLogicQuestion();
-
-        },650);
-
+        successBall();
 
     }else{
 
-        failedChallenge();
+        failedBall();
+
+    }
+
+}
 
 
-        toast(
-            `Час! ${ballHits}/${ballTarget}`
-        );
+function successBall(){
 
+    success();
+
+
+    score+=220;
+
+    xp+=40;
+
+
+    sfx(
+        "victory"
+    );
+
+
+    toast(
+        "🎯 10 / 10"
+    );
+
+
+    setTimeout(()=>{
+
+        level++;
+
+
+        /*
+           ПІСЛЯ 10 ЛОГІЧНИХ —
+           BOSS
+        */
 
         if(
-            errors<=0
+            logicDone%10===0
         ){
 
-            setTimeout(
-                gameOver,
-                500
-            );
+            startBoss();
 
-            return;
+        }else if(
+            Math.random()<.5
+        ){
+
+            startMotorBonus();
+
+        }else{
+
+            nextLogic();
 
         }
 
+    },650);
 
-        setTimeout(()=>{
+}
 
-            level++;
 
-            nextLogicQuestion();
+function failedBall(){
 
-        },650);
+    fail();
+
+
+    toast(
+        `Час! ${ballHits}/10`
+    );
+
+
+    if(
+        errors<=0
+    ){
+
+        setTimeout(
+            gameOver,
+            450
+        );
+
+
+        return;
 
     }
+
+
+    setTimeout(()=>{
+
+        level++;
+
+        nextLogic();
+
+    },650);
+
+}
+
+
+/* =========================================================
+   OPTIONAL MOTOR BONUS
+========================================================= */
+
+function startMotorBonus(){
+
+    motorDone++;
+
+
+    const types=[
+        startReaction,
+        startStop,
+        startTrack,
+        startSequence,
+        startPrecision,
+        startLabyrinth,
+        startMemory
+    ];
+
+
+    random(types)();
 
 }
 
@@ -4541,242 +3944,221 @@ function finishBall(
 
 function startReaction(){
 
-    let attempts=0;
+    let tries=0;
 
-    const needed=5;
+    const need=5;
 
+    let ready=false;
 
-    startMusic(
-        "game"
-    );
+    let start=0;
 
 
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                ⚡ Reflex
-            </div>
+                <div class="kind">
+                    ⚡ REFLEX
+                </div>
 
+                <h2>
+                    Натисни в потрібний момент
+                </h2>
 
-            <h2>
-                Натисни в потрібний момент
-            </h2>
-
-
-            <p>
-                Чекай зеленого сигналу.
-                Не поспішай.
-            </p>
-
-        </div>
-
-
-        <div
-            id="reactionDot"
-            class="reaction-dot"
-        ></div>
-
-
-        <div class="stat-line">
-
-            <div class="stat-chip">
-
-                Спроби:
-
-                <b id="reactionCount">
-                    0 / 5
-                </b>
+                <p>
+                    Чекай зеленого сигналу.
+                    Раннє натискання —
+                    помилка.
+                </p>
 
             </div>
 
 
-            <div class="stat-chip">
+            <div
+                id="react"
+                class="reaction"
+            ></div>
 
-                Час:
 
-                <b id="reactionTime">
-                    —
-                </b>
+            <div class="chips">
+
+                <span class="chip">
+                    Спроби:
+                    <b id="rc">
+                        0 / 5
+                    </b>
+                </span>
+
+
+                <span class="chip">
+                    Час:
+                    <b id="rt">
+                        —
+                    </b>
+                </span>
 
             </div>
 
-        </div>
-
-    `;
+        `;
 
 
-    $("reactionDot")
-        .addEventListener(
-            "pointerdown",
-            ()=>{
-                reactionClick();
-            }
-        );
+    const dot =
+        $("react");
 
 
-    scheduleReaction();
-
-
-    function scheduleReaction(){
+    function arm(){
 
         clearTimeout(
             reactionTimer
         );
 
 
-        reactionReady=false;
+        ready=false;
+
+
+        dot.classList
+            .remove(
+                "go"
+            );
 
 
         reactionTimer =
             setTimeout(()=>{
 
-                const dot =
-                    $("reactionDot");
+                ready=true;
+
+                start=
+                    performance.now();
+
+
+                dot.classList
+                    .add(
+                        "go"
+                    );
+
+            },
+            900+
+            Math.random()*2100
+            );
+
+    }
+
+
+    dot.addEventListener(
+        "pointerdown",
+        ()=>{
+
+            if(
+                !ready
+            ){
+
+                fail();
+
+
+                toast(
+                    "Занадто рано"
+                );
 
 
                 if(
-                    !dot
+                    errors<=0
                 ){
 
-                    return;
+                    gameOver();
 
                 }
 
 
-                dot.classList
-                    .add("go");
-
-
-                reactionReady=true;
-
-
-                reactionStart =
-                    performance.now();
-
-
-            },
-            850+
-            Math.random()*2000
-            );
-
-    }
-
-
-    function reactionClick(){
-
-        if(
-            !reactionReady
-        ){
-
-            failedChallenge();
-
-
-            toast(
-                "Занадто рано"
-            );
-
-
-            if(
-                errors<=0
-            ){
-
-                gameOver();
+                return;
 
             }
 
 
-            return;
+            const ms =
+                Math.round(
+                    performance.now()-
+                    start
+                );
 
-        }
+
+            tries++;
+
+            ready=false;
 
 
-        const ms =
-            Math.round(
-                performance.now()-
-                reactionStart
+            dot.classList
+                .remove(
+                    "go"
+                );
+
+
+            $("rc")
+                .textContent =
+                    tries+
+                    " / 5";
+
+
+            $("rt")
+                .textContent =
+                    ms+
+                    " мс";
+
+
+            score +=
+                Math.max(
+                    40,
+                    130-
+                    ms/5
+                );
+
+
+            xp+=8;
+
+
+            sfx(
+                "hit"
             );
 
 
-        attempts++;
-
-        reactionReady=false;
-
-
-        $("reactionDot")
-            .classList
-            .remove("go");
-
-
-        $("reactionCount")
-            .textContent =
-                `${attempts} / ${needed}`;
-
-
-        $("reactionTime")
-            .textContent =
-                ms+
-                " мс";
-
-
-        score +=
-            Math.max(
-                40,
-                130-ms/5
+            vib(
+                18
             );
 
 
-        xp+=8;
+            if(
+                tries>=need
+            ){
 
+                endMotor(
+                    true,
+                    "⚡ Реакція пройдена"
+                );
 
-        sfx(
-            "hit"
-        );
+            }else{
 
+                arm();
 
-        vibrate(
-            20
-        );
-
-
-        if(
-            attempts>=needed
-        ){
-
-            successfulChallenge();
-
-
-            setTimeout(()=>{
-
-                level++;
-
-                nextLogicQuestion();
-
-            },550);
-
-
-        }else{
-
-            scheduleReaction();
+            }
 
         }
+    );
 
-    }
+
+    arm();
 
 }
 
 
 /* =========================================================
-   STOP SIGNAL
+   STOP
 ========================================================= */
 
 function startStop(){
 
     let good=0;
 
-    const needed=6;
+    const need=6;
 
     let danger=false;
 
@@ -4784,68 +4166,56 @@ function startStop(){
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                🛑 Контроль імпульсу
-            </div>
-
-
-            <h2>
-                Не поспішай
-            </h2>
+                <div class="kind">
+                    🛑 КОНТРОЛЬ
+                </div>
 
 
-            <p>
-                Натискай тільки коли з'явиться
-                «НАТИСКАЙ».
-            </p>
-
-        </div>
+                <h2>
+                    Не поспішай
+                </h2>
 
 
-        <button
-            id="stopButton"
-            class="motor-button"
-        >
-            ЧЕКАЙ...
-        </button>
-
-
-        <div class="stat-line">
-
-            <div class="stat-chip">
-
-                Успіхів:
-
-                <b id="stopCount">
-                    0 / 6
-                </b>
+                <p>
+                    Натискай лише коли
+                    написано «НАТИСКАЙ».
+                </p>
 
             </div>
 
-        </div>
 
-    `;
-
-
-    $("stopButton")
-        .addEventListener(
-            "pointerdown",
-            ()=>{
-                stopClick();
-            }
-        );
+            <button
+                id="stop"
+                class="big"
+            >
+                ЧЕКАЙ...
+            </button>
 
 
-    function changeSignal(){
+            <div class="chips">
 
-        const button =
-            $("stopButton");
+                <span class="chip">
+                    Успіхів:
+                    <b id="sc">
+                        0 / 6
+                    </b>
+                </span>
 
+            </div>
+
+        `;
+
+
+    const button =
+        $("stop");
+
+
+    function cycle(){
 
         if(
-            !button
+            !$("stop")
         ){
 
             return;
@@ -4857,126 +4227,100 @@ function startStop(){
             Math.random()<.45;
 
 
-        if(
+        button.textContent =
             danger
-        ){
-
-            button.textContent =
-                "НЕ НАТИСКАЙ";
+                ? "НЕ НАТИСКАЙ"
+                : "НАТИСКАЙ";
 
 
-            button.style.background =
-                "rgba(255,77,109,.12)";
+        button.style.borderColor =
+            danger
+                ? "var(--red)"
+                : "var(--green)";
 
 
-            button.style.borderColor =
-                "var(--red)";
-
-        }else{
-
-            button.textContent =
-                "НАТИСКАЙ";
-
-
-            button.style.background =
-                "rgba(53,231,125,.12)";
-
-
-            button.style.borderColor =
-                "var(--green)";
-
-        }
+        button.style.background =
+            danger
+                ? "rgba(255,77,109,.12)"
+                : "rgba(53,231,125,.12)";
 
 
         stopTimer =
             setTimeout(
-                changeSignal,
+                cycle,
                 600+
-                Math.random()*900
+                Math.random()*800
             );
 
     }
 
 
-    function stopClick(){
-
-        if(
-            danger
-        ){
-
-            failedChallenge();
-
-
-            toast(
-                "❌ Не можна було натискати"
-            );
-
+    button.addEventListener(
+        "pointerdown",
+        ()=>{
 
             if(
-                errors<=0
+                danger
             ){
 
-                gameOver();
+                endMotor(
+                    false,
+                    "❌ Не можна було натискати"
+                );
+
+
+                return;
 
             }
 
 
-            return;
-
-        }
+            good++;
 
 
-        good++;
+            score+=70;
+
+            xp+=8;
+
+            combo++;
 
 
-        score+=70;
-
-        xp+=9;
-
-        combo++;
-
-
-        $("stopCount")
-            .textContent =
-                `${good} / ${needed}`;
+            $("sc")
+                .textContent =
+                    good+
+                    " / 6";
 
 
-        sfx(
-            "hit"
-        );
-
-
-        vibrate(
-            18
-        );
-
-
-        if(
-            good>=needed
-        ){
-
-            clearTimeout(
-                stopTimer
+            sfx(
+                "hit"
             );
 
 
-            successfulChallenge();
+            vib(
+                18
+            );
 
 
-            setTimeout(()=>{
+            if(
+                good>=need
+            ){
 
-                level++;
+                clearTimeout(
+                    stopTimer
+                );
 
-                nextLogicQuestion();
 
-            },550);
+                endMotor(
+                    true,
+                    "🛑 Виконано"
+                );
+
+            }
 
         }
+    );
 
-    }
 
-
-    changeSignal();
+    cycle();
 
 }
 
@@ -4985,9 +4329,7 @@ function startStop(){
    TRACKING
 ========================================================= */
 
-function startTracking(){
-
-    const needed=5;
+function startTrack(){
 
     let done=0;
 
@@ -4997,91 +4339,142 @@ function startTracking(){
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                👁 Focus
-            </div>
-
-
-            <h2>
-                Слідкуй за ціллю
-            </h2>
+                <div class="kind">
+                    👁 FOCUS
+                </div>
 
 
-            <p>
-                Запам'ятай клітинку,
-                яка спалахне.
-            </p>
-
-        </div>
+                <h2>
+                    Слідкуй за ціллю
+                </h2>
 
 
-        <div
-            id="trackingGrid"
-            class="motor-grid"
-        >
-
-            ${
-                Array.from(
-                    {length:9},
-                    (_,i)=>`
-
-                        <button
-                            class="motor-cell"
-                            data-index="${i}"
-                        ></button>
-
-                    `
-                ).join("")
-            }
-
-        </div>
-
-
-        <div class="stat-line">
-
-            <div class="stat-chip">
-
-                Раундів:
-
-                <b id="trackingCount">
-                    0 / 5
-                </b>
+                <p>
+                    Запам'ятай клітинку,
+                    яка спалахнула.
+                </p>
 
             </div>
 
-        </div>
 
-    `;
-
-
-    const cells =
-        [
-            ...
-            document.querySelectorAll(
-                ".motor-cell"
-            )
-        ];
+            <div
+                id="tg"
+                class="grid3"
+            ></div>
 
 
-    cells.forEach(
-        (cell,index)=>{
+            <div class="chips">
 
-            cell.addEventListener(
-                "pointerdown",
-                ()=>{
-                    checkTracking(
-                        index
-                    );
-                }
+                <span class="chip">
+
+                    Раундів:
+                    <b id="tc">
+                        0 / 5
+                    </b>
+
+                </span>
+
+            </div>
+
+        `;
+
+
+    const grid =
+        $("tg");
+
+
+    for(
+        let i=0;
+        i<9;
+        i++
+    ){
+
+        const button =
+            document.createElement(
+                "button"
             );
 
-        }
-    );
+
+        button.className =
+            "cell";
 
 
-    function showTarget(){
+        grid.appendChild(
+            button
+        );
+
+
+        button.addEventListener(
+            "pointerdown",
+            ()=>{
+
+                if(
+                    i!==current
+                ){
+
+                    endMotor(
+                        false,
+                        "❌ Не та клітинка"
+                    );
+
+
+                    return;
+
+                }
+
+
+                done++;
+
+
+                score+=80;
+
+                xp+=10;
+
+                combo++;
+
+
+                $("tc")
+                    .textContent =
+                        done+
+                        " / 5";
+
+
+                sfx(
+                    "hit"
+                );
+
+
+                vib(
+                    20
+                );
+
+
+                if(
+                    done>=5
+                ){
+
+                    endMotor(
+                        true,
+                        "👁 Увага пройдена"
+                    );
+
+
+                    return;
+
+                }
+
+
+                show();
+
+            }
+        );
+
+    }
+
+
+    function show(){
 
         current =
             Math.floor(
@@ -5092,7 +4485,9 @@ function startTracking(){
         setTimeout(()=>{
 
             const cell =
-                cells[current];
+                grid.children[
+                    current
+                ];
 
 
             if(
@@ -5105,98 +4500,26 @@ function startTracking(){
 
 
             cell.classList
-                .add("active");
+                .add(
+                    "active"
+                );
 
 
             setTimeout(()=>{
 
                 cell.classList
-                    .remove("active");
+                    .remove(
+                        "active"
+                    );
 
             },430);
 
-        },220);
+        },180);
 
     }
 
 
-    function checkTracking(
-        index
-    ){
-
-        if(
-            index!==current
-        ){
-
-            failedChallenge();
-
-
-            if(
-                errors<=0
-            ){
-
-                gameOver();
-
-            }
-
-
-            return;
-
-        }
-
-
-        done++;
-
-
-        score+=80;
-
-        xp+=10;
-
-        combo++;
-
-
-        $("trackingCount")
-            .textContent =
-                `${done} / ${needed}`;
-
-
-        vibrate(
-            20
-        );
-
-
-        sfx(
-            "hit"
-        );
-
-
-        if(
-            done>=needed
-        ){
-
-            successfulChallenge();
-
-
-            setTimeout(()=>{
-
-                level++;
-
-                nextLogicQuestion();
-
-            },550);
-
-
-            return;
-
-        }
-
-
-        showTarget();
-
-    }
-
-
-    showTarget();
+    show();
 
 }
 
@@ -5207,7 +4530,7 @@ function startTracking(){
 
 function startSequence(){
 
-    const order =
+    const numbers =
         shuffle(
             [1,2,3,4,5]
         );
@@ -5219,174 +4542,149 @@ function startSequence(){
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                👆 Координація
-            </div>
-
-
-            <h2>
-                Натисни у правильному порядку
-            </h2>
+                <div class="kind">
+                    👆 КООРДИНАЦІЯ
+                </div>
 
 
-            <p>
-                1 → 2 → 3 → 4 → 5
-            </p>
-
-        </div>
+                <h2>
+                    Правильний порядок
+                </h2>
 
 
-        <div
-            id="sequenceButtons"
-            class="seq-buttons"
-        >
-
-            ${
-                order.map(
-                    number=>`
-
-                        <button
-                            class="seq-btn"
-                            data-number="${number}"
-                        >
-
-                            ${number}
-
-                        </button>
-
-                    `
-                ).join("")
-            }
-
-        </div>
-
-
-        <div class="stat-line">
-
-            <div class="stat-chip">
-
-                Прогрес:
-
-                <b id="sequenceCount">
-                    0 / 5
-                </b>
+                <p>
+                    Натисни
+                    1 → 2 → 3 → 4 → 5.
+                </p>
 
             </div>
 
-        </div>
 
-    `;
-
-
-    document
-        .querySelectorAll(
-            ".seq-btn"
-        )
-        .forEach(
-            button=>{
-
-                button.addEventListener(
-                    "pointerdown",
-                    ()=>{
-                        const number =
-                            Number(
-                                button
-                                    .dataset
-                                    .number
-                            );
-
-                        if(
-                            number!==
-                            current+1
-                        ){
-
-                            failedChallenge();
+            <div
+                id="ng"
+                class="numgrid"
+            ></div>
 
 
-                            button.classList
-                                .add("wrong");
+            <div class="chips">
+
+                <span class="chip">
+
+                    Прогрес:
+                    <b id="nc">
+                        0 / 5
+                    </b>
+
+                </span>
+
+            </div>
+
+        `;
 
 
-                            if(
-                                errors<=0
-                            ){
-
-                                gameOver();
-
-                            }
+    const grid =
+        $("ng");
 
 
-                            setTimeout(()=>{
+    numbers.forEach(
+        number=>{
 
-                                button.classList
-                                    .remove(
-                                        "wrong"
-                                    );
-
-                            },250);
-
-
-                            return;
-
-                        }
-
-
-                        current++;
-
-
-                        button.disabled=true;
-
-
-                        button.style.background =
-                            "rgba(53,231,125,.16)";
-
-
-                        $("sequenceCount")
-                            .textContent =
-                                `${current} / 5`;
-
-
-                        score+=65;
-
-                        xp+=8;
-
-                        combo++;
-
-
-                        vibrate(
-                            18
-                        );
-
-
-                        sfx(
-                            "hit"
-                        );
-
-
-                        if(
-                            current===5
-                        ){
-
-                            successfulChallenge();
-
-
-                            setTimeout(()=>{
-
-                                level++;
-
-                                nextLogicQuestion();
-
-                            },550);
-
-                        }
-
-                    }
+            const button =
+                document.createElement(
+                    "button"
                 );
 
-            }
-        );
+
+            button.className =
+                "numbtn";
+
+
+            button.textContent =
+                number;
+
+
+            grid.appendChild(
+                button
+            );
+
+
+            button.addEventListener(
+                "pointerdown",
+                ()=>{
+
+                    if(
+                        number!==current+1
+                    ){
+
+                        button.classList
+                            .add(
+                                "answer",
+                                "wrong"
+                            );
+
+
+                        endMotor(
+                            false,
+                            "❌ Неправильний порядок"
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    current++;
+
+
+                    button.disabled=true;
+
+
+                    button.style.background =
+                        "rgba(53,231,125,.16)";
+
+
+                    $("nc")
+                        .textContent =
+                            current+
+                            " / 5";
+
+
+                    score+=65;
+
+                    xp+=8;
+
+                    combo++;
+
+
+                    sfx(
+                        "hit"
+                    );
+
+
+                    vib(
+                        18
+                    );
+
+
+                    if(
+                        current===5
+                    ){
+
+                        endMotor(
+                            true,
+                            "👆 Координація пройдена"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
 }
 
@@ -5399,7 +4697,7 @@ function startPrecision(){
 
     let hits=0;
 
-    const needed=6;
+    const need=6;
 
     let x=0;
 
@@ -5409,70 +4707,72 @@ function startPrecision(){
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                🎯 Точність
+                <div class="kind">
+                    🎯 ТОЧНІСТЬ
+                </div>
+
+
+                <h2>
+                    Злови момент
+                </h2>
+
+
+                <p>
+                    Натисни, коли
+                    білий маркер
+                    у зеленій зоні.
+                </p>
+
             </div>
 
 
-            <h2>
-                Злови момент
-            </h2>
-
-
-            <p>
-                Натисни, коли маркер
-                потрапить у зелену зону.
-            </p>
-
-        </div>
-
-
-        <div class="precision-wrap">
-
-            <div
-                id="precisionTrack"
-                class="precision-track"
-            >
+            <div class="precision">
 
                 <div
-                    class="precision-zone"
-                ></div>
+                    id="pt"
+                    class="track"
+                >
+
+                    <div
+                        class="zone"
+                    ></div>
 
 
-                <div
-                    id="precisionCursor"
-                    class="precision-cursor"
-                ></div>
+                    <div
+                        id="pc"
+                        class="cursor"
+                    ></div>
 
-            </div>
-
-        </div>
-
-
-        <div class="stat-line">
-
-            <div class="stat-chip">
-
-                Влучань:
-
-                <b id="precisionCount">
-                    0 / 6
-                </b>
+                </div>
 
             </div>
 
-        </div>
 
-    `;
+            <div class="chips">
+
+                <span class="chip">
+
+                    Влучань:
+
+                    <b id="pcnt">
+                        0 / 6
+                    </b>
+
+                </span>
+
+            </div>
+
+        `;
 
 
     precisionTimer =
         setInterval(()=>{
 
-            x +=
-                direction*1.8;
+            x+=
+                direction*
+                1.8;
 
 
             if(
@@ -5498,7 +4798,7 @@ function startPrecision(){
 
 
             const cursor =
-                $("precisionCursor");
+                $("pc");
 
 
             if(
@@ -5513,111 +4813,69 @@ function startPrecision(){
         },16);
 
 
-    $("precisionTrack")
+    $("pt")
         .addEventListener(
             "pointerdown",
             ()=>{
-                precisionClick();
+
+                if(
+                    x>=39 &&
+                    x<=58
+                ){
+
+                    hits++;
+
+
+                    score+=90;
+
+                    xp+=10;
+
+                    combo++;
+
+
+                    $("pcnt")
+                        .textContent =
+                            hits+
+                            " / 6";
+
+
+                    sfx(
+                        "hit"
+                    );
+
+
+                    vib(
+                        18
+                    );
+
+
+                    if(
+                        hits>=need
+                    ){
+
+                        clearInterval(
+                            precisionTimer
+                        );
+
+
+                        endMotor(
+                            true,
+                            "🎯 Точність пройдена"
+                        );
+
+                    }
+
+                }else{
+
+                    endMotor(
+                        false,
+                        "❌ Промах"
+                    );
+
+                }
+
             }
         );
-
-
-    function precisionClick(){
-
-        const cursor =
-            $("precisionCursor");
-
-
-        if(
-            !cursor
-        ){
-
-            return;
-
-        }
-
-
-        const current =
-            parseFloat(
-                cursor.style.left ||
-                "0"
-            );
-
-
-        /*
-           ЗЕЛЕНА ЗОНА
-           приблизно 41–59%
-        */
-
-        if(
-            current>=39 &&
-            current<=58
-        ){
-
-            hits++;
-
-
-            score+=95;
-
-            xp+=11;
-
-
-            $("precisionCount")
-                .textContent =
-                    `${hits} / ${needed}`;
-
-
-            combo++;
-
-
-            vibrate(
-                20
-            );
-
-
-            sfx(
-                "hit"
-            );
-
-
-            if(
-                hits>=needed
-            ){
-
-                clearInterval(
-                    precisionTimer
-                );
-
-
-                successfulChallenge();
-
-
-                setTimeout(()=>{
-
-                    level++;
-
-                    nextLogicQuestion();
-
-                },550);
-
-            }
-
-        }else{
-
-            failedChallenge();
-
-
-            if(
-                errors<=0
-            ){
-
-                gameOver();
-
-            }
-
-        }
-
-    }
 
 }
 
@@ -5628,121 +4886,125 @@ function startPrecision(){
 
 function startLabyrinth(){
 
+    let active=false;
+
+
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                🌀 Координація
+                <div class="kind">
+                    🌀 КООРДИНАЦІЯ
+                </div>
+
+
+                <h2>
+                    Пройди лабіринт
+                </h2>
+
+
+                <p>
+                    Проведи точку до зеленого
+                    кола, не торкаючись стін.
+                </p>
+
             </div>
 
 
-            <h2>
-                Пройди лабіринт
-            </h2>
-
-
-            <p>
-                Проведи фіолетову точку
-                до зеленого кола.
-            </p>
-
-        </div>
-
-
-        <div
-            id="labyrinth"
-            class="labyrinth"
-        >
-
             <div
-                class="lab-wall"
-                style="
-                    left:15%;
-                    top:15%;
-                    width:70%;
-                    height:10%;
-                "
-            ></div>
+                id="lab"
+                class="lab"
+            >
+
+                <div
+                    class="wall"
+                    style="
+                        left:15%;
+                        top:15%;
+                        width:70%;
+                        height:10%;
+                    "
+                ></div>
 
 
-            <div
-                class="lab-wall"
-                style="
-                    left:15%;
-                    top:25%;
-                    width:10%;
-                    height:50%;
-                "
-            ></div>
+                <div
+                    class="wall"
+                    style="
+                        left:15%;
+                        top:25%;
+                        width:10%;
+                        height:50%;
+                    "
+                ></div>
 
 
-            <div
-                class="lab-wall"
-                style="
-                    left:25%;
-                    top:65%;
-                    width:60%;
-                    height:10%;
-                "
-            ></div>
+                <div
+                    class="wall"
+                    style="
+                        left:25%;
+                        top:65%;
+                        width:60%;
+                        height:10%;
+                    "
+                ></div>
 
 
-            <div
-                class="lab-wall"
-                style="
-                    left:75%;
-                    top:25%;
-                    width:10%;
-                    height:40%;
-                "
-            ></div>
+                <div
+                    class="wall"
+                    style="
+                        left:75%;
+                        top:25%;
+                        width:10%;
+                        height:40%;
+                    "
+                ></div>
 
 
-            <div
-                class="lab-wall"
-                style="
-                    left:35%;
-                    top:25%;
-                    width:10%;
-                    height:30%;
-                "
-            ></div>
+                <div
+                    class="wall"
+                    style="
+                        left:35%;
+                        top:25%;
+                        width:10%;
+                        height:30%;
+                    "
+                ></div>
 
 
-            <div
-                id="labDot"
-                class="lab-dot"
-            ></div>
+                <div
+                    id="ld"
+                    class="dot"
+                    style="
+                        left:10px;
+                        top:10px;
+                    "
+                ></div>
 
 
-            <div
-                class="lab-goal"
-            ></div>
+                <div
+                    class="goal"
+                ></div>
 
-        </div>
+            </div>
 
-    `;
+        `;
 
 
     const area =
-        $("labyrinth");
+        $("lab");
 
 
     const dot =
-        $("labDot");
+        $("ld");
 
 
-    let dragging=false;
-
-
-    function movePoint(
+    function move(
         event
     ){
 
         if(
-            !dragging
+            !active
         ){
 
             return;
@@ -5756,43 +5018,43 @@ function startLabyrinth(){
 
         const x =
             clamp(
-                event.clientX -
+                event.clientX-
                 rect.left,
-
                 12,
-
                 rect.width-12
             );
 
 
         const y =
             clamp(
-                event.clientY -
+                event.clientY-
                 rect.top,
-
                 12,
-
                 rect.height-12
             );
 
 
-        dot.style.left =
-            (x-12)+"px";
-
-
-        dot.style.top =
-            (y-12)+"px";
-
-
         const px =
-            x/rect.width;
+            x/
+            rect.width;
 
 
         const py =
-            y/rect.height;
+            y/
+            rect.height;
 
 
-        const hitWall =
+        dot.style.left =
+            (x-12)+
+            "px";
+
+
+        dot.style.top =
+            (y-12)+
+            "px";
+
+
+        const hit =
 
             (
                 px>.15 &&
@@ -5839,34 +5101,15 @@ function startLabyrinth(){
 
 
         if(
-            hitWall
+            hit
         ){
 
-            dragging=false;
+            active=false;
 
 
-            failedChallenge();
-
-
-            toast(
-                "🧱 Стіна!"
-            );
-
-
-            if(
-                errors<=0
-            ){
-
-                gameOver();
-
-                return;
-
-            }
-
-
-            setTimeout(
-                startLabyrinth,
-                450
+            endMotor(
+                false,
+                "🧱 Стіна"
             );
 
 
@@ -5880,24 +5123,13 @@ function startLabyrinth(){
             py>.88
         ){
 
-            dragging=false;
+            active=false;
 
 
-            successfulChallenge();
-
-
-            sfx(
-                "victory"
+            endMotor(
+                true,
+                "🌀 Лабіринт пройдено"
             );
-
-
-            setTimeout(()=>{
-
-                level++;
-
-                nextLogicQuestion();
-
-            },600);
 
         }
 
@@ -5908,13 +5140,21 @@ function startLabyrinth(){
         "pointerdown",
         event=>{
 
-            dragging=true;
+            active=true;
 
-            area.setPointerCapture?.(
-                event.pointerId
-            );
 
-            movePoint(
+            if(
+                area.setPointerCapture
+            ){
+
+                area.setPointerCapture(
+                    event.pointerId
+                );
+
+            }
+
+
+            move(
                 event
             );
 
@@ -5924,20 +5164,14 @@ function startLabyrinth(){
 
     area.addEventListener(
         "pointermove",
-        event=>{
-
-            movePoint(
-                event
-            );
-
-        }
+        move
     );
 
 
     area.addEventListener(
         "pointerup",
         ()=>{
-            dragging=false;
+            active=false;
         }
     );
 
@@ -5945,7 +5179,7 @@ function startLabyrinth(){
     area.addEventListener(
         "pointercancel",
         ()=>{
-            dragging=false;
+            active=false;
         }
     );
 
@@ -5984,55 +5218,55 @@ function startMemory(){
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                🧠 Memory
+                <div class="kind">
+                    🧠 MEMORY
+                </div>
+
+
+                <h2>
+                    Запам'ятай
+                </h2>
+
+
+                <p>
+                    Послідовність зникне
+                    через одну секунду.
+                </p>
+
             </div>
 
 
-            <h2>
-                Запам'ятай
-            </h2>
+            <div
+                id="ms"
+                class="seq"
+            >
+
+                ${
+                    sequence
+                        .map(
+                            x=>`
+
+                                <div
+                                    class="sq"
+                                >
+                                    ${x}
+                                </div>
+
+                            `
+                        )
+                        .join("")
+                }
+
+            </div>
 
 
-            <p>
-                Послідовність зникне
-                через одну секунду.
-            </p>
+            <div
+                id="mq"
+            ></div>
 
-        </div>
-
-
-        <div
-            id="memoryDisplay"
-            class="sequence"
-        >
-
-            ${
-                sequence
-                    .map(
-                        symbol=>`
-
-                            <div class="seq-item">
-
-                                ${symbol}
-
-                            </div>
-
-                        `
-                    )
-                    .join("")
-            }
-
-        </div>
-
-
-        <div
-            id="memoryQuestion"
-        ></div>
-
-    `;
+        `;
 
 
     setTimeout(()=>{
@@ -6041,39 +5275,33 @@ function startMemory(){
             sequence[2];
 
 
-        /*
-           ГАРАНТУЄМО,
-           ЩО ПРАВИЛЬНА
-           ВІДПОВІДЬ Є
-        */
-
         const options =
             shuffle(
                 [
                     correct,
                     ...symbols.filter(
-                        s =>
-                            s!==correct
+                        x=>x!==correct
                     )
                 ]
-            ).slice(
+            )
+            .slice(
                 0,
                 4
             );
 
 
-        $("memoryDisplay")
-            .innerHTML="";
+        $("ms")
+            .innerHTML =
+                "";
 
 
-        $("memoryQuestion")
+        $("mq")
             .innerHTML = `
 
                 <div
                     style="
                         text-align:center;
                         margin:18px 0;
-                        font-size:16px;
                     "
                 >
 
@@ -6084,137 +5312,146 @@ function startMemory(){
 
 
                 <div
-                    id="memoryAnswers"
+                    id="ma"
                     class="answers"
-                >
-
-                    ${
-                        options
-                            .map(
-                                (
-                                    option,
-                                    index
-                                )=>`
-
-                                    <button
-                                        class="answer"
-                                        data-index="${index}"
-                                    >
-
-                                        ${option}
-
-                                    </button>
-
-                                `
-                            )
-                            .join("")
-                    }
-
-                </div>
+                ></div>
 
             `;
 
 
-        document
-            .querySelectorAll(
-                "#memoryAnswers .answer"
-            )
-            .forEach(
-                (
-                    button,
-                    index
-                )=>{
-
-                    button.addEventListener(
-                        "pointerdown",
-                        ()=>{
-{
-
-                            const answer =
-                                options[index];
+        const box =
+            $("ma");
 
 
-                            const buttons =
-                                [
-                                    ...
-                                    document
-                                        .querySelectorAll(
-                                            "#memoryAnswers .answer"
-                                        )
-                                ];
+        options.forEach(
+            option=>{
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
 
 
-                            buttons.forEach(
+                button.className =
+                    "answer";
+
+
+                button.textContent =
+                    option;
+
+
+                button.addEventListener(
+                    "pointerdown",
+                    ()=>{
+
+                        document
+                            .querySelectorAll(
+                                "#ma .answer"
+                            )
+                            .forEach(
                                 b=>{
                                     b.disabled=true;
                                 }
                             );
 
 
-                            if(
-                                answer===
-                                correct
-                            ){
+                        if(
+                            option===correct
+                        ){
 
-                                button.classList
-                                    .add("correct");
-
-
-                                successfulChallenge();
+                            button.classList
+                                .add(
+                                    "correct"
+                                );
 
 
-                                score+=130;
+                            endMotor(
+                                true,
+                                "🧠 Пам'ять пройдена"
+                            );
 
-                                xp+=20;
+                        }else{
 
-
-                                setTimeout(()=>{
-
-                                    level++;
-
-                                    nextLogicQuestion();
-
-                                },550);
-
-                            }else{
-
-                                button.classList
-                                    .add("wrong");
+                            button.classList
+                                .add(
+                                    "wrong"
+                                );
 
 
-                                failedChallenge();
-
-
-                                if(
-                                    errors<=0
-                                ){
-
-                                    setTimeout(
-                                        gameOver,
-                                        400
-                                    );
-
-                                }else{
-
-                                    setTimeout(()=>{
-
-                                        level++;
-
-                                        nextLogicQuestion();
-
-                                    },650);
-
-                                }
-
-                            }
+                            endMotor(
+                                false,
+                                "❌ Неправильно"
+                            );
 
                         }
-                    );
 
-                }
-            );
+                    }
+                );
+
+
+                box.appendChild(
+                    button
+                );
+
+            }
+        );
 
     },1000);
+
+}
+
+
+/* =========================================================
+   MOTOR FINISH
+========================================================= */
+
+function endMotor(
+    ok,
+    message=""
+){
+
+    if(
+        ok
+    ){
+
+        success();
+
+
+        toast(
+            message ||
+            "✅ Виконано"
+        );
+
+
+        setTimeout(()=>{
+
+            level++;
+
+            nextLogic();
+
+        },620);
+
+
+    }else{
+
+        fail();
+
+
+        toast(
+            message ||
+            "❌ Помилка"
+        );
+
+
+        if(
+            errors<=0
+        ){
+
+            gameOver();
+
+        }
+
+    }
 
 }
 
@@ -6225,10 +5462,10 @@ function startMemory(){
 
 function startBoss(){
 
-    clearAllTimers();
+    clearTimers();
 
 
-    startMusic(
+    playMusic(
         "boss"
     );
 
@@ -6240,312 +5477,275 @@ function startBoss(){
 
     let phase=0;
 
-    const total=3;
-
 
     $("challenge")
         .innerHTML = `
 
-        <div class="challenge-header">
+            <div class="head">
 
-            <div class="tag">
-                👑 BOSS CHALLENGE
-            </div>
-
-
-            <h2>
-                Mind + Reflex + Focus
-            </h2>
-
-
-            <p>
-                Три фази. Одна помилка
-                може коштувати життя.
-            </p>
-
-        </div>
-
-
-        <div class="boss">
-
-            <div class="boss-card">
-
-                <div
-                    id="bossNumber"
-                    class="boss-number"
-                >
-                    01
+                <div class="kind">
+                    👑 BOSS CHALLENGE
                 </div>
 
 
-                <div
-                    id="bossTask"
-                    class="boss-task"
-                ></div>
+                <h2>
+                    Mind + Reflex + Focus
+                </h2>
 
 
-                <div
-                    id="bossButtons"
-                    class="boss-buttons"
-                ></div>
+                <p>
+                    Пройди три фази.
+                </p>
 
             </div>
 
-        </div>
 
-    `;
+            <div class="boss">
+
+                <div class="bossCard">
+
+                    <div
+                        id="bn"
+                        class="bossNo"
+                    >
+                        01
+                    </div>
 
 
-    function renderPhase(){
+                    <div
+                        id="btask"
+                        class="bossTask"
+                    ></div>
+
+
+                    <div
+                        id="bb"
+                        class="bossBtns"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+    function render(){
 
         phase++;
+
+
+        let task;
+
+        let options;
+
+        let correct;
 
 
         if(
             phase===1
         ){
 
-            $("bossNumber")
-                .textContent =
-                    "01";
+            task =
+                "Вибери найбільше число";
 
 
-            $("bossTask")
-                .textContent =
-                    "Вибери найбільше число";
+            options =
+                [
+                    "7",
+                    "5",
+                    "6",
+                    "4"
+                ];
 
 
-            $("bossButtons")
-                .innerHTML = "";
-
-
-            createBossButton(
-                "7",
-                true
-            );
-
-
-            createBossButton(
-                "5",
-                false
-            );
-
-
-            createBossButton(
-                "6",
-                false
-            );
-
-
-            createBossButton(
-                "4",
-                false
-            );
+            correct="7";
 
         }
 
 
-        if(
+        else if(
             phase===2
         ){
 
-            $("bossNumber")
-                .textContent =
-                    "02";
+            task =
+                "Натисни синю ціль";
 
 
-            $("bossTask")
-                .textContent =
-                    "Натисни синю ціль";
+            options =
+                [
+                    "СИНЯ",
+                    "ЧЕРВОНА",
+                    "ЖОВТА",
+                    "ЗЕЛЕНА"
+                ];
 
 
-            $("bossButtons")
-                .innerHTML = "";
-
-
-            createBossButton(
-                "СИНЯ",
-                true
-            );
-
-
-            createBossButton(
-                "ЧЕРВОНА",
-                false
-            );
-
-
-            createBossButton(
-                "ЖОВТА",
-                false
-            );
-
-
-            createBossButton(
-                "ЗЕЛЕНА",
-                false
-            );
+            correct="СИНЯ";
 
         }
 
 
-        if(
-            phase===3
-        ){
+        else{
 
-            $("bossNumber")
-                .textContent =
-                    "03";
+            task =
+                "Скільки трикутників?";
 
 
-            $("bossTask")
-                .textContent =
-                    "Скільки трикутників?";
+            options =
+                [
+                    "2",
+                    "1",
+                    "3",
+                    "4"
+                ];
 
 
-            $("bossButtons")
-                .innerHTML = "";
-
-
-            createBossButton(
-                "2",
-                true
-            );
-
-
-            createBossButton(
-                "1",
-                false
-            );
-
-
-            createBossButton(
-                "3",
-                false
-            );
-
-
-            createBossButton(
-                "4",
-                false
-            );
+            correct="2";
 
         }
 
-    }
+
+        $("bn")
+            .textContent =
+                String(
+                    phase
+                )
+                .padStart(
+                    2,
+                    "0"
+                );
 
 
-    function createBossButton(
-        text,
-        correct
-    ){
-
-        const button =
-            document.createElement(
-                "button"
-            );
+        $("btask")
+            .textContent =
+                task;
 
 
-        button.className =
-            "boss-btn";
+        const box =
+            $("bb");
 
 
-        button.textContent =
-            text;
+        box.innerHTML =
+            "";
 
 
-        button.addEventListener(
-            "pointerdown",
-            ()=>{
+        shuffle(
+            options
+        )
+        .forEach(
+            option=>{
 
-                if(
-                    correct
-                ){
-
-                    score+=180;
-
-                    xp+=25;
-
-                    combo++;
-
-
-                    sfx(
-                        "hit"
+                const button =
+                    document.createElement(
+                        "button"
                     );
 
 
-                    vibrate(
-                        22
-                    );
+                button.className =
+                    "bossBtn";
 
 
-                    if(
-                        phase<total
-                    ){
+                button.textContent =
+                    option;
 
-                        setTimeout(
-                            renderPhase,
-                            320
-                        );
 
-                    }else{
+                button.addEventListener(
+                    "pointerdown",
+                    ()=>{
 
-                        successfulChallenge();
+                        if(
+                            option!==correct
+                        ){
+
+                            fail();
+
+
+                            toast(
+                                "❌ Помилка"
+                            );
+
+
+                            if(
+                                errors<=0
+                            ){
+
+                                gameOver();
+
+                            }
+
+
+                            return;
+
+                        }
+
+
+                        score+=180;
+
+                        xp+=25;
+
+                        combo++;
 
 
                         sfx(
-                            "victory"
+                            "hit"
                         );
 
 
-                        toast(
-                            "👑 BOSS ПОДОЛАНО"
+                        vib(
+                            22
                         );
 
 
-                        setTimeout(()=>{
+                        if(
+                            phase<3
+                        ){
 
-                            level++;
+                            setTimeout(
+                                render,
+                                280
+                            );
 
-                            nextLogicQuestion();
+                        }else{
 
-                        },800);
+                            success();
+
+
+                            sfx(
+                                "victory"
+                            );
+
+
+                            toast(
+                                "👑 BOSS ПОДОЛАНО"
+                            );
+
+
+                            setTimeout(()=>{
+
+                                level++;
+
+                                nextLogic();
+
+                            },800);
+
+                        }
 
                     }
-
-                }else{
-
-                    failedChallenge();
+                );
 
 
-                    toast(
-                        "❌ Помилка"
-                    );
-
-
-                    if(
-                        errors<=0
-                    ){
-
-                        gameOver();
-
-                    }
-
-                }
+                box.appendChild(
+                    button
+                );
 
             }
         );
 
-
-        $("bossButtons")
-            .appendChild(
-                button
-            );
-
     }
 
 
-    renderPhase();
+    render();
 
 }
 
@@ -6559,37 +5759,98 @@ function createHit(
     y
 ){
 
-    const effect =
+    const element =
         document.createElement(
             "div"
         );
 
 
-    effect.className =
+    element.className =
         "hit-effect";
 
 
-    effect.style.left =
-        x+"px";
+    element.style.cssText = `
 
+        position:fixed;
 
-    effect.style.top =
-        y+"px";
+        left:${x}px;
+
+        top:${y}px;
+
+        width:60px;
+
+        height:60px;
+
+        border:
+            2px solid
+            var(--accent);
+
+        border-radius:50%;
+
+        transform:
+            translate(-50%,-50%);
+
+        pointer-events:none;
+
+        z-index:999;
+
+        animation:
+            pop .32s ease-out forwards;
+
+    `;
 
 
     document.body
         .appendChild(
-            effect
+            element
         );
 
 
     setTimeout(()=>{
 
-        effect.remove();
+        element.remove();
 
     },350);
 
 }
+
+
+/* =========================================================
+   HIT ANIMATION
+========================================================= */
+
+const animationStyle =
+    document.createElement(
+        "style"
+    );
+
+
+animationStyle.textContent = `
+
+@keyframes pop{
+
+    from{
+        opacity:1;
+        transform:
+            translate(-50%,-50%)
+            scale(.3);
+    }
+
+    to{
+        opacity:0;
+        transform:
+            translate(-50%,-50%)
+            scale(1.8);
+    }
+
+}
+`;
+
+
+document.head
+    .appendChild(
+        animationStyle
+    );
 
 
 /* =========================================================
@@ -6598,23 +5859,15 @@ function createHit(
 
 function gameOver(){
 
-    clearAllTimers();
-
-
-    clearMusic();
-
-
-    startMusic(
-        "menu"
-    );
+    clearTimers();
 
 
     const oldBest =
         Number(
-            localStorage.getItem(
-                "neuroBest"
-            ) ||
-            0
+            storeGet(
+                "neuroBest",
+                "0"
+            )
         );
 
 
@@ -6627,7 +5880,7 @@ function gameOver(){
         newRecord
     ){
 
-        localStorage.setItem(
+        storeSet(
             "neuroBest",
             String(
                 Math.round(score)
@@ -6637,14 +5890,14 @@ function gameOver(){
     }
 
 
-    $("gameScreen")
+    $("game")
         .classList
         .remove(
             "active"
         );
 
 
-    $("resultScreen")
+    $("result")
         .classList
         .add(
             "active"
@@ -6668,37 +5921,31 @@ function gameOver(){
     $("resultText")
         .textContent =
             newRecord
-                ? "Ти встановив новий рекорд!"
-                : "Спробуй ще раз та покращ результат.";
+                ? "Ти встановив новий рекорд."
+                : "Ти використав усі життя.";
 
 
-    $("resultScore")
+    $("rScore")
         .textContent =
-            Math.round(
-                score
-            );
+            Math.round(score);
 
 
-    $("resultXP")
+    $("rXp")
         .textContent =
             xp;
 
 
-    $("resultLevel")
+    $("rLevel")
         .textContent =
             level;
 
 
-    $("resultCombo")
+    $("rCombo")
         .textContent =
             bestCombo;
 
 
-    /*
-       ПРОСТА СТАТИСТИКА
-    */
-
-    $("resMind")
+    $("rMind")
         .textContent =
             Math.min(
                 100,
@@ -6706,36 +5953,33 @@ function gameOver(){
             );
 
 
-    $("resReflex")
+    $("rReflex")
         .textContent =
             Math.min(
                 100,
-                motorCount*13
+                motorDone*12
             );
 
 
-    $("resFocus")
+    $("rFocus")
         .textContent =
             Math.min(
                 100,
-                (
-                    logicDone+
-                    successfulSinceLife
-                )*3
+                (logicDone+streak)*3
             );
 
 
-    $("resMotor")
+    $("rMotor")
         .textContent =
             Math.min(
                 100,
-                motorCount*12
+                motorDone*13
             );
 
 
     $("lifeNote")
         .textContent =
-            "❤️ Одне життя повертається після 3 успішних випробувань. Максимум — 3 життя.";
+            "❤️ Після 3 успішних випробувань поспіль повертається 1 життя. Максимум — 3.";
 
 }
 
@@ -6744,75 +5988,351 @@ function gameOver(){
    HOME
 ========================================================= */
 
-$("homeButton")
-    .addEventListener(
-        "click",
-        ()=>{
+function home(){
 
-            clearAllTimers();
+    clearTimers();
 
-            clearMusic();
 
-            startMusic(
-                "menu"
+    $("result")
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    $("game")
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    $("start")
+        .classList
+        .add(
+            "active"
+        );
+
+
+    $("best")
+        .textContent =
+            Number(
+                storeGet(
+                    "neuroBest",
+                    "0"
+                )
             );
 
 
-            $("resultScreen")
-                .classList
-                .remove(
-                    "active"
-                );
+    if(
+        musicOn
+    ){
+
+        playMusic(
+            "menu"
+        );
+
+    }
+
+}
 
 
-            $("gameScreen")
-                .classList
-                .remove(
-                    "active"
-                );
+/* =========================================================
+   TIMER CLEANUP
+========================================================= */
+
+function clearTimers(){
+
+    if(
+        ballTimer
+    ){
+
+        clearInterval(
+            ballTimer
+        );
+
+    }
 
 
-            $("startScreen")
+    if(
+        ballMoveTimer
+    ){
+
+        clearTimeout(
+            ballMoveTimer
+        );
+
+    }
+
+
+    if(
+        reactionTimer
+    ){
+
+        clearTimeout(
+            reactionTimer
+        );
+
+    }
+
+
+    if(
+        stopTimer
+    ){
+
+        clearTimeout(
+            stopTimer
+        );
+
+    }
+
+
+    if(
+        precisionTimer
+    ){
+
+        clearInterval(
+            precisionTimer
+        );
+
+    }
+
+
+    ballTimer=null;
+
+    ballMoveTimer=null;
+
+    reactionTimer=null;
+
+    stopTimer=null;
+
+    precisionTimer=null;
+
+
+    clearMusic();
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+$("startBtn")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+            startGame(
+                false
+            );
+
+        }
+    );
+
+
+$("dailyBtn")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+            startGame(
+                true
+            );
+
+        }
+    );
+
+
+$("settingsBtn")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+
+            $("sound")
                 .classList
                 .add(
-                    "active"
+                    "show"
                 );
 
 
-            $("bestScore")
+            $("musicState")
                 .textContent =
-                    Number(
-                        localStorage.getItem(
-                            "neuroBest"
-                        ) ||
-                        0
-                    );
+                    musicOn
+                        ? "ON"
+                        : "OFF";
+
+
+            $("sfxState")
+                .textContent =
+                    sfxOn
+                        ? "ON"
+                        : "OFF";
+
+        }
+    );
+
+
+$("closeSound")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+
+            $("sound")
+                .classList
+                .remove(
+                    "show"
+                );
+
+        }
+    );
+
+
+$("musicBtn")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+
+            musicOn =
+                !musicOn;
+
+
+            storeSet(
+                "neuroMusic",
+                String(
+                    musicOn
+                )
+            );
+
+
+            $("musicState")
+                .textContent =
+                    musicOn
+                        ? "ON"
+                        : "OFF";
+
+
+            if(
+                musicOn
+            ){
+
+                playMusic(
+                    "menu"
+                );
+
+            }else{
+
+                clearMusic();
+
+            }
+
+        }
+    );
+
+
+$("sfxBtn")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+
+            sfxOn =
+                !sfxOn;
+
+
+            storeSet(
+                "neuroSfx",
+                String(
+                    sfxOn
+                )
+            );
+
+
+            $("sfxState")
+                .textContent =
+                    sfxOn
+                        ? "ON"
+                        : "OFF";
+
+
+            if(
+                sfxOn
+            ){
+
+                sfx(
+                    "hit"
+                );
+
+            }
+
+        }
+    );
+
+
+$("homeBtn")
+    .addEventListener(
+        "pointerdown",
+        event=>{
+
+            event.preventDefault();
+
+            home();
 
         }
     );
 
 
 /* =========================================================
-   FIRST TOUCH
-   Mobile browser дозволяє звук
-   після дії користувача
+   INITIAL
 ========================================================= */
+
+$("best")
+    .textContent =
+        Number(
+            storeGet(
+                "neuroBest",
+                "0"
+            )
+        );
+
+
+/*
+   На смартфоні музика починається
+   після першої дії користувача.
+*/
 
 document.addEventListener(
     "pointerdown",
     ()=>{
+
         if(
-            audioCtx
+            $("start")
+                .classList
+                .contains(
+                    "active"
+                ) &&
+            musicOn &&
+            !musicTimer
         ){
 
-            if(
-                audioCtx.state ===
-                "suspended"
-            ){
-
-                audioCtx.resume();
-
-            }
+            playMusic(
+                "menu"
+            );
 
         }
 
@@ -6821,27 +6341,6 @@ document.addEventListener(
         once:true
     }
 );
-
-
-/* =========================================================
-   INITIAL SCORE
-========================================================= */
-
-$("bestScore")
-    .textContent =
-        Number(
-            localStorage.getItem(
-                "neuroBest"
-            ) ||
-            0
-        );
-
-
-/*
-   Починаємо без звуку автоматично.
-   Після першого натискання
-   музика вже може працювати.
-*/
 
 </script>
 
