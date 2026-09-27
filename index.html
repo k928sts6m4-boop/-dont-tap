@@ -1116,2880 +1116,493 @@ button{
 
 
 <script>
-  const $ = id => document.getElementById(id);
+/* =========================================================
+   NEURO — CLEAN WORKING SCRIPT
+   Compatible with the HTML already above.
+========================================================= */
+
+const $ = id => document.getElementById(id);
 
 const state = {
   block: 1,
   step: 0,
-
   lives: 3,
-
   score: 0,
-
   combo: 0,
   bestCombo: 0,
-
   mind: 0,
   focus: 0,
   memory: 0,
   reflex: 0,
   motor: 0,
-
   total: 0,
   correct: 0,
-
-  diff:
-    localStorage.getItem("neuroDiff") ||
-    "normal"
+  diff: localStorage.getItem('neuroDiff') || 'normal',
+  running: false,
+  daily: false
 };
-
-
-/* =====================================================
-   СКЛАДНІСТЬ
-===================================================== */
 
 const DIFFICULTY = {
-
-  easy: {
-    move: 800,
-    size: 62,
-    time: 1.35
-  },
-
-  normal: {
-    move: 700,
-    size: 56,
-    time: 1
-  },
-
-  hard: {
-    move: 500,
-    size: 50,
-    time: .82
-  },
-
-  expert: {
-    move: 500,
-    size: 43,
-    time: .66
-  }
-
+  easy:   {move:800, size:62, time:1.35, seq:3, show:700, precision:5},
+  normal: {move:700, size:56, time:1,    seq:4, show:560, precision:6},
+  hard:   {move:500, size:50, time:.82,  seq:5, show:440, precision:7},
+  expert: {move:500, size:43, time:.66,  seq:6, show:340, precision:8},
+  adaptive:{move:700, size:56, time:1, seq:4, show:560, precision:6}
 };
 
-
 function difficulty(){
-
-  if(
-    state.diff === "adaptive"
-  ){
-
-    const rate =
-      state.total
-        ? state.correct / state.total
-        : .6;
-
-    if(rate > .8)
-      return DIFFICULTY.hard;
-
-    if(rate < .45)
-      return DIFFICULTY.easy;
-
+  let d = DIFFICULTY[state.diff] || DIFFICULTY.normal;
+  if(state.diff === 'adaptive'){
+    const rate = state.total ? state.correct/state.total : .6;
+    if(rate > .8) d = DIFFICULTY.hard;
+    else if(rate < .45) d = DIFFICULTY.easy;
   }
-
-  return (
-    DIFFICULTY[state.diff] ||
-    DIFFICULTY.normal
-  );
-
+  return d;
 }
-
-
-/* =====================================================
-   NEX
-===================================================== */
-
-function nex(type,text){
-
-  let character = $("nexGame");
-  let bubble = $("gameBubble");
-
-  if(
-    $("game").classList.contains("hidden")
-  ){
-
-    character = $("nexHome");
-    bubble = $("homeBubble");
-
-  }
-
-  character.className =
-    "nex " + type;
-
-  bubble.textContent = text;
-
-  setTimeout(
-    ()=>{
-      character.className = "nex";
-    },
-    900
-  );
-
-}
-
-
-/* =====================================================
-   HUD
-===================================================== */
-
-function updateHUD(){
-
-  $("block").textContent =
-    state.block;
-
-  $("score").textContent =
-    state.score;
-
-  $("lives").textContent =
-    "❤️".repeat(state.lives) +
-    "🖤".repeat(
-      3 - state.lives
-    );
-
-  $("bar").style.width =
-    (
-      state.step / 5 * 100
-    ) + "%";
-
-}
-
-
-/* =====================================================
-   ТАЙМЕРИ
-===================================================== */
 
 let timer = null;
 let interval = null;
-
-let motorRunning = false;
-
 let taskToken = 0;
-
-
-function clearTimers(){
-
-  clearTimeout(timer);
-  clearInterval(interval);
-
-  timer = null;
-  interval = null;
-
-  motorRunning = false;
-
-}
-
-
-/* =====================================================
-   ПИТАННЯ
-===================================================== */
-
-const QUESTIONS = [
-
-  [
-    "MIND",
-    "Марко молодший за Олега. Олег молодший за Івана. Хто найстарший?",
-    [
-      "Марко",
-      "Олег",
-      "Іван",
-      "Невідомо"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "MIND",
-    "Усі лікарі в цій кімнаті мають халати. Некс має халат. Чи обов'язково Некс лікар?",
-    [
-      "Так",
-      "Ні",
-      "Недостатньо даних",
-      "Залежить від халата"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "FOCUS",
-    "Знайди слово, яке відрізняється:",
-    [
-      "СІЛЬ",
-      "СІЛЬ",
-      "СІЛЬ",
-      "СИЛЬ"
-    ],
-    3,
-    "focus"
-  ],
-
-  [
-    "FOCUS",
-    "Який символ зайвий?",
-    [
-      "▲",
-      "▲",
-      "△",
-      "▲"
-    ],
-    2,
-    "focus"
-  ],
-
-  [
-    "MIND",
-    "Петро ліворуч від Андрія. Андрій ліворуч від Олега. Хто посередині?",
-    [
-      "Петро",
-      "Андрій",
-      "Олег",
-      "Невідомо"
-    ],
-    1,
-    "mind"
-  ],
-
-  [
-    "SPACE",
-    "Стрілка ↑ повернулась на 180°. Куди вона вказує?",
-    [
-      "←",
-      "→",
-      "↓",
-      "↑"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "MEMORY",
-    "Запам'ятай: 🔵 🟢 🔴 🟡. Який був третій?",
-    [
-      "🔵",
-      "🟢",
-      "🔴",
-      "🟡"
-    ],
-    2,
-    "memory"
-  ],
-
-  [
-    "MIND",
-    "Усі троянди — квіти. Деякі квіти жовті. Чи випливає, що деякі троянди жовті?",
-    [
-      "Так",
-      "Ні",
-      "Недостатньо даних",
-      "Обов'язково"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "FOCUS",
-    "Що стоїть другим: ▲ ● ■ ★",
-    [
-      "▲",
-      "●",
-      "■",
-      "★"
-    ],
-    1,
-    "focus"
-  ],
-
-  [
-    "MIND",
-    "Антон вищий за Богдана. Богдан вищий за Василя. Хто найнижчий?",
-    [
-      "Антон",
-      "Богдан",
-      "Василь",
-      "Невідомо"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "SPACE",
-    "Куб має 6 граней. Скільки граней торкаються однієї грані?",
-    [
-      "2",
-      "3",
-      "4",
-      "5"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "FOCUS",
-    "Знайди пару, яка точно однакова:",
-    [
-      "AB7Q / AB7Q",
-      "K2P9 / K2P8",
-      "M7RT / M7TR",
-      "ZX31 / ZK31"
-    ],
-    0,
-    "focus"
-  ],
-
-  [
-    "MEMORY",
-    "Запам'ятай: 🧠 🔑 ⚡ 🎯. Що було другим?",
-    [
-      "🧠",
-      "🔑",
-      "⚡",
-      "🎯"
-    ],
-    1,
-    "memory"
-  ],
-
-  [
-    "MIND",
-    "Якщо сьогодні середа, який день буде через 10 днів?",
-    [
-      "П'ятниця",
-      "Субота",
-      "Неділя",
-      "Понеділок"
-    ],
-    1,
-    "mind"
-  ],
-
-  [
-    "FOCUS",
-    "Скільки літер «О» у слові «МОЛОДОСТЬ»?",
-    [
-      "1",
-      "2",
-      "3",
-      "4"
-    ],
-    3,
-    "focus"
-  ],
-
-  [
-    "MIND",
-    "Усі A є B. Жоден B не є C. Чи може A бути C?",
-    [
-      "Так",
-      "Ні",
-      "Іноді",
-      "Недостатньо даних"
-    ],
-    1,
-    "mind"
-  ],
-
-  [
-    "SPACE",
-    "Ти дивишся на північ. Праворуч, потім ще раз праворуч. Куди дивишся?",
-    [
-      "Північ",
-      "Південь",
-      "Схід",
-      "Захід"
-    ],
-    1,
-    "mind"
-  ],
-
-  [
-    "FOCUS",
-    "Яке число зайве за правилом «парне»: 2, 4, 6, 9, 10?",
-    [
-      "2",
-      "6",
-      "9",
-      "10"
-    ],
-    2,
-    "focus"
-  ],
-
-  [
-    "MIND",
-    "У коробці тільки червоні та сині кульки. Ти дістав синю. Що гарантовано?",
-    [
-      "Інші сині",
-      "Є хоча б одна синя",
-      "Червоних немає",
-      "Коробка порожня"
-    ],
-    1,
-    "mind"
-  ],
-
-  [
-    "MEMORY",
-    "Запам'ятай: 🟡 🟣 🔵 🟢. Що було першим?",
-    [
-      "🟡",
-      "🟣",
-      "🔵",
-      "🟢"
-    ],
-    0,
-    "memory"
-  ],
-
-  [
-    "FOCUS",
-    "Яке число повторюється: 7 — 4 — 9 — 2 — 7",
-    [
-      "2",
-      "4",
-      "7",
-      "9"
-    ],
-    2,
-    "focus"
-  ],
-
-  [
-    "SPACE",
-    "Якщо ліворуч від тебе захід, що буде праворуч?",
-    [
-      "Північ",
-      "Південь",
-      "Схід",
-      "Захід"
-    ],
-    2,
-    "mind"
-  ],
-
-  [
-    "MIND",
-    "Деякі A є B. Усі B є C. Чи випливає, що деякі A є C?",
-    [
-      "Так",
-      "Ні",
-      "Неможливо",
-      "Тільки якщо A=C"
-    ],
-    0,
-    "mind"
-  ],
-
-  [
-    "FOCUS",
-    "Який рядок відрізняється?",
-    [
-      "K8M2",
-      "K8M2",
-      "K8N2",
-      "K8M2"
-    ],
-    2,
-    "focus"
-  ],
-
-  [
-    "MIND",
-    "Лише один із трьох сигналів істинний: A, B або C. A хибний, B хибний. Що про C?",
-    [
-      "Хибний",
-      "Істинний",
-      "Невідомо",
-      "Може бути будь-яким"
-    ],
-    1,
-    "mind"
-  ],
-
-  [
-    "MEMORY",
-    "Запам'ятай: 🔺 ⭐ 🟦 ❤️. Який символ був четвертим?",
-    [
-      "🔺",
-      "⭐",
-      "🟦",
-      "❤️"
-    ],
-    3,
-    "memory"
-  ],
-
-  [
-    "FOCUS",
-    "Що не є парою однакових символів?",
-    [
-      "○○",
-      "△△",
-      "□□",
-      "○●"
-    ],
-    3,
-    "focus"
-  ],
-
-  [
-    "MIND",
-    "Оля старша за Ніну. Ніна старша за Іру. Чи Оля старша за Іру?",
-    [
-      "Так",
-      "Ні",
-      "Невідомо",
-      "Лише якщо вони сестри"
-    ],
-    0,
-    "mind"
-  ],
-
-  [
-    "SPACE",
-    "Повернись ліворуч від напрямку схід. Куди дивишся?",
-    [
-      "Північ",
-      "Південь",
-      "Захід",
-      "Схід"
-    ],
-    0,
-    "mind"
-  ],
-
-  [
-    "MEMORY",
-    "Запам'ятай: 🟥 🟨 🟩 🟦. Який був першим?",
-    [
-      "🟥",
-      "🟨",
-      "🟩",
-      "🟦"
-    ],
-    0,
-    "memory"
-  ]
-
-];
-
-
-/* =====================================================
-   ЗАХИСТ ВІД ПОВТОРІВ
-===================================================== */
-
-let usedQuestions = new Set();
-
-
-function getQuestion(){
-
-  if(
-    usedQuestions.size >=
-    QUESTIONS.length
-  ){
-
-    usedQuestions.clear();
-
-  }
-
-  const available =
-    QUESTIONS
-      .map(
-        (question,index)=>({
-          question,
-          index
-        })
-      )
-      .filter(
-        item =>
-          !usedQuestions.has(
-            item.index
-          )
-      );
-
-  const selected =
-    available[
-      Math.floor(
-        Math.random() *
-        available.length
-      )
-    ];
-
-  usedQuestions.add(
-    selected.index
-  );
-
-  return selected.question;
-
-}
-
-
-/* =====================================================
-   ПОЧАТОК ГРИ
-===================================================== */
-
-function startGame(){
-
-  clearTimers();
-
-  Object.assign(
-    state,
-    {
-      block:1,
-      step:0,
-
-      lives:3,
-
-      score:0,
-
-      combo:0,
-      bestCombo:0,
-
-      mind:0,
-      focus:0,
-      memory:0,
-      reflex:0,
-      motor:0,
-
-      total:0,
-      correct:0
-    }
-  );
-
-  usedQuestions.clear();
-
-  taskToken++;
-
-  $("home")
-    .classList
-    .add("hidden");
-
-  $("result")
-    .classList
-    .add("hidden");
-
-  $("game")
-    .classList
-    .remove("hidden");
-
-  updateHUD();
-
-  nex(
-    "happy",
-    "Починаємо. 4 завдання для мозку — потім моторика."
-  );
-
-  nextTask();
-
-}
-
-
-/* =====================================================
-   НАСТУПНЕ ЗАВДАННЯ
-===================================================== */
-
-function nextTask(){
-
-  if(
-    state.lives <= 0
-  ){
-
-    finishGame();
-
-    return;
-
-  }
-
-  if(
-    state.step < 4
-  ){
-
-    state.step++;
-
-    updateHUD();
-
-    showQuestion();
-
-  }else{
-
-    state.step = 5;
-
-    updateHUD();
-
-    startMotor();
-
-  }
-
-}
-
-
-/* =====================================================
-   ПОКАЗ ПИТАННЯ
-===================================================== */
-
+let motorRunning = false;
 let currentQuestion = null;
-
-
-function showQuestion(){
-
-  currentQuestion =
-    getQuestion();
-
-  const token =
-    ++taskToken;
-
-  nex(
-    "happy",
-    "Подумай уважно."
-  );
-
-
-  if(
-    currentQuestion[0] ===
-    "MEMORY"
-  ){
-
-    showMemory(
-      token
-    );
-
-    return;
-
-  }
-
-
-  renderQuestion();
-
-}
-
-
-/* =====================================================
-   ЗВИЧАЙНЕ ПИТАННЯ
-===================================================== */
-
-function renderQuestion(){
-
-  $("challenge").innerHTML = `
-
-    <div class="type">
-
-      ${currentQuestion[0]}
-      •
-      ${state.step}/5
-
-    </div>
-
-    <div class="question">
-
-      ${currentQuestion[1]}
-
-    </div>
-
-    <div class="answers">
-
-      ${currentQuestion[2]
-        .map(
-          (answer,index)=>`
-
-            <button
-              class="answer"
-              data-index="${index}"
-            >
-              ${answer}
-            </button>
-
-          `
-        )
-        .join("")
-      }
-
-    </div>
-
-  `;
-
-
-  $("challenge")
-    .querySelectorAll(".answer")
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            answerQuestion(
-              Number(
-                button.dataset.index
-              ),
-              button
-            );
-
-          };
-
-      }
-    );
-
-}
-
-
-/* =====================================================
-   MEMORY
-===================================================== */
-
-function showMemory(token){
-
-  const text =
-    currentQuestion[1];
-
-  const colon =
-    text.indexOf(":");
-
-  let sequence =
-    colon >= 0
-      ? text
-          .slice(colon + 1)
-          .replace(".", "")
-          .trim()
-      : text;
-
-  $("challenge").innerHTML = `
-
-    <div class="type">
-      MEMORY • ${state.step}/5
-    </div>
-
-    <div class="memory">
-
-      ${sequence}
-
-    </div>
-
-    <div class="hint">
-
-      Запам'ятай послідовність...
-
-    </div>
-
-  `;
-
-
-  const d =
-    difficulty();
-
-  let showTime = 1350;
-
-  if(
-    d === DIFFICULTY.easy
-  ){
-
-    showTime = 1900;
-
-  }
-
-  if(
-    d === DIFFICULTY.hard
-  ){
-
-    showTime = 1000;
-
-  }
-
-  if(
-    d === DIFFICULTY.expert
-  ){
-
-    showTime = 750;
-
-  }
-
-
-  setTimeout(
-    ()=>{
-
-      if(
-        token !== taskToken
-      ){
-
-        return;
-
-      }
-
-
-      $("challenge").innerHTML = `
-
-        <div class="type">
-
-          MEMORY • ${state.step}/5
-
-        </div>
-
-        <div class="question">
-
-          ${text}
-
-        </div>
-
-        <div class="answers">
-
-          ${currentQuestion[2]
-            .map(
-              (answer,index)=>`
-
-                <button
-                  class="answer"
-                  data-index="${index}"
-                >
-                  ${answer}
-                </button>
-
-              `
-            )
-            .join("")
-          }
-
-        </div>
-
-      `;
-
-
-      $("challenge")
-        .querySelectorAll(".answer")
-        .forEach(
-          button => {
-
-            button.onclick =
-              () => {
-
-                answerQuestion(
-                  Number(
-                    button.dataset.index
-                  ),
-                  button
-                );
-
-              };
-
-          }
-        );
-
-    },
-    showTime
-  );
-
-}
-
-
-/* =====================================================
-   ВІДПОВІДЬ
-===================================================== */
-
-function answerQuestion(
-  index,
-  button
-){
-
-  if(
-    !currentQuestion
-  ){
-
-    return;
-
-  }
-
-
-  const buttons =
-    $("challenge")
-      .querySelectorAll(
-        ".answer"
-      );
-
-
-  buttons.forEach(
-    b => {
-      b.disabled = true;
-    }
-  );
-
-
-  state.total++;
-
-
-  const correct =
-    index ===
-    currentQuestion[3];
-
-
-  button.classList.add(
-    correct
-      ? "good"
-      : "bad"
-  );
-
-
-  if(correct){
-
-    state.correct++;
-
-    state.combo++;
-
-    state.bestCombo =
-      Math.max(
-        state.bestCombo,
-        state.combo
-      );
-
-
-    state.score +=
-      100 +
-      state.combo * 10;
-
-
-    const stat =
-      currentQuestion[4];
-
-    state[stat]++;
-
-
-    /*
-      Кожні 4 правильні
-      поспіль можуть повернути
-      одне життя.
-    */
-
-    if(
-      state.combo % 4 === 0 &&
-      state.lives < 3
-    ){
-
-      state.lives++;
-
-      nex(
-        "combo",
-        "❤️ +1 життя! Серія продовжується."
-      );
-
-    }else{
-
-      nex(
-        state.combo >= 4
-          ? "combo"
-          : "happy",
-        state.combo >= 4
-          ? "🔥 Серія! Так тримати!"
-          : "Правильно!"
-      );
-
-    }
-
-
-    if(
-      navigator.vibrate
-    ){
-
-      navigator.vibrate(20);
-
-    }
-
-
-    updateHUD();
-
-
-    setTimeout(
-      nextTask,
-      650
-    );
-
-
-  }else{
-
-    state.lives--;
-
-    state.combo = 0;
-
-
-    nex(
-      "sad",
-      "Не поспішай. Наступне завдання."
-    );
-
-
-    updateHUD();
-
-
-    setTimeout(
-      nextTask,
-      800
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   МОТОРИКА — ОСНОВА
-===================================================== */
-
+let usedQuestions = new Set();
 let motorHits = 0;
 let motorGoal = 0;
+let motorTotal = 0;
+let motorSuccess = 0;
+let motorFinished = false;
 
-
-function motor(){
-
-  clearTimers();
-
-  motorRunning = true;
-
-  const games = [
-
-    catchGame,
-    trackingGame,
-    reactionGame,
-    precisionGame,
-    sequenceGame
-
-  ];
-
-  const selected =
-    games[
-      Math.floor(
-        Math.random() *
-        games.length
-      )
-    ];
-
-  selected();
-
-}
-
-
-/* =====================================================
-   MOTOR UI
-===================================================== */
-
-function motorUI(
-  name,
-  goal,
-  seconds,
-  grid = false
-){
-
-  motorHits = 0;
-
-  motorGoal = goal;
-
-
-  $("challenge").innerHTML = `
-
-    <div class="type">
-
-      MOTOR • ${name}
-
-    </div>
-
-
-    <div class="motorHead">
-
-      <div class="mstat">
-
-        <small>
-          Прогрес
-        </small>
-
-        <b id="motorProgress">
-
-          0 / ${goal}
-
-        </b>
-
-      </div>
-
-
-      <div class="mstat">
-
-        <small>
-          Час
-        </small>
-
-        <b id="motorTime">
-
-          ${seconds}
-
-        </b>
-
-      </div>
-
-
-      <div class="mstat">
-
-        <small>
-          Життя
-        </small>
-
-        <b>
-
-          ${"❤️".repeat(
-            state.lives
-          )}
-
-        </b>
-
-      </div>
-
-    </div>
-
-
-    <div
-      id="motorStatus"
-      class="mstatus"
-    >
-      Готовий?
-    </div>
-
-
-    <div
-      id="motor"
-      class="motor ${grid ? "grid" : ""}"
-    ></div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   MOTOR HUD
-===================================================== */
-
-function motorHUD(){
-
-  const progress =
-    $("motorProgress");
-
-  if(progress){
-
-    progress.textContent =
-      `${motorHits} / ${motorGoal}`;
-
+/* ---------------- NEX ---------------- */
+function nex(type,text){
+  let character = $('nexGame');
+  let bubble = $('gameBubble');
+  if($('game').classList.contains('hidden')){
+    character = $('nexHome');
+    bubble = $('homeBubble');
   }
-
+  if(character){
+    character.className = 'nex ' + (type || '');
+    setTimeout(()=>character.className='nex',700);
+  }
+  if(bubble){
+    bubble.textContent = text || '';
+  }
 }
 
-
-/* =====================================================
-   MOTOR TIMER
-===================================================== */
-
-function startMotorClock(
-  seconds,
-  onEnd
-){
-
-  const started =
-    Date.now();
-
-
-  interval =
-    setInterval(
-      ()=>{
-
-        if(
-          !motorRunning
-        ){
-
-          return;
-
-        }
-
-
-        const elapsed =
-          (
-            Date.now() -
-            started
-          ) / 1000;
-
-
-        const left =
-          Math.max(
-            0,
-            seconds - elapsed
-          );
-
-
-        const time =
-          $("motorTime");
-
-
-        if(time){
-
-          time.textContent =
-            Math.ceil(left);
-
-        }
-
-
-        if(
-          left <= 0
-        ){
-
-          clearInterval(
-            interval
-          );
-
-          interval = null;
-
-          onEnd();
-
-        }
-
-      },
-      100
-    );
-
+/* ---------------- HUD ---------------- */
+function updateHUD(){
+  const b=$('block'), s=$('score'), l=$('lives'), bar=$('bar');
+  if(b) b.textContent=state.block;
+  if(s) s.textContent=state.score;
+  if(l) l.textContent='❤️'.repeat(Math.max(0,state.lives))+'🖤'.repeat(Math.max(0,3-state.lives));
+  if(bar) bar.style.width=((state.step/5)*100)+'%';
 }
 
+/* aliases used by older code */
+const updateHud = updateHUD;
 
-/* =====================================================
-   ЗАВЕРШЕННЯ МОТОРИКИ
-===================================================== */
+function clearTimers(){
+  if(timer) clearTimeout(timer);
+  if(interval) clearInterval(interval);
+  timer=null; interval=null;
+}
 
-function finishMotor(
-  success
-){
+/* ---------------- QUESTIONS ---------------- */
+const QUESTIONS = [
+ ['MIND','Марко молодший за Олега. Олег молодший за Івана. Хто найстарший?',['Марко','Олег','Іван','Невідомо'],2,'mind'],
+ ['MIND','Усі лікарі в цій кімнаті мають халати. Некс має халат. Чи обов’язково Некс лікар?',['Так','Ні','Недостатньо даних','Залежить від халата'],2,'mind'],
+ ['FOCUS','Знайди слово, яке відрізняється:',['СІЛЬ','СІЛЬ','СІЛЬ','СИЛЬ'],3,'focus'],
+ ['FOCUS','Який символ зайвий?',['▲','▲','△','▲'],2,'focus'],
+ ['MIND','Петро ліворуч від Андрія. Андрій ліворуч від Олега. Хто посередині?',['Петро','Андрій','Олег','Невідомо'],1,'mind'],
+ ['SPACE','Стрілка ↑ повернулась на 180°. Куди вона вказує?',['←','→','↓','↑'],2,'mind'],
+ ['MEMORY','Запам’ятай: 🔵 🟢 🔴 🟡. Який був третій?',['🔵','🟢','🔴','🟡'],2,'memory'],
+ ['MIND','Усі троянди — квіти. Деякі квіти жовті. Чи випливає, що деякі троянди жовті?',['Так','Ні','Недостатньо даних','Обов’язково'],2,'mind'],
+ ['FOCUS','Що стоїть другим: ▲ ● ■ ★',['▲','●','■','★'],1,'focus'],
+ ['MIND','Антон вищий за Богдана. Богдан вищий за Василя. Хто найнижчий?',['Антон','Богдан','Василь','Невідомо'],2,'mind'],
+ ['SPACE','Куб має 6 граней. Скільки граней торкаються однієї грані?',['2','3','4','5'],2,'mind'],
+ ['FOCUS','Знайди пару, яка точно однакова:',['AB7Q / AB7Q','K2P9 / K2P8','M7RT / M7TR','ZX31 / ZK31'],0,'focus'],
+ ['MEMORY','Запам’ятай: 🧠 🔑 ⚡ 🎯. Що було другим?',['🧠','🔑','⚡','🎯'],1,'memory'],
+ ['MIND','Якщо сьогодні середа, який день буде через 10 днів?',['П’ятниця','Субота','Неділя','Понеділок'],1,'mind'],
+ ['FOCUS','Скільки літер «О» у слові «МОЛОДОСТЬ»?',['1','2','3','4'],2,'focus'],
+ ['MIND','Усі A є B. Жоден B не є C. Чи може A бути C?',['Так','Ні','Іноді','Недостатньо даних'],1,'mind'],
+ ['SPACE','Ти дивишся на північ. Праворуч, потім ще раз праворуч. Куди дивишся?',['Північ','Південь','Схід','Захід'],1,'mind'],
+ ['FOCUS','Яке число зайве за правилом «парне»: 2, 4, 6, 9, 10?',['2','6','9','10'],2,'focus'],
+ ['MIND','У коробці тільки червоні та сині кульки. Ти дістав синю. Що гарантовано?',['Інші сині','Є хоча б одна синя','Червоних немає','Коробка порожня'],1,'mind'],
+ ['MEMORY','Запам’ятай: 🟡 🟣 🔵 🟢. Що було першим?',['🟡','🟣','🔵','🟢'],0,'memory'],
+ ['FOCUS','Яке число повторюється: 7 — 4 — 9 — 2 — 7',['2','4','7','9'],2,'focus'],
+ ['SPACE','Якщо ліворуч від тебе захід, що буде праворуч?',['Північ','Південь','Схід','Захід'],2,'mind'],
+ ['MIND','Деякі A є B. Усі B є C. Чи випливає, що деякі A є C?',['Так','Ні','Неможливо','Тільки якщо A=C'],0,'mind'],
+ ['FOCUS','Який рядок відрізняється?',['K8M2','K8M2','K8N2','K8M2'],2,'focus'],
+ ['MIND','Лише один із трьох сигналів істинний: A, B або C. A хибний, B хибний. Що про C?',['Хибний','Істинний','Невідомо','Може бути будь-яким'],1,'mind'],
+ ['MEMORY','Запам’ятай: 🔺 ⭐ 🟦 ❤️. Який символ був четвертим?',['🔺','⭐','🟦','❤️'],3,'memory'],
+ ['FOCUS','Що не є парою однакових символів?',['○○','△△','□□','○●'],3,'focus'],
+ ['MIND','Оля старша за Ніну. Ніна старша за Іру. Чи Оля старша за Іру?',['Так','Ні','Невідомо','Лише якщо вони сестри'],0,'mind'],
+ ['SPACE','Повернись ліворуч від напрямку схід. Куди дивишся?',['Північ','Південь','Захід','Схід'],0,'mind'],
+ ['MEMORY','Запам’ятай: 🟥 🟨 🟩 🟦. Який був першим?',['🟥','🟨','🟩','🟦'],0,'memory']
+];
 
+function getQuestion(){
+  if(usedQuestions.size>=QUESTIONS.length) usedQuestions.clear();
+  const available=QUESTIONS.map((q,i)=>({q,i})).filter(x=>!usedQuestions.has(x.i));
+  const pick=available[Math.floor(Math.random()*available.length)];
+  usedQuestions.add(pick.i);
+  return pick.q;
+}
+
+/* ---------------- GAME FLOW ---------------- */
+function startGame(){
   clearTimers();
+  motorRunning=false;
+  motorFinished=false;
+  state.block=1; state.step=0; state.lives=3; state.score=0;
+  state.combo=0; state.bestCombo=0; state.mind=0; state.focus=0;
+  state.memory=0; state.reflex=0; state.motor=0; state.total=0; state.correct=0;
+  motorTotal=0; motorSuccess=0; usedQuestions.clear(); taskToken++;
+  state.running=true;
+  $('home').classList.add('hidden');
+  $('result').classList.add('hidden');
+  $('game').classList.remove('hidden');
+  updateHUD();
+  nex('happy','Починаємо. 4 завдання для мозку — потім моторика.');
+  nextTask();
+}
 
-  motorRunning = false;
-
-
-  if(success){
-
-    state.score += 250;
-
-    state.block++;
-
-    state.step = 0;
-
-
-    nex(
-      "combo",
-      "🏆 Блок пройдено! Наступний."
-    );
-
-
-    setTimeout(
-      nextTask,
-      700
-    );
-
-
-  }else{
-
-    state.lives--;
-
-    state.combo = 0;
-
+function nextTask(){
+  clearTimers();
+  if(!state.running) return;
+  if(state.lives<=0){ finishGame(); return; }
+  if(state.step<4){
+    state.step++;
     updateHUD();
-
-
-    if(
-      state.lives <= 0
-    ){
-
-      setTimeout(
-        finishGame,
-        500
-      );
-
-    }else{
-
-      nex(
-        "sad",
-        "Моторика завершена. Продовжуємо."
-      );
-
-
-      state.step = 0;
-
-
-      setTimeout(
-        nextTask,
-        700
-      );
-
-    }
-
+    showQuestion();
+  }else{
+    state.step=5;
+    updateHUD();
+    startMotor();
   }
-
 }
 
-
-/* =====================================================
-   1. CATCH
-===================================================== */
-
-function catchGame(){
-
-  const goal = 10;
-  const seconds = 20;
-
-
-  motorUI(
-    "CATCH",
-    goal,
-    seconds
-  );
-
-
-  const area =
-    $("motor");
-
-
-  const status =
-    $("motorStatus");
-
-
-  status.textContent =
-    "🔵 Лови сині. 🔴 Червона — пастка. 🟡 Жовта — бонус.";
-
-
-  function spawn(){
-
-    if(
-      !motorRunning
-    ){
-
-      return;
-
-    }
-
-
-    area.innerHTML = "";
-
-
-    const ball =
-      document.createElement(
-        "button"
-      );
-
-
-    ball.className =
-      "ball";
-
-
-    const d =
-      difficulty();
-
-
-    ball.style.width =
-      d.size + "px";
-
-    ball.style.height =
-      d.size + "px";
-
-
-    const maxX =
-      Math.max(
-        0,
-        area.clientWidth -
-        d.size
-      );
-
-
-    const maxY =
-      Math.max(
-        0,
-        area.clientHeight -
-        d.size
-      );
-
-
-    ball.style.left =
-      Math.random() *
-      maxX +
-      "px";
-
-
-    ball.style.top =
-      Math.random() *
-      maxY +
-      "px";
-
-
-    /*
-      16% червона,
-      16% жовта,
-      решта синя.
-    */
-
-    const roll =
-      Math.random();
-
-
-    if(
-      roll > .84
-    ){
-
-      ball.classList.add(
-        "yellow"
-      );
-
-    }else if(
-      roll > .68
-    ){
-
-      ball.classList.add(
-        "red"
-      );
-
-    }
-
-
-    area.appendChild(
-      ball
-    );
-
-
-    ball.onpointerdown =
-      event => {
-
-        event.preventDefault();
-
-
-        if(
-          !motorRunning
-        ){
-
-          return;
-
-        }
-
-
-        /*
-          Червону не ловимо.
-        */
-
-        if(
-          ball.classList
-            .contains("red")
-        ){
-
-          status.textContent =
-            "🔴 Пастка! Червону натискати не можна.";
-
-          nex(
-            "surprise",
-            "Пастка! Уважніше."
-          );
-
-          return;
-
-        }
-
-
-        motorHits++;
-
-        state.motor++;
-
-        state.reflex++;
-
-
-        if(
-          ball.classList
-            .contains("yellow")
-        ){
-
-          state.score += 110;
-
-          status.textContent =
-            "🟡 Бонус!";
-
-        }else{
-
-          state.score += 70;
-
-          status.textContent =
-            "🔵 Влучання!";
-
-        }
-
-
-        motorHUD();
-
-
-        if(
-          navigator.vibrate
-        ){
-
-          navigator.vibrate(20);
-
-        }
-
-
-        if(
-          motorHits >=
-          motorGoal
-        ){
-
-          finishMotor(
-            true
-          );
-
-          return;
-
-        }
-
-
-        spawn();
-
-      };
-
-
-    /*
-      Через 0.5 / 0.7 / 0.8
-      секунди ціль змінює місце.
-    */
-
-    const move =
-      setTimeout(
-        spawn,
-        d.move
-      );
-
-  }
-
-
-  spawn();
-
-
-  startMotorClock(
-    seconds,
-    ()=>{
-      finishMotor(
-        false
-      );
-    }
-  );
-
+function showQuestion(){
+  currentQuestion=getQuestion();
+  const token=++taskToken;
+  nex('happy','Подумай уважно.');
+  if(currentQuestion[0]==='MEMORY') return showMemory(token);
+  renderQuestion();
 }
 
-
-/* =====================================================
-   2. TRACKING
-===================================================== */
-
-function trackingGame(){
-
-  const goal = 8;
-  const seconds = 18;
-
-
-  motorUI(
-    "TRACKING",
-    goal,
-    seconds,
-    true
-  );
-
-
-  const area =
-    $("motor");
-
-
-  const status =
-    $("motorStatus");
-
-
-  status.textContent =
-    "Стеж за ціллю на сітці та натискай її.";
-
-
-  function spawn(){
-
-    if(
-      !motorRunning
-    ){
-
-      return;
-
-    }
-
-
-    area.innerHTML = "";
-
-
-    const target =
-      document.createElement(
-        "button"
-      );
-
-
-    target.className =
-      "track";
-
-
-    const d =
-      difficulty();
-
-
-    const size =
-      Math.max(
-        40,
-        d.size - 5
-      );
-
-
-    target.style.width =
-      size + "px";
-
-    target.style.height =
-      size + "px";
-
-
-    const cell =
-      Math.floor(
-        Math.random() * 9
-      );
-
-
-    const col =
-      cell % 3;
-
-    const row =
-      Math.floor(
-        cell / 3
-      );
-
-
-    target.style.left =
-      (
-        col * 33.33 +
-        8
-      ) + "%";
-
-
-    target.style.top =
-      (
-        row * 33.33 +
-        8
-      ) + "%";
-
-
-    area.appendChild(
-      target
-    );
-
-
-    /*
-      Рух цілі всередині
-      видимої сітки.
-    */
-
-    const move =
-      setInterval(
-        ()=>{
-
-          if(
-            !motorRunning
-          ){
-
-            clearInterval(
-              move
-            );
-
-            return;
-
-          }
-
-
-          const nextCell =
-            Math.floor(
-              Math.random() * 9
-            );
-
-
-          target.style.left =
-            (
-              (nextCell % 3) *
-              33.33 +
-              8
-            ) + "%";
-
-
-          target.style.top =
-            (
-              Math.floor(
-                nextCell / 3
-              ) *
-              33.33 +
-              8
-            ) + "%";
-
-        },
-        difficulty().move
-      );
-
-
-    target.onpointerdown =
-      event => {
-
-        event.preventDefault();
-
-
-        if(
-          !motorRunning
-        ){
-
-          clearInterval(
-            move
-          );
-
-          return;
-
-        }
-
-
-        clearInterval(
-          move
-        );
-
-
-        motorHits++;
-
-        state.motor++;
-
-        state.reflex++;
-
-        state.score += 75;
-
-
-        motorHUD();
-
-
-        if(
-          navigator.vibrate
-        ){
-
-          navigator.vibrate(18);
-
-        }
-
-
-        if(
-          motorHits >=
-          motorGoal
-        ){
-
-          finishMotor(
-            true
-          );
-
-          return;
-
-        }
-
-
-        status.textContent =
-          `✓ Ціль • ${motorHits}/${motorGoal}`;
-
-
-        spawn();
-
-      };
-
-  }
-
-
-  spawn();
-
-
-  startMotorClock(
-    seconds,
-    ()=>{
-      finishMotor(
-        false
-      );
-    }
-  );
-
-}
-  /* =========================================================
-   REACTION
-========================================================= */
-function reactionGame(){
-  motorArea.innerHTML = `
-    <div class="motor-card">
-      <div class="motor-title">⚡ РЕАКЦІЯ</div>
-      <div class="motor-sub">Натисни кнопку одразу, коли вона стане зеленою</div>
-
-      <div id="reactionField" class="motor-field reaction-field">
-        <button id="reactionBtn" class="reaction-btn">ЧЕКАЙ...</button>
-      </div>
-
-      <div class="motor-help">Не натискай завчасно</div>
-    </div>
-  `;
-
-  const btn = $("reactionBtn");
-  let ready = false;
-  let finished = false;
-  let startAt = 0;
-
-  const wait = 900 + Math.random() * 2200;
-
-  const timeout = setTimeout(() => {
-    if(finished) return;
-
-    ready = true;
-    startAt = performance.now();
-
-    btn.textContent = "НАТИСКАЙ!";
-    btn.classList.add("go");
-  }, wait);
-
-  btn.onclick = () => {
-    if(finished) return;
-
-    if(!ready){
-      finished = true;
-      clearTimeout(timeout);
-
-      motorResult(false, "Занадто рано", "Ти натиснув до сигналу.");
-      return;
-    }
-
-    finished = true;
-
-    const reaction = Math.round(performance.now() - startAt);
-
-    let points = 0;
-
-    if(reaction < 300) points = 100;
-    else if(reaction < 400) points = 90;
-    else if(reaction < 500) points = 80;
-    else if(reaction < 650) points = 70;
-    else if(reaction < 800) points = 55;
-    else points = 40;
-
-    motorResult(
-      true,
-      `${reaction} мс`,
-      `Реакція зафіксована • +${points} очок`
-    );
-  };
-}
-
-
-/* =========================================================
-   PRECISION
-========================================================= */
-function precisionGame(){
-  motorArea.innerHTML = `
-    <div class="motor-card">
-      <div class="motor-title">🎯 ТОЧНІСТЬ</div>
-      <div class="motor-sub">Влуч у рухому ціль</div>
-
-      <div id="precisionField" class="motor-field precision-field">
-        <div id="precisionTarget" class="precision-target"></div>
-      </div>
-
-      <div class="motor-help">Ціль рухається — натисни точно по ній</div>
-    </div>
-  `;
-
-  const field = $("precisionField");
-  const target = $("precisionTarget");
-
-  let hits = 0;
-  const required = difficulty().precisionHits;
-
-  let x = 50;
-  let y = 50;
-  let dirX = Math.random() > .5 ? 1 : -1;
-  let dirY = Math.random() > .5 ? 1 : -1;
-
-  target.style.left = "50%";
-  target.style.top = "50%";
-
-  const speed = difficulty().precisionSpeed;
-
-  let last = performance.now();
-
-  function animate(now){
-    if(!document.body.contains(target)) return;
-
-    const dt = Math.min(30, now - last);
-    last = now;
-
-    x += dirX * speed * dt / 16;
-    y += dirY * speed * dt / 16;
-
-    if(x < 8){
-      x = 8;
-      dirX = 1;
-    }
-
-    if(x > 92){
-      x = 92;
-      dirX = -1;
-    }
-
-    if(y < 10){
-      y = 10;
-      dirY = 1;
-    }
-
-    if(y > 90){
-      y = 90;
-      dirY = -1;
-    }
-
-    target.style.left = x + "%";
-    target.style.top = y + "%";
-
-    requestAnimationFrame(animate);
-  }
-
-  requestAnimationFrame(animate);
-
-  target.onclick = e => {
-    e.stopPropagation();
-
-    hits++;
-    state.score += 10;
-    updateHud();
-
-    if(navigator.vibrate){
-      navigator.vibrate(25);
-    }
-
-    if(hits >= required){
-      motorResult(
-        true,
-        "ТОЧНО!",
-        `${required}/${required} влучань`
-      );
-    }else{
-      target.classList.remove("hit");
-
-      void target.offsetWidth;
-
-      target.classList.add("hit");
-
-      setTimeout(() => {
-        target.classList.remove("hit");
-      }, 120);
-    }
-  };
-
-  field.onclick = () => {
-    state.score = Math.max(0, state.score - 3);
-    updateHud();
-  };
-}
-
-
-/* =========================================================
-   SEQUENCE
-========================================================= */
-function sequenceGame(){
-  const length =
-    difficulty().sequenceLength;
-
-  const sequence = [];
-
-  for(let i=0;i<length;i++){
-    sequence.push(
-      Math.floor(Math.random() * 4)
-    );
-  }
-
-  motorArea.innerHTML = `
-    <div class="motor-card">
-      <div class="motor-title">🧠 ПОСЛІДОВНІСТЬ</div>
-      <div class="motor-sub">
-        Запам'ятай порядок і повтори його
-      </div>
-
-      <div id="sequenceDisplay" class="sequence-display">
-        ГОТОВИЙ?
-      </div>
-
-      <div id="sequenceGrid" class="sequence-grid">
-        <button data-n="0"></button>
-        <button data-n="1"></button>
-        <button data-n="2"></button>
-        <button data-n="3"></button>
-      </div>
-
-      <div class="motor-help">
-        Послідовність: <b id="sequenceProgress">0/${length}</b>
-      </div>
-    </div>
-  `;
-
-  const display = $("sequenceDisplay");
-  const buttons = [...document.querySelectorAll("#sequenceGrid button")];
-  const progress = $("sequenceProgress");
-
-  let index = 0;
-  let showing = true;
-
-  const showTime =
-    difficulty().sequenceShow;
-
-  let i = 0;
-
-  function flashNext(){
-    if(i >= sequence.length){
-      showing = false;
-      display.textContent = "ТЕПЕР ТИ";
-
-      buttons.forEach(b => {
-        b.disabled = false;
-      });
-
-      return;
-    }
-
-    buttons.forEach(b => {
-      b.classList.remove("active");
-    });
-
-    const button = buttons[sequence[i]];
-
-    button.classList.add("active");
-
-    setTimeout(() => {
-      button.classList.remove("active");
-      i++;
-      setTimeout(flashNext, 120);
-    }, showTime);
-  }
-
-  buttons.forEach(b => b.disabled = true);
-
-  setTimeout(flashNext, 700);
-
-  buttons.forEach(button => {
-    button.onclick = () => {
-      if(showing) return;
-
-      const n = Number(button.dataset.n);
-
-      if(n !== sequence[index]){
-        motorResult(
-          false,
-          "ПОМИЛКА",
-          `Правильно: ${index}/${length}`
-        );
-
-        return;
-      }
-
-      button.classList.add("active");
-
-      setTimeout(() => {
-        button.classList.remove("active");
-      }, 120);
-
-      index++;
-
-      progress.textContent =
-        `${index}/${length}`;
-
-      state.score += 8;
-      updateHud();
-
-      if(index >= sequence.length){
-        motorResult(
-          true,
-          "ПАМ'ЯТЬ OK",
-          `Послідовність ${length} елементів`
-        );
-      }
-    };
+function renderQuestion(){
+  const q=currentQuestion;
+  $('challenge').innerHTML=`
+    <div class="type">${q[0]} • ${state.step}/5</div>
+    <div class="question">${q[1]}</div>
+    <div class="answers">${q[2].map((a,i)=>`<button class="answer" data-index="${i}">${a}</button>`).join('')}</div>`;
+  $('challenge').querySelectorAll('.answer').forEach(btn=>{
+    btn.onclick=()=>answerQuestion(Number(btn.dataset.index),btn);
   });
 }
 
-
-/* =========================================================
-   MOTOR RESULT
-========================================================= */
-function motorResult(success, title, text){
-  if(state.motorFinished) return;
-
-  state.motorFinished = true;
-
-  if(state.timer){
-    clearInterval(state.timer);
-    state.timer = null;
-  }
-
-  if(success){
-    state.combo++;
-
-    state.bestCombo =
-      Math.max(state.bestCombo, state.combo);
-
-    state.score +=
-      50 + state.combo * 5;
-
-    state.xp += 10;
-
-    state.motorSuccess++;
-
-    nexSpeak(
-      "motor",
-      title
-    );
-
-  }else{
-    state.combo = 0;
-    state.lives--;
-
-    nexSpeak(
-      "error",
-      title
-    );
-  }
-
-  updateHud();
-
-  motorArea.innerHTML = `
-    <div class="motor-result ${success ? "success" : "fail"}">
-      <div class="result-icon">
-        ${success ? "✓" : "×"}
-      </div>
-
-      <div class="result-title">
-        ${title}
-      </div>
-
-      <div class="result-text">
-        ${text}
-      </div>
-
-      <button id="motorContinue" class="primary-btn">
-        ПРОДОВЖИТИ
-      </button>
-    </div>
-  `;
-
-  $("motorContinue").onclick = () => {
-    if(state.lives <= 0){
-      finishGame();
-    }else{
-      state.block++;
-      nextTask();
-    }
-  };
+function showMemory(token){
+  const q=currentQuestion;
+  const text=q[1];
+  const colon=text.indexOf(':');
+  const sequence=colon>=0?text.slice(colon+1).replace('.','').trim():text;
+  $('challenge').innerHTML=`
+    <div class="type">MEMORY • ${state.step}/5</div>
+    <div class="memory">${sequence}</div>
+    <div class="hint">Запам’ятай послідовність...</div>`;
+  let showTime=1350;
+  if(state.diff==='easy') showTime=1900;
+  if(state.diff==='hard') showTime=1000;
+  if(state.diff==='expert') showTime=750;
+  timer=setTimeout(()=>{
+    if(token!==taskToken) return;
+    $('challenge').innerHTML=`
+      <div class="type">MEMORY • ${state.step}/5</div>
+      <div class="question">Що ти запам’ятав?</div>
+      <div class="answers">${q[2].map((a,i)=>`<button class="answer" data-index="${i}">${a}</button>`).join('')}</div>`;
+    $('challenge').querySelectorAll('.answer').forEach(btn=>btn.onclick=()=>answerQuestion(Number(btn.dataset.index),btn));
+  },showTime);
 }
 
+function answerQuestion(index,button){
+  const buttons=$('challenge').querySelectorAll('.answer');
+  buttons.forEach(b=>b.disabled=true);
+  state.total++;
+  const correct=index===currentQuestion[3];
+  button.classList.add(correct?'good':'bad');
+  if(correct){
+    state.correct++; state.combo++; state.bestCombo=Math.max(state.bestCombo,state.combo);
+    state.score+=100+state.combo*10;
+    state[currentQuestion[4]]++;
+    if(state.combo%4===0 && state.lives<3) state.lives++;
+    nex(state.combo>=4?'combo':'happy',state.combo>=4?'🔥 Серія!':'Правильно!');
+    if(navigator.vibrate) navigator.vibrate(20);
+  }else{
+    state.lives--; state.combo=0; nex('sad','Не поспішай. Наступне завдання.');
+  }
+  updateHUD();
+  timer=setTimeout(nextTask,correct?650:800);
+}
 
-/* =========================================================
-   MOTOR SELECTOR
-========================================================= */
+/* ---------------- MOTOR BASE ---------------- */
 function startMotor(){
-  state.motorFinished = false;
-
-  const games = [
-    catchGame,
-    trackingGame,
-    reactionGame,
-    precisionGame,
-    sequenceGame
-  ];
-
-  const game =
-    games[Math.floor(Math.random() * games.length)];
-
-  game();
+  clearTimers();
+  motorRunning=true; motorFinished=false;
+  const games=[catchGame,trackingGame,reactionGame,precisionGame,sequenceGame];
+  games[Math.floor(Math.random()*games.length)]();
 }
 
-
-/* =========================================================
-   FINISH GAME
-========================================================= */
-function finishGame(){
-  if(state.timer){
-    clearInterval(state.timer);
-    state.timer = null;
-  }
-
-  state.running = false;
-
-  $("game").classList.add("hidden");
-  $("result").classList.remove("hidden");
-
-  const accuracy =
-    state.totalQuestions > 0
-      ? Math.round(
-          state.correctQuestions /
-          state.totalQuestions * 100
-        )
-      : 0;
-
-  const motorAccuracy =
-    state.motorTotal > 0
-      ? Math.round(
-          state.motorSuccess /
-          state.motorTotal * 100
-        )
-      : 0;
-
-  const mind =
-    Math.min(
-      100,
-      Math.round(
-        accuracy * .75 +
-        state.correctQuestions * 1.5
-      )
-    );
-
-  const reflex =
-    Math.min(
-      100,
-      Math.round(
-        motorAccuracy * .7 +
-        state.bestCombo * 4
-      )
-    );
-
-  const focus =
-    Math.min(
-      100,
-      Math.round(
-        (accuracy + motorAccuracy) / 2
-      )
-    );
-
-  const total =
-    Math.round(
-      mind * .35 +
-      reflex * .35 +
-      focus * .30
-    );
-
-  let status = "ДАНІ ЗІБРАНІ";
-
-  if(total >= 85){
-    status = "ВИСОКА СТАБІЛЬНІСТЬ";
-  }else if(total >= 70){
-    status = "ДОБРИЙ РЕЗУЛЬТАТ";
-  }else if(total >= 50){
-    status = "Є ЩО ПОКРАЩУВАТИ";
-  }else{
-    status = "ПОТРІБНЕ ТРЕНУВАННЯ";
-  }
-
-  $("result").innerHTML = `
-    <div class="result-screen">
-
-      <div class="nex-wrap small">
-        <div class="nex">
-          <div class="nex-head">
-            <div class="nex-hair"></div>
-            <div class="nex-face">
-              <div class="nex-eye left"></div>
-              <div class="nex-eye right"></div>
-              <div class="nex-mouth"></div>
-            </div>
-          </div>
-
-          <div class="nex-body">
-            <div class="coat"></div>
-            <div class="stethoscope"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="result-heading">
-        NEURO REPORT
-      </div>
-
-      <div class="result-status">
-        ${status}
-      </div>
-
-      <div class="result-score">
-        ${total}
-      </div>
-
-      <div class="result-label">
-        NEURO SCORE
-      </div>
-
-      <div class="result-grid">
-
-        <div class="stat-box">
-          <span>🧠 MIND</span>
-          <b>${mind}</b>
-        </div>
-
-        <div class="stat-box">
-          <span>⚡ REFLEX</span>
-          <b>${reflex}</b>
-        </div>
-
-        <div class="stat-box">
-          <span>🎯 FOCUS</span>
-          <b>${focus}</b>
-        </div>
-
-        <div class="stat-box">
-          <span>🏆 COMBO</span>
-          <b>${state.bestCombo}</b>
-        </div>
-
-      </div>
-
-      <div class="report-line">
-        Логічні завдання:
-        <b>${state.correctQuestions}/${state.totalQuestions}</b>
-      </div>
-
-      <div class="report-line">
-        Моторика:
-        <b>${state.motorSuccess}/${state.motorTotal}</b>
-      </div>
-
-      <div class="report-line">
-        Очки:
-        <b>${state.score}</b>
-      </div>
-
-      <button id="againBtn" class="primary-btn">
-        ПРОЙТИ ЩЕ РАЗ
-      </button>
-
-      <button id="homeBtn" class="secondary-btn">
-        НА ГОЛОВНИЙ ЕКРАН
-      </button>
-
+function motorUI(name,goal,seconds,grid=false){
+  motorHits=0; motorGoal=goal;
+  $('challenge').innerHTML=`
+    <div class="type">MOTOR • ${name}</div>
+    <div class="motorHead">
+      <div class="mstat"><small>Прогрес</small><b id="motorProgress">0 / ${goal}</b></div>
+      <div class="mstat"><small>Час</small><b id="motorTime">${seconds}</b></div>
+      <div class="mstat"><small>Життя</small><b>${'❤️'.repeat(state.lives)}</b></div>
     </div>
-  `;
-
-  if(state.score > state.best){
-    state.best = state.score;
-    localStorage.setItem(
-      "neuroBest",
-      state.best
-    );
-  }
-
-  $("againBtn").onclick = () => {
-    startGame();
-  };
-
-  $("homeBtn").onclick = () => {
-    showHome();
-  };
+    <div id="motorStatus" class="mstatus">Готовий?</div>
+    <div id="motor" class="motor ${grid?'grid':''}"></div>`;
 }
 
+function motorHUD(){
+  const p=$('motorProgress');
+  if(p) p.textContent=`${motorHits} / ${motorGoal}`;
+}
 
-/* =========================================================
-   HOME
-========================================================= */
-function showHome(){
-  if(state.timer){
-    clearInterval(state.timer);
-    state.timer = null;
+function startMotorClock(seconds,onEnd){
+  const started=Date.now();
+  interval=setInterval(()=>{
+    if(!motorRunning) return;
+    const left=Math.max(0,seconds-(Date.now()-started)/1000);
+    const t=$('motorTime');
+    if(t) t.textContent=Math.ceil(left);
+    if(left<=0){ clearInterval(interval); interval=null; onEnd(); }
+  },100);
+}
+
+function finishMotor(success){
+  if(motorFinished) return;
+  motorFinished=true; motorRunning=false; clearTimers();
+  motorTotal++;
+  if(success){
+    motorSuccess++; state.score+=250; state.block++; state.step=0; state.combo++; state.bestCombo=Math.max(state.bestCombo,state.combo);
+    nex('combo','🏆 Блок пройдено! Наступний.');
+  }else{
+    state.lives--; state.combo=0; state.step=0; updateHUD();
+    if(state.lives<=0){ finishGame(); return; }
+    nex('sad','Моторика завершена. Продовжуємо.');
   }
+  updateHUD();
+  timer=setTimeout(nextTask,700);
+}
 
-  state.running = false;
+/* ---------------- CATCH ---------------- */
+function catchGame(){
+  const goal=10, seconds=20;
+  motorUI('CATCH',goal,seconds,false);
+  const area=$('motor'), status=$('motorStatus');
+  status.textContent='🔵 Лови сині. 🔴 Червона — пастка. 🟡 Жовта — бонус.';
+  let moveTimer=null;
+  const d=difficulty();
 
-  $("game").classList.add("hidden");
-  $("result").classList.add("hidden");
-  $("home").classList.remove("hidden");
+  function spawn(){
+    if(!motorRunning) return;
+    if(moveTimer) clearTimeout(moveTimer);
+    area.innerHTML='';
+    const ball=document.createElement('button');
+    ball.className='ball';
+    ball.style.width=d.size+'px'; ball.style.height=d.size+'px';
+    const maxX=Math.max(0,area.clientWidth-d.size), maxY=Math.max(0,area.clientHeight-d.size);
+    ball.style.left=Math.random()*maxX+'px'; ball.style.top=Math.random()*maxY+'px';
+    const roll=Math.random();
+    if(roll>.84) ball.classList.add('yellow');
+    else if(roll>.68) ball.classList.add('red');
+    area.appendChild(ball);
+    ball.onpointerdown=e=>{
+      e.preventDefault();
+      if(!motorRunning) return;
+      if(ball.classList.contains('red')){
+        status.textContent='🔴 Пастка!';
+        state.lives=Math.max(0,state.lives-1); state.combo=0; updateHUD();
+        if(state.lives<=0){ finishMotor(false); return; }
+        spawn(); return;
+      }
+      motorHits++; state.motor++; state.reflex++; state.score+=ball.classList.contains('yellow')?110:70; motorHUD();
+      if(navigator.vibrate) navigator.vibrate(20);
+      if(motorHits>=motorGoal){finishMotor(true);return;}
+      status.textContent=ball.classList.contains('yellow')?'🟡 Бонус!':'🔵 Влучання!';
+      spawn();
+    };
+    const next=[500,700,800][Math.floor(Math.random()*3)];
+    moveTimer=setTimeout(spawn,next);
+  }
+  spawn();
+  startMotorClock(seconds,()=>finishMotor(false));
+}
 
+/* ---------------- TRACKING ---------------- */
+function trackingGame(){
+  const goal=8, seconds=18;
+  motorUI('TRACKING',goal,seconds,true);
+  const area=$('motor'), status=$('motorStatus');
+  status.textContent='Стеж за ціллю на сітці та натискай її.';
+  let move=null;
+  function spawn(){
+    if(!motorRunning)return;
+    if(move) clearInterval(move);
+    area.innerHTML='';
+    const target=document.createElement('button'); target.className='track';
+    const size=Math.max(40,difficulty().size-5); target.style.width=size+'px'; target.style.height=size+'px';
+    function place(){
+      const cell=Math.floor(Math.random()*9), col=cell%3,row=Math.floor(cell/3);
+      target.style.left=(col*33.33+8)+'%'; target.style.top=(row*33.33+8)+'%';
+    }
+    place(); area.appendChild(target);
+    move=setInterval(place,difficulty().move);
+    target.onpointerdown=e=>{
+      e.preventDefault(); if(!motorRunning)return;
+      motorHits++; state.motor++; state.reflex++; state.score+=75; motorHUD();
+      if(navigator.vibrate)navigator.vibrate(18);
+      if(motorHits>=motorGoal){clearInterval(move);finishMotor(true);return;}
+      status.textContent=`✓ Ціль • ${motorHits}/${motorGoal}`;
+      place();
+    };
+  }
+  spawn(); startMotorClock(seconds,()=>{if(move)clearInterval(move);finishMotor(false);});
+}
+
+/* ---------------- REACTION ---------------- */
+function reactionGame(){
+  const goal=3, seconds=15;
+  motorUI('REACTION',goal,seconds,false);
+  const area=$('motor'), status=$('motorStatus');
+  let ready=false, ended=false, start=0, waitTimer=null, rounds=0;
+  area.innerHTML='<button class="react" id="reactBtn">ЧЕКАЙ...</button>';
+  const btn=$('reactBtn');
+  status.textContent='Натискай тільки після зеленого сигналу.';
+  function round(){
+    if(!motorRunning||ended)return;
+    ready=false; btn.classList.remove('go'); btn.textContent='ЧЕКАЙ...';
+    waitTimer=setTimeout(()=>{if(!motorRunning||ended)return;ready=true;start=performance.now();btn.classList.add('go');btn.textContent='НАТИСКАЙ!';},900+Math.random()*1600);
+  }
+  btn.onclick=()=>{
+    if(ended||!motorRunning)return;
+    if(!ready){ended=true;clearTimeout(waitTimer);finishMotor(false);return;}
+    const ms=Math.round(performance.now()-start); rounds++; motorHits=rounds; state.motor++; state.reflex+=ms<500?2:1; state.score+=Math.max(40,110-Math.floor(ms/8)); motorHUD();
+    if(navigator.vibrate)navigator.vibrate(20);
+    if(rounds>=goal){ended=true;finishMotor(true);return;}
+    status.textContent=`${ms} мс • ${rounds}/${goal}`; round();
+  };
+  round(); startMotorClock(seconds,()=>{ended=true;finishMotor(false);});
+}
+
+/* ---------------- PRECISION ---------------- */
+function precisionGame(){
+  const goal=difficulty().precision, seconds=20;
+  motorUI('PRECISION',goal,seconds,false);
+  const area=$('motor'), status=$('motorStatus');
+  const ring=document.createElement('div'); ring.className='precisionRing'; area.appendChild(ring);
+  const ball=document.createElement('button'); ball.className='precisionBall'; area.appendChild(ball);
+  let x=50,y=50,dx=Math.random()>.5?1:-1,dy=Math.random()>.5?1:-1,last=performance.now();
+  function anim(now){
+    if(!motorRunning||!document.body.contains(ball))return;
+    const dt=Math.min(30,now-last);last=now;
+    x+=dx*difficulty().move/700*dt; y+=dy*difficulty().move/700*dt;
+    if(x<8){x=8;dx=1} if(x>92){x=92;dx=-1} if(y<12){y=12;dy=1} if(y>88){y=88;dy=-1}
+    ball.style.left=x+'%';ball.style.top=y+'%';requestAnimationFrame(anim);
+  }
+  ball.style.left='50%';ball.style.top='50%';
+  ball.onclick=e=>{e.stopPropagation();if(!motorRunning)return;motorHits++;state.motor++;state.reflex++;state.score+=35;motorHUD();if(navigator.vibrate)navigator.vibrate(18);if(motorHits>=goal){finishMotor(true);return}status.textContent=`✓ Влучання • ${motorHits}/${goal}`};
+  area.onclick=()=>{state.score=Math.max(0,state.score-3)};
+  requestAnimationFrame(anim); startMotorClock(seconds,()=>finishMotor(false));
+}
+
+/* ---------------- SEQUENCE ---------------- */
+function sequenceGame(){
+  const goal=difficulty().seq, seconds=22;
+  motorUI('SEQUENCE',goal,seconds,true);
+  const area=$('motor'), status=$('motorStatus');
+  const buttons=[]; const seq=[]; let index=0, showing=true;
+  for(let i=0;i<goal;i++)seq.push(Math.floor(Math.random()*4));
+  for(let i=0;i<4;i++){
+    const b=document.createElement('button'); b.className='seq'; b.textContent=(i+1); b.style.left=(25+(i%2)*40)+'%'; b.style.top=(25+Math.floor(i/2)*40)+'%'; b.disabled=true; area.appendChild(b); buttons.push(b);
+  }
+  status.textContent='Запам’ятай порядок.';
+  let i=0;
+  function flash(){
+    if(i>=seq.length){showing=false;buttons.forEach(b=>b.disabled=false);status.textContent='ТЕПЕР ПОВТОРИ';return;}
+    buttons.forEach(b=>b.style.transform='scale(1)'); const b=buttons[seq[i]];b.style.transform='scale(1.3)';setTimeout(()=>{b.style.transform='scale(1)';i++;setTimeout(flash,120)},difficulty().show);
+  }
+  setTimeout(flash,500);
+  buttons.forEach((b,n)=>b.onclick=()=>{
+    if(showing||!motorRunning)return;
+    if(n!==seq[index]){finishMotor(false);return;}
+    index++;motorHits=index;state.motor++;state.memory++;state.score+=45;motorHUD();
+    if(navigator.vibrate)navigator.vibrate(18);
+    if(index>=seq.length){finishMotor(true);return}
+    status.textContent=`✓ ${index}/${goal}`;
+  });
+  startMotorClock(seconds,()=>finishMotor(false));
+}
+
+/* ---------------- RESULT ---------------- */
+function finishGame(){
+  if(!state.running && !$('game').classList.contains('hidden')){
+    // allow first finish
+  }
+  clearTimers(); motorRunning=false; state.running=false;
+  $('game').classList.add('hidden'); $('result').classList.remove('hidden');
+  const accuracy=state.total?Math.round(state.correct/state.total*100):0;
+  const mAcc=motorTotal?Math.round(motorSuccess/motorTotal*100):0;
+  const mind=Math.min(100,Math.round(accuracy*.75+state.mind*5));
+  const focus=Math.min(100,Math.round(accuracy*.65+state.focus*5));
+  const memory=Math.min(100,Math.round(accuracy*.55+state.memory*7));
+  const reflex=Math.min(100,Math.round(mAcc*.7+state.reflex*2));
+  const motor=Math.min(100,Math.round(mAcc));
+  const total=Math.round(mind*.25+focus*.2+memory*.15+reflex*.2+motor*.2);
+  $('final').textContent=state.score;
+  $('rMind').textContent=mind;
+  $('rFocus').textContent=focus;
+  $('rMemory').textContent=memory;
+  $('rReflex').textContent=reflex;
+  $('rMotor').textContent=motor;
+  $('rCombo').textContent=state.bestCombo;
+  const oldBest=Number(localStorage.getItem('neuroBest')||0);
+  if(state.score>oldBest)localStorage.setItem('neuroBest',state.score);
+  $('again').onclick=startGame;
+  $('home').onclick=showHome;
+}
+
+function showHome(){
+  clearTimers();motorRunning=false;state.running=false;
+  $('game').classList.add('hidden');$('result').classList.add('hidden');$('home').classList.remove('hidden');
   updateHome();
 }
 
-
 function updateHome(){
-  const bestEl = $("bestScore");
-
-  if(bestEl){
-    bestEl.textContent =
-      state.best || 0;
-  }
-
-  const diffEl = $("homeDifficulty");
-
-  if(diffEl){
-    diffEl.textContent =
-      difficulty().name;
-  }
+  const best=Number(localStorage.getItem('neuroBest')||0);
+  const el=$('best'); if(el)el.textContent=best;
 }
 
+/* ---------------- BUTTONS ---------------- */
+$('start').onclick=startGame;
+$('daily').onclick=()=>{state.daily=true;startGame();nex('happy','Щоденне випробування.');};
+$('settings').onclick=()=>$('modal').classList.remove('hidden');
+$('close').onclick=()=>$('modal').classList.add('hidden');
 
-/* =========================================================
-   START GAME
-========================================================= */
-function startGame(){
-  if(state.timer){
-    clearInterval(state.timer);
-  }
-
-  state.block = 1;
-  state.task = 0;
-
-  state.lives = 3;
-
-  state.score = 0;
-  state.xp = 0;
-
-  state.combo = 0;
-  state.bestCombo = 0;
-
-  state.correctQuestions = 0;
-  state.totalQuestions = 0;
-
-  state.motorSuccess = 0;
-  state.motorTotal = 0;
-
-  state.usedQuestions = new Set();
-
-  state.running = true;
-  state.motorFinished = false;
-
-  $("home").classList.add("hidden");
-  $("result").classList.add("hidden");
-  $("game").classList.remove("hidden");
-
-  updateHud();
-
-  nexSpeak(
-    "start",
-    "Починаємо"
-  );
-
-  nextTask();
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-const startBtn = $("startBtn");
-
-if(startBtn){
-  startBtn.onclick = startGame;
-}
-
-
-const dailyBtn = $("dailyBtn");
-
-if(dailyBtn){
-  dailyBtn.onclick = () => {
-    startGame();
-
-    state.daily = true;
-
-    nexSpeak(
-      "daily",
-      "Щоденне випробування"
-    );
+document.querySelectorAll('[data-d]').forEach(btn=>{
+  btn.onclick=()=>{
+    state.diff=btn.dataset.d;
+    localStorage.setItem('neuroDiff',state.diff);
+    document.querySelectorAll('[data-d]').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
   };
-}
-
-
-const againBtnInitial = $("againBtn");
-
-if(againBtnInitial){
-  againBtnInitial.onclick = startGame;
-}
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-const settingsBtn = $("settingsBtn");
-const settingsModal = $("settingsModal");
-const closeSettings = $("closeSettings");
-
-if(settingsBtn){
-  settingsBtn.onclick = () => {
-    settingsModal.classList.remove("hidden");
-  };
-}
-
-if(closeSettings){
-  closeSettings.onclick = () => {
-    settingsModal.classList.add("hidden");
-  };
-}
-
-
-document.querySelectorAll("[data-diff]").forEach(btn => {
-  btn.onclick = () => {
-
-    document
-      .querySelectorAll("[data-diff]")
-      .forEach(x =>
-        x.classList.remove("selected")
-      );
-
-    btn.classList.add("selected");
-
-    state.difficulty =
-      btn.dataset.diff;
-
-    localStorage.setItem(
-      "neuroDifficulty",
-      state.difficulty
-    );
-
-    updateHome();
-  };
+  if(btn.dataset.d===state.diff)btn.classList.add('active');
 });
 
-
-/* =========================================================
-   MUSIC / SOUND
-========================================================= */
-let audioCtx = null;
-
-function beep(
-  frequency = 440,
-  duration = .08,
-  type = "sine"
-){
-  try{
-    if(!audioCtx){
-      audioCtx =
-        new (window.AudioContext ||
-        window.webkitAudioContext)();
-    }
-
-    const oscillator =
-      audioCtx.createOscillator();
-
-    const gain =
-      audioCtx.createGain();
-
-    oscillator.type = type;
-    oscillator.frequency.value =
-      frequency;
-
-    gain.gain.setValueAtTime(
-      .045,
-      audioCtx.currentTime
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .001,
-      audioCtx.currentTime + duration
-    );
-
-    oscillator.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    oscillator.start();
-
-    oscillator.stop(
-      audioCtx.currentTime + duration
-    );
-
-  }catch(e){}
-}
-
-
-/* =========================================================
-   NEX SPEECH / REACTIONS
-========================================================= */
-function nexSpeak(type, text){
-  const bubble = $("nexBubble");
-
-  if(!bubble) return;
-
-  bubble.textContent = text;
-  bubble.classList.add("show");
-
-  setTimeout(() => {
-    bubble.classList.remove("show");
-  }, 1800);
-
-  if(type === "success"){
-    beep(720,.07,"square");
-    setTimeout(
-      () => beep(920,.09,"square"),
-      70
-    );
-  }
-
-  if(type === "error"){
-    beep(180,.12,"sawtooth");
-  }
-
-  if(type === "start"){
-    beep(440,.08,"square");
-    setTimeout(
-      () => beep(660,.08,"square"),
-      90
-    );
-  }
-}
-
-
-/* =========================================================
-   DIFFICULTY
-========================================================= */
-function difficulty(){
-  const d =
-    state.difficulty ||
-    localStorage.getItem("neuroDifficulty") ||
-    "normal";
-
-  const values = {
-
-    easy:{
-      name:"ЛЕГКО",
-      time:1.15,
-      move:.8,
-      precisionSpeed:.22,
-      precisionHits:5,
-      sequenceLength:3,
-      sequenceShow:650,
-      reactionBonus:1
-    },
-
-    normal:{
-      name:"НОРМА",
-      time:1,
-      move:.7,
-      precisionSpeed:.34,
-      precisionHits:6,
-      sequenceLength:4,
-      sequenceShow:520,
-      reactionBonus:1
-    },
-
-    hard:{
-      name:"ВАЖКО",
-      time:.88,
-      move:.5,
-      precisionSpeed:.48,
-      precisionHits:7,
-      sequenceLength:5,
-      sequenceShow:420,
-      reactionBonus:1
-    },
-
-    expert:{
-      name:"ЕКСПЕРТ",
-      time:.76,
-      move:.5,
-      precisionSpeed:.65,
-      precisionHits:8,
-      sequenceLength:6,
-      sequenceShow:330,
-      reactionBonus:1
-    }
-  };
-
-  return values[d] || values.normal;
-}
-
-
-/* =========================================================
-   LOAD SETTINGS
-========================================================= */
-state.difficulty =
-  localStorage.getItem(
-    "neuroDifficulty"
-  ) || "normal";
-
-state.best =
-  Number(
-    localStorage.getItem(
-      "neuroBest"
-    ) || 0
-  );
-
-
-document
-  .querySelectorAll("[data-diff]")
-  .forEach(btn => {
-
-    if(
-      btn.dataset.diff ===
-      state.difficulty
-    ){
-      btn.classList.add("selected");
-    }
-  });
-
-
-/* =========================================================
-   INITIAL UI
-========================================================= */
 updateHome();
-
-
-/* =========================================================
-   PREVENT ACCIDENTAL PAGE SCROLL
-========================================================= */
-document.addEventListener(
-  "touchmove",
-  e => {
-    if(
-      state.running &&
-      e.target.closest(".motor-field")
-    ){
-      e.preventDefault();
-    }
-  },
-  {passive:false}
-);
-
-
-/* =========================================================
-   KEYBOARD SUPPORT
-========================================================= */
-document.addEventListener(
-  "keydown",
-  e => {
-
-    if(!state.running) return;
-
-    if(e.key === "Escape"){
-      if(settingsModal){
-        settingsModal.classList.add("hidden");
-      }
-    }
-
-    if(e.key === " "){
-      e.preventDefault();
-    }
-  }
-);
-
-
-/* =========================================================
-   STARTUP
-========================================================= */
-setTimeout(() => {
-
-  nexSpeak(
-    "hello",
-    "Готовий перевірити себе?"
-  );
-
-}, 700);
+nex('happy','Готовий? Почнемо обстеження.');
 
 </script>
 
