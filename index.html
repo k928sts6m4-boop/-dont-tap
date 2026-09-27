@@ -493,6 +493,41 @@ button{
 }
 
 /* =========================
+   MEMORY
+========================= */
+
+.memory-show{
+  min-height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  font-size:46px;
+  font-weight:900;
+  text-align:center;
+  letter-spacing:5px;
+  animation:memoryAppear .35s ease;
+}
+
+.memory-hint{
+  text-align:center;
+  color:#7188aa;
+  font-size:13px;
+  margin-top:14px;
+}
+
+@keyframes memoryAppear{
+  from{
+    opacity:0;
+    transform:scale(.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+/* =========================
    MOTOR HEADER
 ========================= */
 
@@ -798,6 +833,11 @@ button{
 
   .answers{
     grid-template-columns:1fr;
+  }
+
+  .memory-show{
+    font-size:38px;
+    gap:8px;
   }
 
   .motor{
@@ -1660,6 +1700,124 @@ function nextQuestion(){
   NEX.think();
 
 
+  /* =====================================================
+     MEMORY
+     1. Показуємо послідовність.
+     2. Повністю прибираємо її.
+     3. Показуємо тільки питання та варіанти.
+  ===================================================== */
+
+  if(currentQ.type==="MEMORY"){
+
+    const symbols=
+      currentQ.text.match(
+        /🔵|🟢|🔴|🟡|🟣|🧠|🔑|⚡|🎯|⭐|❤️|💚|💙|💛|🟥|🟩|🟦|🟨/gu
+      ) || [];
+
+    let memoryTime=1500;
+
+    if(S.difficulty==="easy")
+      memoryTime=2000;
+
+    if(S.difficulty==="normal")
+      memoryTime=1500;
+
+    if(S.difficulty==="hard")
+      memoryTime=1100;
+
+    if(S.difficulty==="expert")
+      memoryTime=800;
+
+    if(S.difficulty==="adaptive")
+      memoryTime=
+        difficulty().time>=1.2
+          ? 1900
+          : difficulty().time<=.7
+          ? 850
+          : 1500;
+
+    challenge.innerHTML=`
+
+      <div class="type">
+        MEMORY • ${S.step}/5
+      </div>
+
+      <div class="memory-show" id="memoryShow">
+        ${symbols.join(" ")}
+      </div>
+
+      <div class="memory-hint">
+        Запам'ятай послідовність...
+      </div>
+
+    `;
+
+    setTimeout(()=>{
+
+      if(!currentQ || currentQ.type!=="MEMORY")
+        return;
+
+      let questionText=currentQ.text;
+
+      if(currentQ.text.includes("Який був третій?"))
+        questionText="Який був третій?";
+
+      else if(currentQ.text.includes("Що було другим"))
+        questionText="Що було другим?";
+
+      else if(currentQ.text.includes("Що було ПЕРШИМ"))
+        questionText="Що було першим?";
+
+      challenge.innerHTML=`
+
+        <div class="type">
+          MEMORY • ${S.step}/5
+        </div>
+
+        <div class="question">
+          ${questionText}
+        </div>
+
+        <div class="answers">
+
+          ${currentQ.answers
+            .map((a,i)=>`
+
+              <button
+                class="answer"
+                data-index="${i}"
+              >
+                ${a}
+              </button>
+
+            `)
+            .join("")}
+
+        </div>
+
+      `;
+
+      challenge
+        .querySelectorAll(".answer")
+        .forEach(btn=>{
+
+          btn.onclick=()=>{
+
+            answerQuestion(
+              Number(btn.dataset.index),
+              btn
+            );
+
+          };
+
+        });
+
+    },memoryTime);
+
+    return;
+  }
+
+
   challenge.innerHTML=`
 
     <div class="type">
@@ -1775,11 +1933,12 @@ function answerQuestion(index,btn){
 
   }else{
 
-    btn.classList.add("wrong");
+    /*
+       Показуємо помилковою тільки вибрану
+       відповідь. Правильну не розкриваємо.
+    */
 
-    buttons[
-      currentQ.correct
-    ].classList.add("correct");
+    btn.classList.add("wrong");
 
 
     S.lives--;
@@ -2091,11 +2250,6 @@ function motorCatchBall(){
     );
 
 
-    /*
-       Безпечні координати.
-       Кулька ніколи не виходить за межі.
-    */
-
     const padding=18;
 
     const maxX=
@@ -2214,12 +2368,6 @@ function motorCatchBall(){
     );
 
 
-    /*
-       Якщо не натиснув вчасно —
-       кулька просто переміщується,
-       а не ламає завдання.
-    */
-
     setTimeout(()=>{
 
       if(
@@ -2333,10 +2481,6 @@ function motorReaction(){
   status.textContent=
     "Не натискай завчасно";
 
-
-  /*
-     Загальний таймер
-  */
 
   motorTimerStart(
     time,
@@ -2606,11 +2750,6 @@ function motorTracking(){
     );
 
 
-    /*
-       Ціль сама переміщується,
-       якщо її довго не натискати.
-    */
-
     setTimeout(()=>{
 
       if(
@@ -2770,12 +2909,6 @@ function motorPrecision(){
         return;
 
 
-      /*
-         Нічого не робимо.
-         Окремий інтервал потрібен тільки
-         для плавного руху.
-      */
-
     },100);
 
 
@@ -2858,10 +2991,6 @@ function motorPrecision(){
   );
 
 
-  /*
-     Окремий таймер часу.
-  */
-
   const seconds=time;
 
 
@@ -2928,10 +3057,6 @@ function motorPrecision(){
 function finishMotor(success){
 
   if(!motorRunning && !success){
-
-    /*
-       дозволяємо завершення після помилки
-    */
 
   }
 
