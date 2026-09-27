@@ -7,17 +7,20 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   background:#030714;
   color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
+
 button{
   font:inherit;
-  color:white;
+  color:#fff;
   cursor:pointer;
 }
+
 .hidden{display:none!important}
 
 .app{
@@ -27,6 +30,10 @@ button{
   padding:18px;
 }
 
+/* =========================
+   LOGO
+========================= */
+
 .logo{
   text-align:center;
   font-size:42px;
@@ -35,6 +42,7 @@ button{
   color:#55e8ff;
   text-shadow:0 0 25px #18cfff;
 }
+
 .subtitle{
   text-align:center;
   color:#7890b5;
@@ -43,7 +51,9 @@ button{
   margin-bottom:16px;
 }
 
-/* ---------- NEX ---------- */
+/* =========================
+   NEX STAGE
+========================= */
 
 .nex-stage{
   height:290px;
@@ -57,31 +67,41 @@ button{
   margin-bottom:14px;
 }
 
+.nex-stage.game-stage{
+  height:285px;
+}
+
 .nex-stage:after{
   content:"";
   position:absolute;
-  bottom:-90px;
+  bottom:-80px;
   left:50%;
   transform:translateX(-50%);
-  width:330px;
-  height:160px;
+  width:340px;
+  height:150px;
   background:#073a60;
   filter:blur(35px);
-  opacity:.5;
+  opacity:.55;
 }
+
+/* =========================
+   NEX CHARACTER
+========================= */
 
 .nex{
   position:absolute;
   left:50%;
-  bottom:10px;
-  transform:translateX(-50%);
+  bottom:4px;
   width:150px;
   height:225px;
-  z-index:2;
-  transition:.25s;
+  transform:translateX(-50%);
+  z-index:5;
+  transform-origin:50% 90%;
+  transition:filter .2s;
 }
 
-/* head */
+/* HEAD */
+
 .nex-head{
   position:absolute;
   width:92px;
@@ -92,6 +112,7 @@ button{
   border-radius:45% 45% 48% 48%;
   z-index:5;
   box-shadow:0 4px 15px #0005;
+  transition:.2s;
 }
 
 .nex-hair{
@@ -111,7 +132,9 @@ button{
   background:#152640;
   border-radius:50%;
   top:49px;
+  transition:.2s;
 }
+
 .eye.left{left:26px}
 .eye.right{right:26px}
 
@@ -123,9 +146,11 @@ button{
   top:68px;
   border-bottom:3px solid #743e3b;
   border-radius:0 0 50% 50%;
+  transition:.2s;
 }
 
-/* body */
+/* BODY */
+
 .nex-body{
   position:absolute;
   width:108px;
@@ -180,6 +205,8 @@ button{
   bottom:-7px;
 }
 
+/* ARMS */
+
 .arm{
   position:absolute;
   width:28px;
@@ -189,117 +216,321 @@ button{
   top:95px;
   z-index:1;
   transform-origin:top center;
+  transition:.2s;
 }
-.arm.left{left:4px;transform:rotate(12deg)}
-.arm.right{right:4px;transform:rotate(-12deg)}
 
-/* speech */
+.arm.left{
+  left:4px;
+  transform:rotate(12deg);
+}
+
+.arm.right{
+  right:4px;
+  transform:rotate(-12deg);
+}
+
+/* =========================
+   SPEECH
+========================= */
+
 .nex-bubble{
   position:absolute;
   left:12px;
   top:12px;
-  max-width:290px;
+  max-width:300px;
   padding:13px 15px;
   border:1px solid #16d9ff;
   border-radius:16px;
-  background:#061426eF;
+  background:#061426ee;
   color:#e9fbff;
   font-size:14px;
   line-height:1.25;
-  z-index:10;
+  z-index:20;
   box-shadow:0 0 18px #00d9ff25;
+  transition:.2s;
 }
 
-/* reactions */
+/* =========================
+   NEX REACTIONS
+========================= */
+
 .nex.happy{
-  animation:nexHappy .65s ease;
+  animation:nexHappy 1.15s ease;
+  filter:drop-shadow(0 0 22px #2dffb4);
 }
+
 .nex.sad{
-  animation:nexSad .55s ease;
+  animation:nexSad 1.1s ease;
+  filter:drop-shadow(0 0 18px #ff4268);
 }
+
 .nex.think{
   animation:nexThink 1s ease;
 }
+
 .nex.surprise{
-  animation:nexSurprise .5s ease;
-}
-.nex.encourage{
-  animation:nexEncourage .7s ease;
-}
-.nex.combo{
-  animation:nexCombo .8s ease;
-}
-.nex.victory{
-  animation:nexVictory 1s ease;
+  animation:nexSurprise 1s ease;
+  filter:drop-shadow(0 0 25px #ffe14a);
 }
 
-.nex.happy .nex-mouth{
-  width:34px;
-  height:18px;
-  left:29px;
+.nex.encourage{
+  animation:nexEncourage 1s ease;
+}
+
+.nex.combo{
+  animation:nexCombo 1.25s ease;
+  filter:drop-shadow(0 0 35px #28eaff);
+}
+
+.nex.victory{
+  animation:nexVictory 1.5s ease;
+  filter:drop-shadow(0 0 40px #2dffb4);
+}
+
+/* HAPPY FACE */
+
+.nex.happy .nex-mouth,
+.nex.combo .nex-mouth,
+.nex.victory .nex-mouth{
+  width:36px;
+  height:20px;
+  left:28px;
+  top:65px;
   border-bottom:5px solid #743e3b;
+  border-radius:0 0 50% 50%;
 }
+
+.nex.happy .eye,
+.nex.combo .eye,
+.nex.victory .eye{
+  transform:scaleY(.75);
+}
+
+/* SAD FACE */
+
 .nex.sad .nex-mouth{
-  border-bottom:0;
-  border-top:3px solid #743e3b;
+  width:28px;
+  height:12px;
+  left:32px;
   top:76px;
+  border-top:4px solid #743e3b;
+  border-bottom:0;
+  border-radius:50% 50% 0 0;
 }
+
+.nex.sad .eye{
+  transform:translateY(4px);
+}
+
+/* SURPRISE FACE */
+
 .nex.surprise .nex-mouth{
-  width:15px;
-  height:15px;
-  left:39px;
-  border:3px solid #743e3b;
+  width:18px;
+  height:18px;
+  left:37px;
+  top:67px;
+  border:4px solid #743e3b;
   border-radius:50%;
 }
+
+.nex.surprise .eye{
+  transform:scale(1.25);
+}
+
+/* THINK */
+
 .nex.think .eye.left{
-  transform:translateY(-3px);
+  transform:translateY(-5px);
 }
+
 .nex.think .eye.right{
-  transform:translateY(-3px);
+  transform:translateY(-2px);
 }
-.nex.combo{
-  filter:drop-shadow(0 0 18px #22e6ff);
+
+/* ARM REACTIONS */
+
+.nex.happy .arm.left,
+.nex.combo .arm.left,
+.nex.victory .arm.left{
+  animation:armLeftHappy 1s ease;
 }
+
+.nex.happy .arm.right,
+.nex.combo .arm.right,
+.nex.victory .arm.right{
+  animation:armRightHappy 1s ease;
+}
+
+.nex.sad .arm.left{
+  animation:armSadLeft 1s ease;
+}
+
+.nex.sad .arm.right{
+  animation:armSadRight 1s ease;
+}
+
+@keyframes armLeftHappy{
+  0%,100%{transform:rotate(12deg)}
+  40%{transform:rotate(-35deg) translateY(-8px)}
+  70%{transform:rotate(-15deg)}
+}
+
+@keyframes armRightHappy{
+  0%,100%{transform:rotate(-12deg)}
+  40%{transform:rotate(35deg) translateY(-8px)}
+  70%{transform:rotate(15deg)}
+}
+
+@keyframes armSadLeft{
+  0%,100%{transform:rotate(12deg)}
+  50%{transform:rotate(28deg)}
+}
+
+@keyframes armSadRight{
+  0%,100%{transform:rotate(-12deg)}
+  50%{transform:rotate(-28deg)}
+}
+
+/* BODY ANIMATIONS */
 
 @keyframes nexHappy{
-  0%,100%{transform:translateX(-50%) translateY(0)}
-  35%{transform:translateX(-50%) translateY(-18px) rotate(-3deg)}
-  70%{transform:translateX(-50%) translateY(-7px) rotate(3deg)}
-}
-@keyframes nexSad{
-  0%,100%{transform:translateX(-50%) rotate(0)}
-  30%{transform:translateX(-50%) rotate(-7deg)}
-  60%{transform:translateX(-50%) rotate(7deg)}
-}
-@keyframes nexThink{
-  0%,100%{transform:translateX(-50%)}
-  50%{transform:translateX(-50%) translateY(-8px) rotate(2deg)}
-}
-@keyframes nexSurprise{
-  0%{transform:translateX(-50%) scale(1)}
-  40%{transform:translateX(-50%) scale(1.12)}
-  100%{transform:translateX(-50%) scale(1)}
-}
-@keyframes nexEncourage{
-  0%,100%{transform:translateX(-50%)}
-  25%{transform:translateX(-50%) rotate(-5deg)}
-  50%{transform:translateX(-50%) rotate(5deg)}
-  75%{transform:translateX(-50%) rotate(-3deg)}
-}
-@keyframes nexCombo{
-  0%{transform:translateX(-50%) scale(1)}
-  30%{transform:translateX(-50%) scale(1.12)}
-  60%{transform:translateX(-50%) scale(.98)}
-  100%{transform:translateX(-50%) scale(1)}
-}
-@keyframes nexVictory{
-  0%{transform:translateX(-50%) translateY(0)}
-  30%{transform:translateX(-50%) translateY(-25px) rotate(-5deg)}
-  60%{transform:translateX(-50%) translateY(-12px) rotate(5deg)}
-  100%{transform:translateX(-50%)}
+  0%{
+    transform:translateX(-50%) scale(1);
+  }
+  20%{
+    transform:translateX(-50%) translateY(-22px) scale(1.08) rotate(-5deg);
+  }
+  40%{
+    transform:translateX(-50%) translateY(0) scale(1.04) rotate(5deg);
+  }
+  60%{
+    transform:translateX(-50%) translateY(-14px) scale(1.06) rotate(-3deg);
+  }
+  80%{
+    transform:translateX(-50%) translateY(0) rotate(2deg);
+  }
+  100%{
+    transform:translateX(-50%) scale(1);
+  }
 }
 
-/* ---------- START ---------- */
+@keyframes nexSad{
+  0%{
+    transform:translateX(-50%) rotate(0);
+  }
+  20%{
+    transform:translateX(-50%) rotate(-12deg);
+  }
+  40%{
+    transform:translateX(-50%) rotate(12deg);
+  }
+  60%{
+    transform:translateX(-50%) rotate(-8deg);
+  }
+  80%{
+    transform:translateX(-50%) rotate(5deg);
+  }
+  100%{
+    transform:translateX(-50%) rotate(0);
+  }
+}
+
+@keyframes nexThink{
+  0%{
+    transform:translateX(-50%);
+  }
+  30%{
+    transform:translateX(-50%) translateX(-10px) rotate(-3deg);
+  }
+  60%{
+    transform:translateX(-50%) translateX(10px) rotate(3deg);
+  }
+  100%{
+    transform:translateX(-50%);
+  }
+}
+
+@keyframes nexSurprise{
+  0%{
+    transform:translateX(-50%) scale(1);
+  }
+  25%{
+    transform:translateX(-50%) scale(1.18) translateY(-8px);
+  }
+  50%{
+    transform:translateX(-50%) scale(.94);
+  }
+  75%{
+    transform:translateX(-50%) scale(1.12);
+  }
+  100%{
+    transform:translateX(-50%) scale(1);
+  }
+}
+
+@keyframes nexEncourage{
+  0%{
+    transform:translateX(-50%);
+  }
+  20%{
+    transform:translateX(-50%) rotate(-8deg);
+  }
+  40%{
+    transform:translateX(-50%) rotate(8deg);
+  }
+  60%{
+    transform:translateX(-50%) rotate(-8deg);
+  }
+  80%{
+    transform:translateX(-50%) rotate(5deg);
+  }
+  100%{
+    transform:translateX(-50%);
+  }
+}
+
+@keyframes nexCombo{
+  0%{
+    transform:translateX(-50%) scale(1);
+  }
+  25%{
+    transform:translateX(-50%) translateY(-28px) scale(1.2);
+  }
+  50%{
+    transform:translateX(-50%) translateY(0) scale(.96);
+  }
+  75%{
+    transform:translateX(-50%) translateY(-16px) scale(1.12);
+  }
+  100%{
+    transform:translateX(-50%) scale(1);
+  }
+}
+
+@keyframes nexVictory{
+  0%{
+    transform:translateX(-50%) scale(1);
+  }
+  20%{
+    transform:translateX(-50%) translateY(-32px) rotate(-8deg) scale(1.1);
+  }
+  40%{
+    transform:translateX(-50%) translateY(0) rotate(8deg);
+  }
+  60%{
+    transform:translateX(-50%) translateY(-24px) rotate(-5deg) scale(1.08);
+  }
+  80%{
+    transform:translateX(-50%) translateY(0) rotate(4deg);
+  }
+  100%{
+    transform:translateX(-50%);
+  }
+}
+
+/* =========================
+   CARDS
+========================= */
 
 .card{
   background:#071128;
@@ -308,6 +539,10 @@ button{
   padding:18px;
   margin-bottom:12px;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 .bigbtn{
   width:100%;
@@ -334,7 +569,9 @@ button{
   padding:14px;
 }
 
-/* ---------- HUD ---------- */
+/* =========================
+   HUD
+========================= */
 
 .hud{
   display:grid;
@@ -350,12 +587,14 @@ button{
   padding:10px;
   text-align:center;
 }
+
 .hudbox small{
   color:#7185a7;
   display:block;
   font-size:10px;
   text-transform:uppercase;
 }
+
 .hudbox strong{
   color:#53e5ff;
   font-size:18px;
@@ -368,6 +607,7 @@ button{
   overflow:hidden;
   margin-bottom:12px;
 }
+
 .progress i{
   display:block;
   height:100%;
@@ -376,7 +616,9 @@ button{
   transition:.3s;
 }
 
-/* ---------- QUESTION ---------- */
+/* =========================
+   QUESTIONS
+========================= */
 
 .type{
   color:#4de4ff;
@@ -410,20 +652,25 @@ button{
   font-weight:bold;
   transition:.15s;
 }
+
 .answer:hover{
   border-color:#34dcff;
   transform:translateY(-2px);
 }
+
 .answer.correct{
   background:#0c573d;
   border-color:#2dffb2;
 }
+
 .answer.wrong{
   background:#632536;
   border-color:#ff5575;
 }
 
-/* ---------- MOTOR ---------- */
+/* =========================
+   MOTOR
+========================= */
 
 .motor{
   position:relative;
@@ -432,6 +679,12 @@ button{
   border-radius:20px;
   overflow:hidden;
   background:#050d1e;
+}
+
+.motor-info{
+  text-align:center;
+  margin-bottom:10px;
+  color:#8ea3c7;
 }
 
 .ball{
@@ -444,18 +697,13 @@ button{
   cursor:pointer;
 }
 
-.motor-info{
-  text-align:center;
-  margin-bottom:10px;
-  color:#8ea3c7;
-}
-
 .reaction-zone{
   display:flex;
   align-items:center;
   justify-content:center;
   height:100%;
 }
+
 .react-btn{
   width:190px;
   height:190px;
@@ -465,42 +713,52 @@ button{
   font-size:25px;
   font-weight:900;
 }
+
 .react-btn.go{
   background:#1de5a3;
   color:#03130f;
   border-color:#7affd0;
 }
 
-/* ---------- RESULT ---------- */
+/* =========================
+   RESULT
+========================= */
 
 .result{
   text-align:center;
 }
+
 .result h1{
   color:#55e8ff;
 }
+
 .stats{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
 }
+
 .stat{
   padding:16px;
   background:#0c1935;
   border:1px solid #193860;
   border-radius:14px;
 }
+
 .stat b{
   display:block;
   font-size:22px;
   color:#52e5ff;
 }
+
 .stat span{
   color:#788eaf;
   font-size:11px;
 }
 
-/* ---------- SETTINGS ---------- */
+/* =========================
+   SETTINGS
+========================= */
 
 .modal{
   position:fixed;
@@ -512,6 +770,7 @@ button{
   padding:20px;
   z-index:100;
 }
+
 .modalbox{
   width:min(100%,480px);
   background:#08142d;
@@ -519,30 +778,58 @@ button{
   border-radius:22px;
   padding:20px;
 }
+
 .diff{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
 }
+
 .diff button{
   padding:13px;
   border:1px solid #1a3b63;
   background:#0d1b37;
   border-radius:12px;
 }
+
 .diff button.active{
   background:#174b67;
   border-color:#38e3ff;
 }
 
-/* ---------- MOBILE ---------- */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
-  .logo{font-size:34px}
-  .nex-stage{height:250px}
-  .question{font-size:18px}
-  .answers{grid-template-columns:1fr}
-  .motor{height:300px}
+
+  .app{
+    padding:12px;
+  }
+
+  .logo{
+    font-size:34px;
+  }
+
+  .nex-stage{
+    height:280px;
+  }
+
+  .nex-stage.game-stage{
+    height:275px;
+  }
+
+  .question{
+    font-size:18px;
+  }
+
+  .answers{
+    grid-template-columns:1fr;
+  }
+
+  .motor{
+    height:300px;
+  }
 }
 </style>
 </head>
@@ -551,161 +838,221 @@ button{
 
 <div class="app">
 
-  <!-- START -->
-  <section id="start">
+<!-- =========================
+     START
+========================= -->
 
-    <div class="logo">NEURO</div>
-    <div class="subtitle">MIND • FOCUS • REFLEX • MOTOR</div>
+<section id="start">
 
-    <div class="nex-stage">
-      <div id="startBubble" class="nex-bubble">
-        Привіт! Я Doctor NEX. Перевіримо твій мозок?
-      </div>
+  <div class="logo">NEURO</div>
 
-      <div id="nexStart" class="nex">
-        <div class="nex-head">
-          <div class="nex-hair"></div>
-          <div class="eye left"></div>
-          <div class="eye right"></div>
-          <div class="nex-mouth"></div>
-        </div>
+  <div class="subtitle">
+    MIND • FOCUS • REFLEX • MOTOR
+  </div>
 
-        <div class="arm left"></div>
-        <div class="arm right"></div>
+  <div class="nex-stage">
 
-        <div class="nex-body">
-          <div class="nex-shirt"></div>
-          <div class="stethoscope"></div>
-        </div>
-      </div>
+    <div id="startBubble" class="nex-bubble">
+      Привіт! Я Doctor NEX. Перевіримо твій мозок?
     </div>
 
-    <div class="hud">
-      <div class="hudbox">
-        <small>Рекорд</small>
-        <strong id="best">0</strong>
-      </div>
-      <div class="hudbox">
-        <small>Рівень</small>
-        <strong id="levelStart">1</strong>
-      </div>
-      <div class="hudbox">
-        <small>Ігр</small>
-        <strong>3</strong>
-      </div>
-    </div>
+    <div id="nexStart" class="nex">
 
-    <button class="bigbtn" id="startBtn">🧠 ПОЧАТИ NEURO</button>
-
-    <div class="smallrow">
-      <button class="smallbtn" id="dailyBtn">📅 DAILY</button>
-      <button class="smallbtn" id="settingsBtn">⚙️ НАЛАШТУВАННЯ</button>
-    </div>
-
-  </section>
-
-  <!-- GAME -->
-  <section id="game" class="hidden">
-
-    <div class="hud">
-      <div class="hudbox">
-        <small>Блок</small>
-        <strong id="block">1</strong>
-      </div>
-      <div class="hudbox">
-        <small>Життя</small>
-        <strong id="lives">❤️ ❤️ ❤️</strong>
-      </div>
-      <div class="hudbox">
-        <small>Очки</small>
-        <strong id="score">0</strong>
-      </div>
-    </div>
-
-    <div class="progress">
-      <i id="progress"></i>
-    </div>
-
-    <div class="nex-stage" style="height:230px">
-
-      <div id="gameBubble" class="nex-bubble">
-        Не поспішай. Подумай.
+      <div class="nex-head">
+        <div class="nex-hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nex-mouth"></div>
       </div>
 
-      <div id="nexGame" class="nex">
+      <div class="arm left"></div>
+      <div class="arm right"></div>
 
-        <div class="nex-head">
-          <div class="nex-hair"></div>
-          <div class="eye left"></div>
-          <div class="eye right"></div>
-          <div class="nex-mouth"></div>
-        </div>
-
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-
-        <div class="nex-body">
-          <div class="nex-shirt"></div>
-          <div class="stethoscope"></div>
-        </div>
-
+      <div class="nex-body">
+        <div class="nex-shirt"></div>
+        <div class="stethoscope"></div>
       </div>
 
     </div>
 
-    <div id="challenge" class="card"></div>
+  </div>
 
-  </section>
+  <div class="hud">
 
-  <!-- RESULT -->
-  <section id="result" class="hidden">
+    <div class="hudbox">
+      <small>Рекорд</small>
+      <strong id="best">0</strong>
+    </div>
 
-    <div class="card result">
-      <h1>NEURO COMPLETE</h1>
+    <div class="hudbox">
+      <small>Рівень</small>
+      <strong id="levelStart">1</strong>
+    </div>
 
-      <div style="font-size:46px;font-weight:900" id="finalScore">0</div>
-      <div style="color:#7186a8">ОЧКИ</div>
+    <div class="hudbox">
+      <small>Ігр</small>
+      <strong>3</strong>
+    </div>
 
-      <br>
+  </div>
 
-      <div class="stats">
-        <div class="stat">
-          <b id="rMind">0</b>
-          <span>MIND</span>
-        </div>
-        <div class="stat">
-          <b id="rFocus">0</b>
-          <span>FOCUS</span>
-        </div>
-        <div class="stat">
-          <b id="rMemory">0</b>
-          <span>MEMORY</span>
-        </div>
-        <div class="stat">
-          <b id="rReflex">0</b>
-          <span>REFLEX</span>
-        </div>
-        <div class="stat">
-          <b id="rMotor">0</b>
-          <span>MOTOR</span>
-        </div>
-        <div class="stat">
-          <b id="rCombo">0</b>
-          <span>BEST COMBO</span>
-        </div>
+  <button class="bigbtn" id="startBtn">
+    🧠 ПОЧАТИ NEURO
+  </button>
+
+  <div class="smallrow">
+
+    <button class="smallbtn" id="dailyBtn">
+      📅 DAILY
+    </button>
+
+    <button class="smallbtn" id="settingsBtn">
+      ⚙️ НАЛАШТУВАННЯ
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     GAME
+========================= -->
+
+<section id="game" class="hidden">
+
+  <div class="hud">
+
+    <div class="hudbox">
+      <small>Блок</small>
+      <strong id="block">1</strong>
+    </div>
+
+    <div class="hudbox">
+      <small>Життя</small>
+      <strong id="lives">❤️ ❤️ ❤️</strong>
+    </div>
+
+    <div class="hudbox">
+      <small>Очки</small>
+      <strong id="score">0</strong>
+    </div>
+
+  </div>
+
+  <div class="progress">
+    <i id="progress"></i>
+  </div>
+
+  <div class="nex-stage game-stage">
+
+    <div id="gameBubble" class="nex-bubble">
+      Не поспішай. Подумай.
+    </div>
+
+    <div id="nexGame" class="nex">
+
+      <div class="nex-head">
+        <div class="nex-hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nex-mouth"></div>
       </div>
 
-      <br>
+      <div class="arm left"></div>
+      <div class="arm right"></div>
 
-      <button class="bigbtn" onclick="goHome()">🏠 НА ГОЛОВНИЙ ЕКРАН</button>
+      <div class="nex-body">
+        <div class="nex-shirt"></div>
+        <div class="stethoscope"></div>
+      </div>
 
     </div>
 
-  </section>
+  </div>
+
+  <div id="challenge" class="card"></div>
+
+</section>
+
+
+<!-- =========================
+     RESULT
+========================= -->
+
+<section id="result" class="hidden">
+
+  <div class="card result">
+
+    <h1>NEURO COMPLETE</h1>
+
+    <div
+      style="font-size:46px;font-weight:900"
+      id="finalScore"
+    >
+      0
+    </div>
+
+    <div style="color:#7186a8">
+      ОЧКИ
+    </div>
+
+    <br>
+
+    <div class="stats">
+
+      <div class="stat">
+        <b id="rMind">0</b>
+        <span>MIND</span>
+      </div>
+
+      <div class="stat">
+        <b id="rFocus">0</b>
+        <span>FOCUS</span>
+      </div>
+
+      <div class="stat">
+        <b id="rMemory">0</b>
+        <span>MEMORY</span>
+      </div>
+
+      <div class="stat">
+        <b id="rReflex">0</b>
+        <span>REFLEX</span>
+      </div>
+
+      <div class="stat">
+        <b id="rMotor">0</b>
+        <span>MOTOR</span>
+      </div>
+
+      <div class="stat">
+        <b id="rCombo">0</b>
+        <span>BEST COMBO</span>
+      </div>
+
+    </div>
+
+    <br>
+
+    <button
+      class="bigbtn"
+      onclick="goHome()"
+    >
+      🏠 НА ГОЛОВНИЙ ЕКРАН
+    </button>
+
+  </div>
+
+</section>
 
 </div>
 
-<!-- SETTINGS -->
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
 <div id="settingsModal" class="modal hidden">
 
   <div class="modalbox">
@@ -715,22 +1062,43 @@ button{
     <p>Складність</p>
 
     <div class="diff">
-      <button data-diff="easy">Easy</button>
-      <button data-diff="normal">Normal</button>
-      <button data-diff="hard">Hard</button>
-      <button data-diff="expert">Expert</button>
-      <button data-diff="adaptive">Adaptive</button>
+
+      <button data-diff="easy">
+        Easy
+      </button>
+
+      <button data-diff="normal">
+        Normal
+      </button>
+
+      <button data-diff="hard">
+        Hard
+      </button>
+
+      <button data-diff="expert">
+        Expert
+      </button>
+
+      <button data-diff="adaptive">
+        Adaptive
+      </button>
+
     </div>
 
     <br>
 
-    <button class="smallbtn" style="width:100%" id="closeSettings">
+    <button
+      class="smallbtn"
+      style="width:100%"
+      id="closeSettings"
+    >
       ЗАКРИТИ
     </button>
 
   </div>
 
 </div>
+
 
 <script>
 
@@ -739,11 +1107,14 @@ button{
 ========================================================= */
 
 const S = {
+
   level:1,
   block:1,
   step:0,
+
   score:0,
   lives:3,
+
   combo:0,
   bestCombo:0,
 
@@ -756,66 +1127,84 @@ const S = {
   correct:0,
   total:0,
 
-  difficulty:localStorage.getItem("neuroDifficulty") || "normal"
+  difficulty:
+    localStorage.getItem("neuroDifficulty") || "normal"
 };
 
+
 const DIFF = {
+
   easy:{
     speed:.72,
     time:1.35,
     mem:4
   },
+
   normal:{
     speed:1,
     time:1,
     mem:5
   },
+
   hard:{
     speed:1.25,
     time:.78,
     mem:6
   },
+
   expert:{
     speed:1.55,
     time:.58,
     mem:7
   },
+
   adaptive:{
     speed:1,
     time:1,
     mem:5
   }
+
 };
+
 
 function difficulty(){
 
-  if(S.difficulty !== "adaptive")
+  if(S.difficulty !== "adaptive"){
     return DIFF[S.difficulty];
+  }
 
-  let rate = S.total ? S.correct/S.total : .5;
+  const rate =
+    S.total
+      ? S.correct/S.total
+      : .5;
 
-  if(rate > .8) return DIFF.hard;
-  if(rate < .45) return DIFF.easy;
+  if(rate>.8){
+    return DIFF.hard;
+  }
+
+  if(rate<.45){
+    return DIFF.easy;
+  }
 
   return DIFF.normal;
 }
 
+
 /* =========================================================
-   NEX
+   NEX ENGINE
 ========================================================= */
 
-const nexGame = document.getElementById("nexGame");
-const nexStart = document.getElementById("nexStart");
+const nexStart =
+  document.getElementById("nexStart");
 
-function nexReact(type,text){
+const nexGame =
+  document.getElementById("nexGame");
 
-  const nex = nexGame.classList.contains("hidden")
-    ? nexStart
-    : nexGame;
 
-  const bubble = nexGame.classList.contains("hidden")
-    ? document.getElementById("startBubble")
-    : document.getElementById("gameBubble");
+let nexTimer=null;
+
+
+function clearNexReaction(nex){
 
   nex.classList.remove(
     "happy",
@@ -827,65 +1216,139 @@ function nexReact(type,text){
     "victory"
   );
 
+}
+
+
+function nexReact(type,text){
+
+  /*
+     Під час гри завжди реагує саме NEX у грі.
+  */
+
+  const inGame =
+    !document
+      .getElementById("game")
+      .classList
+      .contains("hidden");
+
+  const nex =
+    inGame
+      ? nexGame
+      : nexStart;
+
+  const bubble =
+    inGame
+      ? document.getElementById("gameBubble")
+      : document.getElementById("startBubble");
+
+
+  clearTimeout(nexTimer);
+
+  clearNexReaction(nex);
+
+  /*
+     Перезапуск CSS animation
+  */
+
   void nex.offsetWidth;
 
   nex.classList.add(type);
 
-  bubble.textContent = text;
+  bubble.textContent=text;
 
-  clearTimeout(nexReact.timer);
 
-  nexReact.timer = setTimeout(()=>{
-    nex.classList.remove(type);
-  },1100);
+  /*
+     Реакція залишається достатньо довго,
+     щоб її було видно.
+  */
+
+  nexTimer=setTimeout(()=>{
+
+    clearNexReaction(nex);
+
+  },1500);
+
 }
 
-/* ---------- реакції ---------- */
+
+/* =========================================================
+   NEX PERSONALITY
+========================================================= */
 
 const NEX = {
 
   correct(){
 
-    if(S.combo >= 3){
+    if(S.combo>=3){
 
       nexReact(
         "combo",
-        "🔥 Серія! Так тримати!"
+        "🔥 Серія! Ти вже мене дивуєш!"
       );
 
-    }else{
-
-      const lines = [
-        "Саме так!",
-        "Правильно.",
-        "Чудово!",
-        "Є! Мозок працює.",
-        "Так і треба.",
-        "Точно."
-      ];
-
-      nexReact(
-        "happy",
-        lines[Math.floor(Math.random()*lines.length)]
-      );
+      return;
     }
+
+
+    const lines=[
+
+      "Саме так! 👏",
+
+      "Правильно!",
+
+      "Чудово!",
+
+      "Є! Мозок працює.",
+
+      "Точно.",
+
+      "Так і треба!",
+
+      "Непогано! Рухаємось далі."
+
+    ];
+
+
+    nexReact(
+      "happy",
+      lines[
+        Math.floor(
+          Math.random()*lines.length
+        )
+      ]
+    );
+
   },
+
 
   wrong(){
 
-    const lines = [
+    const lines=[
+
       "Не поспішай. Подумай.",
-      "Майже. Уважніше.",
+
       "Цього разу ні.",
-      "Стоп. Подивись ще раз.",
-      "Не дай пастці себе обдурити."
+
+      "Майже. Уважніше.",
+
+      "Стоп. Тут була пастка.",
+
+      "Не дай мені тебе обдурити 😏"
+
     ];
+
 
     nexReact(
       "sad",
-      lines[Math.floor(Math.random()*lines.length)]
+      lines[
+        Math.floor(
+          Math.random()*lines.length
+        )
+      ]
     );
+
   },
+
 
   think(){
 
@@ -893,15 +1356,19 @@ const NEX = {
       "think",
       "Хм... тут є маленька пастка."
     );
+
   },
+
 
   surprise(){
 
     nexReact(
       "surprise",
-      "Ого! Швидка реакція!"
+      "Ого! Швидше!"
     );
+
   },
+
 
   encourage(){
 
@@ -909,23 +1376,29 @@ const NEX = {
       "encourage",
       "Не здавайся. Наступне твоє."
     );
+
   },
 
-  lifeLost(){
-
-    nexReact(
-      "sad",
-      "Обережно. Залишилось менше життя."
-    );
-  },
 
   motor(){
 
     nexReact(
       "think",
-      "Тепер перевіримо твою реакцію."
+      "А тепер перевіримо твою реакцію ⚡"
     );
+
   },
+
+
+  lifeLost(){
+
+    nexReact(
+      "sad",
+      "Обережно... життя закінчуються."
+    );
+
+  },
+
 
   victory(){
 
@@ -933,14 +1406,17 @@ const NEX = {
       "victory",
       "🏆 Блок пройдено! Сильна робота!"
     );
+
   }
+
 };
+
 
 /* =========================================================
    QUESTIONS
 ========================================================= */
 
-const Q = [
+const Q=[
 
 {
  type:"MIND",
@@ -953,7 +1429,7 @@ const Q = [
 {
  type:"MIND",
  text:"Усі лікарі в цій кімнаті мають халати. Некс має халат. Чи обов'язково Некс лікар?",
- answers:["Так","Ні","Лише вранці","Неможливо визначити"],
+ answers:["Так","Ні","Лише вранці","Невідомо"],
  correct:3,
  stat:"mind"
 },
@@ -976,13 +1452,8 @@ const Q = [
 
 {
  type:"MIND",
- text:"У кімнаті 3 вимикачі. Один вмикає лампу в іншій кімнаті. Ти можеш зайти туди лише один раз. Що допоможе визначити вимикач?",
- answers:[
-   "Лише подивитися",
-   "Залишити один увімкненим, інший увімкнути на час і вимкнути",
-   "Натиснути всі",
-   "Ніяк"
- ],
+ text:"Петро стоїть ліворуч від Андрія. Андрій ліворуч від Олега. Хто посередині?",
+ answers:["Петро","Андрій","Олег","Невідомо"],
  correct:1,
  stat:"mind"
 },
@@ -1005,15 +1476,15 @@ const Q = [
 
 {
  type:"MIND",
- text:"У тебе є одна монета, яка важча за інші. Серед 3 монет достатньо одного зважування на терезах, щоб знайти її?",
- answers:["Так","Ні","Тільки двома","Неможливо"],
- correct:0,
+ text:"Усі троянди — квіти. Деякі квіти жовті. Чи випливає, що деякі троянди жовті?",
+ answers:["Так","Ні","Обов'язково","Лише влітку"],
+ correct:1,
  stat:"mind"
 },
 
 {
  type:"FOCUS",
- text:"Що стоїть другим у послідовності: ▲ ● ■ ★",
+ text:"Що стоїть другим: ▲ ● ■ ★",
  answers:["▲","●","■","★"],
  correct:1,
  stat:"focus"
@@ -1021,9 +1492,9 @@ const Q = [
 
 {
  type:"MIND",
- text:"Петро стоїть ліворуч від Андрія. Андрій ліворуч від Олега. Хто посередині?",
- answers:["Петро","Андрій","Олег","Невідомо"],
- correct:1,
+ text:"Антон вищий за Богдана. Богдан вищий за Василя. Хто найнижчий?",
+ answers:["Антон","Богдан","Василь","Невідомо"],
+ correct:2,
  stat:"mind"
 },
 
@@ -1049,16 +1520,8 @@ const Q = [
 },
 
 {
- type:"MIND",
- text:"Усі троянди — квіти. Деякі квіти жовті. Чи випливає, що деякі троянди жовті?",
- answers:["Так","Ні","Обов'язково","Лише влітку"],
- correct:1,
- stat:"mind"
-},
-
-{
  type:"MEMORY",
- text:"Який предмет був другим: 🧠 → 🔑 → ⚡ → 🎯",
+ text:"Що було другим: 🧠 → 🔑 → ⚡ → 🎯",
  answers:["🧠","🔑","⚡","🎯"],
  correct:1,
  stat:"memory"
@@ -1126,14 +1589,6 @@ const Q = [
 },
 
 {
- type:"MIND",
- text:"Антон вищий за Богдана. Богдан вищий за Василя. Хто найнижчий?",
- answers:["Антон","Богдан","Василь","Невідомо"],
- correct:2,
- stat:"mind"
-},
-
-{
  type:"FOCUS",
  text:"Знайди число, яке повторюється: 7 — 4 — 9 — 2 — 7",
  answers:["2","4","7","9"],
@@ -1159,47 +1614,68 @@ const Q = [
 
 ];
 
+
 /* =========================================================
    UI
 ========================================================= */
 
-const start = document.getElementById("start");
-const game = document.getElementById("game");
-const result = document.getElementById("result");
-const challenge = document.getElementById("challenge");
+const start =
+  document.getElementById("start");
+
+const game =
+  document.getElementById("game");
+
+const result =
+  document.getElementById("result");
+
+const challenge =
+  document.getElementById("challenge");
+
 
 function updateHUD(){
 
-  document.getElementById("block").textContent = S.block;
-  document.getElementById("score").textContent = S.score;
+  document.getElementById("block")
+    .textContent=S.block;
 
-  document.getElementById("lives").textContent =
-    "❤️".repeat(S.lives) +
-    "🖤".repeat(Math.max(0,3-S.lives));
+  document.getElementById("score")
+    .textContent=S.score;
 
-  document.getElementById("progress").style.width =
-    `${((S.step)/5)*100}%`;
+  document.getElementById("lives")
+    .textContent=
+      "❤️".repeat(S.lives)+
+      "🖤".repeat(Math.max(0,3-S.lives));
+
+  document.getElementById("progress")
+    .style.width=
+      `${(S.step/5)*100}%`;
+
 }
+
 
 function randomQ(){
 
-  return Q[Math.floor(Math.random()*Q.length)];
+  return Q[
+    Math.floor(
+      Math.random()*Q.length
+    )
+  ];
+
 }
 
-/* =========================================================
-   GAME FLOW
-========================================================= */
 
-let currentQ = null;
-let motorTimer = null;
+/* =========================================================
+   START GAME
+========================================================= */
 
 function startGame(){
 
   S.level=1;
   S.block=1;
   S.step=0;
+
   S.score=0;
   S.lives=3;
+
   S.combo=0;
   S.bestCombo=0;
 
@@ -1212,34 +1688,47 @@ function startGame(){
   S.correct=0;
   S.total=0;
 
+
   start.classList.add("hidden");
   result.classList.add("hidden");
   game.classList.remove("hidden");
 
+
   nexReact(
     "encourage",
-    "Починаємо. 4 завдання для мозку — потім перевіримо реакцію."
+    "Починаємо! 4 завдання для мозку — потім реакція."
   );
+
 
   updateHUD();
 
   nextTask();
+
 }
+
+
+/* =========================================================
+   TASK FLOW
+========================= */
 
 function nextTask(){
 
   updateHUD();
 
+
   if(S.lives<=0){
+
     finishGame();
     return;
+
   }
 
+
   /*
-    4 логічні + 1 моторне
+     4 логічних завдання
   */
 
-  if(S.step < 4){
+  if(S.step<4){
 
     S.step++;
 
@@ -1247,33 +1736,50 @@ function nextTask(){
 
   }else{
 
+    /*
+       5-те завдання — моторне
+    */
+
     S.step=5;
 
     startMotor();
 
   }
+
 }
 
+
 /* =========================================================
-   QUESTIONS
+   QUESTION
 ========================================================= */
+
+let currentQ=null;
+
 
 function nextQuestion(){
 
   currentQ=randomQ();
 
-  document.getElementById("progress").style.width =
-    `${(S.step/5)*100}%`;
 
-  if(currentQ.type==="MEMORY")
-    nexReact("think","Запам'ятай уважно...");
+  if(currentQ.type==="MEMORY"){
 
-  else
-    nexReact("think","Спокійно. Шукай закономірність.");
+    NEX.think();
+
+  }else{
+
+    nexReact(
+      "think",
+      "Спокійно. Шукай закономірність."
+    );
+
+  }
+
 
   challenge.innerHTML=`
 
-    <div class="type">${currentQ.type}</div>
+    <div class="type">
+      ${currentQ.type}
+    </div>
 
     <div class="question">
       ${currentQ.text}
@@ -1281,38 +1787,62 @@ function nextQuestion(){
 
     <div class="answers">
 
-      ${currentQ.answers.map((a,i)=>`
-        <button class="answer" data-index="${i}">
-          ${a}
-        </button>
-      `).join("")}
+      ${currentQ.answers
+        .map((a,i)=>`
+
+          <button
+            class="answer"
+            data-index="${i}"
+          >
+            ${a}
+          </button>
+
+        `)
+        .join("")}
 
     </div>
+
   `;
 
-  challenge.querySelectorAll(".answer")
+
+  challenge
+    .querySelectorAll(".answer")
     .forEach(btn=>{
 
       btn.onclick=()=>{
 
-        const index=Number(btn.dataset.index);
-
-        answerQuestion(index,btn);
+        answerQuestion(
+          Number(btn.dataset.index),
+          btn
+        );
 
       };
 
     });
+
 }
+
+
+/* =========================================================
+   ANSWER
+========================================================= */
 
 function answerQuestion(index,btn){
 
-  const buttons=challenge.querySelectorAll(".answer");
+  const buttons =
+    challenge.querySelectorAll(".answer");
 
-  buttons.forEach(b=>b.disabled=true);
+  buttons.forEach(
+    b=>b.disabled=true
+  );
+
 
   S.total++;
 
-  const good=index===currentQ.correct;
+
+  const good =
+    index===currentQ.correct;
+
 
   if(good){
 
@@ -1321,32 +1851,67 @@ function answerQuestion(index,btn){
     S.correct++;
 
     S.combo++;
-    S.bestCombo=Math.max(S.bestCombo,S.combo);
 
-    S.score+=100+(S.combo*10);
+    S.bestCombo=
+      Math.max(
+        S.bestCombo,
+        S.combo
+      );
 
-    if(currentQ.stat==="mind") S.mind+=1;
-    if(currentQ.stat==="focus") S.focus+=1;
-    if(currentQ.stat==="memory") S.memory+=1;
+    S.score+=
+      100+
+      S.combo*10;
 
-    if(S.combo>=3)
-      NEX.correct();
-    else
-      NEX.correct();
 
-    setTimeout(nextTask,700);
+    if(currentQ.stat==="mind")
+      S.mind++;
+
+    if(currentQ.stat==="focus")
+      S.focus++;
+
+    if(currentQ.stat==="memory")
+      S.memory++;
+
+
+    /*
+       ГОЛОВНА РЕАКЦІЯ NEX
+    */
+
+    NEX.correct();
+
+
+    updateHUD();
+
+
+    setTimeout(
+      nextTask,
+      1100
+    );
+
 
   }else{
 
     btn.classList.add("wrong");
 
-    buttons[currentQ.correct]
-      .classList.add("correct");
+    buttons[
+      currentQ.correct
+    ].classList.add("correct");
+
 
     S.lives--;
+
     S.combo=0;
 
+
+    /*
+       ГОЛОВНА РЕАКЦІЯ NEX
+    */
+
     NEX.wrong();
+
+
+    updateHUD();
+
 
     setTimeout(()=>{
 
@@ -1358,56 +1923,89 @@ function answerQuestion(index,btn){
 
         NEX.lifeLost();
 
-        setTimeout(nextTask,700);
+        setTimeout(
+          nextTask,
+          800
+        );
 
       }
 
-    },850);
+    },1200);
+
   }
 
-  updateHUD();
 }
 
+
 /* =========================================================
-   MOTOR
+   MOTOR SELECTOR
 ========================================================= */
+
+let motorTimer=null;
+
 
 function startMotor(){
 
   clearTimeout(motorTimer);
 
+
   NEX.motor();
 
-  const types=[
+
+  const motorTypes=[
+
     motorBall,
     motorReaction,
     motorTracking,
     motorPrecision
+
   ];
 
-  const fn=types[Math.floor(Math.random()*types.length)];
 
-  setTimeout(fn,700);
+  const fn=
+    motorTypes[
+      Math.floor(
+        Math.random()*
+        motorTypes.length
+      )
+    ];
+
+
+  setTimeout(
+    fn,
+    1000
+  );
+
 }
 
-/* ---------- BALL ---------- */
+
+/* =========================================================
+   MOTOR BALL
+========================================================= */
 
 function motorBall(){
 
   challenge.innerHTML=`
 
-    <div class="type">MOTOR • REFLEX</div>
+    <div class="type">
+      MOTOR • REFLEX
+    </div>
 
     <div class="motor-info">
       Натисни на <b>синю кулю</b> 6 разів.
     </div>
 
     <div class="motor" id="motorArea"></div>
+
   `;
 
-  const area=document.getElementById("motorArea");
+
+  const area=
+    document.getElementById("motorArea");
+
 
   let hits=0;
+
 
   function spawn(){
 
@@ -1415,20 +2013,35 @@ function motorBall(){
 
       finishMotor(true);
       return;
+
     }
 
-    const ball=document.createElement("div");
+
+    const ball=
+      document.createElement("div");
+
 
     ball.className="ball";
 
-    const maxX=area.clientWidth-55;
-    const maxY=area.clientHeight-55;
 
-    ball.style.left=(Math.random()*maxX)+"px";
-    ball.style.top=(Math.random()*maxY)+"px";
+    const maxX=
+      area.clientWidth-55;
+
+    const maxY=
+      area.clientHeight-55;
+
+
+    ball.style.left=
+      Math.random()*maxX+"px";
+
+    ball.style.top=
+      Math.random()*maxY+"px";
+
 
     area.innerHTML="";
+
     area.appendChild(ball);
+
 
     ball.onclick=()=>{
 
@@ -1439,76 +2052,102 @@ function motorBall(){
 
       S.score+=80;
 
-      nexReact(
-        hits>=5 ? "combo" : "happy",
-        hits>=5 ? "🔥 Ще трохи!" : "Влучив!"
-      );
 
-      spawn();
+      NEX.correct();
+
 
       updateHUD();
-    };
-
-    motorTimer=setTimeout(()=>{
-
-      nexReact(
-        "surprise",
-        "Швидше! Вона втекла!"
-      );
 
       spawn();
 
-    },1200*difficulty().time);
+    };
+
+
+    motorTimer=
+      setTimeout(()=>{
+
+        NEX.surprise();
+
+        spawn();
+
+      },1200*difficulty().time);
+
   }
 
+
   spawn();
+
 }
 
-/* ---------- REACTION ---------- */
+
+/* =========================================================
+   MOTOR REACTION
+========================================================= */
 
 function motorReaction(){
 
   challenge.innerHTML=`
 
-    <div class="type">MOTOR • REACTION</div>
+    <div class="type">
+      MOTOR • REACTION
+    </div>
 
     <div class="motor-info">
       Чекай зелений сигнал. Потім натисни.
     </div>
 
     <div class="motor" id="motorArea">
+
       <div class="reaction-zone">
-        <button class="react-btn" id="reactBtn">
+
+        <button
+          class="react-btn"
+          id="reactBtn"
+        >
           ЧЕКАЙ
         </button>
+
       </div>
+
     </div>
+
   `;
 
-  const btn=document.getElementById("reactBtn");
+
+  const btn=
+    document.getElementById("reactBtn");
+
 
   let ready=false;
   let finished=false;
 
-  const delay=900+Math.random()*2300;
 
-  const timer=setTimeout(()=>{
+  const delay=
+    900+
+    Math.random()*2300;
 
-    ready=true;
 
-    btn.classList.add("go");
-    btn.textContent="НАТИСКАЙ!";
+  const timer=
+    setTimeout(()=>{
 
-    nexReact(
-      "surprise",
-      "ЗАРАЗ!"
-    );
+      ready=true;
 
-  },delay);
+      btn.classList.add("go");
+
+      btn.textContent=
+        "НАТИСКАЙ!";
+
+
+      NEX.surprise();
+
+    },delay);
+
 
   btn.onclick=()=>{
 
-    if(finished)return;
+    if(finished)
+      return;
+
 
     if(!ready){
 
@@ -1517,61 +2156,92 @@ function motorReaction(){
       finished=true;
 
       S.lives--;
+
       S.combo=0;
+
 
       nexReact(
         "sad",
         "Зарано! Не поспішай."
       );
 
+
       updateHUD();
 
+
       setTimeout(()=>{
-        if(S.lives<=0) finishGame();
-        else finishMotor(false);
-      },800);
+
+        if(S.lives<=0)
+          finishGame();
+        else
+          finishMotor(false);
+
+      },900);
+
 
       return;
+
     }
+
 
     finished=true;
 
-    const reaction=Math.round(delay/3);
 
     S.reflex++;
     S.motor++;
 
     S.score+=150;
 
+
     nexReact(
       "happy",
       "⚡ Рефлекс є!"
     );
 
+
     updateHUD();
 
-    setTimeout(()=>finishMotor(true),600);
+
+    setTimeout(
+      ()=>finishMotor(true),
+      900
+    );
+
   };
+
 }
 
-/* ---------- TRACKING ---------- */
+
+/* =========================================================
+   TRACKING
+========================================================= */
 
 function motorTracking(){
 
   challenge.innerHTML=`
 
-    <div class="type">MOTOR • TRACKING</div>
+    <div class="type">
+      MOTOR • TRACKING
+    </div>
 
     <div class="motor-info">
       Встигни натиснути на ціль 5 разів.
     </div>
 
-    <div class="motor" id="motorArea"></div>
+    <div
+      class="motor"
+      id="motorArea"
+    ></div>
+
   `;
 
-  const area=document.getElementById("motorArea");
+
+  const area=
+    document.getElementById("motorArea");
+
 
   let hits=0;
+
 
   function target(){
 
@@ -1579,17 +2249,31 @@ function motorTracking(){
 
       finishMotor(true);
       return;
+
     }
 
-    const t=document.createElement("div");
+
+    const t=
+      document.createElement("div");
+
 
     t.className="ball";
 
-    t.style.left=Math.random()*(area.clientWidth-48)+"px";
-    t.style.top=Math.random()*(area.clientHeight-48)+"px";
+
+    t.style.left=
+      Math.random()*
+      (area.clientWidth-48)+"px";
+
+
+    t.style.top=
+      Math.random()*
+      (area.clientHeight-48)+"px";
+
 
     area.innerHTML="";
+
     area.appendChild(t);
+
 
     t.onclick=()=>{
 
@@ -1597,47 +2281,60 @@ function motorTracking(){
 
       S.motor++;
       S.reflex++;
+
       S.score+=90;
 
-      nexReact(
-        "happy",
-        hits===5 ? "Ідеально!" : "Влучно!"
-      );
+
+      NEX.correct();
+
+
+      updateHUD();
 
       target();
-      updateHUD();
+
     };
 
-    motorTimer=setTimeout(()=>{
 
-      nexReact(
-        "encourage",
-        "Не втрачай ціль!"
-      );
+    motorTimer=
+      setTimeout(()=>{
 
-      target();
+        NEX.encourage();
 
-    },1000*difficulty().time);
+        target();
+
+      },1000*difficulty().time);
+
   }
 
+
   target();
+
 }
 
-/* ---------- PRECISION ---------- */
+
+/* =========================================================
+   PRECISION
+========================================================= */
 
 function motorPrecision(){
 
   challenge.innerHTML=`
 
-    <div class="type">MOTOR • PRECISION</div>
-
-    <div class="motor-info">
-      Натискай ціль, коли вона в центрі.
+    <div class="type">
+      MOTOR • PRECISION
     </div>
 
-    <div class="motor" id="motorArea">
+    <div class="motor-info">
+      Натисни ціль, коли вона в центрі.
+    </div>
 
-      <div style="
+    <div
+      class="motor"
+      id="motorArea"
+    >
+
+      <div
+        style="
         position:absolute;
         width:100px;
         height:100px;
@@ -1646,45 +2343,73 @@ function motorPrecision(){
         left:50%;
         top:50%;
         transform:translate(-50%,-50%);
-      "></div>
+        "
+      ></div>
 
-      <div class="ball" id="precisionBall"></div>
+      <div
+        class="ball"
+        id="precisionBall"
+      ></div>
 
     </div>
+
   `;
 
-  const area=document.getElementById("motorArea");
-  const ball=document.getElementById("precisionBall");
+
+  const area=
+    document.getElementById("motorArea");
+
+  const ball=
+    document.getElementById("precisionBall");
+
 
   let x=0;
   let direction=1;
   let hits=0;
 
+
   ball.style.top="50%";
-  ball.style.transform="translateY(-50%)";
 
-  const loop=setInterval(()=>{
+  ball.style.transform=
+    "translateY(-50%)";
 
-    x+=direction*4*difficulty().speed;
 
-    if(x>area.clientWidth-60){
-      direction=-1;
-    }
+  const loop=
+    setInterval(()=>{
 
-    if(x<0){
-      direction=1;
-    }
+      x+=
+        direction*
+        4*
+        difficulty().speed;
 
-    ball.style.left=x+"px";
 
-  },20);
+      if(x>area.clientWidth-60)
+        direction=-1;
+
+
+      if(x<0)
+        direction=1;
+
+
+      ball.style.left=
+        x+"px";
+
+    },20);
+
 
   ball.onclick=()=>{
 
-    const center=area.clientWidth/2;
-    const ballCenter=x+24;
+    const center=
+      area.clientWidth/2;
 
-    const distance=Math.abs(center-ballCenter);
+    const ballCenter=
+      x+24;
+
+    const distance=
+      Math.abs(
+        center-ballCenter
+      );
+
 
     if(distance<55){
 
@@ -1692,43 +2417,54 @@ function motorPrecision(){
 
       S.motor++;
       S.reflex++;
+
       S.score+=110;
 
-      nexReact(
-        "happy",
-        "🎯 Точно!"
-      );
+
+      NEX.correct();
+
 
       if(hits>=3){
 
         clearInterval(loop);
 
-        setTimeout(()=>finishMotor(true),500);
+        setTimeout(
+          ()=>finishMotor(true),
+          700
+        );
 
       }
 
     }else{
 
       S.lives--;
+
       S.combo=0;
 
-      nexReact(
-        "sad",
-        "Трохи мимо..."
-      );
+
+      NEX.wrong();
+
 
       if(S.lives<=0){
 
         clearInterval(loop);
-        setTimeout(finishGame,600);
+
+        setTimeout(
+          finishGame,
+          900
+        );
 
       }
+
     }
 
+
     updateHUD();
+
   };
 
 }
+
 
 /* =========================================================
    MOTOR FINISH
@@ -1738,37 +2474,48 @@ function finishMotor(success){
 
   clearTimeout(motorTimer);
 
+
   if(success){
 
     S.score+=250;
+
     S.level++;
+
     S.block++;
 
-    nexReact(
-      "victory",
-      "🏆 Блок пройден! Наступний буде складніший."
-    );
+
+    NEX.victory();
 
   }else{
 
     S.combo=0;
 
     NEX.encourage();
+
   }
+
 
   S.step=0;
 
   updateHUD();
 
+
   setTimeout(()=>{
 
-    if(S.lives<=0)
+    if(S.lives<=0){
+
       finishGame();
-    else
+
+    }else{
+
       nextTask();
 
-  },900);
+    }
+
+  },1700);
+
 }
+
 
 /* =========================================================
    GAME OVER
@@ -1778,30 +2525,61 @@ function finishGame(){
 
   clearTimeout(motorTimer);
 
+
   game.classList.add("hidden");
+
   result.classList.remove("hidden");
 
-  document.getElementById("finalScore").textContent=S.score;
 
-  document.getElementById("rMind").textContent=S.mind;
-  document.getElementById("rFocus").textContent=S.focus;
-  document.getElementById("rMemory").textContent=S.memory;
-  document.getElementById("rReflex").textContent=S.reflex;
-  document.getElementById("rMotor").textContent=S.motor;
-  document.getElementById("rCombo").textContent=S.bestCombo;
+  document.getElementById(
+    "finalScore"
+  ).textContent=S.score;
 
-  const old=Number(localStorage.getItem("neuroBest")||0);
 
-  if(S.score>old)
-    localStorage.setItem("neuroBest",S.score);
+  document.getElementById(
+    "rMind"
+  ).textContent=S.mind;
 
-  nexReact(
-    "sad",
-    S.score>old
-      ? "Новий рекорд! Це було сильно."
-      : "Спробуй ще раз. Тепер ти знаєш, чого чекати."
-  );
+  document.getElementById(
+    "rFocus"
+  ).textContent=S.focus;
+
+  document.getElementById(
+    "rMemory"
+  ).textContent=S.memory;
+
+  document.getElementById(
+    "rReflex"
+  ).textContent=S.reflex;
+
+  document.getElementById(
+    "rMotor"
+  ).textContent=S.motor;
+
+  document.getElementById(
+    "rCombo"
+  ).textContent=S.bestCombo;
+
+
+  const old=
+    Number(
+      localStorage.getItem(
+        "neuroBest"
+      )||0
+    );
+
+
+  if(S.score>old){
+
+    localStorage.setItem(
+      "neuroBest",
+      S.score
+    );
+
+  }
+
 }
+
 
 /* =========================================================
    HOME
@@ -1810,91 +2588,146 @@ function finishGame(){
 function goHome(){
 
   result.classList.add("hidden");
+
   game.classList.add("hidden");
+
   start.classList.remove("hidden");
 
-  document.getElementById("best").textContent =
-    localStorage.getItem("neuroBest")||0;
 
-  document.getElementById("levelStart").textContent=1;
+  document.getElementById(
+    "best"
+  ).textContent=
+    localStorage.getItem(
+      "neuroBest"
+    )||0;
+
+
+  document.getElementById(
+    "levelStart"
+  ).textContent=1;
+
 
   nexReact(
     "happy",
     "Готовий перевірити себе ще раз?"
   );
+
 }
+
 
 /* =========================================================
    SETTINGS
 ========================================================= */
 
-document.getElementById("settingsBtn").onclick=()=>{
+document
+  .getElementById("settingsBtn")
+  .onclick=()=>{
 
-  document.getElementById("settingsModal")
-    .classList.remove("hidden");
-
-  updateDifficultyButtons();
-};
-
-document.getElementById("closeSettings").onclick=()=>{
-
-  document.getElementById("settingsModal")
-    .classList.add("hidden");
-};
-
-document.querySelectorAll("[data-diff]")
-.forEach(btn=>{
-
-  btn.onclick=()=>{
-
-    S.difficulty=btn.dataset.diff;
-
-    localStorage.setItem(
-      "neuroDifficulty",
-      S.difficulty
-    );
+    document
+      .getElementById("settingsModal")
+      .classList
+      .remove("hidden");
 
     updateDifficultyButtons();
 
-    nexReact(
-      "think",
-      "Складність змінено."
-    );
   };
 
-});
+
+document
+  .getElementById("closeSettings")
+  .onclick=()=>{
+
+    document
+      .getElementById("settingsModal")
+      .classList
+      .add("hidden");
+
+  };
+
+
+document
+  .querySelectorAll("[data-diff]")
+  .forEach(btn=>{
+
+    btn.onclick=()=>{
+
+      S.difficulty=
+        btn.dataset.diff;
+
+
+      localStorage.setItem(
+        "neuroDifficulty",
+        S.difficulty
+      );
+
+
+      updateDifficultyButtons();
+
+
+      nexReact(
+        "think",
+        "Складність змінено."
+      );
+
+    };
+
+  });
+
 
 function updateDifficultyButtons(){
 
-  document.querySelectorAll("[data-diff]")
-  .forEach(btn=>{
+  document
+    .querySelectorAll("[data-diff]")
+    .forEach(btn=>{
 
-    btn.classList.toggle(
-      "active",
-      btn.dataset.diff===S.difficulty
-    );
+      btn.classList.toggle(
+        "active",
+        btn.dataset.diff===
+        S.difficulty
+      );
 
-  });
+    });
+
 }
 
+
 /* =========================================================
-   START
+   START BUTTONS
 ========================================================= */
 
-document.getElementById("startBtn").onclick=startGame;
+document
+  .getElementById("startBtn")
+  .onclick=startGame;
 
-document.getElementById("dailyBtn").onclick=()=>{
 
-  nexReact(
-    "surprise",
-    "Daily ще готується. Скоро буде окремий виклик!"
-  );
-};
+document
+  .getElementById("dailyBtn")
+  .onclick=()=>{
 
-document.getElementById("best").textContent =
-  localStorage.getItem("neuroBest")||0;
+    nexReact(
+      "surprise",
+      "Daily ще готується. Скоро буде окремий виклик!"
+    );
 
-document.getElementById("levelStart").textContent=1;
+  };
+
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
+document
+  .getElementById("best")
+  .textContent=
+    localStorage.getItem(
+      "neuroBest"
+    )||0;
+
+
+document
+  .getElementById("levelStart")
+  .textContent=1;
+
 
 updateDifficultyButtons();
 
