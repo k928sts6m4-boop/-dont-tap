@@ -502,24 +502,24 @@ button{
   align-items:center;
   justify-content:center;
   gap:14px;
-  font-size:46px;
+  font-size:42px;
   font-weight:900;
-  text-align:center;
-  letter-spacing:5px;
+  letter-spacing:4px;
   animation:memoryAppear .35s ease;
+  text-align:center;
 }
 
 .memory-hint{
   text-align:center;
-  color:#7188aa;
+  color:#7890b5;
   font-size:13px;
-  margin-top:14px;
+  margin-top:10px;
 }
 
 @keyframes memoryAppear{
   from{
     opacity:0;
-    transform:scale(.8);
+    transform:scale(.88);
   }
   to{
     opacity:1;
@@ -833,11 +833,6 @@ button{
 
   .answers{
     grid-template-columns:1fr;
-  }
-
-  .memory-show{
-    font-size:38px;
-    gap:8px;
   }
 
   .motor{
@@ -1696,112 +1691,88 @@ function nextQuestion(){
       )
     ];
 
-
   NEX.think();
 
 
-  /* =====================================================
-     MEMORY
-     1. Показуємо послідовність.
-     2. Повністю прибираємо її.
-     3. Показуємо тільки питання та варіанти.
-  ===================================================== */
+  /*
+     MEMORY:
+     Спочатку показуємо тільки послідовність.
+     Потім повністю прибираємо її з DOM
+     і показуємо лише питання та відповіді.
+  */
 
   if(currentQ.type==="MEMORY"){
 
+    const memoryQuestion=currentQ.text;
+    const memoryAnswers=[...currentQ.answers];
+    const memoryCorrect=currentQ.correct;
+    const taskQ=currentQ;
+
     const symbols=
-      currentQ.text.match(
+      memoryQuestion.match(
         /🔵|🟢|🔴|🟡|🟣|🧠|🔑|⚡|🎯|⭐|❤️|💚|💙|💛|🟥|🟩|🟦|🟨/gu
       ) || [];
 
     let memoryTime=1500;
 
-    if(S.difficulty==="easy")
-      memoryTime=2000;
+    if(S.difficulty==="easy") memoryTime=2000;
+    if(S.difficulty==="normal") memoryTime=1500;
+    if(S.difficulty==="hard") memoryTime=1100;
+    if(S.difficulty==="expert") memoryTime=800;
 
-    if(S.difficulty==="normal")
-      memoryTime=1500;
-
-    if(S.difficulty==="hard")
-      memoryTime=1100;
-
-    if(S.difficulty==="expert")
-      memoryTime=800;
-
-    if(S.difficulty==="adaptive")
+    if(S.difficulty==="adaptive"){
+      const d=difficulty();
       memoryTime=
-        difficulty().time>=1.2
-          ? 1900
-          : difficulty().time<=.7
-          ? 850
-          : 1500;
+        d.time>=1.2 ? 1900 :
+        d.time<=.7 ? 850 : 1500;
+    }
+
+    let questionText="Що було?";
+
+    if(memoryQuestion.includes("Який був третій"))
+      questionText="Який був третій?";
+    else if(memoryQuestion.includes("Що було другим"))
+      questionText="Що було другим?";
+    else if(memoryQuestion.includes("Що було ПЕРШИМ"))
+      questionText="Що було першим?";
+
 
     challenge.innerHTML=`
-
-      <div class="type">
-        MEMORY • ${S.step}/5
-      </div>
-
-      <div class="memory-show" id="memoryShow">
-        ${symbols.join(" ")}
-      </div>
-
-      <div class="memory-hint">
-        Запам'ятай послідовність...
-      </div>
-
+      <div class="type">MEMORY • ${S.step}/5</div>
+      <div class="memory-show">${symbols.join(" ")}</div>
+      <div class="memory-hint">Запам'ятай послідовність...</div>
     `;
+
 
     setTimeout(()=>{
 
-      if(!currentQ || currentQ.type!=="MEMORY")
+      if(currentQ!==taskQ)
         return;
 
-      let questionText=currentQ.text;
-
-      if(currentQ.text.includes("Який був третій?"))
-        questionText="Який був третій?";
-
-      else if(currentQ.text.includes("Що було другим"))
-        questionText="Що було другим?";
-
-      else if(currentQ.text.includes("Що було ПЕРШИМ"))
-        questionText="Що було першим?";
 
       challenge.innerHTML=`
-
-        <div class="type">
-          MEMORY • ${S.step}/5
-        </div>
-
-        <div class="question">
-          ${questionText}
-        </div>
-
+        <div class="type">MEMORY • ${S.step}/5</div>
+        <div class="question">${questionText}</div>
         <div class="answers">
-
-          ${currentQ.answers
-            .map((a,i)=>`
-
-              <button
-                class="answer"
-                data-index="${i}"
-              >
-                ${a}
-              </button>
-
-            `)
-            .join("")}
-
+          ${memoryAnswers.map((a,i)=>`
+            <button class="answer" data-index="${i}">
+              ${a}
+            </button>
+          `).join("")}
         </div>
-
       `;
+
 
       challenge
         .querySelectorAll(".answer")
         .forEach(btn=>{
 
           btn.onclick=()=>{
+
+            currentQ=taskQ;
+
+            currentQ.correct=
+              memoryCorrect;
 
             answerQuestion(
               Number(btn.dataset.index),
@@ -1897,6 +1868,23 @@ function answerQuestion(index,btn){
 
     S.combo++;
 
+
+    /*
+       Кожні 4 правильні відповіді поспіль
+       повертають 1 життя.
+    */
+    if(S.combo % 4 === 0 && S.lives < 3){
+
+      S.lives++;
+
+      nexReact(
+        "combo",
+        "❤️ +1 життя! Чотири правильні поспіль!"
+      );
+
+    }
+
+
     S.bestCombo=
       Math.max(
         S.bestCombo,
@@ -1934,10 +1922,9 @@ function answerQuestion(index,btn){
   }else{
 
     /*
-       Показуємо помилковою тільки вибрану
-       відповідь. Правильну не розкриваємо.
+       Показуємо помилковою тільки вибрану відповідь.
+       Правильну відповідь НЕ розкриваємо.
     */
-
     btn.classList.add("wrong");
 
 
@@ -2070,44 +2057,57 @@ function updateMotorHUD(){
       "motorLives"
     );
 
-  if(progress){
-
+  if(progress)
     progress.textContent=
       `${motorHits} / ${motorTarget}`;
 
-  }
-
-  if(time){
-
+  if(time)
     time.textContent=
-      motorTimeLeft;
-
-  }
-
-  if(lives){
-
-    lives.textContent=
-      "❤️".repeat(S.lives)+
-      "🖤".repeat(
-        Math.max(0,3-S.lives)
+      Math.max(
+        0,
+        Math.ceil(motorTimeLeft)
       );
 
-  }
+  if(lives)
+    lives.textContent=
+      "❤️".repeat(S.lives);
 
 }
 
 
-function motorTimerStart(seconds,onTimeUp){
+/* =====================================================
+   MOTOR TIMER
+===================================================== */
 
-  motorTimeLeft=seconds;
+function motorTimerStart(seconds,onEnd){
+
+  motorTimeLeft=
+    seconds;
 
   updateMotorHUD();
+
+
+  const started=
+    Date.now();
 
 
   motorInterval=
     setInterval(()=>{
 
-      motorTimeLeft--;
+      if(!motorRunning)
+        return;
+
+
+      const elapsed=
+        (Date.now()-started)/1000;
+
+
+      motorTimeLeft=
+        Math.max(
+          0,
+          seconds-elapsed
+        );
+
 
       updateMotorHUD();
 
@@ -2123,12 +2123,12 @@ function motorTimerStart(seconds,onTimeUp){
         timeBox.classList.toggle(
           "time-warning",
           motorTimeLeft<=5 &&
-          motorTimeLeft>2
+          motorTimeLeft>3
         );
 
         timeBox.classList.toggle(
           "time-danger",
-          motorTimeLeft<=2
+          motorTimeLeft<=3
         );
 
       }
@@ -2136,17 +2136,15 @@ function motorTimerStart(seconds,onTimeUp){
 
       if(motorTimeLeft<=0){
 
-        clearInterval(
-          motorInterval
-        );
+        clearInterval(motorInterval);
 
         motorInterval=null;
 
-        onTimeUp();
+        onEnd();
 
       }
 
-    },1000);
+    },100);
 
 }
 
@@ -2158,6 +2156,8 @@ function motorTimerStart(seconds,onTimeUp){
 function startMotor(){
 
   clearMotorTimers();
+
+  motorRunning=true;
 
   NEX.motor();
 
@@ -2178,10 +2178,7 @@ function startMotor(){
     ];
 
 
-  setTimeout(
-    fn,
-    900
-  );
+  fn();
 
 }
 
@@ -2196,16 +2193,7 @@ function motorCatchBall(){
   motorHits=0;
   motorRunning=true;
 
-
-  const time=
-    S.difficulty==="easy"
-      ? 20
-      : S.difficulty==="hard"
-      ? 14
-      : S.difficulty==="expert"
-      ? 12
-      : 17;
-
+  const time=20;
 
   motorLayout(
     "CATCH",
@@ -2213,12 +2201,10 @@ function motorCatchBall(){
     time
   );
 
-
   const area=
     document.getElementById(
       "motorArea"
     );
-
 
   const status=
     document.getElementById(
@@ -2227,7 +2213,23 @@ function motorCatchBall(){
 
 
   status.textContent=
-    "Натискай синю кульку • 8 влучань";
+    "Натискай синю кульку. Встигни 8 разів.";
+
+
+  const ball=
+    document.createElement("button");
+
+  ball.className=
+    "catch-ball";
+
+  ball.type="button";
+
+  ball.setAttribute(
+    "aria-label",
+    "Натисни кульку"
+  );
+
+  area.appendChild(ball);
 
 
   function spawnBall(){
@@ -2236,155 +2238,135 @@ function motorCatchBall(){
       return;
 
 
-    const ball=
-      document.createElement("button");
-
-
-    ball.className="catch-ball";
-
-    ball.type="button";
-
-    ball.setAttribute(
-      "aria-label",
-      "Зловити кульку"
-    );
-
-
-    const padding=18;
-
     const maxX=
       Math.max(
-        padding,
-        area.clientWidth-
-        58-
-        padding
+        0,
+        area.clientWidth-58
       );
 
     const maxY=
       Math.max(
-        padding,
-        area.clientHeight-
-        58-
-        padding
+        0,
+        area.clientHeight-58
       );
 
 
     ball.style.left=
-      (
-        padding+
-        Math.random()*
-        (maxX-padding)
-      )+"px";
-
+      Math.random()*maxX+"px";
 
     ball.style.top=
-      (
-        padding+
-        Math.random()*
-        (maxY-padding)
-      )+"px";
+      Math.random()*maxY+"px";
+
+  }
 
 
-    area.appendChild(ball);
+  ball.addEventListener(
+    "pointerdown",
+    e=>{
+
+      e.preventDefault();
 
 
-    let clicked=false;
+      if(!motorRunning)
+        return;
 
 
-    ball.addEventListener(
-      "pointerdown",
-      e=>{
+      motorHits++;
 
-        e.preventDefault();
-        e.stopPropagation();
+      S.motor++;
 
+      S.reflex++;
 
-        if(clicked || !motorRunning)
-          return;
+      S.score+=60;
 
 
-        clicked=true;
+      ball.classList.remove("hit");
+
+      void ball.offsetWidth;
+
+      ball.classList.add("hit");
 
 
-        motorHits++;
+      if(
+        "vibrate" in navigator
+      ){
 
-        S.motor++;
-        S.reflex++;
+        navigator.vibrate(25);
 
-        S.score+=60;
-
-
-        ball.classList.add("hit");
+      }
 
 
-        updateMotorHUD();
+      updateMotorHUD();
 
 
-        if(motorHits>=motorTarget){
+      if(motorHits>=motorTarget){
 
-          motorRunning=false;
+        motorRunning=false;
 
-          clearMotorTimers();
-
-          status.textContent=
-            "🎯 Відмінно! 8 / 8";
-
-
-          NEX.correct();
-
-
-          setTimeout(
-            ()=>finishMotor(true),
-            700
-          );
-
-
-          return;
-
-        }
+        clearMotorTimers();
 
 
         status.textContent=
-          `Влучання зараховано! Ще ${
-            motorTarget-motorHits
-          }`;
+          "🎯 Відмінно! 8 / 8";
 
 
         NEX.correct();
 
 
-        setTimeout(()=>{
-
-          if(ball.parentNode)
-            ball.remove();
-
-          spawnBall();
-
-        },130);
+        setTimeout(
+          ()=>finishMotor(true),
+          700
+        );
 
 
-      },
-      {passive:false}
-    );
-
-
-    setTimeout(()=>{
-
-      if(
-        motorRunning &&
-        ball.parentNode &&
-        !clicked
-      ){
-
-        ball.remove();
-
-        spawnBall();
+        return;
 
       }
 
-    },850*difficulty().time);
 
-  }
+      status.textContent=
+        `Влучання зараховано! Ще ${
+          motorTarget-motorHits
+        }`;
+
+
+      NEX.correct();
+
+
+      setTimeout(()=>{
+
+        if(ball.parentNode)
+          ball.remove();
+
+        spawnBall();
+
+      },130);
+
+    },
+    {passive:false}
+  );
+
+
+  /*
+     Якщо не натиснув вчасно —
+     кулька просто переміщується,
+     а не ламає завдання.
+  */
+
+  setTimeout(()=>{
+
+    if(
+      motorRunning &&
+      ball.parentNode
+    ){
+
+      ball.remove();
+
+      spawnBall();
+
+    }
+
+  },850*difficulty().time);
 
 
   spawnBall();
@@ -2420,22 +2402,20 @@ function motorCatchBall(){
 
 
 /* =====================================================
-   2. REACTION
+   2. REACTION — STOP SIGNAL
 ===================================================== */
 
 function motorReaction(){
 
-  motorTarget=1;
+  motorTarget=5;
   motorHits=0;
   motorRunning=true;
 
-
-  const time=8;
-
+  const time=12;
 
   motorLayout(
-    "REACTION",
-    1,
+    "STOP-SIGNAL",
+    motorTarget,
     time
   );
 
@@ -2444,7 +2424,6 @@ function motorReaction(){
     document.getElementById(
       "motorArea"
     );
-
 
   const status=
     document.getElementById(
@@ -2476,10 +2455,51 @@ function motorReaction(){
 
 
   let ready=false;
+  let signalTimer=null;
 
 
   status.textContent=
-    "Не натискай завчасно";
+    "🔴 ЧЕРВОНИЙ — НЕ НАТИСКАЙ. Чекай зеленого сигналу.";
+
+
+  function nextSignal(){
+
+    if(!motorRunning)
+      return;
+
+
+    ready=false;
+
+    btn.classList.remove("go");
+
+    btn.textContent="СТОП";
+
+    status.textContent=
+      "🔴 НЕ НАТИСКАЙ";
+
+
+    signalTimer=
+      setTimeout(()=>{
+
+        if(!motorRunning)
+          return;
+
+
+        ready=true;
+
+        btn.classList.add("go");
+
+        btn.textContent=
+          "НАТИСКАЙ!";
+
+        status.textContent=
+          `🟢 НАТИСКАЙ! • ${motorHits}/${motorTarget}`;
+
+        NEX.surprise();
+
+      },600+Math.random()*1400);
+
+  }
 
 
   motorTimerStart(
@@ -2490,11 +2510,15 @@ function motorReaction(){
         return;
 
 
+      if(signalTimer)
+        clearTimeout(signalTimer);
+
+
       motorRunning=false;
 
 
       status.textContent=
-        "⏱ Ти не встиг";
+        `⏱ Час вийшов: ${motorHits}/${motorTarget}`;
 
 
       NEX.sad();
@@ -2509,34 +2533,6 @@ function motorReaction(){
   );
 
 
-  const delay=
-    1200+
-    Math.random()*2200;
-
-
-  motorTimer=
-    setTimeout(()=>{
-
-      if(!motorRunning)
-        return;
-
-
-      ready=true;
-
-      btn.classList.add("go");
-
-      btn.textContent=
-        "НАТИСКАЙ!";
-
-      status.textContent=
-        "⚡ ЗАРАЗ!";
-
-
-      NEX.surprise();
-
-    },delay);
-
-
   btn.addEventListener(
     "pointerdown",
     e=>{
@@ -2548,28 +2544,76 @@ function motorReaction(){
         return;
 
 
+      /*
+         Неправильне натискання
+         життя НЕ забирає.
+      */
       if(!ready){
 
+        status.textContent=
+          "🔴 СТОП! Рано — чекай зеленого сигналу.";
+
+        btn.classList.remove("go");
+
+        NEX.wrong();
+
+        return;
+
+      }
+
+
+      motorHits++;
+
+      S.reflex++;
+
+      S.motor++;
+
+      S.score+=100;
+
+
+      ready=false;
+
+
+      if(signalTimer)
+        clearTimeout(signalTimer);
+
+
+      btn.classList.remove("go");
+
+      btn.textContent="✓";
+
+
+      updateMotorHUD();
+
+
+      status.textContent=
+        `✓ Реакцію зараховано • ${motorHits}/${motorTarget}`;
+
+
+      NEX.correct();
+
+
+      if(
+        motorHits>=motorTarget
+      ){
+
         motorRunning=false;
+
+
+        if(signalTimer)
+          clearTimeout(signalTimer);
+
 
         clearMotorTimers();
 
 
-        S.lives--;
-
-        updateMotorHUD();
-
-
         status.textContent=
-          "❌ Зарано!";
-
-
-        NEX.sad();
+          "🎯 Стоп-сигнал пройдений: 5 / 5";
 
 
         setTimeout(
-          ()=>finishMotor(false),
-          900
+          ()=>finishMotor(true),
+          700
         );
 
 
@@ -2578,37 +2622,17 @@ function motorReaction(){
       }
 
 
-      motorRunning=false;
-
-      clearMotorTimers();
-
-
-      motorHits=1;
-
-      S.reflex++;
-      S.motor++;
-
-      S.score+=150;
-
-
-      updateMotorHUD();
-
-
-      status.textContent=
-        "⚡ РЕАКЦІЮ ЗАРАХОВАНО!";
-
-
-      NEX.correct();
-
-
       setTimeout(
-        ()=>finishMotor(true),
-        900
+        nextSignal,
+        180
       );
 
     },
     {passive:false}
   );
+
+
+  nextSignal();
 
 }
 
@@ -2667,10 +2691,16 @@ function motorTracking(){
 
 
     const maxX=
-      area.clientWidth-58;
+      Math.max(
+        0,
+        area.clientWidth-58
+      );
 
     const maxY=
-      area.clientHeight-58;
+      Math.max(
+        0,
+        area.clientHeight-58
+      );
 
 
     target.style.left=
@@ -2697,15 +2727,27 @@ function motorTracking(){
         motorHits++;
 
         S.motor++;
+
         S.reflex++;
 
         S.score+=70;
 
 
+        if(
+          "vibrate" in navigator
+        ){
+
+          navigator.vibrate(20);
+
+        }
+
+
         updateMotorHUD();
 
 
-        if(motorHits>=motorTarget){
+        if(
+          motorHits>=motorTarget
+        ){
 
           motorRunning=false;
 
@@ -2731,7 +2773,7 @@ function motorTracking(){
 
 
         status.textContent=
-          `Ціль ${motorHits}/${motorTarget} зараховано`;
+          `✓ Ціль зараховано • ${motorHits}/${motorTarget}`;
 
 
         NEX.correct();
@@ -2749,6 +2791,11 @@ function motorTracking(){
       {passive:false}
     );
 
+
+    /*
+       Якщо довго не натиснути —
+       ціль сама змінює позицію.
+    */
 
     setTimeout(()=>{
 
@@ -2783,7 +2830,7 @@ function motorTracking(){
 
 
       status.textContent=
-        `⏱ Час: ${motorHits}/${motorTarget}`;
+        `⏱ Час вийшов: ${motorHits}/${motorTarget}`;
 
 
       NEX.sad();
@@ -2880,7 +2927,10 @@ function motorPrecision(){
 
 
       const maxX=
-        area.clientWidth-52;
+        Math.max(
+          0,
+          area.clientWidth-52
+        );
 
 
       if(x>=maxX)
@@ -2900,16 +2950,6 @@ function motorPrecision(){
 
 
     },20);
-
-
-  motorTimer=
-    setInterval(()=>{
-
-      if(!motorRunning)
-        return;
-
-
-    },100);
 
 
   ball.addEventListener(
@@ -2937,14 +2977,26 @@ function motorPrecision(){
         );
 
 
-      if(distance<58){
+      if(
+        distance<58
+      ){
 
         motorHits++;
 
         S.motor++;
+
         S.reflex++;
 
         S.score+=80;
+
+
+        if(
+          "vibrate" in navigator
+        ){
+
+          navigator.vibrate(20);
+
+        }
 
 
         updateMotorHUD();
@@ -2957,11 +3009,14 @@ function motorPrecision(){
         NEX.correct();
 
 
-        if(motorHits>=motorTarget){
+        if(
+          motorHits>=motorTarget
+        ){
 
           motorRunning=false;
 
           clearInterval(loop);
+
           clearMotorTimers();
 
 
@@ -2978,9 +3033,12 @@ function motorPrecision(){
 
       }else{
 
+        /*
+           Промах не забирає життя.
+        */
+
         status.textContent=
           "Мимо центру — спробуй ще";
-
 
         NEX.surprise();
 
@@ -2991,61 +3049,33 @@ function motorPrecision(){
   );
 
 
-  const seconds=time;
+  motorTimerStart(
+    time,
+    ()=>{
 
-
-  let left=seconds;
-
-
-  motorTimeLeft=left;
-
-  updateMotorHUD();
-
-
-  const clock=
-    setInterval(()=>{
-
-      if(!motorRunning){
-
-        clearInterval(clock);
+      if(!motorRunning)
         return;
 
-      }
+
+      motorRunning=false;
+
+      clearInterval(loop);
 
 
-      left--;
-
-      motorTimeLeft=left;
-
-      updateMotorHUD();
+      status.textContent=
+        `⏱ Час вийшов: ${motorHits}/${motorTarget}`;
 
 
-      if(left<=0){
-
-        clearInterval(clock);
-
-        motorRunning=false;
-
-        clearInterval(loop);
-
-        clearMotorTimers();
+      NEX.sad();
 
 
-        status.textContent=
-          `⏱ Час: ${motorHits}/${motorTarget}`;
+      setTimeout(
+        ()=>finishMotor(false),
+        900
+      );
 
-
-        NEX.sad();
-
-
-        setTimeout(
-          ()=>finishMotor(false),
-          900
-        );
-
-      }
-
-    },1000);
+    }
+  );
 
 }
 
@@ -3056,13 +3086,7 @@ function motorPrecision(){
 
 function finishMotor(success){
 
-  if(!motorRunning && !success){
-
-  }
-
-
   clearMotorTimers();
-
 
   motorRunning=false;
 
@@ -3093,12 +3117,37 @@ function finishMotor(success){
 
   }else{
 
-    S.lives--;
+    /*
+       Тільки завершення моторного завдання
+       через тайм-аут забирає 1 життя.
+
+       Неправильний тап сам по собі
+       життя НЕ забирає.
+    */
+
+    S.lives=
+      Math.max(
+        0,
+        S.lives-1
+      );
 
     S.combo=0;
 
 
     updateHUD();
+
+
+    const motorLives=
+      document.getElementById(
+        "motorLives"
+      );
+
+    if(motorLives){
+
+      motorLives.textContent=
+        "❤️".repeat(S.lives);
+
+    }
 
 
     if(S.lives<=0){
@@ -3135,7 +3184,6 @@ function finishMotor(success){
 function finishGame(){
 
   clearMotorTimers();
-
 
   motorRunning=false;
 
