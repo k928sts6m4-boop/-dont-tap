@@ -27,7 +27,7 @@ button{
   width:min(100%,760px);
   margin:auto;
   min-height:100vh;
-  padding:18px;
+  padding:16px;
 }
 
 /* =========================
@@ -48,11 +48,11 @@ button{
   color:#7890b5;
   font-size:12px;
   letter-spacing:3px;
-  margin-bottom:16px;
+  margin-bottom:14px;
 }
 
 /* =========================
-   NEX STAGE
+   NEX
 ========================= */
 
 .nex-stage{
@@ -64,29 +64,12 @@ button{
     linear-gradient(145deg,#09132e,#071022);
   position:relative;
   overflow:hidden;
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 
 .nex-stage.game-stage{
-  height:285px;
+  height:280px;
 }
-
-.nex-stage:after{
-  content:"";
-  position:absolute;
-  bottom:-80px;
-  left:50%;
-  transform:translateX(-50%);
-  width:340px;
-  height:150px;
-  background:#073a60;
-  filter:blur(35px);
-  opacity:.55;
-}
-
-/* =========================
-   NEX CHARACTER
-========================= */
 
 .nex{
   position:absolute;
@@ -95,12 +78,9 @@ button{
   width:150px;
   height:225px;
   transform:translateX(-50%);
-  z-index:5;
   transform-origin:50% 90%;
-  transition:filter .2s;
+  z-index:5;
 }
-
-/* HEAD */
 
 .nex-head{
   position:absolute;
@@ -112,7 +92,6 @@ button{
   border-radius:45% 45% 48% 48%;
   z-index:5;
   box-shadow:0 4px 15px #0005;
-  transition:.2s;
 }
 
 .nex-hair{
@@ -148,8 +127,6 @@ button{
   border-radius:0 0 50% 50%;
   transition:.2s;
 }
-
-/* BODY */
 
 .nex-body{
   position:absolute;
@@ -205,8 +182,6 @@ button{
   bottom:-7px;
 }
 
-/* ARMS */
-
 .arm{
   position:absolute;
   width:28px;
@@ -216,7 +191,6 @@ button{
   top:95px;
   z-index:1;
   transform-origin:top center;
-  transition:.2s;
 }
 
 .arm.left{
@@ -229,16 +203,12 @@ button{
   transform:rotate(-12deg);
 }
 
-/* =========================
-   SPEECH
-========================= */
-
 .nex-bubble{
   position:absolute;
   left:12px;
   top:12px;
-  max-width:300px;
-  padding:13px 15px;
+  max-width:310px;
+  padding:12px 14px;
   border:1px solid #16d9ff;
   border-radius:16px;
   background:#061426ee;
@@ -246,8 +216,6 @@ button{
   font-size:14px;
   line-height:1.25;
   z-index:20;
-  box-shadow:0 0 18px #00d9ff25;
-  transition:.2s;
 }
 
 /* =========================
@@ -287,8 +255,6 @@ button{
   filter:drop-shadow(0 0 40px #2dffb4);
 }
 
-/* HAPPY FACE */
-
 .nex.happy .nex-mouth,
 .nex.combo .nex-mouth,
 .nex.victory .nex-mouth{
@@ -300,14 +266,6 @@ button{
   border-radius:0 0 50% 50%;
 }
 
-.nex.happy .eye,
-.nex.combo .eye,
-.nex.victory .eye{
-  transform:scaleY(.75);
-}
-
-/* SAD FACE */
-
 .nex.sad .nex-mouth{
   width:28px;
   height:12px;
@@ -318,12 +276,6 @@ button{
   border-radius:50% 50% 0 0;
 }
 
-.nex.sad .eye{
-  transform:translateY(4px);
-}
-
-/* SURPRISE FACE */
-
 .nex.surprise .nex-mouth{
   width:18px;
   height:18px;
@@ -333,11 +285,15 @@ button{
   border-radius:50%;
 }
 
+.nex.happy .eye,
+.nex.combo .eye,
+.nex.victory .eye{
+  transform:scaleY(.75);
+}
+
 .nex.surprise .eye{
   transform:scale(1.25);
 }
-
-/* THINK */
 
 .nex.think .eye.left{
   transform:translateY(-5px);
@@ -347,201 +303,67 @@ button{
   transform:translateY(-2px);
 }
 
-/* ARM REACTIONS */
-
-.nex.happy .arm.left,
-.nex.combo .arm.left,
-.nex.victory .arm.left{
-  animation:armLeftHappy 1s ease;
-}
-
-.nex.happy .arm.right,
-.nex.combo .arm.right,
-.nex.victory .arm.right{
-  animation:armRightHappy 1s ease;
-}
-
-.nex.sad .arm.left{
-  animation:armSadLeft 1s ease;
-}
-
-.nex.sad .arm.right{
-  animation:armSadRight 1s ease;
-}
-
-@keyframes armLeftHappy{
-  0%,100%{transform:rotate(12deg)}
-  40%{transform:rotate(-35deg) translateY(-8px)}
-  70%{transform:rotate(-15deg)}
-}
-
-@keyframes armRightHappy{
-  0%,100%{transform:rotate(-12deg)}
-  40%{transform:rotate(35deg) translateY(-8px)}
-  70%{transform:rotate(15deg)}
-}
-
-@keyframes armSadLeft{
-  0%,100%{transform:rotate(12deg)}
-  50%{transform:rotate(28deg)}
-}
-
-@keyframes armSadRight{
-  0%,100%{transform:rotate(-12deg)}
-  50%{transform:rotate(-28deg)}
-}
-
-/* BODY ANIMATIONS */
-
 @keyframes nexHappy{
-  0%{
-    transform:translateX(-50%) scale(1);
-  }
-  20%{
-    transform:translateX(-50%) translateY(-22px) scale(1.08) rotate(-5deg);
-  }
-  40%{
-    transform:translateX(-50%) translateY(0) scale(1.04) rotate(5deg);
-  }
-  60%{
-    transform:translateX(-50%) translateY(-14px) scale(1.06) rotate(-3deg);
-  }
-  80%{
-    transform:translateX(-50%) translateY(0) rotate(2deg);
-  }
-  100%{
-    transform:translateX(-50%) scale(1);
-  }
+  0%{transform:translateX(-50%)}
+  20%{transform:translateX(-50%) translateY(-22px) scale(1.08) rotate(-5deg)}
+  40%{transform:translateX(-50%) rotate(5deg)}
+  60%{transform:translateX(-50%) translateY(-14px) scale(1.06) rotate(-3deg)}
+  80%{transform:translateX(-50%) rotate(2deg)}
+  100%{transform:translateX(-50%)}
 }
 
 @keyframes nexSad{
-  0%{
-    transform:translateX(-50%) rotate(0);
-  }
-  20%{
-    transform:translateX(-50%) rotate(-12deg);
-  }
-  40%{
-    transform:translateX(-50%) rotate(12deg);
-  }
-  60%{
-    transform:translateX(-50%) rotate(-8deg);
-  }
-  80%{
-    transform:translateX(-50%) rotate(5deg);
-  }
-  100%{
-    transform:translateX(-50%) rotate(0);
-  }
+  0%{transform:translateX(-50%)}
+  20%{transform:translateX(-50%) rotate(-12deg)}
+  40%{transform:translateX(-50%) rotate(12deg)}
+  60%{transform:translateX(-50%) rotate(-8deg)}
+  80%{transform:translateX(-50%) rotate(5deg)}
+  100%{transform:translateX(-50%)}
 }
 
 @keyframes nexThink{
-  0%{
-    transform:translateX(-50%);
-  }
-  30%{
-    transform:translateX(-50%) translateX(-10px) rotate(-3deg);
-  }
-  60%{
-    transform:translateX(-50%) translateX(10px) rotate(3deg);
-  }
-  100%{
-    transform:translateX(-50%);
-  }
+  0%{transform:translateX(-50%)}
+  30%{transform:translateX(-50%) translateX(-10px) rotate(-3deg)}
+  60%{transform:translateX(-50%) translateX(10px) rotate(3deg)}
+  100%{transform:translateX(-50%)}
 }
 
 @keyframes nexSurprise{
-  0%{
-    transform:translateX(-50%) scale(1);
-  }
-  25%{
-    transform:translateX(-50%) scale(1.18) translateY(-8px);
-  }
-  50%{
-    transform:translateX(-50%) scale(.94);
-  }
-  75%{
-    transform:translateX(-50%) scale(1.12);
-  }
-  100%{
-    transform:translateX(-50%) scale(1);
-  }
+  0%{transform:translateX(-50%) scale(1)}
+  25%{transform:translateX(-50%) scale(1.18) translateY(-8px)}
+  50%{transform:translateX(-50%) scale(.94)}
+  75%{transform:translateX(-50%) scale(1.12)}
+  100%{transform:translateX(-50%) scale(1)}
 }
 
 @keyframes nexEncourage{
-  0%{
-    transform:translateX(-50%);
-  }
-  20%{
-    transform:translateX(-50%) rotate(-8deg);
-  }
-  40%{
-    transform:translateX(-50%) rotate(8deg);
-  }
-  60%{
-    transform:translateX(-50%) rotate(-8deg);
-  }
-  80%{
-    transform:translateX(-50%) rotate(5deg);
-  }
-  100%{
-    transform:translateX(-50%);
-  }
+  0%{transform:translateX(-50%)}
+  20%{transform:translateX(-50%) rotate(-8deg)}
+  40%{transform:translateX(-50%) rotate(8deg)}
+  60%{transform:translateX(-50%) rotate(-8deg)}
+  80%{transform:translateX(-50%) rotate(5deg)}
+  100%{transform:translateX(-50%)}
 }
 
 @keyframes nexCombo{
-  0%{
-    transform:translateX(-50%) scale(1);
-  }
-  25%{
-    transform:translateX(-50%) translateY(-28px) scale(1.2);
-  }
-  50%{
-    transform:translateX(-50%) translateY(0) scale(.96);
-  }
-  75%{
-    transform:translateX(-50%) translateY(-16px) scale(1.12);
-  }
-  100%{
-    transform:translateX(-50%) scale(1);
-  }
+  0%{transform:translateX(-50%)}
+  25%{transform:translateX(-50%) translateY(-28px) scale(1.2)}
+  50%{transform:translateX(-50%) scale(.96)}
+  75%{transform:translateX(-50%) translateY(-16px) scale(1.12)}
+  100%{transform:translateX(-50%)}
 }
 
 @keyframes nexVictory{
-  0%{
-    transform:translateX(-50%) scale(1);
-  }
-  20%{
-    transform:translateX(-50%) translateY(-32px) rotate(-8deg) scale(1.1);
-  }
-  40%{
-    transform:translateX(-50%) translateY(0) rotate(8deg);
-  }
-  60%{
-    transform:translateX(-50%) translateY(-24px) rotate(-5deg) scale(1.08);
-  }
-  80%{
-    transform:translateX(-50%) translateY(0) rotate(4deg);
-  }
-  100%{
-    transform:translateX(-50%);
-  }
+  0%{transform:translateX(-50%)}
+  20%{transform:translateX(-50%) translateY(-32px) rotate(-8deg) scale(1.1)}
+  40%{transform:translateX(-50%) rotate(8deg)}
+  60%{transform:translateX(-50%) translateY(-24px) rotate(-5deg) scale(1.08)}
+  80%{transform:translateX(-50%) rotate(4deg)}
+  100%{transform:translateX(-50%)}
 }
 
 /* =========================
-   CARDS
-========================= */
-
-.card{
-  background:#071128;
-  border:1px solid #153359;
-  border-radius:22px;
-  padding:18px;
-  margin-bottom:12px;
-}
-
-/* =========================
-   BUTTONS
+   BUTTONS / CARDS
 ========================= */
 
 .bigbtn{
@@ -567,6 +389,14 @@ button{
   background:#0c1935;
   border-radius:13px;
   padding:14px;
+}
+
+.card{
+  background:#071128;
+  border:1px solid #153359;
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:12px;
 }
 
 /* =========================
@@ -626,7 +456,7 @@ button{
   font-size:12px;
   letter-spacing:2px;
   font-weight:bold;
-  margin-bottom:15px;
+  margin-bottom:12px;
 }
 
 .question{
@@ -634,7 +464,7 @@ button{
   font-weight:800;
   text-align:center;
   line-height:1.3;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .answers{
@@ -650,12 +480,6 @@ button{
   border-radius:14px;
   padding:12px;
   font-weight:bold;
-  transition:.15s;
-}
-
-.answer:hover{
-  border-color:#34dcff;
-  transform:translateY(-2px);
 }
 
 .answer.correct{
@@ -669,39 +493,137 @@ button{
 }
 
 /* =========================
-   MOTOR
+   MOTOR HEADER
+========================= */
+
+.motor-head{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.motor-stat{
+  background:#0a1730;
+  border:1px solid #1a3b63;
+  border-radius:13px;
+  padding:9px;
+  text-align:center;
+}
+
+.motor-stat small{
+  display:block;
+  color:#748bad;
+  font-size:10px;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.motor-stat b{
+  font-size:18px;
+  color:#53e5ff;
+}
+
+.motor-stat.time-warning b{
+  color:#ffcf4d;
+}
+
+.motor-stat.time-danger b{
+  color:#ff5274;
+}
+
+.motor-status{
+  text-align:center;
+  min-height:22px;
+  color:#91a7ca;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+/* =========================
+   MOTOR AREA
 ========================= */
 
 .motor{
   position:relative;
-  height:350px;
-  border:1px solid #17385f;
+  height:330px;
+  border:1px solid #1b416b;
   border-radius:20px;
   overflow:hidden;
-  background:#050d1e;
+  background:
+    radial-gradient(circle at center,#0a1c39,#040a17 70%);
+  touch-action:manipulation;
 }
 
-.motor-info{
-  text-align:center;
-  margin-bottom:10px;
-  color:#8ea3c7;
-}
-
-.ball{
+.motor::before{
+  content:"";
   position:absolute;
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:#24dfff;
-  box-shadow:0 0 25px #24dfff;
-  cursor:pointer;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent 49.8%,#123252 50%,transparent 50.2%),
+    linear-gradient(0deg,transparent 49.8%,#123252 50%,transparent 50.2%);
+  opacity:.25;
 }
+
+/* =========================
+   CATCH BALL
+========================= */
+
+.catch-ball{
+  position:absolute;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 32% 28%,#fff 0 8%,#a7f9ff 9%,#20dfff 42%,#0873cf 100%);
+  border:3px solid #74f5ff;
+  box-shadow:
+    0 0 12px #22eaff,
+    0 0 35px #009dff;
+  z-index:5;
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:left .12s,top .12s,transform .1s;
+}
+
+.catch-ball:active{
+  transform:scale(.82);
+}
+
+.catch-ball.hit{
+  animation:ballHit .25s ease;
+}
+
+@keyframes ballHit{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.45);opacity:.6}
+  100%{transform:scale(1)}
+}
+
+.motor-target-label{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:#385170;
+  font-size:12px;
+  pointer-events:none;
+}
+
+/* =========================
+   REACTION
+========================= */
 
 .reaction-zone{
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  height:100%;
+  position:relative;
+  z-index:4;
 }
 
 .react-btn{
@@ -710,14 +632,65 @@ button{
   border-radius:50%;
   border:5px solid #233c66;
   background:#101d3b;
-  font-size:25px;
+  font-size:23px;
   font-weight:900;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
 
 .react-btn.go{
   background:#1de5a3;
   color:#03130f;
   border-color:#7affd0;
+  box-shadow:0 0 50px #1de5a3;
+}
+
+/* =========================
+   PRECISION
+========================= */
+
+.precision-center{
+  position:absolute;
+  width:110px;
+  height:110px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border:3px dashed #38e3ff;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.precision-ball{
+  position:absolute;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#ffcf42;
+  border:3px solid #fff1a3;
+  box-shadow:0 0 25px #ffcf42;
+  z-index:5;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+
+/* =========================
+   TRACKING
+========================= */
+
+.tracking-target{
+  position:absolute;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,#fff,#37e7ff 35%,#0876ff 70%);
+  border:3px solid #9df9ff;
+  box-shadow:0 0 30px #20ddff;
+  z-index:5;
+  cursor:pointer;
+  touch-action:manipulation;
 }
 
 /* =========================
@@ -804,7 +777,7 @@ button{
 @media(max-width:600px){
 
   .app{
-    padding:12px;
+    padding:10px;
   }
 
   .logo{
@@ -812,11 +785,11 @@ button{
   }
 
   .nex-stage{
-    height:280px;
+    height:275px;
   }
 
   .nex-stage.game-stage{
-    height:275px;
+    height:270px;
   }
 
   .question{
@@ -828,8 +801,13 @@ button{
   }
 
   .motor{
-    height:300px;
+    height:290px;
   }
+
+  .motor-stat b{
+    font-size:16px;
+  }
+
 }
 </style>
 </head>
@@ -838,9 +816,9 @@ button{
 
 <div class="app">
 
-<!-- =========================
+<!-- =====================================================
      START
-========================= -->
+===================================================== -->
 
 <section id="start">
 
@@ -886,11 +864,11 @@ button{
 
     <div class="hudbox">
       <small>Рівень</small>
-      <strong id="levelStart">1</strong>
+      <strong>1</strong>
     </div>
 
     <div class="hudbox">
-      <small>Ігр</small>
+      <small>Життя</small>
       <strong>3</strong>
     </div>
 
@@ -915,9 +893,9 @@ button{
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      GAME
-========================= -->
+===================================================== -->
 
 <section id="game" class="hidden">
 
@@ -976,9 +954,9 @@ button{
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      RESULT
-========================= -->
+===================================================== -->
 
 <section id="result" class="hidden">
 
@@ -987,8 +965,8 @@ button{
     <h1>NEURO COMPLETE</h1>
 
     <div
-      style="font-size:46px;font-weight:900"
       id="finalScore"
+      style="font-size:46px;font-weight:900"
     >
       0
     </div>
@@ -1035,10 +1013,7 @@ button{
 
     <br>
 
-    <button
-      class="bigbtn"
-      onclick="goHome()"
-    >
+    <button class="bigbtn" onclick="goHome()">
       🏠 НА ГОЛОВНИЙ ЕКРАН
     </button>
 
@@ -1049,9 +1024,9 @@ button{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      SETTINGS
-========================= -->
+===================================================== -->
 
 <div id="settingsModal" class="modal hidden">
 
@@ -1063,25 +1038,11 @@ button{
 
     <div class="diff">
 
-      <button data-diff="easy">
-        Easy
-      </button>
-
-      <button data-diff="normal">
-        Normal
-      </button>
-
-      <button data-diff="hard">
-        Hard
-      </button>
-
-      <button data-diff="expert">
-        Expert
-      </button>
-
-      <button data-diff="adaptive">
-        Adaptive
-      </button>
+      <button data-diff="easy">Easy</button>
+      <button data-diff="normal">Normal</button>
+      <button data-diff="hard">Hard</button>
+      <button data-diff="expert">Expert</button>
+      <button data-diff="adaptive">Adaptive</button>
 
     </div>
 
@@ -1102,11 +1063,11 @@ button{
 
 <script>
 
-/* =========================================================
+/* =====================================================
    STATE
-========================================================= */
+===================================================== */
 
-const S = {
+const S={
 
   level:1,
   block:1,
@@ -1128,40 +1089,41 @@ const S = {
   total:0,
 
   difficulty:
-    localStorage.getItem("neuroDifficulty") || "normal"
+    localStorage.getItem("neuroDifficulty") ||
+    "normal"
+
 };
 
 
-const DIFF = {
+/* =====================================================
+   DIFFICULTY
+===================================================== */
+
+const DIFF={
 
   easy:{
-    speed:.72,
-    time:1.35,
-    mem:4
+    speed:.75,
+    time:1.35
   },
 
   normal:{
     speed:1,
-    time:1,
-    mem:5
+    time:1
   },
 
   hard:{
-    speed:1.25,
-    time:.78,
-    mem:6
+    speed:1.3,
+    time:.8
   },
 
   expert:{
-    speed:1.55,
-    time:.58,
-    mem:7
+    speed:1.6,
+    time:.62
   },
 
   adaptive:{
     speed:1,
-    time:1,
-    mem:5
+    time:1
   }
 
 };
@@ -1169,42 +1131,60 @@ const DIFF = {
 
 function difficulty(){
 
-  if(S.difficulty !== "adaptive"){
+  if(S.difficulty!=="adaptive"){
     return DIFF[S.difficulty];
   }
 
-  const rate =
+  const rate=
     S.total
       ? S.correct/S.total
       : .5;
 
-  if(rate>.8){
+  if(rate>.8)
     return DIFF.hard;
-  }
 
-  if(rate<.45){
+  if(rate<.45)
     return DIFF.easy;
-  }
 
   return DIFF.normal;
+
 }
 
 
-/* =========================================================
-   NEX ENGINE
-========================================================= */
+/* =====================================================
+   NEX
+===================================================== */
 
-const nexStart =
+const nexStart=
   document.getElementById("nexStart");
 
-const nexGame =
+const nexGame=
   document.getElementById("nexGame");
-
 
 let nexTimer=null;
 
 
-function clearNexReaction(nex){
+function nexReact(type,text){
+
+  const inGame=
+    !document
+      .getElementById("game")
+      .classList
+      .contains("hidden");
+
+  const nex=
+    inGame
+      ? nexGame
+      : nexStart;
+
+  const bubble=
+    inGame
+      ? document.getElementById("gameBubble")
+      : document.getElementById("startBubble");
+
+
+  clearTimeout(nexTimer);
+
 
   nex.classList.remove(
     "happy",
@@ -1216,66 +1196,26 @@ function clearNexReaction(nex){
     "victory"
   );
 
-}
-
-
-function nexReact(type,text){
-
-  /*
-     Під час гри завжди реагує саме NEX у грі.
-  */
-
-  const inGame =
-    !document
-      .getElementById("game")
-      .classList
-      .contains("hidden");
-
-  const nex =
-    inGame
-      ? nexGame
-      : nexStart;
-
-  const bubble =
-    inGame
-      ? document.getElementById("gameBubble")
-      : document.getElementById("startBubble");
-
-
-  clearTimeout(nexTimer);
-
-  clearNexReaction(nex);
-
-  /*
-     Перезапуск CSS animation
-  */
 
   void nex.offsetWidth;
+
 
   nex.classList.add(type);
 
   bubble.textContent=text;
 
 
-  /*
-     Реакція залишається достатньо довго,
-     щоб її було видно.
-  */
+  nexTimer=
+    setTimeout(()=>{
 
-  nexTimer=setTimeout(()=>{
+      nex.classList.remove(type);
 
-    clearNexReaction(nex);
-
-  },1500);
+    },1500);
 
 }
 
 
-/* =========================================================
-   NEX PERSONALITY
-========================================================= */
-
-const NEX = {
+const NEX={
 
   correct(){
 
@@ -1289,25 +1229,14 @@ const NEX = {
       return;
     }
 
-
     const lines=[
-
       "Саме так! 👏",
-
       "Правильно!",
-
       "Чудово!",
-
       "Є! Мозок працює.",
-
       "Точно.",
-
-      "Так і треба!",
-
-      "Непогано! Рухаємось далі."
-
+      "Так і треба!"
     ];
-
 
     nexReact(
       "happy",
@@ -1324,19 +1253,12 @@ const NEX = {
   wrong(){
 
     const lines=[
-
       "Не поспішай. Подумай.",
-
       "Цього разу ні.",
-
       "Майже. Уважніше.",
-
       "Стоп. Тут була пастка.",
-
       "Не дай мені тебе обдурити 😏"
-
     ];
-
 
     nexReact(
       "sad",
@@ -1390,21 +1312,11 @@ const NEX = {
   },
 
 
-  lifeLost(){
-
-    nexReact(
-      "sad",
-      "Обережно... життя закінчуються."
-    );
-
-  },
-
-
   victory(){
 
     nexReact(
       "victory",
-      "🏆 Блок пройдено! Сильна робота!"
+      "🏆 Блок пройдено!"
     );
 
   }
@@ -1412,9 +1324,9 @@ const NEX = {
 };
 
 
-/* =========================================================
+/* =====================================================
    QUESTIONS
-========================================================= */
+===================================================== */
 
 const Q=[
 
@@ -1615,20 +1527,20 @@ const Q=[
 ];
 
 
-/* =========================================================
+/* =====================================================
    UI
-========================================================= */
+===================================================== */
 
-const start =
+const start=
   document.getElementById("start");
 
-const game =
+const game=
   document.getElementById("game");
 
-const result =
+const result=
   document.getElementById("result");
 
-const challenge =
+const challenge=
   document.getElementById("challenge");
 
 
@@ -1643,7 +1555,7 @@ function updateHUD(){
   document.getElementById("lives")
     .textContent=
       "❤️".repeat(S.lives)+
-      "🖤".repeat(Math.max(0,3-S.lives));
+      "🖤".repeat(3-S.lives);
 
   document.getElementById("progress")
     .style.width=
@@ -1652,20 +1564,9 @@ function updateHUD(){
 }
 
 
-function randomQ(){
-
-  return Q[
-    Math.floor(
-      Math.random()*Q.length
-    )
-  ];
-
-}
-
-
-/* =========================================================
-   START GAME
-========================================================= */
+/* =====================================================
+   GAME
+===================================================== */
 
 function startGame(){
 
@@ -1690,13 +1591,15 @@ function startGame(){
 
 
   start.classList.add("hidden");
+
   result.classList.add("hidden");
+
   game.classList.remove("hidden");
 
 
   nexReact(
     "encourage",
-    "Починаємо! 4 завдання для мозку — потім реакція."
+    "Починаємо! 4 завдання для мозку — потім моторика."
   );
 
 
@@ -1706,10 +1609,6 @@ function startGame(){
 
 }
 
-
-/* =========================================================
-   TASK FLOW
-========================= */
 
 function nextTask(){
 
@@ -1724,10 +1623,6 @@ function nextTask(){
   }
 
 
-  /*
-     4 логічних завдання
-  */
-
   if(S.step<4){
 
     S.step++;
@@ -1735,10 +1630,6 @@ function nextTask(){
     nextQuestion();
 
   }else{
-
-    /*
-       5-те завдання — моторне
-    */
 
     S.step=5;
 
@@ -1749,36 +1640,30 @@ function nextTask(){
 }
 
 
-/* =========================================================
-   QUESTION
-========================================================= */
+/* =====================================================
+   LOGICAL TASK
+===================================================== */
 
 let currentQ=null;
 
 
 function nextQuestion(){
 
-  currentQ=randomQ();
+  currentQ=
+    Q[
+      Math.floor(
+        Math.random()*Q.length
+      )
+    ];
 
 
-  if(currentQ.type==="MEMORY"){
-
-    NEX.think();
-
-  }else{
-
-    nexReact(
-      "think",
-      "Спокійно. Шукай закономірність."
-    );
-
-  }
+  NEX.think();
 
 
   challenge.innerHTML=`
 
     <div class="type">
-      ${currentQ.type}
+      ${currentQ.type} • ${S.step}/5
     </div>
 
     <div class="question">
@@ -1823,14 +1708,11 @@ function nextQuestion(){
 }
 
 
-/* =========================================================
-   ANSWER
-========================================================= */
-
 function answerQuestion(index,btn){
 
-  const buttons =
+  const buttons=
     challenge.querySelectorAll(".answer");
+
 
   buttons.forEach(
     b=>b.disabled=true
@@ -1840,13 +1722,18 @@ function answerQuestion(index,btn){
   S.total++;
 
 
-  const good =
+  const good=
     index===currentQ.correct;
 
 
   if(good){
 
     btn.classList.add("correct");
+
+    buttons[
+      currentQ.correct
+    ].classList.add("correct");
+
 
     S.correct++;
 
@@ -1857,6 +1744,7 @@ function answerQuestion(index,btn){
         S.bestCombo,
         S.combo
       );
+
 
     S.score+=
       100+
@@ -1872,10 +1760,6 @@ function answerQuestion(index,btn){
     if(currentQ.stat==="memory")
       S.memory++;
 
-
-    /*
-       ГОЛОВНА РЕАКЦІЯ NEX
-    */
 
     NEX.correct();
 
@@ -1903,10 +1787,6 @@ function answerQuestion(index,btn){
     S.combo=0;
 
 
-    /*
-       ГОЛОВНА РЕАКЦІЯ NEX
-    */
-
     NEX.wrong();
 
 
@@ -1921,7 +1801,7 @@ function answerQuestion(index,btn){
 
       }else{
 
-        NEX.lifeLost();
+        NEX.encourage();
 
         setTimeout(
           nextTask,
@@ -1937,295 +1817,71 @@ function answerQuestion(index,btn){
 }
 
 
-/* =========================================================
-   MOTOR SELECTOR
-========================================================= */
+/* =====================================================
+   MOTOR SYSTEM
+===================================================== */
 
 let motorTimer=null;
+let motorInterval=null;
+let motorRunning=false;
+
+let motorTimeLeft=0;
+let motorTarget=0;
+let motorHits=0;
 
 
-function startMotor(){
+function clearMotorTimers(){
 
   clearTimeout(motorTimer);
 
+  clearInterval(motorInterval);
 
-  NEX.motor();
+  motorTimer=null;
+  motorInterval=null;
 
-
-  const motorTypes=[
-
-    motorBall,
-    motorReaction,
-    motorTracking,
-    motorPrecision
-
-  ];
-
-
-  const fn=
-    motorTypes[
-      Math.floor(
-        Math.random()*
-        motorTypes.length
-      )
-    ];
-
-
-  setTimeout(
-    fn,
-    1000
-  );
+  motorRunning=false;
 
 }
 
 
-/* =========================================================
-   MOTOR BALL
-========================================================= */
-
-function motorBall(){
+function motorLayout(title,goal,time){
 
   challenge.innerHTML=`
 
     <div class="type">
-      MOTOR • REFLEX
+      MOTOR • ${title}
     </div>
 
-    <div class="motor-info">
-      Натисни на <b>синю кулю</b> 6 разів.
-    </div>
+    <div class="motor-head">
 
-    <div class="motor" id="motorArea"></div>
+      <div class="motor-stat">
+        <small>Прогрес</small>
+        <b id="motorProgress">
+          0 / ${goal}
+        </b>
+      </div>
 
-  `;
+      <div class="motor-stat" id="timeBox">
+        <small>Час</small>
+        <b id="motorTime">
+          ${time}
+        </b>
+      </div>
 
-
-  const area=
-    document.getElementById("motorArea");
-
-
-  let hits=0;
-
-
-  function spawn(){
-
-    if(hits>=6){
-
-      finishMotor(true);
-      return;
-
-    }
-
-
-    const ball=
-      document.createElement("div");
-
-
-    ball.className="ball";
-
-
-    const maxX=
-      area.clientWidth-55;
-
-    const maxY=
-      area.clientHeight-55;
-
-
-    ball.style.left=
-      Math.random()*maxX+"px";
-
-    ball.style.top=
-      Math.random()*maxY+"px";
-
-
-    area.innerHTML="";
-
-    area.appendChild(ball);
-
-
-    ball.onclick=()=>{
-
-      hits++;
-
-      S.reflex++;
-      S.motor++;
-
-      S.score+=80;
-
-
-      NEX.correct();
-
-
-      updateHUD();
-
-      spawn();
-
-    };
-
-
-    motorTimer=
-      setTimeout(()=>{
-
-        NEX.surprise();
-
-        spawn();
-
-      },1200*difficulty().time);
-
-  }
-
-
-  spawn();
-
-}
-
-
-/* =========================================================
-   MOTOR REACTION
-========================================================= */
-
-function motorReaction(){
-
-  challenge.innerHTML=`
-
-    <div class="type">
-      MOTOR • REACTION
-    </div>
-
-    <div class="motor-info">
-      Чекай зелений сигнал. Потім натисни.
-    </div>
-
-    <div class="motor" id="motorArea">
-
-      <div class="reaction-zone">
-
-        <button
-          class="react-btn"
-          id="reactBtn"
-        >
-          ЧЕКАЙ
-        </button>
-
+      <div class="motor-stat">
+        <small>Життя</small>
+        <b id="motorLives">
+          ${"❤️".repeat(S.lives)}
+        </b>
       </div>
 
     </div>
 
-  `;
-
-
-  const btn=
-    document.getElementById("reactBtn");
-
-
-  let ready=false;
-  let finished=false;
-
-
-  const delay=
-    900+
-    Math.random()*2300;
-
-
-  const timer=
-    setTimeout(()=>{
-
-      ready=true;
-
-      btn.classList.add("go");
-
-      btn.textContent=
-        "НАТИСКАЙ!";
-
-
-      NEX.surprise();
-
-    },delay);
-
-
-  btn.onclick=()=>{
-
-    if(finished)
-      return;
-
-
-    if(!ready){
-
-      clearTimeout(timer);
-
-      finished=true;
-
-      S.lives--;
-
-      S.combo=0;
-
-
-      nexReact(
-        "sad",
-        "Зарано! Не поспішай."
-      );
-
-
-      updateHUD();
-
-
-      setTimeout(()=>{
-
-        if(S.lives<=0)
-          finishGame();
-        else
-          finishMotor(false);
-
-      },900);
-
-
-      return;
-
-    }
-
-
-    finished=true;
-
-
-    S.reflex++;
-    S.motor++;
-
-    S.score+=150;
-
-
-    nexReact(
-      "happy",
-      "⚡ Рефлекс є!"
-    );
-
-
-    updateHUD();
-
-
-    setTimeout(
-      ()=>finishMotor(true),
-      900
-    );
-
-  };
-
-}
-
-
-/* =========================================================
-   TRACKING
-========================================================= */
-
-function motorTracking(){
-
-  challenge.innerHTML=`
-
-    <div class="type">
-      MOTOR • TRACKING
-    </div>
-
-    <div class="motor-info">
-      Встигни натиснути на ціль 5 разів.
+    <div
+      class="motor-status"
+      id="motorStatus"
+    >
+      Підготуйся...
     </div>
 
     <div
@@ -2235,147 +1891,848 @@ function motorTracking(){
 
   `;
 
-
-  const area=
-    document.getElementById("motorArea");
+}
 
 
-  let hits=0;
+function updateMotorHUD(){
 
+  const progress=
+    document.getElementById(
+      "motorProgress"
+    );
 
-  function target(){
+  const time=
+    document.getElementById(
+      "motorTime"
+    );
 
-    if(hits>=5){
+  const lives=
+    document.getElementById(
+      "motorLives"
+    );
 
-      finishMotor(true);
-      return;
+  if(progress){
 
-    }
-
-
-    const t=
-      document.createElement("div");
-
-
-    t.className="ball";
-
-
-    t.style.left=
-      Math.random()*
-      (area.clientWidth-48)+"px";
-
-
-    t.style.top=
-      Math.random()*
-      (area.clientHeight-48)+"px";
-
-
-    area.innerHTML="";
-
-    area.appendChild(t);
-
-
-    t.onclick=()=>{
-
-      hits++;
-
-      S.motor++;
-      S.reflex++;
-
-      S.score+=90;
-
-
-      NEX.correct();
-
-
-      updateHUD();
-
-      target();
-
-    };
-
-
-    motorTimer=
-      setTimeout(()=>{
-
-        NEX.encourage();
-
-        target();
-
-      },1000*difficulty().time);
+    progress.textContent=
+      `${motorHits} / ${motorTarget}`;
 
   }
 
+  if(time){
 
-  target();
+    time.textContent=
+      motorTimeLeft;
+
+  }
+
+  if(lives){
+
+    lives.textContent=
+      "❤️".repeat(S.lives)+
+      "🖤".repeat(
+        Math.max(0,3-S.lives)
+      );
+
+  }
 
 }
 
 
-/* =========================================================
-   PRECISION
-========================================================= */
+function motorTimerStart(seconds,onTimeUp){
 
-function motorPrecision(){
+  motorTimeLeft=seconds;
 
-  challenge.innerHTML=`
+  updateMotorHUD();
 
-    <div class="type">
-      MOTOR • PRECISION
-    </div>
 
-    <div class="motor-info">
-      Натисни ціль, коли вона в центрі.
-    </div>
+  motorInterval=
+    setInterval(()=>{
 
-    <div
-      class="motor"
-      id="motorArea"
-    >
+      motorTimeLeft--;
 
-      <div
-        style="
-        position:absolute;
-        width:100px;
-        height:100px;
-        border:3px dashed #38e3ff;
-        border-radius:50%;
-        left:50%;
-        top:50%;
-        transform:translate(-50%,-50%);
-        "
-      ></div>
+      updateMotorHUD();
 
-      <div
-        class="ball"
-        id="precisionBall"
-      ></div>
+
+      const timeBox=
+        document.getElementById(
+          "timeBox"
+        );
+
+
+      if(timeBox){
+
+        timeBox.classList.toggle(
+          "time-warning",
+          motorTimeLeft<=5 &&
+          motorTimeLeft>2
+        );
+
+        timeBox.classList.toggle(
+          "time-danger",
+          motorTimeLeft<=2
+        );
+
+      }
+
+
+      if(motorTimeLeft<=0){
+
+        clearInterval(
+          motorInterval
+        );
+
+        motorInterval=null;
+
+        onTimeUp();
+
+      }
+
+    },1000);
+
+}
+
+
+/* =====================================================
+   MOTOR SELECTOR
+===================================================== */
+
+function startMotor(){
+
+  clearMotorTimers();
+
+  NEX.motor();
+
+
+  const types=[
+    motorCatchBall,
+    motorReaction,
+    motorTracking,
+    motorPrecision
+  ];
+
+
+  const fn=
+    types[
+      Math.floor(
+        Math.random()*types.length
+      )
+    ];
+
+
+  setTimeout(
+    fn,
+    900
+  );
+
+}
+
+
+/* =====================================================
+   1. CATCH BALL
+===================================================== */
+
+function motorCatchBall(){
+
+  motorTarget=8;
+  motorHits=0;
+  motorRunning=true;
+
+
+  const time=
+    S.difficulty==="easy"
+      ? 20
+      : S.difficulty==="hard"
+      ? 14
+      : S.difficulty==="expert"
+      ? 12
+      : 17;
+
+
+  motorLayout(
+    "CATCH",
+    motorTarget,
+    time
+  );
+
+
+  const area=
+    document.getElementById(
+      "motorArea"
+    );
+
+
+  const status=
+    document.getElementById(
+      "motorStatus"
+    );
+
+
+  status.textContent=
+    "Натискай синю кульку • 8 влучань";
+
+
+  function spawnBall(){
+
+    if(!motorRunning)
+      return;
+
+
+    const ball=
+      document.createElement("button");
+
+
+    ball.className="catch-ball";
+
+    ball.type="button";
+
+    ball.setAttribute(
+      "aria-label",
+      "Зловити кульку"
+    );
+
+
+    /*
+       Безпечні координати.
+       Кулька ніколи не виходить за межі.
+    */
+
+    const padding=18;
+
+    const maxX=
+      Math.max(
+        padding,
+        area.clientWidth-
+        58-
+        padding
+      );
+
+    const maxY=
+      Math.max(
+        padding,
+        area.clientHeight-
+        58-
+        padding
+      );
+
+
+    ball.style.left=
+      (
+        padding+
+        Math.random()*
+        (maxX-padding)
+      )+"px";
+
+
+    ball.style.top=
+      (
+        padding+
+        Math.random()*
+        (maxY-padding)
+      )+"px";
+
+
+    area.appendChild(ball);
+
+
+    let clicked=false;
+
+
+    ball.addEventListener(
+      "pointerdown",
+      e=>{
+
+        e.preventDefault();
+        e.stopPropagation();
+
+
+        if(clicked || !motorRunning)
+          return;
+
+
+        clicked=true;
+
+
+        motorHits++;
+
+        S.motor++;
+        S.reflex++;
+
+        S.score+=60;
+
+
+        ball.classList.add("hit");
+
+
+        updateMotorHUD();
+
+
+        if(motorHits>=motorTarget){
+
+          motorRunning=false;
+
+          clearMotorTimers();
+
+          status.textContent=
+            "🎯 Відмінно! 8 / 8";
+
+
+          NEX.correct();
+
+
+          setTimeout(
+            ()=>finishMotor(true),
+            700
+          );
+
+
+          return;
+
+        }
+
+
+        status.textContent=
+          `Влучання зараховано! Ще ${
+            motorTarget-motorHits
+          }`;
+
+
+        NEX.correct();
+
+
+        setTimeout(()=>{
+
+          if(ball.parentNode)
+            ball.remove();
+
+          spawnBall();
+
+        },130);
+
+
+      },
+      {passive:false}
+    );
+
+
+    /*
+       Якщо не натиснув вчасно —
+       кулька просто переміщується,
+       а не ламає завдання.
+    */
+
+    setTimeout(()=>{
+
+      if(
+        motorRunning &&
+        ball.parentNode &&
+        !clicked
+      ){
+
+        ball.remove();
+
+        spawnBall();
+
+      }
+
+    },850*difficulty().time);
+
+  }
+
+
+  spawnBall();
+
+
+  motorTimerStart(
+    time,
+    ()=>{
+
+      if(!motorRunning)
+        return;
+
+
+      motorRunning=false;
+
+
+      status.textContent=
+        `⏱ Час вийшов: ${motorHits} / ${motorTarget}`;
+
+
+      NEX.sad();
+
+
+      setTimeout(
+        ()=>finishMotor(false),
+        900
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   2. REACTION
+===================================================== */
+
+function motorReaction(){
+
+  motorTarget=1;
+  motorHits=0;
+  motorRunning=true;
+
+
+  const time=8;
+
+
+  motorLayout(
+    "REACTION",
+    1,
+    time
+  );
+
+
+  const area=
+    document.getElementById(
+      "motorArea"
+    );
+
+
+  const status=
+    document.getElementById(
+      "motorStatus"
+    );
+
+
+  area.innerHTML=`
+
+    <div class="reaction-zone">
+
+      <button
+        class="react-btn"
+        id="reactBtn"
+        type="button"
+      >
+        ЧЕКАЙ...
+      </button>
 
     </div>
 
   `;
 
 
+  const btn=
+    document.getElementById(
+      "reactBtn"
+    );
+
+
+  let ready=false;
+
+
+  status.textContent=
+    "Не натискай завчасно";
+
+
+  /*
+     Загальний таймер
+  */
+
+  motorTimerStart(
+    time,
+    ()=>{
+
+      if(!motorRunning)
+        return;
+
+
+      motorRunning=false;
+
+
+      status.textContent=
+        "⏱ Ти не встиг";
+
+
+      NEX.sad();
+
+
+      setTimeout(
+        ()=>finishMotor(false),
+        900
+      );
+
+    }
+  );
+
+
+  const delay=
+    1200+
+    Math.random()*2200;
+
+
+  motorTimer=
+    setTimeout(()=>{
+
+      if(!motorRunning)
+        return;
+
+
+      ready=true;
+
+      btn.classList.add("go");
+
+      btn.textContent=
+        "НАТИСКАЙ!";
+
+      status.textContent=
+        "⚡ ЗАРАЗ!";
+
+
+      NEX.surprise();
+
+    },delay);
+
+
+  btn.addEventListener(
+    "pointerdown",
+    e=>{
+
+      e.preventDefault();
+
+
+      if(!motorRunning)
+        return;
+
+
+      if(!ready){
+
+        motorRunning=false;
+
+        clearMotorTimers();
+
+
+        S.lives--;
+
+        updateMotorHUD();
+
+
+        status.textContent=
+          "❌ Зарано!";
+
+
+        NEX.sad();
+
+
+        setTimeout(
+          ()=>finishMotor(false),
+          900
+        );
+
+
+        return;
+
+      }
+
+
+      motorRunning=false;
+
+      clearMotorTimers();
+
+
+      motorHits=1;
+
+      S.reflex++;
+      S.motor++;
+
+      S.score+=150;
+
+
+      updateMotorHUD();
+
+
+      status.textContent=
+        "⚡ РЕАКЦІЮ ЗАРАХОВАНО!";
+
+
+      NEX.correct();
+
+
+      setTimeout(
+        ()=>finishMotor(true),
+        900
+      );
+
+    },
+    {passive:false}
+  );
+
+}
+
+
+/* =====================================================
+   3. TRACKING
+===================================================== */
+
+function motorTracking(){
+
+  motorTarget=6;
+  motorHits=0;
+  motorRunning=true;
+
+
+  const time=15;
+
+
+  motorLayout(
+    "TRACKING",
+    motorTarget,
+    time
+  );
+
+
   const area=
-    document.getElementById("motorArea");
+    document.getElementById(
+      "motorArea"
+    );
+
+
+  const status=
+    document.getElementById(
+      "motorStatus"
+    );
+
+
+  status.textContent=
+    "Встигни натиснути рухому ціль 6 разів";
+
+
+  function spawn(){
+
+    if(!motorRunning)
+      return;
+
+
+    const target=
+      document.createElement("button");
+
+
+    target.className=
+      "tracking-target";
+
+    target.type="button";
+
+
+    const maxX=
+      area.clientWidth-58;
+
+    const maxY=
+      area.clientHeight-58;
+
+
+    target.style.left=
+      Math.random()*maxX+"px";
+
+    target.style.top=
+      Math.random()*maxY+"px";
+
+
+    area.appendChild(target);
+
+
+    target.addEventListener(
+      "pointerdown",
+      e=>{
+
+        e.preventDefault();
+
+
+        if(!motorRunning)
+          return;
+
+
+        motorHits++;
+
+        S.motor++;
+        S.reflex++;
+
+        S.score+=70;
+
+
+        updateMotorHUD();
+
+
+        if(motorHits>=motorTarget){
+
+          motorRunning=false;
+
+          clearMotorTimers();
+
+
+          status.textContent=
+            "🎯 Ціль пройдена: 6 / 6";
+
+
+          NEX.victory();
+
+
+          setTimeout(
+            ()=>finishMotor(true),
+            700
+          );
+
+
+          return;
+
+        }
+
+
+        status.textContent=
+          `Ціль ${motorHits}/${motorTarget} зараховано`;
+
+
+        NEX.correct();
+
+
+        target.remove();
+
+
+        setTimeout(
+          spawn,
+          100
+        );
+
+      },
+      {passive:false}
+    );
+
+
+    /*
+       Ціль сама переміщується,
+       якщо її довго не натискати.
+    */
+
+    setTimeout(()=>{
+
+      if(
+        motorRunning &&
+        target.parentNode
+      ){
+
+        target.remove();
+
+        spawn();
+
+      }
+
+    },900*difficulty().time);
+
+  }
+
+
+  spawn();
+
+
+  motorTimerStart(
+    time,
+    ()=>{
+
+      if(!motorRunning)
+        return;
+
+
+      motorRunning=false;
+
+
+      status.textContent=
+        `⏱ Час: ${motorHits}/${motorTarget}`;
+
+
+      NEX.sad();
+
+
+      setTimeout(
+        ()=>finishMotor(false),
+        900
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   4. PRECISION
+===================================================== */
+
+function motorPrecision(){
+
+  motorTarget=5;
+  motorHits=0;
+  motorRunning=true;
+
+
+  const time=15;
+
+
+  motorLayout(
+    "PRECISION",
+    motorTarget,
+    time
+  );
+
+
+  const area=
+    document.getElementById(
+      "motorArea"
+    );
+
+
+  const status=
+    document.getElementById(
+      "motorStatus"
+    );
+
+
+  status.textContent=
+    "Натискай жовту ціль, коли вона в центрі";
+
+
+  const center=
+    document.createElement("div");
+
+
+  center.className=
+    "precision-center";
+
+
+  area.appendChild(center);
+
 
   const ball=
-    document.getElementById("precisionBall");
+    document.createElement("button");
+
+
+  ball.className=
+    "precision-ball";
+
+  ball.type="button";
+
+
+  area.appendChild(ball);
 
 
   let x=0;
+
   let direction=1;
-  let hits=0;
-
-
-  ball.style.top="50%";
-
-  ball.style.transform=
-    "translateY(-50%)";
 
 
   const loop=
     setInterval(()=>{
+
+      if(!motorRunning)
+        return;
+
 
       x+=
         direction*
@@ -2383,96 +2740,206 @@ function motorPrecision(){
         difficulty().speed;
 
 
-      if(x>area.clientWidth-60)
+      const maxX=
+        area.clientWidth-52;
+
+
+      if(x>=maxX)
         direction=-1;
 
 
-      if(x<0)
+      if(x<=0)
         direction=1;
 
 
       ball.style.left=
         x+"px";
 
+
+      ball.style.top=
+        (area.clientHeight/2-26)+"px";
+
+
     },20);
 
 
-  ball.onclick=()=>{
+  motorTimer=
+    setInterval(()=>{
 
-    const center=
-      area.clientWidth/2;
-
-    const ballCenter=
-      x+24;
-
-    const distance=
-      Math.abs(
-        center-ballCenter
-      );
+      if(!motorRunning)
+        return;
 
 
-    if(distance<55){
+      /*
+         Нічого не робимо.
+         Окремий інтервал потрібен тільки
+         для плавного руху.
+      */
 
-      hits++;
-
-      S.motor++;
-      S.reflex++;
-
-      S.score+=110;
-
-
-      NEX.correct();
+    },100);
 
 
-      if(hits>=3){
+  ball.addEventListener(
+    "pointerdown",
+    e=>{
 
-        clearInterval(loop);
+      e.preventDefault();
 
-        setTimeout(
-          ()=>finishMotor(true),
-          700
+
+      if(!motorRunning)
+        return;
+
+
+      const centerX=
+        area.clientWidth/2;
+
+
+      const ballCenter=
+        x+26;
+
+
+      const distance=
+        Math.abs(
+          centerX-ballCenter
         );
+
+
+      if(distance<58){
+
+        motorHits++;
+
+        S.motor++;
+        S.reflex++;
+
+        S.score+=80;
+
+
+        updateMotorHUD();
+
+
+        status.textContent=
+          `🎯 Точно! ${motorHits}/${motorTarget}`;
+
+
+        NEX.correct();
+
+
+        if(motorHits>=motorTarget){
+
+          motorRunning=false;
+
+          clearInterval(loop);
+          clearMotorTimers();
+
+
+          status.textContent=
+            "🎯 Точність: 5 / 5";
+
+
+          setTimeout(
+            ()=>finishMotor(true),
+            800
+          );
+
+        }
+
+      }else{
+
+        status.textContent=
+          "Мимо центру — спробуй ще";
+
+
+        NEX.surprise();
 
       }
 
-    }else{
-
-      S.lives--;
-
-      S.combo=0;
+    },
+    {passive:false}
+  );
 
 
-      NEX.wrong();
+  /*
+     Окремий таймер часу.
+  */
+
+  const seconds=time;
 
 
-      if(S.lives<=0){
+  let left=seconds;
+
+
+  motorTimeLeft=left;
+
+  updateMotorHUD();
+
+
+  const clock=
+    setInterval(()=>{
+
+      if(!motorRunning){
+
+        clearInterval(clock);
+        return;
+
+      }
+
+
+      left--;
+
+      motorTimeLeft=left;
+
+      updateMotorHUD();
+
+
+      if(left<=0){
+
+        clearInterval(clock);
+
+        motorRunning=false;
 
         clearInterval(loop);
 
+        clearMotorTimers();
+
+
+        status.textContent=
+          `⏱ Час: ${motorHits}/${motorTarget}`;
+
+
+        NEX.sad();
+
+
         setTimeout(
-          finishGame,
+          ()=>finishMotor(false),
           900
         );
 
       }
 
-    }
-
-
-    updateHUD();
-
-  };
+    },1000);
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MOTOR FINISH
-========================================================= */
+===================================================== */
 
 function finishMotor(success){
 
-  clearTimeout(motorTimer);
+  if(!motorRunning && !success){
+
+    /*
+       дозволяємо завершення після помилки
+    */
+
+  }
+
+
+  clearMotorTimers();
+
+
+  motorRunning=false;
 
 
   if(success){
@@ -2483,47 +2950,69 @@ function finishMotor(success){
 
     S.block++;
 
+    S.step=0;
+
 
     NEX.victory();
 
+
+    setTimeout(()=>{
+
+      if(S.lives>0)
+        nextTask();
+      else
+        finishGame();
+
+    },1500);
+
+
   }else{
+
+    S.lives--;
 
     S.combo=0;
 
-    NEX.encourage();
 
-  }
+    updateHUD();
 
-
-  S.step=0;
-
-  updateHUD();
-
-
-  setTimeout(()=>{
 
     if(S.lives<=0){
 
-      finishGame();
+      setTimeout(
+        finishGame,
+        700
+      );
 
     }else{
 
-      nextTask();
+      NEX.encourage();
+
+
+      S.step=0;
+
+
+      setTimeout(
+        nextTask,
+        1200
+      );
 
     }
 
-  },1700);
+  }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    GAME OVER
-========================================================= */
+===================================================== */
 
 function finishGame(){
 
-  clearTimeout(motorTimer);
+  clearMotorTimers();
+
+
+  motorRunning=false;
 
 
   game.classList.add("hidden");
@@ -2581,11 +3070,16 @@ function finishGame(){
 }
 
 
-/* =========================================================
+/* =====================================================
    HOME
-========================================================= */
+===================================================== */
 
 function goHome(){
+
+  clearMotorTimers();
+
+  motorRunning=false;
+
 
   result.classList.add("hidden");
 
@@ -2602,11 +3096,6 @@ function goHome(){
     )||0;
 
 
-  document.getElementById(
-    "levelStart"
-  ).textContent=1;
-
-
   nexReact(
     "happy",
     "Готовий перевірити себе ще раз?"
@@ -2615,9 +3104,9 @@ function goHome(){
 }
 
 
-/* =========================================================
+/* =====================================================
    SETTINGS
-========================================================= */
+===================================================== */
 
 document
   .getElementById("settingsBtn")
@@ -2691,9 +3180,9 @@ function updateDifficultyButtons(){
 }
 
 
-/* =========================================================
-   START BUTTONS
-========================================================= */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 document
   .getElementById("startBtn")
@@ -2712,9 +3201,9 @@ document
   };
 
 
-/* =========================================================
-   INITIAL
-========================================================= */
+/* =====================================================
+   INIT
+===================================================== */
 
 document
   .getElementById("best")
@@ -2722,11 +3211,6 @@ document
     localStorage.getItem(
       "neuroBest"
     )||0;
-
-
-document
-  .getElementById("levelStart")
-  .textContent=1;
 
 
 updateDifficultyButtons();
