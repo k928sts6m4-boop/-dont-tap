@@ -1243,6 +1243,14 @@ body{background:#02051a}
 
     <button
       class="small"
+      style="width:100%;margin-bottom:10px"
+      id="settingsMusic"
+    >
+      🎵 МУЗИКА: УВІМКНЕНО
+    </button>
+
+    <button
+      class="small"
       style="width:100%"
       id="close"
     >
@@ -1488,7 +1496,7 @@ function answerQuestion(index,button){
 function startMotor(){
   clearTimers();
   motorRunning=true; motorFinished=false;
-  const games=[catchGame,trackingGame,reactionGame,precisionGame,sequenceGame];
+  const games=[catchGame,trackingGame,precisionGame,sequenceGame];
   games[Math.floor(Math.random()*games.length)]();
 }
 
@@ -1610,31 +1618,6 @@ function trackingGame(){
     };
   }
   spawn(); startMotorClock(seconds,()=>{if(move)clearInterval(move);finishMotor(false);});
-}
-
-/* ---------------- REACTION ---------------- */
-function reactionGame(){
-  const goal=3, seconds=15;
-  motorUI('REACTION',goal,seconds,false);
-  const area=$('motor'), status=$('motorStatus');
-  let ready=false, ended=false, start=0, waitTimer=null, rounds=0;
-  area.innerHTML='<button class="react" id="reactBtn">ЧЕКАЙ...</button>';
-  const btn=$('reactBtn');
-  status.textContent='Натискай тільки після зеленого сигналу.';
-  function round(){
-    if(!motorRunning||ended)return;
-    ready=false; btn.classList.remove('go'); btn.textContent='ЧЕКАЙ...';
-    waitTimer=setTimeout(()=>{if(!motorRunning||ended)return;ready=true;start=performance.now();btn.classList.add('go');btn.textContent='НАТИСКАЙ!';},900+Math.random()*1600);
-  }
-  btn.onclick=()=>{
-    if(ended||!motorRunning)return;
-    if(!ready){ended=true;clearTimeout(waitTimer);finishMotor(false);return;}
-    const ms=Math.round(performance.now()-start); rounds++; motorHits=rounds; state.motor++; state.reflex+=ms<500?2:1; state.score+=Math.max(40,110-Math.floor(ms/8)); motorHUD();
-    if(navigator.vibrate)navigator.vibrate(20);
-    if(rounds>=goal){ended=true;finishMotor(true);return;}
-    status.textContent=`${ms} мс • ${rounds}/${goal}`; round();
-  };
-  round(); startMotorClock(seconds,()=>{ended=true;finishMotor(false);});
 }
 
 /* ---------------- PRECISION ---------------- */
@@ -2089,8 +2072,124 @@ function updateHome(){
   const el=$('best'); if(el)el.textContent=best;
 }
 
+/* ---------------- MUSIC ---------------- */
+let audioCtx = null;
+let musicEnabled = localStorage.getItem('neuroMusic') !== 'off';
+let musicTimer = null;
+let musicStep = 0;
+
+// Original 16-bit platformer-style loop: bright, melodic and softer on the ears.
+const musicLead = [
+  523.25,659.25,783.99,659.25, 587.33,698.46,880.00,783.99,
+  659.25,783.99,1046.50,783.99, 698.46,587.33,523.25,392.00,
+  523.25,659.25,783.99,880.00, 783.99,659.25,587.33,659.25,
+  698.46,880.00,1046.50,880.00, 783.99,698.46,659.25,523.25
+];
+const musicBass = [
+  130.81,130.81,196.00,196.00, 146.83,146.83,220.00,220.00,
+  164.81,164.81,246.94,246.94, 174.61,174.61,130.81,130.81
+];
+const musicArp = [
+  261.63,329.63,392.00,329.63, 293.66,369.99,440.00,369.99,
+  329.63,392.00,523.25,392.00, 349.23,440.00,523.25,440.00
+];
+
+function ensureAudio(){
+  try{
+    if(!audioCtx){
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC) return false;
+      audioCtx=new AC();
+    }
+    if(audioCtx.state==='suspended') audioCtx.resume();
+    return true;
+  }catch(e){ return false; }
+}
+
+function playMusicNote(freq,dur,type,gainValue,when){
+  if(!ensureAudio()) return;
+  const o=audioCtx.createOscillator();
+  const g=audioCtx.createGain();
+  const f=audioCtx.createBiquadFilter();
+  const now=when ?? audioCtx.currentTime;
+  o.type=type;
+  o.frequency.setValueAtTime(freq,now);
+  f.type='lowpass';
+  f.frequency.value=2500;
+  f.Q.value=.55;
+  g.gain.setValueAtTime(.0001,now);
+  g.gain.exponentialRampToValueAtTime(gainValue,now+.008);
+  g.gain.setValueAtTime(gainValue*.72,now+dur*.58);
+  g.gain.exponentialRampToValueAtTime(.0001,now+dur);
+  o.connect(f);
+  f.connect(g);
+  g.connect(audioCtx.destination);
+  o.start(now);
+  o.stop(now+dur+.025);
+}
+
+function musicTick(){
+  if(!musicEnabled || !ensureAudio()) return;
+  const i=musicStep++;
+  const now=audioCtx.currentTime;
+  const note=musicLead[i%musicLead.length];
+
+  // Catchy 16-bit lead, kept softer than the previous version.
+  playMusicNote(note,.165,'square',.013,now);
+
+  // Gentle harmony/arp every second step.
+  if(i%2===0){
+    playMusicNote(musicArp[(i/2)%musicArp.length],.20,'triangle',.006,now+.018);
+  }
+
+  // Warm low bass, one chord every two steps.
+  if(i%2===0){
+    playMusicNote(musicBass[(i/2)%musicBass.length],.30,'triangle',.014,now);
+  }
+
+  // Small 16-bit accent instead of harsh percussion.
+  if(i%8===0){
+    playMusicNote(note/2,.075,'triangle',.004,now+.012);
+  }
+}
+
+function startMusic(){
+  if(!musicEnabled || musicTimer) return;
+  if(!ensureAudio()) return;
+  musicStep=0;
+  musicTick();
+  musicTimer=setInterval(musicTick,180);
+}
+
+function stopMusic(){
+  if(musicTimer){
+    clearInterval(musicTimer);
+    musicTimer=null;
+  }
+}
+
+function updateMusicButton(){
+  const b=$('settingsMusic');
+  if(b) b.textContent=musicEnabled?'🎵 МУЗИКА: УВІМКНЕНО':'🔇 МУЗИКА: ВИМКНЕНО';
+}
+
+function toggleMusic(){
+  musicEnabled=!musicEnabled;
+  localStorage.setItem('neuroMusic',musicEnabled?'on':'off');
+  if(musicEnabled) startMusic();
+  else stopMusic();
+  updateMusicButton();
+}
+
+const musicButton=$('settingsMusic');
+if(musicButton) musicButton.onclick=toggleMusic;
+updateMusicButton();
+
 /* ---------------- BUTTONS ---------------- */
-$('startNeuro').onclick=startGame;
+$('startNeuro').onclick=()=>{
+  startMusic();
+  startGame();
+};
 $('settings').onclick=()=>$('modal').classList.remove('hidden');
 $('close').onclick=()=>$('modal').classList.add('hidden');
 
