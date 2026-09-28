@@ -10,7 +10,8 @@
 
 body{
   margin:0;
-  background:#030714;
+  background:#020617;
+  background-image:radial-gradient(circle at 50% 0%,#102d68 0%,transparent 42%);
   color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
@@ -39,7 +40,7 @@ button{
   font-size:42px;
   font-weight:900;
   letter-spacing:5px;
-  color:#55e8ff;
+  color:#39f2ff;
   text-shadow:0 0 25px #18cfff;
 }
 
@@ -57,8 +58,8 @@ button{
 
 .card,
 .hudbox{
-  background:#071128;
-  border:1px solid #153359;
+  background:linear-gradient(145deg,#081a3c,#071128 55%,#091d46);
+  border:1px solid #168dff;
   border-radius:18px;
 }
 
@@ -351,7 +352,7 @@ button{
   padding:16px;
   font-weight:900;
   font-size:18px;
-  background:#19d8ee;
+  background:linear-gradient(135deg,#16dfff,#168cff 55%,#7b4dff);
   box-shadow:0 8px 25px #176eff30;
 }
 
@@ -363,8 +364,8 @@ button{
 }
 
 .small{
-  border:1px solid #18385f;
-  background:#0c1935;
+  border:1px solid #147ee8;
+  background:linear-gradient(135deg,#10265a,#0b1a3d);
   border-radius:13px;
   padding:13px;
 }
@@ -397,22 +398,76 @@ button{
 }
 
 .answer{
+  position:relative;
+  overflow:hidden;
   min-height:60px;
-  border:1px solid #203d69;
-  background:#0d1b38;
-  border-radius:13px;
+  border:2px solid #168dff;
+  background:linear-gradient(135deg,#102b63,#153f86 45%,#10245b);
+  border-radius:15px;
   padding:11px;
-  font-weight:bold;
+  font-weight:900;
+  box-shadow:0 0 14px #087dff45, inset 0 0 18px #1ecfff18;
+  transition:transform .18s, box-shadow .18s, border-color .18s, filter .18s;
+}
+
+.answer::after{
+  content:"";
+  position:absolute;
+  top:-80%;
+  left:-35%;
+  width:35%;
+  height:260%;
+  background:linear-gradient(90deg,transparent,#ffffff88,transparent);
+  transform:rotate(22deg);
+  opacity:0;
+  pointer-events:none;
+}
+
+.answer:hover{
+  transform:translateY(-2px) scale(1.015);
+  border-color:#39f2ff;
+  box-shadow:0 0 24px #16cfff80, inset 0 0 22px #36eaff30;
+}
+
+.answer:active{
+  transform:scale(.97);
 }
 
 .answer.good{
-  background:#0c573d;
-  border-color:#2dffb2;
+  background:linear-gradient(135deg,#00b978,#21f6b0,#00a86b);
+  border-color:#7affd0;
+  box-shadow:0 0 30px #22ffb080, inset 0 0 25px #ffffff35;
+  animation:answerShine .65s ease-out;
 }
 
 .answer.bad{
-  background:#632536;
-  border-color:#ff5575;
+  background:linear-gradient(135deg,#b91f55,#ff3f72,#9e1748);
+  border-color:#ff9db5;
+  box-shadow:0 0 30px #ff3f7280, inset 0 0 25px #ffffff25;
+  animation:answerShine .55s ease-out, answerShake .35s ease-out;
+}
+
+.answer.good::after,.answer.bad::after{
+  opacity:1;
+  animation:answerSweep .55s ease-out;
+}
+
+@keyframes answerSweep{
+  from{left:-45%}
+  to{left:125%}
+}
+
+@keyframes answerShine{
+  0%{filter:brightness(1);}
+  35%{filter:brightness(1.75);}
+  100%{filter:brightness(1);}
+}
+
+@keyframes answerShake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-3px)}
 }
 
 .memory{
@@ -459,6 +514,30 @@ button{
   min-height:20px;
   margin-bottom:7px;
   font-size:12px;
+}
+
+
+.catch-info{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin:-4px 0 8px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.5px;
+  color:#8ea9ff;
+}
+.catch-info span{
+  padding:6px 10px;
+  border:1px solid #2365c4;
+  border-radius:10px;
+  background:#071744;
+  box-shadow:0 0 12px #007bff20;
+}
+.catch-info b{
+  color:#35f2ff;
+  font-size:14px;
+  text-shadow:0 0 10px #00d9ff;
 }
 
 /* =========================
@@ -589,13 +668,22 @@ button{
 }
 
 .precisionBall{
-  width:48px;
-  height:48px;
+  width:52px;
+  height:52px;
 
   background:#ffd13e;
   border:3px solid #fff0a0;
 
   box-shadow:0 0 25px #ffd13e;
+}
+
+
+.precisionBall.hit{
+  transform:translate(-50%,-50%) scale(1.25)!important;
+  box-shadow:0 0 45px #fff06a,0 0 70px #ffd13e;
+}
+.precisionBall.miss{
+  box-shadow:0 0 30px #ff4268;
 }
 
 /* =========================
@@ -629,7 +717,7 @@ button{
 
 .stat{
   padding:14px;
-  background:#0c1935;
+  background:linear-gradient(135deg,#10265a,#0b1a3d);
   border:1px solid #193860;
   border-radius:13px;
   text-align:center;
@@ -698,6 +786,42 @@ button{
 }
 
 /* =========================
+   MODES
+========================= */
+.modeTitle{
+  text-align:center;
+  color:#7f95b8;
+  font-size:11px;
+  letter-spacing:2px;
+  margin:16px 0 8px;
+}
+.modeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:9px;
+}
+.modeCard{
+  min-height:145px;
+  border:1px solid #1b426b;
+  border-radius:18px;
+  padding:16px 12px;
+  background:#091832;
+  text-align:left;
+  transition:.18s;
+}
+.modeCard:active{transform:scale(.97)}
+.modeCard.intellect{box-shadow:inset 0 0 35px #18cfff12,0 0 20px #18cfff12}
+.modeCard.reflex{box-shadow:inset 0 0 35px #18cfff12,0 0 20px #18cfff12}
+.modeIcon{display:block;font-size:36px;margin-bottom:8px}
+.modeCard strong{display:block;font-size:19px;letter-spacing:1px}
+.modeCard small{display:block;color:#8ca2c4;font-size:11px;line-height:1.35;margin-top:7px}
+.modeCard.reflex strong{color:#55e8ff}
+.modeCard.intellect strong{color:#55e8ff}
+.settingsMain{width:100%;margin-top:2px}
+@media(max-width:600px){.modeGrid{grid-template-columns:1fr}.modeCard{min-height:125px}}
+
+/* =========================
    MOBILE
 ========================= */
 
@@ -728,6 +852,34 @@ button{
   }
 
 }
+
+/* === SATURATED NEON PALETTE === */
+body{background:#02051a}
+.logo{color:#35f2ff;text-shadow:0 0 18px #00d9ff,0 0 42px #0077ff}
+.sub{color:#8ea9ff}
+.card,.hudbox{background:#07133a;border-color:#1858a8;box-shadow:0 0 18px #006cff18}
+.hudbox strong,.mstat b{color:#32efff;text-shadow:0 0 12px #00cfff}
+.progress{background:#0a2250}
+.progress i{background:linear-gradient(90deg,#00d9ff,#5b5cff,#b44cff);box-shadow:0 0 12px #00d9ff}
+.big{background:linear-gradient(90deg,#00dfff,#3c7bff);box-shadow:0 0 24px #008cff66}
+.small{background:#0a1c48;border-color:#1767c7}
+.answer{background:#0b1f4d;border-color:#2365c4}
+.nexstage{border-color:#167bd0;background:radial-gradient(circle at 50% 70%,#075b86,#071640 58%,#02051a)}
+.motor{border-color:#1689e8;background:radial-gradient(circle,#0a2550,#03091d 72%)}
+.motor.grid{background-color:#040b22;background-image:linear-gradient(#17477c 1px,transparent 1px),linear-gradient(90deg,#17477c 1px,transparent 1px)}
+.modeCard{background:#071744!important;border-color:#1465c7!important;box-shadow:inset 0 0 35px #007bff20,0 0 22px #007bff20}
+.modeCard.intellect{box-shadow:inset 0 0 45px #00d9ff22,0 0 24px #00d9ff24}
+.modeCard.reflex{box-shadow:inset 0 0 45px #714cff30,0 0 28px #6b3cff35}
+.modeCard.intellect strong{color:#35f2ff!important;text-shadow:0 0 12px #00d9ff}
+.modeCard.reflex strong{color:#9b72ff!important;text-shadow:0 0 14px #7b4cff}
+.modeCard.combined{width:100%;min-height:118px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;text-align:left;background:linear-gradient(135deg,#071b4d,#10225c 55%,#26105a)!important;border-color:#27dfff!important;box-shadow:inset 0 0 55px #00d9ff18,0 0 30px #7b4cff30}
+.modeCard.combined .modeIcon{grid-row:1/3;font-size:42px;filter:drop-shadow(0 0 10px #00eaff)}
+.modeCard.combined strong{font-size:28px;color:#63f6ff!important;text-shadow:0 0 14px #00d9ff,0 0 28px #7b4cff}
+.modeCard.combined small{color:#b9d8ff;font-size:13px}
+.modalbox{background:#07143a;border-color:#1769c7;box-shadow:0 0 40px #006cff33}
+.diff button{background:#0b1f4d;border-color:#1b5db2}
+.diff .active{background:#164f8f;border-color:#36eaff;box-shadow:0 0 16px #00d9ff44}
+.precisionRing{border-color:#35efff;box-shadow:0 0 18px #00d9ff55}
 </style>
 </head>
 
@@ -746,7 +898,7 @@ button{
   </div>
 
   <div class="sub">
-    MIND • FOCUS • MEMORY • REFLEX • MOTOR
+    MIND • REFLEX • MEMORY • FOCUS
   </div>
 
   <div class="nexstage">
@@ -795,7 +947,7 @@ button{
     <div class="hudbox">
 
       <small>
-        Рекорд
+        🏆 РЕКОРД
       </small>
 
       <strong id="best">
@@ -807,7 +959,7 @@ button{
     <div class="hudbox">
 
       <small>
-        Сесія
+        🎮 СЕСІЯ
       </small>
 
       <strong>
@@ -819,7 +971,7 @@ button{
     <div class="hudbox">
 
       <small>
-        Життя
+        ❤️ ЖИТТЯ
       </small>
 
       <strong>
@@ -830,30 +982,17 @@ button{
 
   </div>
 
-  <button
-    class="big"
-    id="start"
-  >
-    🧠 ПОЧАТИ ОБСТЕЖЕННЯ
+  <div class="modeTitle">ОДНЕ ВИПРОБУВАННЯ • МОЗОК + РЕАКЦІЯ</div>
+
+  <button class="modeCard combined" id="startNeuro" type="button">
+    <span class="modeIcon">🧠⚡</span>
+    <strong>NEURO</strong>
+    <small>Логіка • Пам’ять • Увага • Реакція • Точність</small>
   </button>
 
-  <div class="row">
-
-    <button
-      class="small"
-      id="daily"
-    >
-      📅 DAILY
-    </button>
-
-    <button
-      class="small"
-      id="settings"
-    >
-      ⚙️ НАЛАШТУВАННЯ
-    </button>
-
-  </div>
+  <button class="small settingsMain" id="settings">
+    ⚙️ НАЛАШТУВАННЯ
+  </button>
 
 </section>
 
@@ -884,7 +1023,7 @@ button{
     <div class="hudbox">
 
       <small>
-        Життя
+        ❤️ ЖИТТЯ
       </small>
 
       <strong id="lives">
@@ -1042,7 +1181,7 @@ button{
 
       <button
         class="small"
-        id="home"
+        id="homeResult"
       >
         🏠 ГОЛОВНИЙ ЕКРАН
       </button>
@@ -1139,7 +1278,7 @@ const state = {
   correct: 0,
   diff: localStorage.getItem('neuroDiff') || 'normal',
   running: false,
-  daily: false
+  mode: 'neuro' 
 };
 
 const DIFFICULTY = {
@@ -1251,6 +1390,7 @@ function getQuestion(){
 
 /* ---------------- GAME FLOW ---------------- */
 function startGame(){
+  state.mode='neuro';
   clearTimers();
   motorRunning=false;
   motorFinished=false;
@@ -1263,7 +1403,7 @@ function startGame(){
   $('result').classList.add('hidden');
   $('game').classList.remove('hidden');
   updateHUD();
-  nex('happy','Починаємо. 4 завдання для мозку — потім моторика.');
+  nex('happy','Починаємо NEURO. Мозок + реакція.');
   nextTask();
 }
 
@@ -1334,7 +1474,7 @@ function answerQuestion(index,button){
     state.correct++; state.combo++; state.bestCombo=Math.max(state.bestCombo,state.combo);
     state.score+=100+state.combo*10;
     state[currentQuestion[4]]++;
-    if(state.combo%4===0 && state.lives<3) state.lives++;
+    if(state.combo%3===0 && state.lives<3) state.lives++;
     nex(state.combo>=4?'combo':'happy',state.combo>=4?'🔥 Серія!':'Правильно!');
     if(navigator.vibrate) navigator.vibrate(20);
   }else{
@@ -1359,7 +1499,7 @@ function motorUI(name,goal,seconds,grid=false){
     <div class="motorHead">
       <div class="mstat"><small>Прогрес</small><b id="motorProgress">0 / ${goal}</b></div>
       <div class="mstat"><small>Час</small><b id="motorTime">${seconds}</b></div>
-      <div class="mstat"><small>Життя</small><b>${'❤️'.repeat(state.lives)}</b></div>
+      <div class="mstat"><small>❤️ ЖИТТЯ</small><b>${'❤️'.repeat(state.lives)}</b></div>
     </div>
     <div id="motorStatus" class="mstatus">Готовий?</div>
     <div id="motor" class="motor ${grid?'grid':''}"></div>`;
@@ -1502,20 +1642,85 @@ function precisionGame(){
   const goal=difficulty().precision, seconds=20;
   motorUI('PRECISION',goal,seconds,false);
   const area=$('motor'), status=$('motorStatus');
-  const ring=document.createElement('div'); ring.className='precisionRing'; area.appendChild(ring);
-  const ball=document.createElement('button'); ball.className='precisionBall'; area.appendChild(ball);
-  let x=50,y=50,dx=Math.random()>.5?1:-1,dy=Math.random()>.5?1:-1,last=performance.now();
-  function anim(now){
-    if(!motorRunning||!document.body.contains(ball))return;
-    const dt=Math.min(30,now-last);last=now;
-    x+=dx*difficulty().move/700*dt; y+=dy*difficulty().move/700*dt;
-    if(x<8){x=8;dx=1} if(x>92){x=92;dx=-1} if(y<12){y=12;dy=1} if(y>88){y=88;dy=-1}
-    ball.style.left=x+'%';ball.style.top=y+'%';requestAnimationFrame(anim);
+
+  const ring=document.createElement('div');
+  ring.className='precisionRing';
+  area.appendChild(ring);
+
+  const ball=document.createElement('button');
+  ball.className='precisionBall';
+  ball.type='button';
+  area.appendChild(ball);
+
+  /* Кулька рухається по горизонталі через центр кільця.
+     Швидкість залишаємо в діапазоні 0.5 / 0.7 / 0.8 с. */
+  const moveTimes=[500,700,800];
+  const travelTime=moveTimes[Math.floor(Math.random()*moveTimes.length)];
+  const left=8, right=92, centerY=50;
+  let x=left, dir=1, last=performance.now();
+
+  function setPos(){
+    ball.style.left=x+'%';
+    ball.style.top=centerY+'%';
+    ball.style.transform='translate(-50%,-50%)';
   }
-  ball.style.left='50%';ball.style.top='50%';
-  ball.onclick=e=>{e.stopPropagation();if(!motorRunning)return;motorHits++;state.motor++;state.reflex++;state.score+=35;motorHUD();if(navigator.vibrate)navigator.vibrate(18);if(motorHits>=goal){finishMotor(true);return}status.textContent=`✓ Влучання • ${motorHits}/${goal}`};
-  area.onclick=()=>{state.score=Math.max(0,state.score-3)};
-  requestAnimationFrame(anim); startMotorClock(seconds,()=>finishMotor(false));
+
+  function anim(now){
+    if(!motorRunning || !document.body.contains(ball)) return;
+    const dt=Math.min(30,now-last);
+    last=now;
+    const pxPerMs=(right-left)/travelTime;
+    x += dir*pxPerMs*dt;
+    if(x>=right){x=right;dir=-1;}
+    if(x<=left){x=left;dir=1;}
+    setPos();
+    requestAnimationFrame(anim);
+  }
+
+  setPos();
+  status.textContent=`Натисни кульку, коли вона в кільці. Швидкість: ${travelTime/1000} с`;
+
+  function hit(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if(!motorRunning) return;
+
+    const br=ball.getBoundingClientRect();
+    const rr=ring.getBoundingClientRect();
+    const bx=br.left+br.width/2, by=br.top+br.height/2;
+    const rx=rr.left+rr.width/2, ry=rr.top+rr.height/2;
+    const distance=Math.hypot(bx-rx,by-ry);
+    const allowed=(rr.width-br.width)/2 + 4;
+
+    if(distance>allowed){
+      status.textContent='❌ Мимо. Лови, коли кулька в центрі кільця.';
+      ball.classList.remove('miss');
+      void ball.offsetWidth;
+      ball.classList.add('miss');
+      return;
+    }
+
+    motorHits++;
+    state.motor++;
+    state.reflex++;
+    state.score+=45;
+    motorHUD();
+    ball.classList.remove('hit');
+    void ball.offsetWidth;
+    ball.classList.add('hit');
+    if(navigator.vibrate) navigator.vibrate(18);
+    status.textContent=`✓ Точно! • ${motorHits}/${goal}`;
+
+    if(motorHits>=goal){
+      finishMotor(true);
+    }
+  }
+
+  ball.addEventListener('pointerdown',hit,{passive:false});
+  ball.addEventListener('touchstart',hit,{passive:false});
+
+  requestAnimationFrame(anim);
+  startMotorClock(seconds,()=>finishMotor(false));
 }
 
 /* ---------------- SEQUENCE ---------------- */
@@ -1546,6 +1751,305 @@ function sequenceGame(){
   startMotorClock(seconds,()=>finishMotor(false));
 }
 
+/* ---------------- REFLEX MODE ---------------- */
+let reflexStep=0;
+let reflexToken=0;
+
+function startReflex(){
+  clearTimers();
+  state.mode='reflex';
+  state.block=1; state.step=0; state.lives=3; state.score=0; state.combo=0; state.bestCombo=0;
+  state.mind=0; state.focus=0; state.memory=0; state.reflex=0; state.motor=0; state.total=0; state.correct=0;
+  state.running=true; reflexStep=0; reflexToken++;
+  $('home').classList.add('hidden'); $('result').classList.add('hidden'); $('game').classList.remove('hidden');
+  updateHUD();
+  nex('happy','REFLEX. Подивимось, наскільки швидко ти реагуєш.');
+  nextReflex();
+}
+
+function nextReflex(){
+  clearTimers();
+  if(!state.running)return;
+  if(state.lives<=0){finishGame();return;}
+  reflexStep++; state.step=reflexStep; updateHUD();
+  if(reflexStep===1)reflexChange();
+  else if(reflexStep===2)reflexCatch();
+  else if(reflexStep===3)reflexRule();
+  else if(reflexStep===4)reflexEscape();
+  else reflexLabyrinth();
+}
+
+function reflexDone(points=100){
+  state.score+=points; state.correct++; state.total++; state.reflex++; state.combo++; state.bestCombo=Math.max(state.bestCombo,state.combo);
+  if(navigator.vibrate)navigator.vibrate(20);
+  updateHUD();
+  timer=setTimeout(()=>{ if(reflexStep>=5){finishGame();}else nextReflex(); },550);
+}
+
+function reflexFail(){
+  state.total++; state.lives--; state.combo=0; updateHUD();
+  if(state.lives<=0){finishGame();return;}
+  nex('sad','Майже. Спробуй далі.');
+  timer=setTimeout(()=>{if(reflexStep>=5)finishGame();else nextReflex()},650);
+}
+
+function reflexChange(){
+  const area=$('challenge'); const token=++reflexToken;
+  const shapes=['●','◆','★','■','▲','●'];
+  const changed=Math.floor(Math.random()*6); const before=[...shapes];
+  area.innerHTML=`<div class="type">REFLEX • 1/5</div><div class="question">Запам’ятай. Щось зміниться.</div><div class="memory" id="changeGrid">${before.map((x,i)=>`<button class="answer" data-i="${i}" style="font-size:30px">${x}</button>`).join('')}</div>`;
+  timer=setTimeout(()=>{
+    if(token!==reflexToken)return;
+    const after=[...before]; after[changed]=changed%2?'●':'★';
+    area.querySelector('.question').textContent='ЩО ЗМІНИЛОСЯ?';
+    area.querySelectorAll('[data-i]').forEach((b,i)=>{b.textContent=after[i];b.onclick=()=>i===changed?reflexDone(120):reflexFail();});
+  },1400);
+}
+
+function reflexCatch(){
+  const area=$('challenge');
+  const goal=6;
+  area.innerHTML=`
+    <div class="type">REFLEX • 2/5</div>
+    <div class="question">ПІЙМАЙ ЦІЛЬ</div>
+    <div class="catch-info">
+      <span>ЗЛОВЛЕНО <b id="catchHits">0</b> / ${goal}</span>
+      <span>ЗАЛИШИЛОСЬ <b id="catchLeft">${goal}</b></span>
+    </div>
+    <div id="reflexField" class="motor grid"></div>`;
+
+  const field=$('reflexField');
+  let hits=0, ended=false, moveTimer=null;
+
+  function updateCatchHUD(){
+    const h=$('catchHits'), l=$('catchLeft');
+    if(h) h.textContent=hits;
+    if(l) l.textContent=Math.max(0,goal-hits);
+  }
+
+  function spawn(){
+    if(!state.running || ended) return;
+    if(moveTimer) clearTimeout(moveTimer);
+    field.innerHTML='';
+
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='ball';
+    b.setAttribute('aria-label','Піймай ціль');
+    b.style.left=(10+Math.random()*78)+'%';
+    b.style.top=(12+Math.random()*72)+'%';
+    field.appendChild(b);
+
+    let caught=false;
+    const catchIt=(e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      if(caught || ended || !state.running) return;
+      caught=true;
+      hits++;
+      updateCatchHUD();
+      b.classList.add('hit');
+      if(navigator.vibrate) navigator.vibrate(18);
+      if(hits>=goal){
+        ended=true;
+        if(moveTimer) clearTimeout(moveTimer);
+        clearTimers();
+        reflexDone(140);
+        return;
+      }
+      setTimeout(spawn,100);
+    };
+
+    b.addEventListener('pointerdown',catchIt,{passive:false});
+    b.addEventListener('click',catchIt);
+
+    moveTimer=setTimeout(spawn,[500,700,800][Math.floor(Math.random()*3)]);
+  }
+
+  updateCatchHUD();
+  spawn();
+  interval=setTimeout(()=>{
+    if(ended) return;
+    ended=true;
+    if(moveTimer) clearTimeout(moveTimer);
+    reflexFail();
+  },9000);
+}
+
+function reflexRule(){
+  const colors=[
+    {emoji:'🔵',name:'СИНЮ'},
+    {emoji:'🟡',name:'ЖОВТУ'},
+    {emoji:'🟢',name:'ЗЕЛЕНУ'}
+  ];
+  let round=0, ended=false, moveTimers=[];
+  const goal=6;
+  const area=$('challenge');
+
+  area.innerHTML=`
+    <div class="type">REFLEX • 3/5</div>
+    <div class="question" id="ruleText">ЗМІНА ПРАВИЛА</div>
+    <div class="catch-info" id="ruleInfo">
+      <span id="ruleInstruction">ЛОВИ: 🔵 СИНЮ</span>
+      <span>ЗАЛИШИЛОСЬ <b id="ruleLeft">${goal}</b></span>
+    </div>
+    <div id="ruleField" class="motor grid"></div>`;
+
+  const field=$('ruleField');
+  const instruction=$('ruleInstruction');
+  const left=$('ruleLeft');
+
+  function clearMoves(){
+    moveTimers.forEach(t=>clearTimeout(t));
+    moveTimers=[];
+  }
+
+  function finishRound(){
+    round++;
+    if(left) left.textContent=Math.max(0,goal-round);
+    if(round>=goal){
+      ended=true;
+      clearMoves();
+      clearTimers();
+      reflexDone(150);
+      return;
+    }
+    spawnRound();
+  }
+
+  function spawnRound(){
+    if(!state.running || ended)return;
+    clearMoves();
+    field.innerHTML='';
+
+    const target=colors[round%2===0 ? 0 : 1];
+    instruction.textContent=`ЛОВИ: ${target.emoji} ${target.name}`;
+
+    colors.forEach((c,index)=>{
+      const b=document.createElement('button');
+      b.type='button';
+      b.className='ball rule-ball';
+      b.textContent=c.emoji;
+      b.setAttribute('aria-label',c.name);
+      b.dataset.name=c.name;
+      b.style.left=(12+Math.random()*72)+'%';
+      b.style.top=(12+Math.random()*68)+'%';
+      field.appendChild(b);
+
+      let moving=true, caught=false;
+      const move=()=>{
+        if(!moving || ended || !state.running || !document.body.contains(b))return;
+        b.style.left=(8+Math.random()*78)+'%';
+        b.style.top=(10+Math.random()*70)+'%';
+        const t=setTimeout(move,[500,700,800][Math.floor(Math.random()*3)]);
+        moveTimers.push(t);
+      };
+      const first=setTimeout(move,[500,700,800][Math.floor(Math.random()*3)]);
+      moveTimers.push(first);
+
+      const hit=(e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        if(caught || ended || !state.running)return;
+        caught=true;
+        moving=false;
+        if(c.name===target.name){
+          b.classList.add('hit');
+          if(navigator.vibrate)navigator.vibrate(18);
+          setTimeout(finishRound,90);
+        }else{
+          ended=true;
+          clearMoves();
+          clearTimers();
+          reflexFail();
+        }
+      };
+      b.addEventListener('pointerdown',hit,{passive:false});
+      b.addEventListener('click',hit);
+    });
+  }
+
+  spawnRound();
+  interval=setTimeout(()=>{
+    if(ended)return;
+    ended=true;
+    clearMoves();
+    reflexFail();
+  },12000);
+}
+
+function reflexEscape(){
+  $('challenge').innerHTML=`
+    <div class="type">REFLEX • 4/5</div>
+    <div class="question">НЕ ДАЙ ЇЙ ВТЕКТИ</div>
+    <div class="catch-info">
+      <span>ЗЛОВЛЕНО <b id="escapeHits">0</b> / 5</span>
+      <span>ЗАЛИШИЛОСЬ <b id="escapeLeft">5</b></span>
+    </div>
+    <div id="escapeField" class="motor" style="min-height:285px"></div>`;
+
+  const f=$('escapeField');
+  const b=document.createElement('button');
+  b.type='button';
+  b.setAttribute('aria-label','Злови кульку');
+  b.style.cssText=`position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:3px solid #fff;background:#ff3fd1;box-shadow:0 0 18px #ff3fd1,0 0 42px #8b4dff;z-index:20;cursor:pointer;touch-action:manipulation;`;
+  f.appendChild(b);
+
+  let hits=0, ended=false, moveTimer=null;
+  const speeds=[500,700,800];
+
+  function hud(){
+    const h=$('escapeHits'), l=$('escapeLeft');
+    if(h) h.textContent=hits;
+    if(l) l.textContent=Math.max(0,5-hits);
+  }
+
+  function move(){
+    if(!state.running || ended) return;
+    const maxX=Math.max(8,f.clientWidth-70);
+    const maxY=Math.max(8,f.clientHeight-70);
+    b.style.left=(8+Math.random()*Math.max(1,maxX-8))+'px';
+    b.style.top=(8+Math.random()*Math.max(1,maxY-8))+'px';
+    moveTimer=setTimeout(move,speeds[Math.floor(Math.random()*speeds.length)]);
+  }
+
+  function catchBall(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if(ended || !state.running) return;
+    hits++;
+    hud();
+    b.animate([{transform:'translate(-50%,-50%) scale(1)'},{transform:'translate(-50%,-50%) scale(1.35)'},{transform:'translate(-50%,-50%) scale(1)'}],{duration:220});
+    if(navigator.vibrate) navigator.vibrate(18);
+    if(hits>=5){
+      ended=true;
+      if(moveTimer) clearTimeout(moveTimer);
+      clearTimers();
+      reflexDone(150);
+      return;
+    }
+    move();
+  }
+
+  b.addEventListener('pointerdown',catchBall,{passive:false});
+  hud();
+  move();
+  interval=setTimeout(()=>{
+    if(ended) return;
+    ended=true;
+    if(moveTimer) clearTimeout(moveTimer);
+    reflexFail();
+  },10000);
+}
+function reflexLabyrinth(){
+  $('challenge').innerHTML=`<div class="type">REFLEX • 5/5</div><div class="question">Проведи кульку до 🟢 FINISH</div><div id="lab" class="motor grid" style="display:flex;align-items:center;justify-content:space-between;padding:25px;gap:20px"><button id="labBall" class="ball" style="position:relative;left:auto;top:auto;flex:none"></button><div style="font-size:40px">🟢</div></div>`;
+  const ball=$('labBall'), lab=$('lab'); let done=false;
+  lab.onpointermove=e=>{if(done)return; const r=lab.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top; ball.style.transform=`translate(${Math.max(-20,Math.min(r.width-70,x-28))}px,${Math.max(-20,Math.min(r.height-70,y-28))}px)`;};
+  lab.onpointerup=()=>{done=true;reflexDone(180)};
+  lab.onpointercancel=()=>reflexFail();
+  timer=setTimeout(()=>{if(!done)reflexFail()},12000);
+}
+
 /* ---------------- RESULT ---------------- */
 function finishGame(){
   if(!state.running && !$('game').classList.contains('hidden')){
@@ -1571,7 +2075,7 @@ function finishGame(){
   const oldBest=Number(localStorage.getItem('neuroBest')||0);
   if(state.score>oldBest)localStorage.setItem('neuroBest',state.score);
   $('again').onclick=startGame;
-  $('home').onclick=showHome;
+  $('homeResult').onclick=showHome;
 }
 
 function showHome(){
@@ -1586,8 +2090,7 @@ function updateHome(){
 }
 
 /* ---------------- BUTTONS ---------------- */
-$('start').onclick=startGame;
-$('daily').onclick=()=>{state.daily=true;startGame();nex('happy','Щоденне випробування.');};
+$('startNeuro').onclick=startGame;
 $('settings').onclick=()=>$('modal').classList.remove('hidden');
 $('close').onclick=()=>$('modal').classList.add('hidden');
 
