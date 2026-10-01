@@ -735,6 +735,158 @@ button{
 }
 
 /* =========================
+   ONE-WINDOW RESULT REPORT
+========================= */
+.resultWindow{
+  display:grid;
+  grid-template-columns:minmax(260px, .9fr) minmax(360px, 1.1fr);
+  gap:18px;
+  align-items:stretch;
+  padding:18px;
+  background:linear-gradient(145deg,#061332,#071a42 55%,#140a3b);
+  border:1px solid #1c8cff;
+  border-radius:24px;
+  box-shadow:0 0 35px #006cff28,inset 0 0 50px #00d9ff08;
+}
+.resultDoctor{
+  min-height:560px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  border:1px solid #145ca3;
+  border-radius:20px;
+  overflow:hidden;
+  background:radial-gradient(circle at 50% 55%,#07577e,#07163a 58%,#02051a);
+}
+.resultNexStage{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:10px 8px 0;
+}
+.resultNex{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  filter:drop-shadow(0 0 22px #008cff55);
+}
+.resultBubble{
+  position:relative;
+  z-index:3;
+  margin:18px;
+  padding:16px 18px;
+  border:1px solid #27dfff;
+  border-radius:18px;
+  background:linear-gradient(135deg,#06183ceF,#081b43eF);
+  color:#eafcff;
+  font-weight:800;
+  line-height:1.35;
+  box-shadow:0 0 22px #00d9ff22;
+}
+.resultBubble::before{
+  content:'DOCTOR NEX';
+  display:block;
+  margin-bottom:6px;
+  color:#35f2ff;
+  font-size:11px;
+  letter-spacing:2px;
+}
+.resultReport{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+}
+.resultTitle{
+  color:#55e8ff;
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-shadow:0 0 15px #00d9ff66;
+  text-align:center;
+}
+.resultScore{
+  text-align:center;
+  margin:10px 0 16px;
+}
+.resultScore div{
+  font-size:58px;
+  line-height:1;
+  font-weight:1000;
+  color:#fff;
+  text-shadow:0 0 18px #00d9ff,0 0 35px #6c4cff;
+}
+.resultScore span{
+  color:#7890b5;
+  font-size:11px;
+  letter-spacing:2px;
+}
+.resultDetails{
+  opacity:1;
+  transform:translateY(0);
+  transition:.45s ease;
+}
+.resultDetails.pending{
+  opacity:0;
+  transform:translateY(12px);
+  pointer-events:none;
+}
+.resultTable{
+  overflow:hidden;
+  border:1px solid #19589c;
+  border-radius:16px;
+  background:#06122d;
+}
+.resultRow{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  min-height:42px;
+  padding:0 15px;
+  border-bottom:1px solid #12345c;
+  color:#d8e9ff;
+  font-size:13px;
+}
+.resultRow:last-child{border-bottom:0}
+.resultRow b{color:#52e5ff;font-size:18px;text-shadow:0 0 10px #00d9ff55}
+.resultHead{
+  color:#6f8db7;
+  font-size:10px;
+  letter-spacing:1.5px;
+  background:#0a1b3e;
+}
+.resultAccuracy{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  padding:12px 15px;
+  border:1px solid #1c5e9f;
+  border-radius:14px;
+  background:#07183a;
+  color:#829bc0;
+  font-size:11px;
+}
+.resultAccuracy b{color:#65f5a8;font-size:20px}
+.resultActions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+.resultActions .big,.resultActions .small{width:100%;margin:0}
+
+@media(max-width:800px){
+  .resultWindow{grid-template-columns:1fr;gap:10px;padding:10px;border-radius:20px}
+  .resultDoctor{min-height:360px;height:360px}
+  .resultNex{max-width:310px}
+  .resultBubble{margin:10px;padding:12px 14px;font-size:13px}
+  .resultTitle{font-size:22px}
+  .resultScore div{font-size:48px}
+  .resultRow{min-height:39px;padding:0 12px;font-size:12px}
+  .resultActions{grid-template-columns:1fr}
+}
+
+/* =========================
    SETTINGS
 ========================= */
 
@@ -1257,88 +1409,48 @@ body{
      РЕЗУЛЬТАТ
 ===================================================== -->
 
-<section
-  id="result"
-  class="hidden"
->
+<section id="result" class="hidden">
 
-  <div
-    class="card"
-    style="text-align:center"
-  >
+  <div class="resultWindow">
 
-    <h1 style="color:#55e8ff">
-      NEURO REPORT
-    </h1>
-
-    <div
-      id="final"
-      style="
-        font-size:44px;
-        font-weight:900
-      "
-    >
-      0
+    <div class="resultDoctor">
+      <div class="resultNexStage">
+        <img id="resultNex" class="resultNex" alt="Doctor NEX">
+      </div>
+      <div id="resultBubble" class="resultBubble">
+        Обстеження завершено! Через мить покажу результати.
+      </div>
     </div>
 
-    <div style="color:#7186a8">
-      ОЧКИ
-    </div>
+    <div class="resultReport">
+      <div class="resultTitle">NEURO REPORT</div>
 
-    <br>
-
-    <div class="stats">
-
-      <div class="stat">
-        <b id="rMind">0</b>
-        <span>MIND</span>
+      <div class="resultScore">
+        <div id="final">0</div>
+        <span>ЗАГАЛЬНИЙ БАЛ</span>
       </div>
 
-      <div class="stat">
-        <b id="rFocus">0</b>
-        <span>FOCUS</span>
+      <div id="resultDetails" class="resultDetails">
+        <div class="resultTable">
+          <div class="resultRow resultHead"><span>ПОКАЗНИК</span><span>РЕЗУЛЬТАТ</span></div>
+          <div class="resultRow"><span>🧠 MIND</span><b id="rMind">0</b></div>
+          <div class="resultRow"><span>🎯 FOCUS</span><b id="rFocus">0</b></div>
+          <div class="resultRow"><span>🧩 MEMORY</span><b id="rMemory">0</b></div>
+          <div class="resultRow"><span>⚡ REFLEX</span><b id="rReflex">0</b></div>
+          <div class="resultRow"><span>🎮 MOTOR</span><b id="rMotor">0</b></div>
+          <div class="resultRow"><span>🔥 BEST COMBO</span><b id="rCombo">0</b></div>
+        </div>
+
+        <div class="resultAccuracy">
+          <span>ТОЧНІСТЬ ОБСТЕЖЕННЯ</span>
+          <b id="rAccuracy">0%</b>
+        </div>
+
+        <div class="resultActions">
+          <button class="big" id="again">🔄 ЩЕ РАЗ</button>
+          <button class="small" id="homeResult">🏠 ГОЛОВНИЙ ЕКРАН</button>
+        </div>
       </div>
-
-      <div class="stat">
-        <b id="rMemory">0</b>
-        <span>MEMORY</span>
-      </div>
-
-      <div class="stat">
-        <b id="rReflex">0</b>
-        <span>REFLEX</span>
-      </div>
-
-      <div class="stat">
-        <b id="rMotor">0</b>
-        <span>MOTOR</span>
-      </div>
-
-      <div class="stat">
-        <b id="rCombo">0</b>
-        <span>BEST COMBO</span>
-      </div>
-
-    </div>
-
-    <br>
-
-    <button
-      class="big"
-      id="again"
-    >
-      🔄 ЩЕ РАЗ
-    </button>
-
-    <div class="row">
-
-      <button
-        class="small"
-        id="homeResult"
-      >
-        🏠 ГОЛОВНИЙ ЕКРАН
-      </button>
-
     </div>
 
   </div>
@@ -1444,10 +1556,10 @@ const state = {
 
 const DIFFICULTY = {
   easy:   {move:800, size:62, time:1.35, seq:3, show:700, precision:5},
-  normal: {move:700, size:56, time:1,    seq:4, show:560, precision:6},
+  normal: {move:700, size:56, time:1,    seq:4, show:1500, precision:6},
   hard:   {move:500, size:50, time:.82,  seq:5, show:440, precision:7},
   expert: {move:500, size:43, time:.66,  seq:6, show:340, precision:8},
-  adaptive:{move:700, size:56, time:1, seq:4, show:560, precision:6}
+  adaptive:{move:700, size:56, time:1, seq:4, show:1500, precision:6}
 };
 
 function difficulty(){
@@ -1466,6 +1578,61 @@ let taskToken = 0;
 let motorRunning = false;
 let currentQuestion = null;
 let usedQuestions = new Set();
+let questionDeck = [];
+let lastQuestionIndex = -1;
+let lastQuestionCategory = null;
+
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function buildQuestionDeck(){
+  // Build a shuffled deck once per 100-question cycle.
+  // Categories are interleaved as much as the available bank allows.
+  const groups={};
+  QUESTIONS.forEach((q,i)=>{
+    const cat=q[0] || 'MIND';
+    (groups[cat] ||= []).push(i);
+  });
+  Object.values(groups).forEach(shuffleArray);
+
+  const deck=[];
+  let previousCategory=null;
+  while(Object.values(groups).some(g=>g.length)){
+    const available=Object.entries(groups).filter(([cat,g])=>g.length && cat!==previousCategory);
+    const pool=available.length ? available : Object.entries(groups).filter(([,g])=>g.length);
+    const [cat,g]=pool[Math.floor(Math.random()*pool.length)];
+    deck.push(g.pop());
+    previousCategory=cat;
+  }
+
+  // Do not start a new cycle with the exact same question as the previous cycle ended.
+  if(deck.length>1 && deck[0]===lastQuestionIndex){
+    const swapAt=deck.findIndex(i=>i!==lastQuestionIndex && QUESTIONS[i][0]!==QUESTIONS[lastQuestionIndex]?.[0]);
+    const idx=swapAt>=0?swapAt:1;
+    [deck[0],deck[idx]]=[deck[idx],deck[0]];
+  }
+  questionDeck=deck;
+}
+
+function getQuestion(){
+  if(!questionDeck.length) buildQuestionDeck();
+  const index=questionDeck.shift();
+  usedQuestions.add(index);
+  lastQuestionIndex=index;
+  lastQuestionCategory=QUESTIONS[index][0] || 'MIND';
+  return QUESTIONS[index];
+}
+
+function shuffledAnswers(q){
+  const items=q[2].map((text,index)=>({text,index}));
+  shuffleArray(items);
+  return items;
+}
 let motorHits = 0;
 let motorGoal = 0;
 let motorTotal = 0;
@@ -1536,45 +1703,127 @@ function clearTimers(){
 
 /* ---------------- QUESTIONS ---------------- */
 const QUESTIONS = [
- ['MIND','Марко молодший за Олега. Олег молодший за Івана. Хто найстарший?',['Марко','Олег','Іван','Невідомо'],2,'mind'],
- ['MIND','Усі лікарі в цій кімнаті мають халати. Некс має халат. Чи обов’язково Некс лікар?',['Так','Ні','Недостатньо даних','Залежить від халата'],2,'mind'],
- ['FOCUS','Знайди слово, яке відрізняється:',['СІЛЬ','СІЛЬ','СІЛЬ','СИЛЬ'],3,'focus'],
- ['FOCUS','Який символ зайвий?',['▲','▲','△','▲'],2,'focus'],
+ ['MIND','Андрій вищий за Богдана. Богдан вищий за Віктора. Хто найнижчий?',['Андрій','Богдан','Віктор','Невідомо'],2,'mind'],
+ ['MIND','Олена прийшла раніше за Марію. Марія прийшла раніше за Ірину. Хто прийшов першим?',['Олена','Марія','Ірина','Невідомо'],0,'mind'],
+ ['MIND','Усі лікарі мають бейдж. Петро не має бейджа. Що точно можна сказати?',['Петро лікар','Петро не лікар','Петро водій','Нічого'],1,'mind'],
+ ['MIND','Жоден квадрат не є трикутником. Фігура X — квадрат. Що точно правильно?',['X — трикутник','X не є трикутником','X може бути трикутником','Невідомо'],1,'mind'],
+ ['MIND','Максим старший за Олега, але молодший за Петра. Хто посередині за віком?',['Петро','Максим','Олег','Невідомо'],1,'mind'],
+ ['MIND','Є три коробки: червона, синя і зелена. Ключ не в червоній і не в зеленій. Де ключ?',['Червона','Синя','Зелена','Невідомо'],1,'mind'],
+ ['MIND','Аліса швидша за Бориса. Борис швидший за Віктора. Хто точно швидший за Віктора?',['Тільки Аліса','Тільки Борис','Аліса і Борис','Невідомо'],2,'mind'],
+ ['MIND','Усі сині предмети холодні. Цей предмет синій. Що точно відомо?',['Він холодний','Він гарячий','Він червоний','Нічого'],0,'mind'],
+ ['MIND','У черзі Марія перед Іриною, а Ірина перед Олегом. Хто стоїть між Марією та Олегом?',['Марія','Ірина','Олег','Невідомо'],1,'mind'],
+ ['MIND','М’яч важчий за кубик. Кубик важчий за кульку. Що найлегше?',['М’яч','Кубик','Кулька','Невідомо'],2,'mind'],
+ ['MIND','Сергій не перший і не останній у групі з трьох людей. Яка його позиція?',['Перша','Друга','Третя','Невідомо'],1,'mind'],
+ ['MIND','Катя старша за Олю. Оля старша за Ніну. Хто точно молодший за Катю?',['Тільки Оля','Тільки Ніна','Оля і Ніна','Невідомо'],2,'mind'],
+ ['MIND','Жодна зелена фігура не є кругом. Ця фігура зелена. Що гарантовано?',['Вона кругла','Вона не кругла','Вона квадратна','Нічого'],1,'mind'],
  ['MIND','Петро ліворуч від Андрія. Андрій ліворуч від Олега. Хто посередині?',['Петро','Андрій','Олег','Невідомо'],1,'mind'],
- ['SPACE','Стрілка ↑ повернулась на 180°. Куди вона вказує?',['←','→','↓','↑'],2,'mind'],
- ['MEMORY','Запам’ятай: 🔵 🟢 🔴 🟡. Який був третій?',['🔵','🟢','🔴','🟡'],2,'memory'],
- ['MIND','Усі троянди — квіти. Деякі квіти жовті. Чи випливає, що деякі троянди жовті?',['Так','Ні','Недостатньо даних','Обов’язково'],2,'mind'],
- ['FOCUS','Що стоїть другим: ▲ ● ■ ★',['▲','●','■','★'],1,'focus'],
- ['MIND','Антон вищий за Богдана. Богдан вищий за Василя. Хто найнижчий?',['Антон','Богдан','Василь','Невідомо'],2,'mind'],
- ['SPACE','Куб має 6 граней. Скільки граней торкаються однієї грані?',['2','3','4','5'],2,'mind'],
- ['FOCUS','Знайди пару, яка точно однакова:',['AB7Q / AB7Q','K2P9 / K2P8','M7RT / M7TR','ZX31 / ZK31'],0,'focus'],
- ['MEMORY','Запам’ятай: 🧠 🔑 ⚡ 🎯. Що було другим?',['🧠','🔑','⚡','🎯'],1,'memory'],
- ['MIND','Якщо сьогодні середа, який день буде через 10 днів?',['П’ятниця','Субота','Неділя','Понеділок'],1,'mind'],
- ['FOCUS','Скільки літер «О» у слові «МОЛОДОСТЬ»?',['1','2','3','4'],2,'focus'],
- ['MIND','Усі A є B. Жоден B не є C. Чи може A бути C?',['Так','Ні','Іноді','Недостатньо даних'],1,'mind'],
- ['SPACE','Ти дивишся на північ. Праворуч, потім ще раз праворуч. Куди дивишся?',['Північ','Південь','Схід','Захід'],1,'mind'],
- ['FOCUS','Яке число зайве за правилом «парне»: 2, 4, 6, 9, 10?',['2','6','9','10'],2,'focus'],
- ['MIND','У коробці тільки червоні та сині кульки. Ти дістав синю. Що гарантовано?',['Інші сині','Є хоча б одна синя','Червоних немає','Коробка порожня'],1,'mind'],
- ['MEMORY','Запам’ятай: 🟡 🟣 🔵 🟢. Що було першим?',['🟡','🟣','🔵','🟢'],0,'memory'],
- ['FOCUS','Яке число повторюється: 7 — 4 — 9 — 2 — 7',['2','4','7','9'],2,'focus'],
- ['SPACE','Якщо ліворуч від тебе захід, що буде праворуч?',['Північ','Південь','Схід','Захід'],2,'mind'],
- ['MIND','Деякі A є B. Усі B є C. Чи випливає, що деякі A є C?',['Так','Ні','Неможливо','Тільки якщо A=C'],0,'mind'],
- ['FOCUS','Який рядок відрізняється?',['K8M2','K8M2','K8N2','K8M2'],2,'focus'],
- ['MIND','Лише один із трьох сигналів істинний: A, B або C. A хибний, B хибний. Що про C?',['Хибний','Істинний','Невідомо','Може бути будь-яким'],1,'mind'],
- ['MEMORY','Запам’ятай: 🔺 ⭐ 🟦 ❤️. Який символ був четвертим?',['🔺','⭐','🟦','❤️'],3,'memory'],
- ['FOCUS','Що не є парою однакових символів?',['○○','△△','□□','○●'],3,'focus'],
+ ['MIND','Усі A є B. Жоден B не є C. X є A. Чи може X бути C?',['Так','Ні','Іноді','Невідомо'],1,'mind'],
+ ['MIND','У кімнаті є лікар, водій та інженер. Петро не лікар і не водій. Хто Петро?',['Лікар','Водій','Інженер','Невідомо'],2,'mind'],
+ ['MIND','А > Б, Б > В, В > Г. Хто точно менший за А?',['Тільки Б','Б і В','Г','Б, В і Г'],3,'mind'],
+ ['MIND','Три книги стоять у ряд. Червона не перша. Синя праворуч від зеленої. Яка книга може бути першою?',['Червона','Синя','Зелена','Жодна'],2,'mind'],
+ ['MIND','Сьогодні не понеділок і не вівторок. Завтра не субота. Який день може бути сьогодні?',['Понеділок','Вівторок','Середа','Субота'],2,'mind'],
+ ['MIND','Аня старша за Богдана. Віра молодша за Богдана. Данило старший за Аню. Хто точно найстарший?',['Аня','Богдан','Віра','Данило'],3,'mind'],
+ ['MIND','Усі троянди — квіти. Жодна квітка не є каменем. Чи може троянда бути каменем?',['Так','Ні','Іноді','Невідомо'],1,'mind'],
+ ['MIND','Якщо всі A є B, а всі B є C, що точно випливає про A?',['Усі A є C','Жодне A не є C','Деякі A є C','Нічого'],0,'mind'],
+ ['MIND','У коробці є лише червоні та сині кульки. Дістали синю. Що гарантовано?',['Є хоча б одна синя кулька','Є хоча б дві сині','Червоних немає','Усі кульки сині'],0,'mind'],
+ ['MIND','Лише одне з трьох тверджень A, B, C істинне. A хибне, B хибне. Що про C?',['Хибне','Істинне','Невідомо','Може бути будь-яким'],1,'mind'],
  ['MIND','Оля старша за Ніну. Ніна старша за Іру. Чи Оля старша за Іру?',['Так','Ні','Невідомо','Лише якщо вони сестри'],0,'mind'],
- ['SPACE','Повернись ліворуч від напрямку схід. Куди дивишся?',['Північ','Південь','Захід','Схід'],0,'mind'],
- ['MEMORY','Запам’ятай: 🟥 🟨 🟩 🟦. Який був першим?',['🟥','🟨','🟩','🟦'],0,'memory']
+ ['MIND','Чотири людини стоять у ряд. Аня перед Богданом, Богдан перед Вірою. Хто точно не може стояти першим?',['Аня','Богдан','Віра','Данило'],2,'mind'],
+ ['MIND','Усі чорні картки лежать ліворуч від білих. Картка X чорна. Що гарантовано?',['X ліворуч від усіх білих','X праворуч від усіх білих','X біла','Нічого'],0,'mind'],
+ ['MIND','Павло молодший за Сергія, але старший за Тараса. Хто найстарший?',['Павло','Сергій','Тарас','Невідомо'],1,'mind'],
+ ['MIND','Є три місця: 1, 2, 3. Ігор не на 1 і не на 3. Де Ігор?',['1','2','3','Невідомо'],1,'mind'],
+ ['MIND','Якщо А ліворуч від Б, а Б ліворуч від В, хто праворуч від А?',['Тільки Б','Тільки В','Б і В','Невідомо'],2,'mind'],
+
+ ['FOCUS','ЧЕРВОНИЙ написано синім кольором. Якого кольору сам напис?',['Червоний','Синій','Зелений','Жовтий'],1,'focus'],
+ ['FOCUS','У рядку ▲ ● ▲ ■ ● ▲ який символ стоїть безпосередньо після другого ▲?',['●','■','▲','◆'],1,'focus'],
+ ['FOCUS','У рядку 🔴 ▲ 🔵 ● 🟢 ◆ який символ четвертий?',['🔴','▲','●','◆'],2,'focus'],
+ ['FOCUS','У рядку 7 🔵 4 ▲ 9 🔴 2 ігноруй парні числа. Яке число залишиться другим?',['7','9','4','2'],1,'focus'],
+ ['FOCUS','У рядку ▲ 🔵 ● 🔴 ■ 🟢 ігноруй кольорові кружки. Який символ залишиться другим?',['▲','●','■','🟢'],1,'focus'],
+ ['FOCUS','Правило: якщо число парне — дивись на форму, якщо непарне — на колір. Показано 7 🔵 ▲. На що дивитися?',['На число','На колір','На форму','На все'],1,'focus'],
+ ['FOCUS','🔴 ▲ 🔵. Натисни синій, тільки якщо перед ним стоїть трикутник. Що натиснути?',['🔴','▲','🔵','Нічого'],2,'focus'],
+ ['FOCUS','У рядку ● ▲ ■ ▲ ● ◆ який символ стоїть після другого ▲?',['●','■','◆','▲'],0,'focus'],
+ ['FOCUS','У рядку 8 3 6 1 9 4 ігноруй числа менші за 5. Яке число залишиться другим?',['8','6','9','4'],1,'focus'],
+ ['FOCUS','У рядку ◆ 🔴 ▲ 🔵 ● 🟢 ігноруй усі круглі символи. Який символ залишиться другим?',['◆','▲','🔵','🟢'],1,'focus'],
+ ['FOCUS','У рядку 2 ▲ 7 ● 4 ◆ 9 залиш тільки непарні числа. Яке буде першим?',['2','7','4','9'],1,'focus'],
+ ['FOCUS','У рядку 🔴 ▲ 🔵 ● 🟢 ■ ігноруй червоне та зелене. Який символ залишиться останнім?',['▲','🔵','●','■'],3,'focus'],
+ ['FOCUS','У рядку ▲ 8 ● 3 ◆ 6 ■ 9 ігноруй числа. Яка фігура третя?',['▲','●','◆','■'],2,'focus'],
+ ['FOCUS','У рядку ● ▲ ● ■ ▲ ● який символ стоїть після останнього трикутника?',['●','■','▲','Нічого'],0,'focus'],
+ ['FOCUS','У рядку 4 🔴 7 🔵 2 🟢 9 дивись тільки на числа, які стоять перед кольоровим кружком. Яке число друге?',['4','7','2','9'],1,'focus'],
+ ['FOCUS','У рядку ▲ ● ■ ● ◆ ▲ ● ігноруй перші два символи. Який символ буде третім після них?',['■','●','◆','▲'],2,'focus'],
+ ['FOCUS','У рядку A7 B3 C9 D2 яке число стоїть після B?',['7','3','9','2'],2,'focus'],
+ ['FOCUS','У рядку 🔵 4 ▲ 7 🔴 2 ■ 9 ігноруй фігури. Яке число друге?',['4','7','2','9'],1,'focus'],
+ ['FOCUS','У рядку ▲ ● ▲ ◆ ▲ ■ який символ був між першим і другим трикутником?',['●','◆','■','Нічого'],0,'focus'],
+ ['FOCUS','У рядку 3 🔵 8 ▲ 5 🔴 2 ● 7 ігноруй усе після першого червоного символу. Яке число останнє?',['3','8','5','2'],2,'focus'],
+ ['FOCUS','У рядку ○ ▲ ○ ■ ▲ ○ який символ стоїть безпосередньо перед останнім ○?',['○','■','▲','Нічого'],2,'focus'],
+ ['FOCUS','У рядку ▲ 5 ● 8 ■ 3 ◆ 6 залиш тільки числа. Яке число третє?',['5','8','3','6'],2,'focus'],
+ ['FOCUS','У рядку 🔴 ▲ 🟢 ● 🔵 ■ ігноруй усі кольорові кружки. Який символ залишиться другим?',['▲','■','●','Нічого'],2,'focus'],
+
+ ['MIND','2, 5, 8, 11, ?',['12','13','14','15'],2,'mind'],
+ ['MIND','3, 6, 12, 24, ?',['36','42','48','54'],2,'mind'],
+ ['MIND','30, 27, 24, 21, ?',['17','18','19','20'],1,'mind'],
+ ['MIND','1, 4, 9, 16, ?',['20','24','25','27'],2,'mind'],
+ ['MIND','2, 4, 8, 16, ?',['24','30','32','34'],2,'mind'],
+ ['MIND','81, 27, 9, 3, ?',['0','1','2','6'],1,'mind'],
+ ['MIND','5, 8, 12, 17, ?',['21','22','23','24'],2,'mind'],
+ ['MIND','2, 6, 12, 20, ?',['28','30','32','36'],1,'mind'],
+ ['MIND','1, 2, 6, 24, ?',['48','72','96','120'],3,'mind'],
+ ['MIND','A, C, F, J, ?',['M','N','O','P'],2,'mind'],
+ ['MIND','B, E, I, N, ?',['R','S','T','U'],2,'mind'],
+ ['MIND','○ △ □ ○ △ ?',['○','△','□','◆'],2,'mind'],
+ ['MIND','▲ ● ● ▲ ● ● ▲ ?',['▲','●','■','◆'],1,'mind'],
+ ['MIND','1, 3, 6, 10, ?',['12','14','15','16'],2,'mind'],
+ ['MIND','100, 90, 72, 48, ?',['18','20','24','30'],0,'mind'],
+
+ ['SPACE','Стрілка ↑ повернулася на 90° праворуч. Куди вказує?',['←','→','↓','↑'],1,'mind'],
+ ['SPACE','Стрілка → повернулася на 90° праворуч. Куди вказує?',['↑','→','↓','←'],2,'mind'],
+ ['SPACE','Стрілка ↓ повернулася на 90° ліворуч. Куди вказує?',['↑','→','←','↓'],1,'mind'],
+ ['SPACE','Стрілка ← повернулася на 180°. Куди вказує?',['↑','→','↓','←'],1,'mind'],
+ ['SPACE','Ти дивишся на північ. Повертаєш праворуч двічі. Куди дивишся?',['Північ','Схід','Південь','Захід'],2,'mind'],
+ ['SPACE','Ти дивишся на схід. Повертаєш ліворуч двічі. Куди дивишся?',['Північ','Південь','Захід','Схід'],2,'mind'],
+ ['SPACE','Квадрат повернули на 90°. Скільки сторін він має?',['3','4','5','6'],1,'mind'],
+ ['SPACE','Куб повернули на 180°. Скільки граней у нього?',['4','6','8','12'],1,'mind'],
+ ['SPACE','Предмет праворуч від тебе. Ти розвернувся на 180°. Де предмет тепер відносно тебе?',['Праворуч','Ліворуч','Попереду','Позаду'],1,'mind'],
+ ['SPACE','Ти дивишся на захід. Повертаєш праворуч. Куди дивишся?',['Північ','Південь','Схід','Захід'],0,'mind'],
+
+ ['MEMORY','Запам’ятай: 🔵 ▲ 🟢 ◆. Що було другим?',['🔵','▲','🟢','◆'],1,'memory'],
+ ['MEMORY','Запам’ятай: ★ ● 🟥 ▲ ◆. Що було останнім?',['★','●','▲','◆'],3,'memory'],
+ ['MEMORY','Запам’ятай: 🐟 🌙 🔑 🍎. Що було третім?',['🐟','🌙','🔑','🍎'],2,'memory'],
+ ['MEMORY','Запам’ятай: ◆ 🟢 ★ 🔵 ▲. Що було безпосередньо перед 🔵?',['◆','🟢','★','▲'],2,'memory'],
+ ['MEMORY','Запам’ятай: ● ▲ ■ ★ ◆. Що було третім?',['●','▲','■','★'],2,'memory'],
+ ['MEMORY','Запам’ятай: 🟡 🔵 🟢 🔴 ◆. Що було перед ◆?',['🟡','🔵','🟢','🔴'],3,'memory'],
+ ['MEMORY','Запам’ятай: ▲ ◆ ○ ■ ●. Що було четвертим?',['▲','○','■','●'],2,'memory'],
+ ['MEMORY','Запам’ятай: ★ ◆ ● ▲ ■. Що було безпосередньо перед ▲?',['★','◆','●','■'],2,'memory'],
+ ['MEMORY','Запам’ятай: 🍎 🔑 🌙 🐟 ⭐. Що було третім?',['🍎','🔑','🌙','🐟'],2,'memory'],
+ ['MEMORY','Запам’ятай: ■ ● ▲ ◆ ★. Що було останнім?',['■','●','◆','★'],3,'memory'],
+ ['MEMORY','Запам’ятай: 🔴 🟢 🔵 🟡 🟣. Що було перед 🟡?',['🔴','🟢','🔵','🟣'],2,'memory'],
+ ['MEMORY','Запам’ятай: ○ □ △ ● ◆. Що було другим?',['○','□','△','●'],1,'memory'],
+ ['MEMORY','Запам’ятай: ★ ▲ ● ■ ◆ ○. Який символ був між ● та ◆?',['▲','■','○','★'],1,'memory'],
+ ['MEMORY','Запам’ятай: 🟢 ◆ 🔴 ▲ 🔵 ●. Який символ був четвертим?',['🟢','◆','🔴','▲'],3,'memory'],
+ ['MEMORY','Запам’ятай: ▲ 🔵 ◆ 🟢 ● ⭐. Який символ був третім?',['🔵','◆','🟢','●'],1,'memory'],
+
+ ['MIND','Правило: 2 → 4, 3 → 6, 4 → 8. За тим самим правилом 7 → ?',['12','14','16','18'],1,'mind'],
+ ['MIND','Правило: 1 → 3, 2 → 6, 3 → 9. За тим самим правилом 4 → ?',['10','12','14','16'],1,'mind'],
+ ['MIND','Правило: ▲ → ● → ■ → ▲. Що буде після ●?',['▲','●','■','◆'],2,'mind'],
+ ['MIND','Правило: ○ → △ → □ → ○. Що буде після □?',['○','△','□','◆'],0,'mind'],
+ ['MIND','Правило: вибирай більше число. Потім правило змінено: вибирай менше. Для 7 і 4 що обрати?',['7','4','Обидва','Нічого'],1,'mind'],
+ ['MIND','Правило: вибирай символ ліворуч від ●. Потім правило змінено: вибирай символ праворуч від ●. У рядку ▲ ● ■ що обрати?',['▲','●','■','Нічого'],2,'mind'],
+ ['MIND','Правило 1: ▲ = ЛІВО, ● = ПРАВО. Правило змінено на протилежне. Показано ●. Що натиснути?',['ЛІВО','ПРАВО','Обидві','Нічого'],0,'mind'],
+ ['MIND','Правило 1: парне → ЛІВО, непарне → ПРАВО. Правило змінено на протилежне. Показано 7. Що натиснути?',['ЛІВО','ПРАВО','Обидві','Нічого'],0,'mind'],
+ ['MIND','Правило 1: трикутник → ЛІВО, квадрат → ПРАВО. Правило змінено навпаки. Показано ▲. Що натиснути?',['ЛІВО','ПРАВО','Обидві','Нічого'],1,'mind'],
+ ['MIND','Правило 1: більше 5 → 🔵, 5 або менше → 🔴. Правило інвертовано. Для 8 який символ?',['🔵','🔴','🟢','🟡'],1,'mind'],
+ ['MIND','Правило 1: вибирай символ, який повторюється. Для ▲ ● ▲ це ▲. Правило змінено: вибирай символ, який не повторюється. Що обрати?',['▲','●','Обидва','Нічого'],1,'mind'],
+ ['MIND','Правило 1: фігура з парною кількістю сторін → ЛІВО. Правило змінено: парна кількість сторін → ПРАВО. Для квадрата що натиснути?',['ЛІВО','ПРАВО','Обидві','Нічого'],1,'mind'],
+ ['MIND','Послідовність 2 → 4 → 6 → 8. Після 8 правило змінюється: кожне наступне число на 3 менше. Що далі?',['3','5','6','10'],1,'mind'],
+ ['MIND','Правило змінено: цикл ▲ → ● → ■ тепер рухається у зворотному напрямку. Що буде після ▲?',['●','■','▲','◆'],1,'mind'],
+ ['MIND','Правило 1: вибирай червоний. Після сигналу правило: вибирай синій. Показано 🔴 і 🔵. Що обрати?',['🔴','🔵','Обидва','Нічого'],1,'mind'],
+ ['MIND','Правило 1: колір важливіший за форму. Після сигналу форма важливіша за колір. Показано 🔴 ▲, а правило для ▲ — ПРАВО. Що обрати?',['ЛІВО','ПРАВО','Обидві','Нічого'],1,'mind'],
+ ['MIND','Правило: 1 → 2, 2 → 4, 3 → 6. Після сигналу множник змінюється з 2 на 3. Що буде для 4?',['8','10','12','16'],2,'mind'],
+ ['MIND','Правило 1: 🔵 = ЛІВО, 🔴 = ПРАВО. Після сигналу навпаки. Яку кнопку для другого символу в 🔵 🔴 🔵?',['ЛІВО','ПРАВО','Обидві','Нічого'],0,'mind'],
+ ['MIND','Правило 1: 3 сторони → ЛІВО, 4 сторони → ПРАВО. Після сигналу правило навпаки. Для ▲ що натиснути?',['ЛІВО','ПРАВО','Обидві','Нічого'],1,'mind'],
+ ['MIND','Правило 1: число збільшується на 2. Після 8 правило змінюється на «віднімати 3». Що після 8?',['3','5','6','10'],1,'mind'],
+ ['MIND','Правило 1: квадрат → синій, трикутник → червоний. Після сигналу кольори міняються місцями. Для трикутника який колір?',['Синій','Червоний','Зелений','Жовтий'],0,'mind']
 ];
 
-function getQuestion(){
-  if(usedQuestions.size>=QUESTIONS.length) usedQuestions.clear();
-  const available=QUESTIONS.map((q,i)=>({q,i})).filter(x=>!usedQuestions.has(x.i));
-  const pick=available[Math.floor(Math.random()*available.length)];
-  usedQuestions.add(pick.i);
-  return pick.q;
-}
 
 /* ---------------- GAME FLOW ---------------- */
 function startGame(){
@@ -1585,7 +1834,7 @@ function startGame(){
   state.block=1; state.step=0; state.lives=3; state.score=0;
   state.combo=0; state.bestCombo=0; state.mind=0; state.focus=0;
   state.memory=0; state.reflex=0; state.motor=0; state.total=0; state.correct=0;
-  motorTotal=0; motorSuccess=0; usedQuestions.clear(); taskToken++;
+  motorTotal=0; motorSuccess=0; usedQuestions.clear(); questionDeck=[]; lastQuestionIndex=-1; lastQuestionCategory=null; taskToken++;
   state.running=true;
   $('home').classList.add('hidden');
   $('result').classList.add('hidden');
@@ -1620,10 +1869,11 @@ function showQuestion(){
 
 function renderQuestion(){
   const q=currentQuestion;
+  const options=shuffledAnswers(q);
   $('challenge').innerHTML=`
     <div class="type">${q[0]} • ${state.step}/5</div>
     <div class="question">${q[1]}</div>
-    <div class="answers">${q[2].map((a,i)=>`<button class="answer" data-index="${i}">${a}</button>`).join('')}</div>`;
+    <div class="answers">${options.map((item,i)=>`<button class="answer" data-index="${item.index}">${item.text}</button>`).join('')}</div>`;
   $('challenge').querySelectorAll('.answer').forEach(btn=>{
     btn.onclick=()=>answerQuestion(Number(btn.dataset.index),btn);
   });
@@ -1644,10 +1894,11 @@ function showMemory(token){
   if(state.diff==='expert') showTime=750;
   timer=setTimeout(()=>{
     if(token!==taskToken) return;
+    const options=shuffledAnswers(q);
     $('challenge').innerHTML=`
       <div class="type">MEMORY • ${state.step}/5</div>
       <div class="question">Що ти запам’ятав?</div>
-      <div class="answers">${q[2].map((a,i)=>`<button class="answer" data-index="${i}">${a}</button>`).join('')}</div>`;
+      <div class="answers">${options.map((item,i)=>`<button class="answer" data-index="${item.index}">${item.text}</button>`).join('')}</div>`;
     $('challenge').querySelectorAll('.answer').forEach(btn=>btn.onclick=()=>answerQuestion(Number(btn.dataset.index),btn));
   },showTime);
 }
@@ -2217,8 +2468,8 @@ function reflexLabyrinth(){
 function finishGame(){
   if(!$('game').classList.contains('hidden') && state.running){
     clearTimers(); motorRunning=false; state.running=false;
-    nex('final','Обстеження завершено! Подивімося, на що ти здатен!');
-    setTimeout(()=>showResult(),900);
+    nex('final','Обстеження завершено! Через мить покажу результати твого обстеження.');
+    showResult();
     return;
   }
   showResult();
@@ -2226,7 +2477,6 @@ function finishGame(){
 
 function showResult(){
   clearTimers(); motorRunning=false; state.running=false;
-  $('game').classList.add('hidden'); $('result').classList.remove('hidden');
   const accuracy=state.total?Math.round(state.correct/state.total*100):0;
   const mAcc=motorTotal?Math.round(motorSuccess/motorTotal*100):0;
   const mind=Math.min(100,Math.round(accuracy*.75+state.mind*5));
@@ -2235,6 +2485,17 @@ function showResult(){
   const reflex=Math.min(100,Math.round(mAcc*.7+state.reflex*2));
   const motor=Math.min(100,Math.round(mAcc));
   const total=Math.round(mind*.25+focus*.2+memory*.15+reflex*.2+motor*.2);
+
+  $('game').classList.add('hidden');
+  $('result').classList.remove('hidden');
+
+  // Беремо ту саму позу NEX, яка була показана в момент завершення.
+  const gameNex=$('nexGame'), resultNex=$('resultNex');
+  if(gameNex && resultNex) resultNex.src=gameNex.src;
+
+  $('resultBubble').textContent='Обстеження завершено! Через мить покажу результати твого обстеження.';
+  $('resultDetails').classList.add('pending');
+
   $('final').textContent=state.score;
   $('rMind').textContent=mind;
   $('rFocus').textContent=focus;
@@ -2242,10 +2503,19 @@ function showResult(){
   $('rReflex').textContent=reflex;
   $('rMotor').textContent=motor;
   $('rCombo').textContent=state.bestCombo;
+  $('rAccuracy').textContent=accuracy+'%';
+
   const oldBest=Number(localStorage.getItem('neuroBest')||0);
   if(state.score>oldBest)localStorage.setItem('neuroBest',state.score);
   $('again').onclick=startGame;
   $('homeResult').onclick=showHome;
+
+  // Та сама сторінка: спочатку репліка NEX, потім — оцінка.
+  clearTimeout(window.resultRevealTimer);
+  window.resultRevealTimer=setTimeout(()=>{
+    $('resultDetails').classList.remove('pending');
+    $('resultBubble').textContent='Обстеження завершено. Ось твій результат — переглянь показники нижче.';
+  },1200);
 }
 
 function showHome(){
